@@ -13,38 +13,25 @@ namespace User\Security;
 
 final class UsernamePasswordCredentials
 {
-    /**
-     * @var string
-     */
     private $usernameOrEmail;
-
-    /**
-     * @var string
-     */
     private $password;
 
-    /**
-     * @param string $usernameOrEmail
-     * @param string $password
-     */
-    public function __construct($usernameOrEmail, $password)
+    public static function create(string $usernameOrEmail, string $password): self
     {
-        $this->usernameOrEmail = $usernameOrEmail;
-        $this->password = $password;
+        $obj = new self();
+
+        $obj->usernameOrEmail = $usernameOrEmail;
+        $obj->password = $password;
+
+        return $obj;
     }
 
-    /**
-     * @return string
-     */
-    public function getUsernameOrEmail()
+    public function getUsernameOrEmail(): string
     {
         return $this->usernameOrEmail;
     }
 
-    /**
-     * @return string
-     */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }

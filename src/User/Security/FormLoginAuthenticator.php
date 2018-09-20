@@ -23,6 +23,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use User\Entity\User;
 use User\Repository\UserRepository;
 
 final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
@@ -65,19 +66,6 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * {@inheritdoc}
      */
-    public function supports(Request $request)
-    {
-        return
-            $request->isMethod('POST')
-            && $request->request->has(self::USERNAME_OR_EMAIL_FORM_FIELD)
-            && $request->request->has(self::PASSWORD_FORM_FIELD)
-            && $request->getPathInfo() === $this->router->generate('user_login_check')
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function start(Request $request, AuthenticationException $authException = null)
     {
         if ($request->hasSession()) {
@@ -89,6 +77,19 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         return parent::start($request, $authException);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supports(Request $request)
+    {
+        return
+            $request->isMethod('POST')
+            && $request->request->has(self::USERNAME_OR_EMAIL_FORM_FIELD)
+            && $request->request->has(self::PASSWORD_FORM_FIELD)
+            && $request->getPathInfo() === $this->router->generate('user_login_check')
+        ;
     }
 
     /**
@@ -108,7 +109,7 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         $request->getSession()->set(Security::LAST_USERNAME, $usernameOrEmail);
         $password = $request->request->get(self::PASSWORD_FORM_FIELD);
 
-        return new UsernamePasswordCredentials(
+        return UsernamePasswordCredentials::create(
             $usernameOrEmail,
             $password
         );
@@ -124,6 +125,10 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     {
         $user = $userProvider->loadUserByUsername($credentials->getUsernameOrEmail());
 
+        if (!$user) {
+            throw new AuthenticationException('security.bad_credentials');
+        }
+
         if ($user && !$user->isEmailConfirmed()) {
             throw new AuthenticationException('security.email_not_confirmed');
         }
@@ -134,8 +139,8 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * {@inheritdoc}
      *
-     * @param UsernamePasswordCredentials     $credentials
-     * @param UserInterface|\User\Entity\User $user
+     * @param UsernamePasswordCredentials $credentials
+     * @param UserInterface|User          $user
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -153,14 +158,12 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     {
         $defaultUrl = \rtrim($this->router->generate('root', ['_locale' => $request->getLocale() ?: $this->defaultLocale]), '/').'/';
 
-        $targetPath = $defaultUrl;
+        $session = $request->getSession();
 
-        if ($request->hasSession() && $session = $request->getSession()) {
-            $targetPath = $this->getTargetPath($session, $providerKey) ?: $defaultUrl;
+        $targetPath = $this->getTargetPath($session, $providerKey) ?: $defaultUrl;
 
-            // Make sure username is not stored for next login
-            $session->remove(Security::LAST_USERNAME);
-        }
+        // Make sure username is not stored for next login
+        $session->remove(Security::LAST_USERNAME);
 
         return new RedirectResponse($targetPath);
     }
