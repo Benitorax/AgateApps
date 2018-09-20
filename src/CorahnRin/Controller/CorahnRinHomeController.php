@@ -18,34 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CorahnRinHomeController extends AbstractController
 {
-    private $debug;
-    private $versionDate;
-
-    public function __construct(bool $debug, string $versionDate)
-    {
-        $this->debug = $debug;
-        $this->versionDate = $versionDate;
-    }
-
     /**
      * @Route("/", name="corahn_rin_home")
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(): Response
     {
-        $response = new Response();
-        if (!$this->debug) {
-            $response->setCache([
-                'last_modified' => new \DateTime($this->versionDate),
-                'max_age' => 600,
-                's_maxage' => 600,
-                'public' => true,
-            ]);
-        }
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
         return $this->render('corahn_rin/home/index.html.twig');
     }
 }
