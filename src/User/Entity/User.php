@@ -374,16 +374,15 @@ class User implements UserInterface, \Serializable
             $this->usernameCanonical,
             $this->email,
             $this->emailCanonical,
-            $this->password,
             \implode(',', $this->getRoles()),
         ]);
     }
 
     public function unserialize($serialized)
     {
-        $data = \unserialize($serialized);
+        $data = \unserialize($serialized, ['allowed_classes' => false]);
 
-        $this->roles = \explode(',', $data[6]);
+        $this->roles = \explode(',', $data[5]);
 
         [
             $this->id,
@@ -391,7 +390,6 @@ class User implements UserInterface, \Serializable
             $this->usernameCanonical,
             $this->email,
             $this->emailCanonical,
-            $this->password,
         ] = $data;
     }
 }
