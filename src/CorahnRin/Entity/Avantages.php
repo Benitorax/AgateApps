@@ -105,7 +105,7 @@ class Avantages
     /**
      * @var int
      *
-     * @ORM\Column(name="augmentation_count", type="smallint", nullable=false)
+     * @ORM\Column(name="augmentation_count", type="smallint", options={"default" = 0}, nullable=false)
      */
     protected $augmentationCount;
 
