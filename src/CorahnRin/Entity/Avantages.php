@@ -112,7 +112,7 @@ class Avantages
     /**
      * @var string[]
      *
-     * @ORM\Column(name="bonuses_for", type="simple_array", options={"default" = ""}, nullable=true)
+     * @ORM\Column(name="bonuses_for", type="simple_array", nullable=true)
      */
     protected $bonusesFor;
 
