@@ -136,7 +136,7 @@ echo "[DEPLOY] > Tagging release..."
 echo "[DEPLOY] > Pushing it to Git..."
 
 git tag -s -F ${CHANGELOG_FILE} "v${NEW_VERSION}"
-git push origin ${NEW_VERSION}
+git push origin "v${NEW_VERSION}"
 
 rm ${CHANGELOG_FILE}
 
