@@ -19,4 +19,4 @@ php bin/console cache:warmup
 
 php bin/console doctrine:migrations:migrate --no-interaction
 
-php bin/console doctrine:schema:validate || exit 1
+php bin/console doctrine:schema:validate || echo 'Doctrine schema not valid, please make sure it is correct.'
