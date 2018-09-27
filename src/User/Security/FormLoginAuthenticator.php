@@ -13,6 +13,7 @@ namespace User\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -22,6 +23,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use User\Entity\User;
 use User\Repository\UserRepository;
@@ -52,12 +54,21 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         'user_change_password',
     ];
 
+    private $httpKernel;
+    private $httpUtils;
     private $router;
     private $encoder;
     private $defaultLocale;
 
-    public function __construct(RouterInterface $router, UserPasswordEncoderInterface $encoder, string $defaultLocale)
-    {
+    public function __construct(
+        HttpKernelInterface $kernel,
+        HttpUtils $httpUtils,
+        RouterInterface $router,
+        UserPasswordEncoderInterface $encoder,
+        string $defaultLocale
+    ) {
+        $this->httpKernel = $kernel;
+        $this->httpUtils = $httpUtils;
         $this->router = $router;
         $this->encoder = $encoder;
         $this->defaultLocale = $defaultLocale;
@@ -68,15 +79,21 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        if ($request->hasSession()) {
-            if (\in_array($request->attributes->get('_route'), static::NO_REFERER_ROUTES, true)) {
-                $this->removeTargetPath($request->getSession(), static::PROVIDER_KEY);
-            } else {
-                $this->saveTargetPath($request->getSession(), static::PROVIDER_KEY, $request->getUri());
-            }
+        if (\in_array($request->attributes->get('_route'), static::NO_REFERER_ROUTES, true)) {
+            $this->removeTargetPath($request->getSession(), static::PROVIDER_KEY);
+        } elseif (!$this->getTargetPath($request->getSession(), static::PROVIDER_KEY)) {
+            $this->saveTargetPath($request->getSession(), static::PROVIDER_KEY, $request->getUri());
         }
 
-        return parent::start($request, $authException);
+        // Forward the request to the login controller, to avoid too many redirections.
+        $subRequest = $this->httpUtils->createRequest($request, $this->getLoginUrl());
+
+        $response = $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        if (200 === $response->getStatusCode()) {
+            $response->setStatusCode(401);
+        }
+
+        return $response;
     }
 
     /**
@@ -156,14 +173,17 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $defaultUrl = \rtrim($this->router->generate('root', ['_locale' => $request->getLocale() ?: $this->defaultLocale]), '/').'/';
-
         $session = $request->getSession();
 
-        $targetPath = $this->getTargetPath($session, $providerKey) ?: $defaultUrl;
+        $targetPath = $this->getTargetPath($session, $providerKey);
+
+        if (!$targetPath) {
+            $targetPath = \rtrim($this->router->generate('root', ['_locale' => $request->getLocale() ?: $this->defaultLocale]), '/').'/';
+        }
 
         // Make sure username is not stored for next login
         $session->remove(Security::LAST_USERNAME);
+        $this->removeTargetPath($session, $providerKey);
 
         return new RedirectResponse($targetPath);
     }

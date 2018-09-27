@@ -21,7 +21,9 @@ framework:
         handler_id:      session.handler.native_file
         save_path:       '%kernel.project_dir%/var/sessions/%kernel.environment%'
         enabled:         true
-        cookie_httponly: true
         name:            AgateSessionCookie
-        cookie_lifetime: 8640000
-        gc_maxlifetime:  86400
+        gc_maxlifetime:  864000
+        cookie_httponly: true
+        cookie_lifetime: 86400
+        # To add when SF 4.2 releases
+        #cookie_samesite: lax

@@ -76,10 +76,10 @@ security:
     # of your application based on roles, ip, host or methods
     # http://symfony.com/doc/current/security.html#security-book-access-control-matching-options
     access_control:
-        - { path: '^/(?:%locales_regex%)/login$',     role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/(?:%locales_regex%)/login',      role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/(?:%locales_regex%)/register',   role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/(?:%locales_regex%)/resetting',  role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/(?:%locales_regex%)/profile',    roles: [ROLE_USER] }
-        - { path: '^/(?:%locales_regex%)/characters', roles: [ROLE_USER] }
+        - { path: '^/(?:%locales_regex%)/profile',    role: ROLE_USER }
+        - { path: '^/(?:%locales_regex%)/characters', role: ROLE_USER }
         - { path: '^/(?:%locales_regex%)/map-.*$',    host: '%esteren_domains.esterenmaps%', role: ROLE_MAPS_VIEW }
         - { path: '^/',                               host: '%esteren_domains.backoffice%',  role: ROLE_MANAGER }
