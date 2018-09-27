@@ -48,8 +48,8 @@ class HomeController extends AbstractController implements PublicService
         $response = new Response();
         $response->setCache([
             'max_age' => 600,
-            's_maxage' => 600,
-            'public' => $this->getUser() ? false : true,
+            's_maxage' => 3600,
+            'public' => true,
         ]);
 
         $template = 'agate/home/index-'.$_locale.'.html.twig';
@@ -69,8 +69,8 @@ class HomeController extends AbstractController implements PublicService
         $response->setCache([
             'last_modified' => new \DateTime($this->versionDate),
             'max_age' => 600,
-            's_maxage' => 600,
-            'public' => $this->getUser() ? false : true,
+            's_maxage' => 3600,
+            'public' => true,
         ]);
 
         if ($response->isNotModified($request)) {

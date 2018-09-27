@@ -40,7 +40,7 @@ class AssetsController extends AbstractController
                 'etag' => \sha1('js'.$_locale.$this->versionCode),
                 'last_modified' => new \DateTime($this->versionDate),
                 'max_age' => 600,
-                's_maxage' => 600,
+                's_maxage' => 3600,
                 'public' => true,
             ]);
         }

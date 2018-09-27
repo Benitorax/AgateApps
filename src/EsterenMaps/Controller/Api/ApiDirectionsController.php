@@ -95,15 +95,13 @@ class ApiDirectionsController extends AbstractController
             $transportId,
             $this->versionCode,
         ]));
-        $lastModified = new \DateTime($this->versionDate);
 
         $response = new JsonResponse();
         if (!$request->isNoCache()) {
             $response->setCache([
                 'etag' => $etag,
-                'last_modified' => $lastModified,
                 'max_age' => 600,
-                's_maxage' => 600,
+                's_maxage' => 3600,
                 'public' => true,
             ]);
         }

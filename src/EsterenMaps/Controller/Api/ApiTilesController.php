@@ -83,7 +83,6 @@ class ApiTilesController extends AbstractController
 
         $response = (new BinaryFileResponse($file, 200, ['Content-Type' => 'image/jpeg']))
             ->setMaxAge('864000')
-            ->setExpires(new \DateTime('+10 days'))
         ;
 
         return $response;

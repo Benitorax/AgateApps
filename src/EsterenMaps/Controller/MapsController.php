@@ -25,7 +25,7 @@ class MapsController extends Controller
     /**
      * @Route("/", methods={"GET"}, name="esterenmaps_maps_maps_index")
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(): Response
     {
         /** @var Maps[] $allMaps */
         $allMaps = $this->getDoctrine()->getRepository(Maps::class)->findAllRoot();
@@ -42,47 +42,26 @@ class MapsController extends Controller
             }
         }
 
-        $response = new Response();
-        if (!$this->getParameter('kernel.debug')) {
-            $response->setCache([
-                'last_modified' => $updatedAt,
-                'max_age' => 600,
-                's_maxage' => 600,
-                'public' => $this->getUser() ? false : true,
-            ]);
-        }
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
         return $this->render('esteren_maps/Maps/index.html.twig', [
             'list' => $allMaps,
-        ], $response);
+        ]);
     }
 
     /**
      * @Route("/map-{nameSlug}", methods={"GET"}, name="esterenmaps_maps_maps_view")
      */
-    public function viewAction(Maps $map, Request $request): Response
+    public function viewAction(Maps $map): Response
     {
         if (!$this->isGranted(['ROLE_USER', 'ROLE_MAPS_VIEW']) || !$this->getUser()) {
             throw $this->createAccessDeniedException('Access denied.');
         }
 
         $response = new Response();
-        if (!$this->getParameter('kernel.debug')) {
-            $response->setCache([
-                'last_modified' => $map->getUpdatedAt(),
-                'max_age' => 600,
-                's_maxage' => 600,
-                'public' => true,
-            ]);
-        }
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
+        $response->setCache([
+            'max_age' => 600,
+            's_maxage' => 3600,
+            'public' => false,
+        ]);
 
         $tilesUrl = $this->generateUrl('esterenmaps_api_tiles', ['id' => 0, 'x' => 0, 'y' => 0, 'zoom' => 0], true);
         $tilesUrl = \str_replace('0/0/0/0', '{id}/{z}/{x}/{y}', $tilesUrl);

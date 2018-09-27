@@ -26,9 +26,8 @@ class FeondBeerController extends Controller
         $response = new Response();
         if (!$this->getParameter('kernel.debug')) {
             $response->setCache([
-                'last_modified' => new \DateTime($this->getParameter('version_date')),
                 'max_age' => 600,
-                's_maxage' => 600,
+                's_maxage' => 3600,
                 'public' => true,
             ]);
         }

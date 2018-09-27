@@ -37,8 +37,8 @@ class VermineController extends AbstractController
         $response->setCache([
             'last_modified' => new \DateTime($this->versionDate),
             'max_age' => 600,
-            's_maxage' => 600,
-            'public' => $this->getUser() ? false : true,
+            's_maxage' => 3600,
+            'public' => true,
         ]);
 
         if ($response->isNotModified($request)) {

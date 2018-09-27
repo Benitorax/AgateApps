@@ -56,7 +56,7 @@ class ApiMapsController implements PublicService
             ->setCache([
                 'etag' => $etag,
                 'max_age' => 600,
-                's_maxage' => 600,
+                's_maxage' => 3600,
                 'public' => true,
             ])
         ;

@@ -39,8 +39,7 @@ class HomeController extends Controller
         $response = new Response();
         $response->setCache([
             'max_age' => 600,
-            's_maxage' => 600,
-            'public' => $this->getUser() ? false : true,
+            's_maxage' => 3600,
         ]);
 
         $template = 'dragons/index-'.$_locale.'.html.twig';

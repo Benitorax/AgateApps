@@ -36,9 +36,8 @@ class LegalMentionsController extends AbstractController
         $response = new Response();
 
         $response->setCache([
-            'last_modified' => new \DateTime($this->versionDate),
             'max_age' => 600,
-            's_maxage' => 600,
+            's_maxage' => 3600,
             'public' => $this->getUser() ? false : true,
         ]);
 

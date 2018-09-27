@@ -34,17 +34,10 @@ class HomeController extends Controller
             throw new PortalElementNotFound('esteren', $_locale);
         }
 
-        $response = new Response();
-        $response->setCache([
-            'max_age' => 600,
-            's_maxage' => 600,
-            'public' => $this->getUser() ? false : true,
-        ]);
-
         $template = 'esteren/index-'.$_locale.'.html.twig';
 
         return $this->render($template, [
             'portal_element' => $portalElement,
-        ], $response);
+        ]);
     }
 }
