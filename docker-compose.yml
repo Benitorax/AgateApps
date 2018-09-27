@@ -52,7 +52,7 @@ services:
         image: 'mysql:5.7'
         working_dir: /srv/
         volumes:
-        - ./var/:/srv/
+            - ./var/:/srv/
         environment:
             - MYSQL_ROOT_PASSWORD=agate_portal
             - MYSQL_DATABASE=agate_portal
