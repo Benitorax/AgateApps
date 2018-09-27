@@ -21,13 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LegalMentionsController extends AbstractController
 {
-    private $versionDate;
-
-    public function __construct($versionDate)
-    {
-        $this->versionDate = $versionDate;
-    }
-
     /**
      * @Route("/legal", name="legal_mentions")
      */

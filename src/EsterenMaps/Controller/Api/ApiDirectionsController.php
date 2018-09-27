@@ -28,20 +28,17 @@ use Symfony\Component\Translation\TranslatorInterface;
 class ApiDirectionsController extends AbstractController
 {
     private $versionCode;
-    private $versionDate;
     private $transportTypesRepository;
     private $directionsManager;
     private $translator;
 
     public function __construct(
         string $versionCode,
-        string $versionDate,
         TransportTypesRepository $transportTypesRepository,
         DirectionsManager $directionsManager,
         TranslatorInterface $translator
     ) {
         $this->versionCode = $versionCode;
-        $this->versionDate = $versionDate;
         $this->transportTypesRepository = $transportTypesRepository;
         $this->directionsManager = $directionsManager;
         $this->translator = $translator;

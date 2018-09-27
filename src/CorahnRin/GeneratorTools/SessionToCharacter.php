@@ -375,9 +375,6 @@ final class SessionToCharacter
         $bad = $health->getBad();
         $critical = $health->getCritical();
 
-        $bonuses = \array_fill_keys(\array_keys($this->domains), 0);
-        $maluses = \array_fill_keys(\array_keys($this->domains), 0);
-
         foreach ($character->getCharAdvantages() as $charAdvantage) {
             $adv = $charAdvantage->getAdvantage();
 

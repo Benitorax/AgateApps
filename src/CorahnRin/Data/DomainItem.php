@@ -33,6 +33,10 @@ class DomainItem
 
     public function getCamelizedTitle(string $suffix = ''): string
     {
+        if ($this->camelizedTitle) {
+            return $this->camelizedTitle;
+        }
+
         return $this->camelizedTitle = DomainsData::getCamelizedTitle($this->title, $suffix);
     }
 }
