@@ -369,13 +369,11 @@ class User implements UserInterface, \Serializable, EquatableInterface
 
     public function serialize()
     {
-        return \serialize(
-            [
-                $this->id,
-                $this->createdAt->format('Y-m-d H:i:s'),
-                $this->updatedAt->format('Y-m-d H:i:s'),
-            ]
-        );
+        return \serialize([
+            $this->id,
+            $this->createdAt->format('Y-m-d H:i:s'),
+            $this->updatedAt->format('Y-m-d H:i:s'),
+        ]);
     }
 
     public function unserialize($serialized)
@@ -394,9 +392,6 @@ class User implements UserInterface, \Serializable, EquatableInterface
             $this->createdAt,
             $this->updatedAt,
         ] = $data;
-
-
-
 
         $this->createdAt = \DateTime::createFromFormat('Y-m-d H:i:s', $this->createdAt);
         if ($this->updatedAt) {
