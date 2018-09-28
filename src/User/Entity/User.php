@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -23,7 +24,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @UniqueEntity("emailCanonical", message="user.email.already_used")
  * @UniqueEntity("usernameCanonical", message="user.username.already_used")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable, EquatableInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
@@ -133,7 +134,7 @@ class User implements UserInterface, \Serializable
 
     public function __toString()
     {
-        return (string) $this->getUsername();
+        return (string)$this->getUsername();
     }
 
     public function addRole($role): self
@@ -368,30 +369,52 @@ class User implements UserInterface, \Serializable
 
     public function serialize()
     {
-        return \serialize([
-            $this->id,
-            $this->username,
-            $this->usernameCanonical,
-            $this->email,
-            $this->emailCanonical,
-            $this->password,
-            \implode(',', $this->getRoles()),
-        ]);
+        return \serialize(
+            [
+                $this->id,
+                $this->createdAt->format('Y-m-d H:i:s'),
+                $this->updatedAt->format('Y-m-d H:i:s'),
+            ]
+        );
     }
 
     public function unserialize($serialized)
     {
-        $data = \unserialize($serialized, ['allowed_classes' => false]);
-
-        $this->roles = \explode(',', $data[5]);
+        $data = \unserialize(
+            $serialized,
+            [
+                'allowed_classes' => [
+                    \DateTimeInterface::class,
+                ],
+            ]
+        );
 
         [
             $this->id,
-            $this->username,
-            $this->usernameCanonical,
-            $this->email,
-            $this->emailCanonical,
-            $this->password,
+            $this->createdAt,
+            $this->updatedAt,
         ] = $data;
+
+
+
+
+        $this->createdAt = \DateTime::createFromFormat('Y-m-d H:i:s', $this->createdAt);
+        if ($this->updatedAt) {
+            $this->updatedAt = \DateTime::createFromFormat('Y-m-d H:i:s', $this->updatedAt);
+        }
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return
+            $user instanceof self
+            && $this->id === $user->getId()
+            && $this->createdAt->getTimestamp() === $user->createdAt->getTimestamp()
+            && (
+                ($this->updatedAt && $user->getUpdatedAt() && $this->updatedAt->getTimestamp() === $user->updatedAt->getTimestamp())
+                ||
+                !$this->updatedAt
+            )
+        ;
     }
 }
