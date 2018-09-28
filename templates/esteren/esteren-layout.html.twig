@@ -2,18 +2,17 @@
 
 {% trans_default_domain 'EsterenPortal' %}
 
-{% set additional_menu_contents -%}
+{% set menu_contents -%}
     <li><a href="{{ path('agate_portal_home') }}">{{ 'menu.main.agate_studio' | trans }}</a></li>
+    <li><a href="{{ path('contact') }}">{{ 'menu.contact' | trans({}, 'agate') }}</a></li>
 {%- endset %}
 
 {% block menu_right_content -%}
-    {{- additional_menu_contents -}}
-    {{- parent() -}}
+    {{- menu_contents -}}
 {%- endblock %}
 
 {% block menu_mobile_content -%}
-    {{- additional_menu_contents -}}
-    {{- parent() -}}
+    {{- menu_contents -}}
 {%- endblock %}
 
 {% block footer_about -%}
