@@ -374,6 +374,7 @@ class User implements UserInterface, \Serializable
             $this->usernameCanonical,
             $this->email,
             $this->emailCanonical,
+            $this->password,
             \implode(',', $this->getRoles()),
         ]);
     }
@@ -390,6 +391,7 @@ class User implements UserInterface, \Serializable
             $this->usernameCanonical,
             $this->email,
             $this->emailCanonical,
+            $this->password,
         ] = $data;
     }
 }
