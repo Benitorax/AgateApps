@@ -42,8 +42,8 @@ final class DomainsCalculator
      *
      * If $domainsBonuses IS provided, then it will add the correct bonuses if some domains exceed 5 points.
      *
-     * @param DomainsData[] $allDomains
-     * @param array         $domainsBonuses
+     * @param DomainItem[] $allDomains
+     * @param array        $domainsBonuses
      *
      * @return int[]
      */
