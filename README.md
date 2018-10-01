@@ -1,5 +1,5 @@
 
-[![CircleCI](https://circleci.com/gh/Pierstoval/AgateApps.svg?style=svg&circle-token=9dd9f3351a54a5f47ce078a4ad2ce589dedec8d7)](https://circleci.com/gh/Pierstoval/AgateApps)
+[![Build Status](https://travis-ci.com/Pierstoval/AgateApps.svg?branch=master)](https://travis-ci.com/Pierstoval/AgateApps)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c9de37c6-0876-464f-899c-90a07e8ea361/mini.png)](https://insight.sensiolabs.com/projects/c9de37c6-0876-464f-899c-90a07e8ea361)
 
 Esteren full portal
