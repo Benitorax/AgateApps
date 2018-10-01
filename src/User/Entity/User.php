@@ -134,7 +134,7 @@ class User implements UserInterface, \Serializable, EquatableInterface
 
     public function __toString()
     {
-        return (string)$this->getUsername();
+        return (string) $this->getUsername();
     }
 
     public function addRole($role): self
