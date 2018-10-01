@@ -773,6 +773,11 @@ class Characters extends BaseCharacter
         return $this->ways->getWay($way);
     }
 
+    public function getWays(): Ways
+    {
+        return $this->ways;
+    }
+
     public function setWay(Ways $ways): void
     {
         $this->ways = $ways;
