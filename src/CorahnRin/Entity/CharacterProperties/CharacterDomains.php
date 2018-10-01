@@ -315,4 +315,248 @@ class CharacterDomains
 
         $this->$propertyName = $value;
     }
+
+    /*
+     * Getters...
+     */
+
+    public function getCraft()
+    {
+        return $this->craft;
+    }
+
+    public function getCraftBonus()
+    {
+        return $this->craftBonus;
+    }
+
+    public function getCraftMalus()
+    {
+        return $this->craftMalus;
+    }
+
+    public function getCloseCombat()
+    {
+        return $this->closeCombat;
+    }
+
+    public function getCloseCombatBonus()
+    {
+        return $this->closeCombatBonus;
+    }
+
+    public function getCloseCombatMalus()
+    {
+        return $this->closeCombatMalus;
+    }
+
+    public function getStealth()
+    {
+        return $this->stealth;
+    }
+
+    public function getStealthBonus()
+    {
+        return $this->stealthBonus;
+    }
+
+    public function getStealthMalus()
+    {
+        return $this->stealthMalus;
+    }
+
+    public function getMagience()
+    {
+        return $this->magience;
+    }
+
+    public function getMagienceBonus()
+    {
+        return $this->magienceBonus;
+    }
+
+    public function getMagienceMalus()
+    {
+        return $this->magienceMalus;
+    }
+
+    public function getNaturalEnvironment()
+    {
+        return $this->naturalEnvironment;
+    }
+
+    public function getNaturalEnvironmentBonus()
+    {
+        return $this->naturalEnvironmentBonus;
+    }
+
+    public function getNaturalEnvironmentMalus()
+    {
+        return $this->naturalEnvironmentMalus;
+    }
+
+    public function getDemorthenMysteries()
+    {
+        return $this->demorthenMysteries;
+    }
+
+    public function getDemorthenMysteriesBonus()
+    {
+        return $this->demorthenMysteriesBonus;
+    }
+
+    public function getDemorthenMysteriesMalus()
+    {
+        return $this->demorthenMysteriesMalus;
+    }
+
+    public function getOccultism()
+    {
+        return $this->occultism;
+    }
+
+    public function getOccultismBonus()
+    {
+        return $this->occultismBonus;
+    }
+
+    public function getOccultismMalus()
+    {
+        return $this->occultismMalus;
+    }
+
+    public function getPerception()
+    {
+        return $this->perception;
+    }
+
+    public function getPerceptionBonus()
+    {
+        return $this->perceptionBonus;
+    }
+
+    public function getPerceptionMalus()
+    {
+        return $this->perceptionMalus;
+    }
+
+    public function getPrayer()
+    {
+        return $this->prayer;
+    }
+
+    public function getPrayerBonus()
+    {
+        return $this->prayerBonus;
+    }
+
+    public function getPrayerMalus()
+    {
+        return $this->prayerMalus;
+    }
+
+    public function getFeats()
+    {
+        return $this->feats;
+    }
+
+    public function getFeatsBonus()
+    {
+        return $this->featsBonus;
+    }
+
+    public function getFeatsMalus()
+    {
+        return $this->featsMalus;
+    }
+
+    public function getRelation()
+    {
+        return $this->relation;
+    }
+
+    public function getRelationBonus()
+    {
+        return $this->relationBonus;
+    }
+
+    public function getRelationMalus()
+    {
+        return $this->relationMalus;
+    }
+
+    public function getPerformance()
+    {
+        return $this->performance;
+    }
+
+    public function getPerformanceBonus()
+    {
+        return $this->performanceBonus;
+    }
+
+    public function getPerformanceMalus()
+    {
+        return $this->performanceMalus;
+    }
+
+    public function getScience()
+    {
+        return $this->science;
+    }
+
+    public function getScienceBonus()
+    {
+        return $this->scienceBonus;
+    }
+
+    public function getScienceMalus()
+    {
+        return $this->scienceMalus;
+    }
+
+    public function getShootingAndThrowing()
+    {
+        return $this->shootingAndThrowing;
+    }
+
+    public function getShootingAndThrowingBonus()
+    {
+        return $this->shootingAndThrowingBonus;
+    }
+
+    public function getShootingAndThrowingMalus()
+    {
+        return $this->shootingAndThrowingMalus;
+    }
+
+    public function getTravel()
+    {
+        return $this->travel;
+    }
+
+    public function getTravelBonus()
+    {
+        return $this->travelBonus;
+    }
+
+    public function getTravelMalus()
+    {
+        return $this->travelMalus;
+    }
+
+    public function getErudition()
+    {
+        return $this->erudition;
+    }
+
+    public function getEruditionBonus()
+    {
+        return $this->eruditionBonus;
+    }
+
+    public function getEruditionMalus()
+    {
+        return $this->eruditionMalus;
+    }
 }
