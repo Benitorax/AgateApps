@@ -170,27 +170,139 @@ class SessionToCharacterTest extends KernelTestCase
                 ],
                 'equipment' => [
                     'Livre de règles',
+                    'Un grimoire',
                 ],
             ],
             '19_description' => [
                 'name' => 'A',
                 'player_name' => 'B',
                 'sex' => 'character.sex.female',
-                'description' => '',
-                'story' => '',
-                'facts' => '',
+                'description' => 'Some kind of description',
+                'story' => 'An incredible story',
+                'facts' => 'Of course, something true',
             ],
             '20_finish' => true,
         ]);
 
-        static::assertSame($values['01_people'], static::$propertyAccessor->getValue($character, 'people.id'));
-        static::assertSame($values['02_job'], static::$propertyAccessor->getValue($character, 'job.id'));
-        static::assertSame($values['03_birthplace'], static::$propertyAccessor->getValue($character, 'birthplace.id'));
-        static::assertSame($values['04_geo'], static::$propertyAccessor->getValue($character, 'geoLiving.id'));
-        static::assertSame($values['05_social_class']['id'], static::$propertyAccessor->getValue($character, 'socialClass.id'));
-        static::assertSame($values['05_social_class']['domains'][0], static::$propertyAccessor->getValue($character, 'socialClassDomain1'));
-        static::assertSame($values['05_social_class']['domains'][1], static::$propertyAccessor->getValue($character, 'socialClassDomain2'));
-        static::assertSame($values['06_age'], static::$propertyAccessor->getValue($character, 'age'));
+        $propertyAccessor = static::$propertyAccessor;
+
+        $getValue = function(string $propertyPath) use ($character, $propertyAccessor) {
+            return $propertyAccessor->getValue($character, $propertyPath);
+        };
+
+        static::assertSame(1, $getValue('people.id'));
+
+        static::assertSame(1, $getValue('job.id'));
+
+        static::assertSame(1, $getValue('birthplace.id'));
+
+        static::assertSame(1, $getValue('geoLiving.id'));
+
+        static::assertSame(1, $getValue('socialClass.id'));
+        static::assertSame('domains.natural_environment', $getValue('socialClassDomain1'));
+        static::assertSame('domains.perception', $getValue('socialClassDomain2'));
+
+        static::assertSame(31, $getValue('age'));
+
+        static::assertSame(2, $getValue('setbacks[0].setback.id'));
+        static::assertSame(3, $getValue('setbacks[1].setback.id'));
+
+        static::assertSame(5, $getValue('combativeness'));
+        static::assertSame(5, $getValue('ways.combativeness'));
+        static::assertSame(4, $getValue('creativity'));
+        static::assertSame(4, $getValue('ways.creativity'));
+        static::assertSame(3, $getValue('empathy'));
+        static::assertSame(3, $getValue('ways.empathy'));
+        static::assertSame(2, $getValue('reason'));
+        static::assertSame(2, $getValue('ways.reason'));
+        static::assertSame(1, $getValue('conviction'));
+        static::assertSame(1, $getValue('ways.conviction'));
+
+        static::assertSame(1, $getValue('quality.id'));
+        static::assertSame(10, $getValue('flaw.id'));
+        static::assertSame(1, $getValue('mentalDisorder.id'));
+
+        static::assertSame('character.orientation.instinctive', $getValue('orientation'));
+
+        static::assertSame(3, $getValue('advantages[0].advantage.id'));
+        static::assertSame(1, $getValue('advantages[0].score'));
+        static::assertSame('Influent ally', $getValue('advantages[0].indication'));
+
+        static::assertSame(8, $getValue('advantages[1].advantage.id'));
+        static::assertSame(1, $getValue('advantages[1].score'));
+        static::assertSame('', $getValue('advantages[1].indication'));
+
+        static::assertSame(31, $getValue('disadvantages[0].advantage.id'));
+        static::assertSame(1, $getValue('disadvantages[0].score'));
+        static::assertSame('', $getValue('disadvantages[0].indication'));
+
+        static::assertSame(47, $getValue('disadvantages[1].advantage.id'));
+        static::assertSame(1, $getValue('disadvantages[1].score'));
+        static::assertSame('', $getValue('disadvantages[1].indication'));
+
+        static::assertSame(48, $getValue('disadvantages[2].advantage.id'));
+        static::assertSame(1, $getValue('disadvantages[2].score'));
+        static::assertSame('Some phobia', $getValue('disadvantages[2].indication'));
+
+        static::assertSame(5, $getValue('domains.craft'));
+        static::assertSame(0, $getValue('domains.craftBonus'));
+        static::assertSame(5, $getValue('domains.closeCombat'));
+        static::assertSame(0, $getValue('domains.closeCombatBonus'));
+        static::assertSame(1, $getValue('domains.stealth'));
+        static::assertSame(0, $getValue('domains.stealthBonus'));
+        static::assertSame(0, $getValue('domains.magience'));
+        static::assertSame(0, $getValue('domains.magienceBonus'));
+        static::assertSame(4, $getValue('domains.naturalEnvironment'));
+        static::assertSame(0, $getValue('domains.naturalEnvironmentBonus'));
+        static::assertSame(0, $getValue('domains.demorthenMysteries'));
+        static::assertSame(0, $getValue('domains.demorthenMysteriesBonus'));
+        static::assertSame(0, $getValue('domains.occultism'));
+        static::assertSame(0, $getValue('domains.occultismBonus'));
+        static::assertSame(1, $getValue('domains.perception'));
+        static::assertSame(0, $getValue('domains.perceptionBonus'));
+        static::assertSame(0, $getValue('domains.prayer'));
+        static::assertSame(0, $getValue('domains.prayerBonus'));
+        static::assertSame(0, $getValue('domains.feats'));
+        static::assertSame(0, $getValue('domains.featsBonus'));
+        static::assertSame(3, $getValue('domains.relation'));
+        static::assertSame(0, $getValue('domains.relationBonus'));
+        static::assertSame(0, $getValue('domains.performance'));
+        static::assertSame(0, $getValue('domains.performanceBonus'));
+        static::assertSame(1, $getValue('domains.science'));
+        static::assertSame(0, $getValue('domains.scienceBonus'));
+        static::assertSame(0, $getValue('domains.shootingAndThrowing'));
+        static::assertSame(0, $getValue('domains.shootingAndThrowingBonus'));
+        static::assertSame(0, $getValue('domains.travel'));
+        static::assertSame(0, $getValue('domains.travelBonus'));
+        static::assertSame(2, $getValue('domains.erudition'));
+        static::assertSame(0, $getValue('domains.eruditionBonus'));
+
+        static::assertSame('domains.craft', $getValue('disciplines[0].domain'));
+        static::assertSame(6, $getValue('disciplines[0].score'));
+        static::assertSame(12, $getValue('disciplines[0].discipline.id'));
+        static::assertSame('domains.craft', $getValue('disciplines[1].domain'));
+        static::assertSame(6, $getValue('disciplines[1].score'));
+        static::assertSame(45, $getValue('disciplines[1].discipline.id'));
+        static::assertSame('domains.craft', $getValue('disciplines[2].domain'));
+        static::assertSame(6, $getValue('disciplines[2].score'));
+        static::assertSame(92, $getValue('disciplines[2].discipline.id'));
+
+        static::assertSame(1, $getValue('combatArts[0].id'));
+        static::assertSame(5, $getValue('experienceActual'));
+
+        static::assertSame(9, $getValue('armors[0].id'));
+        static::assertSame(5, $getValue('weapons[0].id'));
+        static::assertSame(['Livre de règles', 'Un grimoire'], $getValue('inventory'));
+
+        static::assertSame('A', $getValue('name'));
+        static::assertSame('B', $getValue('playerName'));
+        static::assertSame('character.sex.female', $getValue('sex'));
+        static::assertSame('Some kind of description', $getValue('description'));
+        static::assertSame('An incredible story', $getValue('story'));
+        static::assertSame('Of course, something true', $getValue('facts'));
+
+        // Spent XP only grows when
+        static::assertSame(0, $getValue('experienceSpent'));
     }
 
     public static function getCharacterFromValues(array $values): Characters
