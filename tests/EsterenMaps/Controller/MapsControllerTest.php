@@ -47,8 +47,7 @@ class MapsControllerTest extends WebTestCase
         $client->request('GET', '/fr/map-tri-kazel');
         $res = $client->getResponse();
 
-        static::assertSame(302, $res->getStatusCode());
-        static::assertSame('/fr/login', $res->headers->get('Location'));
+        static::assertSame(401, $res->getStatusCode());
     }
 
     public function test view when authenticated without permission()
