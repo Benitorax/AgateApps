@@ -70,7 +70,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
             ->setEmailCanonical("testconfirm$locale@local.to")
         ;
 
-        $client = $this->getClient('portal.esteren.docker');
+        $client = $this->getClient('corahnrin.esteren.docker');
 
         $hashed = self::$container->get(UserPasswordEncoderInterface::class)->encodePassword($user, 'whatever');
         $user->setPassword($hashed);
@@ -99,7 +99,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
         static::resetDatabase();
 
-        $client = $this->getClient('portal.esteren.docker');
+        $client = $this->getClient('corahnrin.esteren.docker');
 
         $crawler = $client->request('GET', "/$locale/register");
 
@@ -139,7 +139,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     {
         $locale = $this->getLocale();
 
-        $client = $this->getClient('portal.esteren.docker');
+        $client = $this->getClient('corahnrin.esteren.docker');
 
         $user = self::$container->get(UserRepository::class)->findOneBy(['username' => static::USER_NAME.$locale]);
 
@@ -163,7 +163,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     {
         $locale = $this->getLocale();
 
-        $client = $this->getClient('portal.esteren.docker');
+        $client = $this->getClient('corahnrin.esteren.docker');
 
         $crawler = $client->request('GET', "/$locale/login");
 
@@ -184,18 +184,15 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $response = $client->getResponse();
 
         // Check redirection was made correctly to the Profile page
-        static::assertTrue($response->isRedirect(), 'Successful login does not redirect.');
-
-        static::assertSame("/$locale/", $response->headers->get('Location'));
+        static::assertTrue($response->isRedirect("/$locale/"), 'Successful login does not redirect.');
 
         $crawler->clear();
         $client->followRedirects(true);
         $crawler = $client->followRedirect();
 
         // Check user is authenticated
-        static::assertGreaterThanOrEqual(1, $crawler->filter('a.logout_link')->count());
-        $logoutText = self::$container->get(TranslatorInterface::class)->trans('layout.logout', [], 'user');
-        static::assertSame($logoutText, \trim($crawler->filter('a.logout_link')->text()));
+
+        static::assertCount(2, $crawler->filter('.logout_link'));
 
         $crawler->clear();
     }
@@ -207,7 +204,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     {
         $locale = $this->getLocale();
 
-        $client = $this->getClient('portal.esteren.docker');
+        $client = $this->getClient('corahnrin.esteren.docker');
         $user = self::$container->get(UserRepository::class)->loadUserByUsername(static::USER_NAME.$locale);
         static::setToken($client, $user, $user->getRoles());
 
@@ -248,7 +245,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     {
         $locale = $this->getLocale();
 
-        $client = $this->getClient('portal.esteren.docker');
+        $client = $this->getClient('corahnrin.esteren.docker');
         $user = self::$container->get(UserRepository::class)->loadUserByUsername(static::USER_NAME.$locale);
         static::setToken($client, $user, $user->getRoles());
 
@@ -283,7 +280,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     {
         $locale = $this->getLocale();
 
-        $client = $this->getClient('portal.esteren.docker');
+        $client = $this->getClient('corahnrin.esteren.docker');
         $user = self::$container->get(UserRepository::class)->loadUserByUsername(static::USER_NAME_AFTER_UPDATE.$locale);
         static::setToken($client, $user, $user->getRoles());
 
