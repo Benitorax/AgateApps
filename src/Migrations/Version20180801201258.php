@@ -41,6 +41,8 @@ final class Version20180801201258 extends AbstractMigration
         $this->addSql('ALTER TABLE characters_disciplines DROP PRIMARY KEY');
         $this->addSql('ALTER TABLE characters_disciplines ADD PRIMARY KEY (character_id, discipline_id)');
 
+        $this->addSql('ALTER TABLE characters_avantages ADD indication VARCHAR(255) NOT NULL');
+
         $this->addSql('
             ALTER TABLE avantages
             ADD bonuses_for LONGTEXT DEFAULT NULL COMMENT "(DC2Type:simple_array)",

@@ -14,7 +14,6 @@ namespace CorahnRin\Entity\CharacterProperties;
 use CorahnRin\Entity\Avantages;
 use CorahnRin\Entity\Characters;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CharAdvantages.
@@ -29,7 +28,6 @@ class CharAdvantages
      *
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Characters", inversedBy="charAdvantages")
-     * @Assert\NotNull
      */
     protected $character;
 
@@ -38,98 +36,57 @@ class CharAdvantages
      *
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Avantages")
-     * @Assert\NotNull
      */
     protected $advantage;
 
     /**
-     * @var bool
+     * @var int
      *
      * @ORM\Column(name="score", type="integer")
-     * @Assert\NotNull
-     * @Assert\GreaterThanOrEqual(value=0)
      */
     protected $score;
 
     /**
-     * Set doubleValue.
+     * @var string
      *
-     * @param int $score
-     *
-     * @return CharAdvantages
-     *
-     * @codeCoverageIgnore
+     * @ORM\Column(name="indication", type="string", length=255)
      */
-    public function setScore($score)
-    {
-        $this->score = $score;
+    protected $indication;
 
-        return $this;
+    public static function create(
+        Characters $character,
+        Avantages $advantage,
+        int $score,
+        string $indication
+    ): self {
+        $object = new self();
+
+        $object->character = $character;
+        $object->advantage = $advantage;
+        $object->score = $score;
+        $object->indication = $indication;
+
+        return $object;
     }
 
-    /**
-     * Get doubleValue.
-     *
-     * @return int
-     *
-     * @codeCoverageIgnore
-     */
-    public function getScore()
-    {
-        return $this->score;
-    }
 
-    /**
-     * Set character.
-     *
-     *
-     * @return CharAdvantages
-     *
-     * @codeCoverageIgnore
-     */
-    public function setCharacter(Characters $character)
-    {
-        $this->character = $character;
-
-        return $this;
-    }
-
-    /**
-     * Get character.
-     *
-     * @return Characters
-     *
-     * @codeCoverageIgnore
-     */
-    public function getCharacter()
+    public function getCharacter(): Characters
     {
         return $this->character;
     }
 
-    /**
-     * Set avantage.
-     *
-     *
-     * @return CharAdvantages
-     *
-     * @codeCoverageIgnore
-     */
-    public function setAdvantage(Avantages $advantage)
-    {
-        $this->advantage = $advantage;
-
-        return $this;
-    }
-
-    /**
-     * Get avantage.
-     *
-     * @return Avantages
-     *
-     * @codeCoverageIgnore
-     */
-    public function getAdvantage()
+    public function getAdvantage(): Avantages
     {
         return $this->advantage;
+    }
+
+    public function getScore(): int
+    {
+        return $this->score;
+    }
+
+    public function getIndication(): string
+    {
+        return $this->indication;
     }
 }

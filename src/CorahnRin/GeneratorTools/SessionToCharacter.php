@@ -12,7 +12,8 @@
 namespace CorahnRin\GeneratorTools;
 
 use Behat\Transliterator\Transliterator;
-use CorahnRin\Data\DomainsData as DomainsData;
+use CorahnRin\Data\DomainItem;
+use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Ways as WaysData;
 use CorahnRin\Entity\Armors;
 use CorahnRin\Entity\Avantages;
@@ -51,7 +52,7 @@ final class SessionToCharacter
     private $corahnRinManagerName;
 
     /**
-     * @var DomainsData[]
+     * @var DomainItem[]
      */
     private $domains;
 
@@ -227,10 +228,12 @@ final class SessionToCharacter
             if (!$value) {
                 continue;
             }
-            $charAdvantage = new CharAdvantages();
-            $charAdvantage->setCharacter($character);
-            $charAdvantage->setAdvantage($this->advantages[$id]);
-            $charAdvantage->setScore($value);
+            $charAdvantage = CharAdvantages::create(
+                $character,
+                $this->advantages[$id],
+                $value,
+                $values['11_advantages']['advantages_indications'][$id] ?? ''
+            );
             $character->addCharAdvantage($charAdvantage);
         }
 
@@ -238,10 +241,12 @@ final class SessionToCharacter
             if (!$value) {
                 continue;
             }
-            $charAdvantage = new CharAdvantages();
-            $charAdvantage->setCharacter($character);
-            $charAdvantage->setAdvantage($this->advantages[$id]);
-            $charAdvantage->setScore($value);
+            $charAdvantage = CharAdvantages::create(
+                $character,
+                $this->advantages[$id],
+                $value,
+                $values['11_advantages']['advantages_indications'][$id] ?? ''
+            );
             $character->addCharAdvantage($charAdvantage);
         }
     }
@@ -367,7 +372,7 @@ final class SessionToCharacter
         $character->setDomains($charDomain);
     }
 
-    private function setHealthCondition(Characters $character)
+    private function setHealthCondition(Characters $character): void
     {
         $health = new HealthCondition();
         $good = $health->getGood();
