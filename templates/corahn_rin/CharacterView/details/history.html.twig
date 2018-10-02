@@ -27,8 +27,6 @@
                     <h4 class="ib base">
                         {{ charSetback.setback.name }}
                     </h4>
-                {% else %}
-                    <h4 class="ib base">&mdash;</h4>
                 {% endfor %}
 
                 {% for charSetback in character.setbacks if charSetback.isAvoided%}
@@ -36,8 +34,6 @@
                         {{ charSetback.setback.name }}
                         {{ 'character.setback_avoided'|trans }}
                     </h4>
-                {% else %}
-                    <h4 class="ib base">&mdash;</h4>
                 {% endfor %}
             </div>
 

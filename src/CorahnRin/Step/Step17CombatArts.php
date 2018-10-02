@@ -98,7 +98,7 @@ class Step17CombatArts extends AbstractStepAction
             $errors = false;
 
             /** @var int[] $combatArtsValues */
-            $combatArtsValues = $this->request->get('combat_arts_spend_exp');
+            $combatArtsValues = $this->request->get('combat_arts_spend_exp', []);
 
             if (!\is_array($combatArtsValues)) {
                 $this->flashMessage('errors.incorrect_values');
