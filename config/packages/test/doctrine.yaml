@@ -10,3 +10,11 @@ doctrine:
                 driver: pdo_sqlite
                 path:   '%kernel.project_dir%/build/database_test_legacy.db'
                 url:    ~
+
+framework:
+    cache:
+        pools:
+            doctrine.result_cache_pool:
+                adapter: cache.adapter.array
+            doctrine.system_cache_pool:
+                adapter: cache.adapter.array

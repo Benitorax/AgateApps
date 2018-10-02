@@ -1,2 +1,0 @@
-imports:
-    - { resource: ../prod/doctrine_cache.yaml }

@@ -1,4 +1,13 @@
+# Read the documentation: https://github.com/1up-lab/OneupFlysystemBundle/tree/master/Resources/doc/index.md
+parameters:
+    aws_region: ''
+    aws_bucket: ''
+
 oneup_flysystem:
+    adapters:
+        assets_adapter:
+            local:
+                directory: "%kernel.project_dir%/public/uploads"
     filesystems:
         assets_fs:
             adapter: assets_adapter # This assets_adapter MUST be set in ALL environments to work

@@ -64,7 +64,7 @@ services:
             $awsRegion:       '%aws_region%'
             $awsBucket:       '%aws_bucket%'
             $kernelEnvironment: '%kernel.environment%'
-            $doctrineResultCache: '@doctrine_cache.providers.result_cache'
+            $doctrineResultCache: '@doctrine.result_cache_provider'
             $corahnRinManagerName: '%corahnrin_manager_name%'
             $enableContactCaptcha: '%enable_contact_captcha%'
     _instanceof:

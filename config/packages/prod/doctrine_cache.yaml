@@ -1,8 +1,0 @@
-doctrine_cache:
-    providers:
-        metadata_cache:
-            apcu: ~
-        result_cache:
-            apcu: ~
-        query_cache:
-            apcu: ~

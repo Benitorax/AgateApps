@@ -40,7 +40,6 @@ class Kernel extends BaseKernel
         // if you are using symfony/dependency-injection 4.0+ as it's the default behavior
         $container->setParameter('container.autowiring.strict_mode', true);
         $container->setParameter('container.dumper.inline_class_loader', true);
-
         $confDir = $this->getProjectDir().'/config';
 
         $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
@@ -51,12 +50,14 @@ class Kernel extends BaseKernel
 
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
-        $confDir = $this->getProjectDir().'/config';
+        $exts = self::CONFIG_EXTS;
+        $routesDir = $this->getProjectDir().'/config/{routes}';
 
-        $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
+        $env = $this->environment;
+        $scheme = 'prod' === $env ? 'https' : 'http';
 
-        $routes->setSchemes('prod' === $this->environment ? 'https' : 'http');
+        $routes->import("$routesDir/*$exts", '/', 'glob')->setSchemes($scheme);
+        $routes->import("$routesDir/$env/**/*$exts", '/', 'glob')->setSchemes($scheme);
+        $routes->import("$routesDir$exts", '/', 'glob')->setSchemes($scheme);
     }
 }

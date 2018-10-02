@@ -1,8 +1,0 @@
-doctrine_cache:
-    providers:
-        metadata_cache:
-            array: ~
-        result_cache:
-            array: ~
-        query_cache:
-            array: ~

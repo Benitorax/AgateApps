@@ -29,17 +29,15 @@ doctrine:
                 prefix: User\Entity
                 alias: User
 
-        # See "dev/doctrine_cache.yaml" for Doctrine cache providers for dev
-        # These three services must be provided by DoctrineCacheBundle configured providers.
         metadata_cache_driver:
             type: service
-            id: doctrine_cache.providers.metadata_cache
-        result_cache_driver:
-            type: service
-            id: doctrine_cache.providers.result_cache
+            id: doctrine.system_cache_provider
         query_cache_driver:
             type: service
-            id: doctrine_cache.providers.query_cache
+            id: doctrine.system_cache_provider
+        result_cache_driver:
+            type: service
+            id: doctrine.result_cache_provider
 
     dbal:
         default_connection: default
@@ -57,3 +55,23 @@ doctrine:
                 charset:   utf8
                 logging:   false
                 profiling: false
+
+services:
+    doctrine.result_cache_provider:
+        class: Symfony\Component\Cache\DoctrineProvider
+        public: false
+        arguments:
+            - '@doctrine.result_cache_pool'
+    doctrine.system_cache_provider:
+        class: Symfony\Component\Cache\DoctrineProvider
+        public: false
+        arguments:
+            - '@doctrine.system_cache_pool'
+
+framework:
+    cache:
+        pools:
+            doctrine.result_cache_pool:
+                adapter: cache.app
+            doctrine.system_cache_pool:
+                adapter: cache.system

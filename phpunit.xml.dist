@@ -37,6 +37,7 @@
         <env name="VERMINE_DOMAIN" value="vermine2047.docker" />
         <env name="GOOGLE_RECAPTCHA_SITE_KEY" value="" />
         <env name="GOOGLE_RECAPTCHA_SECRET" value="1" />
+        <env name="CORS_ALLOW_ORIGIN" value="^https?://(%esteren_domains.esterenmaps%|%esteren_domains.corahnrin%|%esteren_domains.api%|%esteren_domains.backoffice%)/" />
 
         <!-- Uncomment this if you do not need to refresh the whole cache between runs
         <env name="CLEAR_CACHE" value="1" />

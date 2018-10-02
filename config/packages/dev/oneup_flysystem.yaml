@@ -1,9 +1,0 @@
-parameters:
-    aws_region: ''
-    aws_bucket: ''
-
-oneup_flysystem:
-    adapters:
-        assets_adapter:
-            local:
-                directory: "%kernel.project_dir%/public/uploads"

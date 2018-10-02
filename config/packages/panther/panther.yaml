@@ -4,3 +4,9 @@ imports:
 framework:
     session:
         storage_id: session.storage.native
+    cache:
+        pools:
+            doctrine.result_cache_pool:
+                adapter: cache.app
+            doctrine.system_cache_pool:
+                adapter: cache.app
