@@ -194,6 +194,7 @@ class Step16Disciplines extends AbstractStepAction
             'all_domains' => $this->allDomains,
             'available_domains' => $availableDomainsForDisciplines,
             'all_disciplines' => $disciplinesSortedByDomains,
+            'can_have_disciplines' => $canHaveDisciplines,
             'disciplines_spent_with_exp' => $this->disciplinesSpentWithExp['disciplines'],
             'bonus_max' => $this->remainingBonusPoints,
             'bonus_value' => $this->disciplinesSpentWithExp['remainingBonusPoints'],

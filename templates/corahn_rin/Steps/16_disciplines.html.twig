@@ -9,13 +9,7 @@
 
 {% block step_content %}
 
-    {% if exp_max < 25  %}
-
-        <div class="card-panel teal darken-4">
-            {{ 'disciplines_spend_exp.no_exp_or_bonus_points'|trans }}
-        </div>
-
-    {% else %}
+    {% if can_have_disciplines  %}
 
         <div class="card-panel teal darken-4">
             {{ 'disciplines_spend_exp.explanation'|trans|raw }}
@@ -55,6 +49,12 @@
 
         {% endfor %}
 
-    {% endif %}{# end if bonus value #}
+    {% else %}
+
+        <div class="card-panel teal darken-4">
+            {{ 'disciplines_spend_exp.no_exp_or_bonus_points'|trans }}
+        </div>
+
+    {% endif %}{# end if can_have_disciplines #}
 
 {% endblock %}

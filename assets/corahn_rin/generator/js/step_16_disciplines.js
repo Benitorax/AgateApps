@@ -40,7 +40,7 @@
         disciplinesInputs[domainId][id] = input;
 
         input.addEventListener('change', function() {
-            if (this.checked && globalCurrentExp - 25 < 0) {
+            if (this.checked && (globalCurrentExp - 25 < 0 && globalCurrentBonus <= 0)) {
                 this.checked = false;
                 return false;
             }
