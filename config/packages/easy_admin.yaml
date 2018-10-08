@@ -88,9 +88,9 @@ parameters:
         Jobs:
             class: CorahnRin\Entity\Jobs
             list:
-                fields: [ id, name, domainPrimary, domainsSecondary, book ]
+                fields: [ id, name, primaryDomain, domainsSecondary, book ]
             form:
-                fields: [ name, domainPrimary, domainsSecondary, book ]
+                fields: [ name, primaryDomain, domainsSecondary, book ]
         Miracles:
             class: CorahnRin\Entity\Miracles
             list:
