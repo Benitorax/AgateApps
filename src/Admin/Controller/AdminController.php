@@ -11,7 +11,6 @@
 
 namespace Admin\Controller;
 
-use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Main\DependencyInjection\PublicService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -30,12 +29,5 @@ class AdminController extends BaseAdminController implements PublicService
     public function indexAction(Request $request)
     {
         return parent::indexAction($request);
-    }
-
-    protected function joinBooks(QueryBuilder $qb): QueryBuilder
-    {
-        $qb->leftJoin('entity.book', 'book')->addSelect('book');
-
-        return $qb;
     }
 }

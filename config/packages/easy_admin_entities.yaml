@@ -94,3 +94,54 @@ easy_admin:
                       help: 'admin.entities.portalElement.image_help'
                       type_options:
                           required: false
+
+        Users:
+            class: User\Entity\User
+
+            controller: User\Controller\Admin\AdminUserController
+
+            disabled_actions:
+                - edit
+                - delete
+
+            list:
+                actions:
+                    - show
+
+                fields:
+                    - id
+                    - username
+                    - email
+                    - roles
+                    - { property: emailConfirmed, type: boolean }
+
+            show:
+                fields:
+                    - id
+                    - username
+                    - usernameCanonical
+                    - email
+                    - emailCanonical
+                    - roles
+                    - emailConfirmed
+                    - ululeUsername
+                    - createdAt
+                    - updatedAt
+
+            new:
+                fields:
+                    - username
+                    - email
+                    - property: plainPassword
+                      type: text
+                      help: admin.entities.users.password_help
+                      type_options:
+                          help: admin.entities.users.password_help
+
+                    - property: roles
+                      type: choice
+                      type_options:
+                          expanded: true
+                          multiple: true
+                          choices:
+                              admin.entities.users.roles.backer_travels: ROLE_BACKER_TRAVELS

@@ -19,7 +19,9 @@ easy_admin:
         menu:
             - { label: 'admin.links.back_to_site', route: 'agate_portal_home' }
 
+            - { label: 'admin.menu.site' }
             - { entity: 'PortalElement', icon: 'file-text' }
+            - { entity: 'Users', icon: 'file-text' }
 
             - { label: 'admin.menu.esterenmaps' }
             - { entity: 'Maps', icon: 'map' }

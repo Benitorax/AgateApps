@@ -17,6 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="User\Repository\UserRepository")
@@ -42,6 +43,8 @@ class User implements UserInterface, \Serializable, EquatableInterface
     /**
      * @var string
      * @ORM\Column(name="username", type="string")
+     *
+     * @Assert\NotBlank()
      */
     protected $username;
 
@@ -56,6 +59,8 @@ class User implements UserInterface, \Serializable, EquatableInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string")
+     *
+     * @Assert\NotBlank()
      */
     protected $email;
 

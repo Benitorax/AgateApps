@@ -12,6 +12,7 @@
 namespace EsterenMaps\Controller\Admin;
 
 use Admin\Controller\AdminController;
+use Doctrine\ORM\QueryBuilder;
 
 class BaseMapAdminController extends AdminController
 {
@@ -70,5 +71,12 @@ class BaseMapAdminController extends AdminController
         $qb = parent::createListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter);
 
         return $this->joinBooks($qb);
+    }
+
+    protected function joinBooks(QueryBuilder $qb): QueryBuilder
+    {
+        $qb->leftJoin('entity.book', 'book')->addSelect('book');
+
+        return $qb;
     }
 }

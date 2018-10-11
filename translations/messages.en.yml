@@ -50,6 +50,7 @@ admin:
     links:
         back_to_site: 'Back to website'
     menu:
+        site: 'Site'
         types: 'Reference types'
         transports: 'Transports'
         esterenmaps: Esteren Maps
@@ -129,6 +130,11 @@ admin:
             altitude: 'Altitude'
             web_icon: 'Icon'
 
+        users:
+            password_help: Keep empty to generate a random password (recommended)
+            roles:
+                backer_travels: '"Travels" backer'
+
 PortalElement: Portal elements
 Pages: 'Page'
 ZonesTypes: 'Zones type'
@@ -141,6 +147,7 @@ Routes: 'Routes'
 Markers: 'Markers'
 MarkersTypes: 'Marker type'
 MarkerType: 'Marker type'
+Users: Users
 '(Km/h)': '(Km/h)'
 
 actions:
