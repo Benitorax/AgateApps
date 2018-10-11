@@ -87,7 +87,7 @@ services:
         resource: '../src/EsterenMaps/{Api,Cache,Command,Controller,Repository,Services,Twig}'
 
     User\:
-        resource: '../src/User/{Controller,ConnectApi,Command,Mailer,Form,Repository,Security,Twig,Util}'
+        resource: '../src/User/{Controller,ConnectApi,Command,Mailer,Form,Repository,Security,Twig,Util,Validator}'
 
     Main\:
         resource: '../src/Main/{Controller,Twig}'

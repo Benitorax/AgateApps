@@ -21,7 +21,10 @@ easy_admin:
 
             - { label: 'admin.menu.site' }
             - { entity: 'PortalElement', icon: 'file-text' }
-            - { entity: 'Users', icon: 'file-text' }
+
+            - { label: 'admin.menu.users' }
+            - { entity: 'Users', icon: 'users' }
+            - { entity: 'Subscriptions', icon: 'address-card' }
 
             - { label: 'admin.menu.esterenmaps' }
             - { entity: 'Maps', icon: 'map' }

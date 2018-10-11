@@ -51,6 +51,7 @@ admin:
         back_to_site: 'Back to website'
     menu:
         site: 'Site'
+        users: Users management
         types: 'Reference types'
         transports: 'Transports'
         esterenmaps: Esteren Maps
@@ -148,6 +149,7 @@ Markers: 'Markers'
 MarkersTypes: 'Marker type'
 MarkerType: 'Marker type'
 Users: Users
+Subscriptions: Subscriptions
 '(Km/h)': '(Km/h)'
 
 actions:
@@ -157,3 +159,5 @@ maps:
     list: Maps list
     view: View map
     none: No map
+
+subscription.travels: '"Travels" backer'

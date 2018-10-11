@@ -145,3 +145,40 @@ easy_admin:
                           multiple: true
                           choices:
                               admin.entities.users.roles.backer_travels: ROLE_BACKER_TRAVELS
+
+        Subscriptions:
+            class: User\Entity\Subscription
+
+            controller: User\Controller\Admin\AdminSubscriptionController
+
+            disabled_actions:
+                - edit
+                - delete
+
+            list:
+                fields:
+                    - id
+                    - user
+                    - { property: type, template: easy_admin/field_translatable.html.twig }
+                    - { property: startsAt, template: easy_admin/field_date.html.twig }
+                    - { property: endsAt, template: easy_admin/field_date.html.twig }
+
+            new:
+                fields:
+                    - user
+                    - property: startsAt
+                      type: date
+                      type_options:
+                          input: datetime_immutable
+                          widget: single_text
+
+                    - property: endsAt
+                      type: date
+                      type_options:
+                          input: datetime_immutable
+                          widget: single_text
+
+                    - property: type
+                      type: choice
+                      type_options:
+                          choices: !php/const User\Subscription\SubscriptionType::TYPES

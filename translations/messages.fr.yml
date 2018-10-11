@@ -55,6 +55,7 @@ admin:
         back_to_site: 'Retour au site'
     menu:
         site: 'Site'
+        users: 'Gestion des utilisateurs'
         types: 'Types de référence'
         transports: 'Transport'
         esterenmaps: Esteren Maps
@@ -152,6 +153,7 @@ Markers: 'Marqueur'
 MarkersTypes: 'Type de marqueur'
 MarkerType: 'Type de marqueur'
 Users: Utilisateurs
+Subscriptions: Souscriptions
 '(Km/h)': '(Km/h)'
 
 actions:
@@ -161,3 +163,5 @@ maps:
     list: Liste des cartes
     view: Voir la carte
     none: Aucune carte
+
+subscription.travels: Souscripteur de "Voyages"
