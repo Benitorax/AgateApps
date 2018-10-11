@@ -44,7 +44,7 @@ class JSMapsControllerTest extends PantherTestCase
 
     public function login(Client $pantherClient, string $host, string $username, string $password): void
     {
-        $crawler = $pantherClient->request('GET', "http://$host:9900/fr/login");
+        $crawler = $pantherClient->request('GET', "http://$host:9080/fr/login");
 
         $form = $crawler->filter('#form_login')->form();
         $form->get('_username_or_email')->setValue($username);
@@ -77,13 +77,13 @@ class JSMapsControllerTest extends PantherTestCase
     public function testMapIndex()
     {
         try {
-            $client = static::createPantherClient('127.0.0.1', 9900);
+            $client = static::createPantherClient();
 
             $this->login($client, 'maps.esteren.docker', 'Pierstoval', 'admin');
 
             $this->screenshot($client, 'login_response');
 
-            $crawler = $client->request('GET', 'http://maps.esteren.docker:9900/fr/map-tri-kazel');
+            $crawler = $client->request('GET', 'http://maps.esteren.docker:9080/fr/map-tri-kazel');
 
             $this->screenshot($client, 'map_view');
 
