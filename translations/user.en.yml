@@ -37,7 +37,7 @@ registration:
             To validate your e-mail address, please <a href="%confirmationUrl%">click this link</a>.
 
             If the link does not work, please copy this URL and paste it in your web browser:
-            %confirmationUrl%
+            <a href="%confirmationUrl%">%confirmationUrl%</a>
 
             This link can be used only once to activate your account
 
@@ -67,7 +67,7 @@ resetting:
             To reset your password, please <a href="%confirmationUrl%">click this link</a>.
 
             If the link does not work, please copy this URL and paste it in your web browser:
-            %confirmationUrl%
+            <a href="%confirmationUrl%">%confirmationUrl%</a>
 
             Regards,
 

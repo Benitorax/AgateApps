@@ -5,15 +5,17 @@ namespace User\Controller\Admin;
 use Admin\Controller\AdminController;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use User\Entity\User;
 use User\Mailer\UserMailer;
 use User\Util\CanonicalizerTrait;
+use User\Util\TokenGeneratorTrait;
 
 class AdminUserController extends AdminController
 {
     use CanonicalizerTrait;
+    use TokenGeneratorTrait;
 
     private $passwordEncoder;
     private $mailer;
@@ -26,10 +28,12 @@ class AdminUserController extends AdminController
         $this->mailer = $mailer;
     }
 
-    public function editAction()
+    protected function initialize(Request $request)
     {
-        throw new AccessDeniedHttpException('Action not available.');
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', 'Only super admins can manage users.');
+        return parent::initialize($request);
     }
+
 
     protected function createEntityFormBuilder($entity, $view)
     {
@@ -58,13 +62,20 @@ class AdminUserController extends AdminController
             ));
         }
 
-        if (!$user->getPlainPassword()) {
+        if (!$hasPassword = $user->getPlainPassword()) {
+            $user->setConfirmationToken($this->generateToken());
             $user->setPlainPassword(\uniqid('', true));
         }
         $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()));
         $user->eraseCredentials();
 
-        dd($user);
+        // Causes the persist + flush
         parent::persistEntity($user);
+
+        if (!$hasPassword) {
+            // With no password, we send a "reset password" email to the user
+            $this->mailer->sendResettingEmailMessage($user);
+        }
+
     }
 }

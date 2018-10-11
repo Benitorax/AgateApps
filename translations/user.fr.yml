@@ -37,7 +37,7 @@ registration:
             Pour valider votre adresse e-mail, merci de <a href="%confirmationUrl%">cliquer sur ce lien</a>.
 
             Si le lien ne fonctionne pas, copiez cette URL et collez-la dans votre navigateur :
-            %confirmationUrl%
+            <a href="%confirmationUrl%">%confirmationUrl%</a>
 
             Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.
 
@@ -67,7 +67,7 @@ resetting:
             Pour réinitialiser votre mot de passe , merci de <a href="%confirmationUrl%">cliquer sur ce lien</a>.
 
             Si le lien ne fonctionne pas, copiez cette URL et collez-la dans votre navigateur :
-            %confirmationUrl%
+            <a href="%confirmationUrl%">%confirmationUrl%</a>
 
             Cordialement,
 
