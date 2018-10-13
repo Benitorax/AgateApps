@@ -10,4 +10,16 @@ stof_doctrine_extensions:
         default:
             uploadable: true
             sluggable: true
+                loggable: true
             timestampable: true
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    gedmo_loggable:
+                        type: annotation
+                        prefix: Gedmo\Loggable\Entity
+                        dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                        is_bundle: false
