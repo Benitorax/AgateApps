@@ -10,7 +10,7 @@ stof_doctrine_extensions:
         default:
             uploadable: true
             sluggable: true
-                loggable: true
+            loggable: true
             timestampable: true
 
 doctrine:
