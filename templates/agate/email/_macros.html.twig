@@ -11,7 +11,7 @@ These macros are used in email templates to avoid redundant recoding of all comp
 
 {# Shows a link as a button #}
 {% macro link_btn(url, text) -%}
-    <a href="{{ url }}" target="_blank" style="display: inline-block; color: #ffffff; background-color: #284a7c; border: solid 1px #236592; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #236592;">
+    <a href="{{ url }}" target="_blank" style="display: inline-block; color: #ffffff; background-color: #284a7c; border: solid 1px #236592; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px;">
         {{- text -}}
     </a>
 {%- endmacro %}
