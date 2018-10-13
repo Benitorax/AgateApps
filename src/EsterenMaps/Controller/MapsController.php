@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MapsController extends Controller
 {
     /**
-     * @Route("/", methods={"GET"}, name="esterenmaps_maps_maps_index")
+     * @Route("/", methods={"GET"}, name="esterenmaps_maps_list")
      */
     public function indexAction(): Response
     {

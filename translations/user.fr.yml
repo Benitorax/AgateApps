@@ -109,3 +109,13 @@ crowdfunding:
     no_project_warning: |
         Nous n'avons aucune information sur vos projects, ou vous n'avez pas encore contribué.<br>
         Vous pouvez synchroniser vos projets si vous avez contribué et que les projets ne sont pas affichés ici.
+
+subscription.email:
+    subscription.esteren_maps.subject: Merci d'avoir souscrit à l'accès à Esteren Maps!
+    subscription.esteren_maps.link: Allez à Esteren Maps
+    subscription.esteren_maps.content: |
+        Cette souscription vous donne l'accès à toutes les fonctionnalités d'Esteren Maps.
+
+        La souscription durera jusqu'à cette date: %end_date%
+
+        Vous pouvez dès à présenter visiter Esteren Maps !

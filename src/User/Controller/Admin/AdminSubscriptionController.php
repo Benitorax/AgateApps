@@ -5,9 +5,17 @@ namespace User\Controller\Admin;
 use Admin\Controller\AdminController;
 use User\Entity\Subscription;
 use User\Entity\User;
+use User\Mailer\SubscriptionMailer;
 
 class AdminSubscriptionController extends AdminController
 {
+    private $mailer;
+
+    public function __construct(SubscriptionMailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
     protected function persistEntity($subscription)
     {
         if (!$subscription instanceof Subscription) {
@@ -19,5 +27,7 @@ class AdminSubscriptionController extends AdminController
 
         // Causes the persist + flush
         parent::persistEntity($subscription);
+
+        $this->mailer->sendNewSubscriptionEmail($subscription);
     }
 }

@@ -3,12 +3,14 @@
 namespace User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use User\Constraint\UniqueSubscription;
 
 /**
  * @ORM\Entity(repositoryClass="User\Repository\SubscriptionRepository")
  * @ORM\Table(name="user_subscriptions")
+ * @Gedmo\Loggable()
  * @UniqueSubscription()
  */
 class Subscription
@@ -61,8 +63,18 @@ class Subscription
      * @Assert\NotBlank()
      * @Assert\DateTime()
      * @Assert\GreaterThanOrEqual("tomorrow")
+     * @Assert\GreaterThanOrEqual(propertyPath="startsAt")
+     *
+     * @Gedmo\Versioned()
      */
     protected $endsAt;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="cancelled_manually", type="boolean", nullable=false, options={"default": "0"})
+     */
+    protected $cancelledManually = false;
 
     public function __construct()
     {
