@@ -24,10 +24,14 @@ class AdminController extends BaseAdminController implements PublicService
 {
     /**
      * @Route("/", name="easyadmin", methods={"GET", "POST", "DELETE"})
-     * {@inheritdoc}
      */
     public function indexAction(Request $request)
     {
         return parent::indexAction($request);
+    }
+
+    protected function redirectToBackendHomepage()
+    {
+        return $this->render('easy_admin/backend_homepage.html.twig');
     }
 }

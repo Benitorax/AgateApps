@@ -11,7 +11,6 @@
 
 namespace Tests\EsterenMaps\Controller\PantherTests;
 
-use PHPUnit\Framework\AssertionFailedError;
 use Symfony\Component\Panther\Client;
 use Symfony\Component\Panther\PantherTestCase;
 use Tests\WebTestCase as PiersTestCase;

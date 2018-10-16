@@ -29,13 +29,8 @@ class DefaultEasyAdminTest extends WebTestCase
 
         $crawler = $client->request('GET', '/fr/');
 
-        static::assertSame(302, $client->getResponse()->getStatusCode(), $crawler->filter('title')->html());
-        static::assertSame('/fr/?action=list&entity=PortalElement', $client->getResponse()->headers->get('Location'));
-
-        $crawler = $client->followRedirect();
-
         static::assertSame(200, $client->getResponse()->getStatusCode(), $crawler->filter('title')->html());
         static::assertSame('EasyAdmin', $crawler->filter('meta[name="generator"]')->attr('content'));
-        static::assertGreaterThanOrEqual(1, $crawler->filter('#main.content .table-responsive tbody tr[data-id]')->count());
+        static::assertSame('', \trim($crawler->filter('#main')->text()));
     }
 }
