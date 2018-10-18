@@ -58,7 +58,7 @@
             {%- for i in 1..5 -%}
                 {%- if character.speed >= i %}●{% else %}<span class="grey-text text-darken-2">o</span>{% endif -%}
             {%- endfor -%}
-            {%- if character.speedBonus -%}&nbsp;&plus;&nbsp;{{ character.speedBonus -}}{%- endif -%}
+            {%- if character.speedBonus -%}&nbsp;{{ character.speedBonus > 0 ? '+' : '-' }}&nbsp;{{ character.speedBonus|abs -}}{%- endif -%}
             &nbsp;&plus;{{ character.baseSpeed }}
             <span class="right text-l">&equals;&nbsp;{{ character.totalSpeed }}</span>
         </h2>
