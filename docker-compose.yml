@@ -47,6 +47,7 @@ services:
             - 8081:80
         links:
             - db
+            - db_legacy
 
     db:
         image: 'mysql:5.7'
