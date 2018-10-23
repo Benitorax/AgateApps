@@ -51,7 +51,7 @@ class MapsController extends Controller
      */
     public function viewAction(Maps $map): Response
     {
-        if (!$this->getUser() || !$this->isGranted(['ROLE_MAPS_VIEW', 'SUBSCRIBED_TO_MAPS_VIEW'])) {
+        if (!$this->getUser() || !$this->isGranted(['ROLE_MAPS_VIEW', 'SUBSCRIBED_TO_MAPS_VIEW', 'ROLE_ADMIN'])) {
             throw $this->createAccessDeniedException('Access denied.');
         }
 
