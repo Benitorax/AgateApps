@@ -43,11 +43,3 @@ easy_admin:
                       help: admin.entities.users.password_help
                       type_options:
                           help: admin.entities.users.password_help
-
-                    - property: roles
-                      type: choice
-                      type_options:
-                          expanded: true
-                          multiple: true
-                          choices:
-                              admin.entities.users.roles.backer_travels: ROLE_BACKER_TRAVELS

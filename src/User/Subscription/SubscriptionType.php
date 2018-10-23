@@ -10,7 +10,7 @@ final class SubscriptionType
         self::ESTEREN_MAPS => self::ESTEREN_MAPS,
     ];
 
-    public const TYPES_ROLES = [
-        self::ESTEREN_MAPS => ['ROLE_MAPS_VIEW'],
+    public const TYPES_PERMISSIONS = [
+        self::ESTEREN_MAPS => ['SUBSCRIBED_TO_MAPS_VIEW'],
     ];
 }

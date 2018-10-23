@@ -142,12 +142,12 @@ class User implements UserInterface, \Serializable, EquatableInterface
         return (string) $this->getUsername();
     }
 
-    public function addRole($role): self
+    public function addRole($role): void
     {
         $role = \mb_strtoupper($role);
 
         if ($role === static::ROLE_DEFAULT) {
-            return $this;
+            return;
         }
 
         if (!\in_array($role, $this->roles, true)) {
@@ -155,8 +155,6 @@ class User implements UserInterface, \Serializable, EquatableInterface
         }
 
         $this->roles = \array_unique($this->roles);
-
-        return $this;
     }
 
     public function getRoles($asObject = false): array

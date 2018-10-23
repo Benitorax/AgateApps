@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("has_role('ROLE_MANAGER')")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class AdminController extends BaseAdminController implements PublicService
 {

@@ -5,6 +5,7 @@ namespace User\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use User\Entity\Subscription;
+use User\Entity\User;
 
 class SubscriptionRepository extends ServiceEntityRepository
 {
@@ -13,14 +14,35 @@ class SubscriptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Subscription::class);
     }
 
-    public function findNotFinishedSimilarSubscriptions(Subscription $subscription): array
+    public function hasSimilarActiveSubscriptions(Subscription $subscription): bool
     {
-        return $this->createQueryBuilder('subscription')
+        $results = $this->createQueryBuilder('subscription')
+            ->select('subscription.id')
             ->where('subscription.user = :user')
             ->andWhere('subscription.type = :type')
+            ->andWhere('subscription.startsAt <= :now')
             ->andWhere('subscription.endsAt >= :now')
             ->setParameter('user', $subscription->getUser())
             ->setParameter('type', $subscription->getType())
+            ->setParameter('now', new \DateTimeImmutable('now'))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return \count($results) > 0;
+    }
+
+    /**
+     * @return Subscription[]
+     */
+    public function getUserActiveSubscriptions(User $user): array
+    {
+        return $this->createQueryBuilder('subscription')
+            ->where('subscription.user = :user')
+            ->andWhere('subscription.startsAt <= :now')
+            ->andWhere('subscription.endsAt >= :now')
+            ->setParameter('user', $user)
             ->setParameter('now', new \DateTimeImmutable('now'))
             ->getQuery()
             ->getResult()

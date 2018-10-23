@@ -28,9 +28,7 @@ class UniqueSubscriptionValidator extends ConstraintValidator
             throw new UnexpectedTypeException($subscription, Subscription::class);
         }
 
-        $similarSubscriptions = $this->repository->findNotFinishedSimilarSubscriptions($subscription);
-
-        if (\count($similarSubscriptions) > 0) {
+        if ($this->repository->hasSimilarActiveSubscriptions($subscription)) {
             $this->context->addViolation('subscriptions.similar_exists');
         }
     }
