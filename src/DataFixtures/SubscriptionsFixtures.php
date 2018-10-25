@@ -26,7 +26,7 @@ class SubscriptionsFixtures extends AbstractFixture implements ORMFixtureInterfa
                 'type' => 'subscription.esteren_maps',
                 'startsAt' => new \DateTimeImmutable(),
                 'endsAt' => new \DateTimeImmutable('next month'),
-            ]
+            ],
         ];
     }
 }

@@ -44,7 +44,7 @@ class User implements UserInterface, \Serializable, EquatableInterface
      * @var string
      * @ORM\Column(name="username", type="string")
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      */
     protected $username;
 
@@ -60,7 +60,7 @@ class User implements UserInterface, \Serializable, EquatableInterface
      *
      * @ORM\Column(name="email", type="string")
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      */
     protected $email;
 

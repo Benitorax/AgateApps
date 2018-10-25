@@ -26,7 +26,7 @@ class SubscriptionVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        return 0 === strpos($attribute, 'SUBSCRIBED_TO_');
+        return 0 === \mb_strpos($attribute, 'SUBSCRIBED_TO_');
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)

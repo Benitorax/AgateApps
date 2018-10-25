@@ -10,8 +10,8 @@ use User\Constraint\UniqueSubscription;
 /**
  * @ORM\Entity(repositoryClass="User\Repository\SubscriptionRepository")
  * @ORM\Table(name="user_subscriptions")
- * @Gedmo\Loggable()
- * @UniqueSubscription()
+ * @Gedmo\Loggable
+ * @UniqueSubscription
  */
 class Subscription
 {
@@ -30,7 +30,7 @@ class Subscription
      * @ORM\ManyToOne(targetEntity="User\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      */
     private $user;
 
@@ -39,7 +39,7 @@ class Subscription
      *
      * @ORM\Column(name="type", type="string", nullable=false)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      * @Assert\Choice(User\Subscription\SubscriptionType::TYPES)
      */
     private $type;
@@ -49,8 +49,8 @@ class Subscription
      *
      * @ORM\Column(name="starts_at", type="date_immutable")
      *
-     * @Assert\NotBlank()
-     * @Assert\DateTime()
+     * @Assert\NotBlank
+     * @Assert\DateTime
      * @Assert\GreaterThanOrEqual("today")
      */
     protected $startsAt;
@@ -60,19 +60,19 @@ class Subscription
      *
      * @ORM\Column(name="ends_at", type="date_immutable")
      *
-     * @Assert\NotBlank()
-     * @Assert\DateTime()
+     * @Assert\NotBlank
+     * @Assert\DateTime
      * @Assert\GreaterThanOrEqual("tomorrow")
      * @Assert\GreaterThanOrEqual(propertyPath="startsAt")
      *
-     * @Gedmo\Versioned()
+     * @Gedmo\Versioned
      */
     protected $endsAt;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="cancelled_manually", type="boolean", nullable=false, options={"default": "0"})
+     * @ORM\Column(name="cancelled_manually", type="boolean", nullable=false, options={"default" = "0"})
      */
     protected $cancelledManually = false;
 

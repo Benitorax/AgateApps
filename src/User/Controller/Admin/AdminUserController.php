@@ -31,9 +31,9 @@ class AdminUserController extends AdminController
     protected function initialize(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', 'Only super admins can manage users.');
+
         return parent::initialize($request);
     }
-
 
     protected function createEntityFormBuilder($entity, $view)
     {
@@ -56,7 +56,7 @@ class AdminUserController extends AdminController
     protected function persistEntity($user)
     {
         if (!$user instanceof User) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new \InvalidArgumentException(\sprintf(
                 'The %s controller can only manage instances of %s, %s given.',
                 __CLASS__, User::class, \is_object($user) ? \get_class($user) : \gettype($user)
             ));
@@ -77,6 +77,5 @@ class AdminUserController extends AdminController
             // With no password, we send a "reset password" email to the user
             $this->mailer->sendResettingEmailMessage($user);
         }
-
     }
 }
