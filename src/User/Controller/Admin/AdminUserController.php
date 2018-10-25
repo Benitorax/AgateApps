@@ -67,6 +67,7 @@ class AdminUserController extends AdminController
             $user->setPlainPassword(\uniqid('', true));
         }
         $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()));
+        $user->setEmailConfirmed(true);
         $user->eraseCredentials();
 
         // Causes the persist + flush
