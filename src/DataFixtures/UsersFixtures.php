@@ -71,6 +71,7 @@ final class UsersFixtures extends AbstractFixture implements OrderedFixtureInter
         $this->passwordEncoder = $this->container->get('security.password_encoder');
 
         $this->fixtureObject($repo, 1, 'Pierstoval', 'pierstoval@gmail.com', 'admin', true);
+        $this->fixtureObject($repo, 2, 'map-subscribed', 'foo@bar.com', 'foobar', false);
 
         $this->manager->flush();
 
@@ -117,7 +118,7 @@ final class UsersFixtures extends AbstractFixture implements OrderedFixtureInter
             $addRef = true;
         }
         if (true === $addRef && $user) {
-            $this->addReference('corahnrin-user-'.$id, $user);
+            $this->addReference('user-'.$user->getUsername(), $user);
         }
     }
 }
