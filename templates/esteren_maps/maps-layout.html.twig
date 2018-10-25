@@ -18,6 +18,11 @@
     </li>
 {% endblock %}
 
+{% block menu_right_content %}
+    <li><a href="{{ path('agate_portal_home') }}">{{ 'menu.main.agate_studio' | trans }}</a></li>
+    {{ parent() }}
+{% endblock %}
+
 {% block footer_about -%}
     <h2>{{ 'footer.about'|trans({}, 'messages') }}</h2>
     <p>{{ 'footer.about_text'|trans|raw }}</p>
