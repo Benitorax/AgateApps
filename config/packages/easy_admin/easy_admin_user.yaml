@@ -39,7 +39,7 @@ easy_admin:
                     - username
                     - email
                     - property: plainPassword
-                      type: text
+                      type: password
                       help: admin.entities.users.password_help
                       type_options:
                           help: admin.entities.users.password_help
