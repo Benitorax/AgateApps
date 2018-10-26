@@ -16,6 +16,7 @@ class ContactMessage
     public const SUBJECT_APPLICATION = 'contact.subject.application';
     public const SUBJECT_AFTER_SALES = 'contact.subject.after_sales';
     public const SUBJECT_CONVENTIONS = 'contact.subject.conventions';
+    public const SUBJECT_ESTEREN_MAPS = 'contact.subject.esteren_maps';
     public const SUBJECT_OTHER = 'contact.subject.other';
 
     public const PRODUCT_RANGE_DRAGONS = 'contact.product_range.dragons';
@@ -28,6 +29,7 @@ class ContactMessage
         self::SUBJECT_APPLICATION => self::SUBJECT_APPLICATION,
         self::SUBJECT_AFTER_SALES => self::SUBJECT_AFTER_SALES,
         self::SUBJECT_CONVENTIONS => self::SUBJECT_CONVENTIONS,
+        self::SUBJECT_ESTEREN_MAPS => self::SUBJECT_ESTEREN_MAPS,
         self::SUBJECT_OTHER => self::SUBJECT_OTHER,
     ];
 
