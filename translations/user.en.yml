@@ -37,7 +37,7 @@ registration:
             To validate your e-mail address, please <a href="%confirmationUrl%">click this link</a>.
 
             If the link does not work, please copy this URL and paste it in your web browser:
-            %confirmationUrl%
+            <a href="%confirmationUrl%">%confirmationUrl%</a>
 
             This link can be used only once to activate your account
 
@@ -67,7 +67,7 @@ resetting:
             To reset your password, please <a href="%confirmationUrl%">click this link</a>.
 
             If the link does not work, please copy this URL and paste it in your web browser:
-            %confirmationUrl%
+            <a href="%confirmationUrl%">%confirmationUrl%</a>
 
             Regards,
 
@@ -110,3 +110,13 @@ crowdfunding:
     no_project_warning: |
         We have no information about your projects, or you did not contribute yet.<br>
         You can synchronize your projects if you have contributed but projects do not show on this page.
+
+subscription.email:
+    subscription.esteren_maps.subject: Thank you for subscribing to Esteren Maps access!
+    subscription.esteren_maps.link: Go to Esteren Maps
+    subscription.esteren_maps.content: |
+        This subscription grants you access to all features of Esteren Maps.
+
+        The subscription ends at: %end_date%
+
+        You can visit Esteren Maps right now!

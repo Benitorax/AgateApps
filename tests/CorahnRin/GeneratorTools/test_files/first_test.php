@@ -271,4 +271,3 @@ return [
         ['value' => 0, 'property_path' => 'experienceSpent'],
     ],
 ];
-

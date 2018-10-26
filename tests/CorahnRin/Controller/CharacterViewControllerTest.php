@@ -27,7 +27,7 @@ class CharacterViewControllerTest extends WebTestCase
      */
     public function testList()
     {
-        $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_MANAGER']);
+        $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 
         $crawler = $client->request('GET', '/fr/characters/');
 
@@ -40,7 +40,7 @@ class CharacterViewControllerTest extends WebTestCase
      */
     public function testView404()
     {
-        $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_MANAGER']);
+        $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 
         $client->request('GET', '/fr/characters/9999999-aaaaaaaa');
 
@@ -52,7 +52,7 @@ class CharacterViewControllerTest extends WebTestCase
      */
     public function testView()
     {
-        $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_MANAGER']);
+        $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 
         /**
          * @var Characters|null

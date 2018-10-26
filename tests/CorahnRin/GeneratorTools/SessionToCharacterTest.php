@@ -38,7 +38,7 @@ class SessionToCharacterTest extends KernelTestCase
 
         $propertyAccessor = static::$propertyAccessor;
 
-        $getValue = function(string $propertyPath) use ($character, $propertyAccessor) {
+        $getValue = function (string $propertyPath) use ($character, $propertyAccessor) {
             return $propertyAccessor->getValue($character, $propertyPath);
         };
 

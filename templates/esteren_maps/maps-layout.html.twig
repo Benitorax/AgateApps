@@ -1,4 +1,6 @@
-{% extends 'esteren/esteren-layout.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'EsterenPortal' %}
 
 {% block menu_left_content %}
     <li>
@@ -14,4 +16,26 @@
             {% endfor %}
         </ul>
     </li>
+{% endblock %}
+
+{% block menu_right_content %}
+    <li><a href="{{ path('agate_portal_home') }}">{{ 'menu.main.agate_studio' | trans }}</a></li>
+    {{ parent() }}
+{% endblock %}
+
+{% block footer_about -%}
+    <h2>{{ 'footer.about'|trans({}, 'messages') }}</h2>
+    <p>{{ 'footer.about_text'|trans|raw }}</p>
+{%- endblock %}
+
+{% block footer_links_content -%}
+    <li><a href="{{ path('agate_portal_home') }}">{{ 'menu.main.agate_studio' | trans }}</a></li>
+    <li><a href="{{ 'footer.esteren_blog_link'|trans }}">{{ 'footer.esteren_blog'|trans }}</a></li>
+    {{ parent() }}
+{%- endblock %}
+
+{% block footer_social_networks_content %}
+    <li><a href="{{ facebook_url }}">Facebook</a></li>
+    <li><a href="https://www.instagram.com/esteren_official/">Instagram</a></li>
+    <li><a href="https://twitter.com/esterenofficiel">Twitter</a></li>
 {% endblock %}

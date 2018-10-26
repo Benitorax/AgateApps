@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MapsController extends Controller
 {
     /**
-     * @Route("/", methods={"GET"}, name="esterenmaps_maps_maps_index")
+     * @Route("/", methods={"GET"}, name="esterenmaps_maps_list")
      */
     public function indexAction(): Response
     {
@@ -51,7 +51,7 @@ class MapsController extends Controller
      */
     public function viewAction(Maps $map): Response
     {
-        if (!$this->isGranted(['ROLE_USER', 'ROLE_MAPS_VIEW']) || !$this->getUser()) {
+        if (!$this->getUser() || !$this->isGranted(['ROLE_MAPS_VIEW', 'SUBSCRIBED_TO_MAPS_VIEW', 'ROLE_ADMIN'])) {
             throw $this->createAccessDeniedException('Access denied.');
         }
 

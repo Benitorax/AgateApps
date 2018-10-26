@@ -29,3 +29,5 @@ user:
         blank: 'Entrez un nom s''il vous plait.'
         short: 'Le nom est trop court.'
         long: 'Le nom est trop long.'
+
+subscriptions.similar_exists: Une autre souscription similaire existe déjà. Veuillez l'annuler si vous souhaitez en créer une, ou vérifiez le formulaire envoyé.

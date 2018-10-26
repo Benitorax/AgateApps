@@ -9,37 +9,8 @@ security:
     # http://symfony.com/doc/current/security.html#hierarchical-roles
     role_hierarchy:
 
-        # Anyone who is a backer from Kickstarter or Ulule.
-        ROLE_BACKER: ROLE_USER
-
-        # A user that can view the map is automatically a user.
-        ROLE_MAPS_VIEW: ROLE_USER
-
-        # Backers "Travels" reedition
-        ROLE_BACKER_TRAVELS:
-            - ROLE_BACKER
-            - ROLE_MAPS_VIEW
-
-        # Content managers (access to backend)
-        ROLE_MANAGER:                   ROLE_USER
-
-        # Maps
-        ROLE_ADMIN_MAPS:                ROLE_MANAGER
-
-        # Character Generator
-        ROLE_ADMIN_GENERATOR:           ROLE_MANAGER
-
-        # Translator
-        ROLE_ADMIN_TRANSLATOR:          ROLE_MANAGER
-
         # Admins
-        ROLE_ADMIN:
-            - ROLE_MANAGER
-            - ROLE_ADMIN_GENERATOR
-            - ROLE_ADMIN_MAPS
-            - ROLE_ADMIN_TRANSLATOR
         ROLE_SUPER_ADMIN:
-            - ROLE_BACKER_TRAVELS
             - ROLE_ADMIN
             - ROLE_ALLOWED_TO_SWITCH
 
@@ -80,6 +51,4 @@ security:
         - { path: '^/(?:%locales_regex%)/register',   role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/(?:%locales_regex%)/resetting',  role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/(?:%locales_regex%)/profile',    role: ROLE_USER }
-        - { path: '^/(?:%locales_regex%)/characters', role: ROLE_USER }
-        - { path: '^/(?:%locales_regex%)/map-.*$',    host: '%esteren_domains.esterenmaps%', role: ROLE_MAPS_VIEW }
-        - { path: '^/',                               host: '%esteren_domains.backoffice%',  role: ROLE_MANAGER }
+        - { path: '^/',                               host: '%esteren_domains.backoffice%',  role: ROLE_ADMIN }

@@ -54,6 +54,8 @@ admin:
     links:
         back_to_site: 'Retour au site'
     menu:
+        site: 'Site'
+        users: 'Gestion des utilisateurs'
         types: 'Types de référence'
         transports: 'Transport'
         esterenmaps: Esteren Maps
@@ -133,6 +135,11 @@ admin:
             altitude: 'Altitude'
             web_icon: 'Icône'
 
+        users:
+            password_help: Laissez vide pour générer un mot de passe aléatoire (recommended)
+            roles:
+                backer_travels: 'Contributeur "Voyages"'
+
 PortalElement: Éléments du portail
 Pages: 'Page'
 ZonesTypes: 'Type de zone'
@@ -145,6 +152,8 @@ Routes: 'Route'
 Markers: 'Marqueur'
 MarkersTypes: 'Type de marqueur'
 MarkerType: 'Type de marqueur'
+Users: Utilisateurs
+Subscriptions: Souscriptions
 '(Km/h)': '(Km/h)'
 
 actions:
@@ -154,3 +163,5 @@ maps:
     list: Liste des cartes
     view: Voir la carte
     none: Aucune carte
+
+subscription.esteren_maps: Accès à Esteren Maps

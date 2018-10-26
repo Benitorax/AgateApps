@@ -69,7 +69,6 @@ class CharAdvantages
         return $object;
     }
 
-
     public function getCharacter(): Characters
     {
         return $this->character;

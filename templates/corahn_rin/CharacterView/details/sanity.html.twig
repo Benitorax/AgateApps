@@ -8,7 +8,7 @@
             {{- 'character.mental_resist'|trans }}&nbsp;:&nbsp;
             {{- character.baseMentalResistance -}}
             {%- if character.mentalResistanceBonus -%}
-                &nbsp;&plus;&nbsp;{{ character.mentalResistanceBonus -}}
+                &nbsp;{{ character.mentalResistanceBonus > 0 ? '+' : '-' }}&nbsp;{{ character.mentalResistanceBonus|abs -}}
                 &nbsp;&equals;&nbsp;{{ character.totalMentalResistance -}}
             {%- endif -%}
         </h3>

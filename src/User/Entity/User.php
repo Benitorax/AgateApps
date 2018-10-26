@@ -17,6 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="User\Repository\UserRepository")
@@ -42,6 +43,8 @@ class User implements UserInterface, \Serializable, EquatableInterface
     /**
      * @var string
      * @ORM\Column(name="username", type="string")
+     *
+     * @Assert\NotBlank
      */
     protected $username;
 
@@ -56,6 +59,8 @@ class User implements UserInterface, \Serializable, EquatableInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string")
+     *
+     * @Assert\NotBlank
      */
     protected $email;
 
@@ -137,12 +142,12 @@ class User implements UserInterface, \Serializable, EquatableInterface
         return (string) $this->getUsername();
     }
 
-    public function addRole($role): self
+    public function addRole($role): void
     {
         $role = \mb_strtoupper($role);
 
         if ($role === static::ROLE_DEFAULT) {
-            return $this;
+            return;
         }
 
         if (!\in_array($role, $this->roles, true)) {
@@ -150,8 +155,6 @@ class User implements UserInterface, \Serializable, EquatableInterface
         }
 
         $this->roles = \array_unique($this->roles);
-
-        return $this;
     }
 
     public function getRoles($asObject = false): array

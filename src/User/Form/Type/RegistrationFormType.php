@@ -13,12 +13,12 @@ namespace User\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use User\Entity\User;
 use User\Util\CanonicalizerTrait;
 
@@ -38,16 +38,17 @@ class RegistrationFormType extends AbstractType
                 'label' => 'form.email',
                 'translation_domain' => 'user',
             ])
-            ->add('emailCanonical', HiddenType::class)
             ->add('username', null, [
                 'label' => 'form.username',
                 'translation_domain' => 'user',
             ])
-            ->add('usernameCanonical', HiddenType::class)
             ->add('plainPassword', PasswordType::class, [
                 'translation_domain' => 'user',
                 'label' => 'form.password',
                 'invalid_message' => 'user.password.mismatch',
+                'constraints' => [
+                    new NotBlank(),
+                ],
             ])
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($canonicalizer) {
                 /** @var User $user */

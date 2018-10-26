@@ -11,7 +11,6 @@
 
 namespace Admin\Controller;
 
-use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Main\DependencyInjection\PublicService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -19,23 +18,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("has_role('ROLE_MANAGER')")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class AdminController extends BaseAdminController implements PublicService
 {
     /**
      * @Route("/", name="easyadmin", methods={"GET", "POST", "DELETE"})
-     * {@inheritdoc}
      */
     public function indexAction(Request $request)
     {
         return parent::indexAction($request);
     }
 
-    protected function joinBooks(QueryBuilder $qb): QueryBuilder
+    protected function redirectToBackendHomepage()
     {
-        $qb->leftJoin('entity.book', 'book')->addSelect('book');
-
-        return $qb;
+        return $this->render('easy_admin/backend_homepage.html.twig');
     }
 }

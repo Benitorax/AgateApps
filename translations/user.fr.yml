@@ -37,7 +37,7 @@ registration:
             Pour valider votre adresse e-mail, merci de <a href="%confirmationUrl%">cliquer sur ce lien</a>.
 
             Si le lien ne fonctionne pas, copiez cette URL et collez-la dans votre navigateur :
-            %confirmationUrl%
+            <a href="%confirmationUrl%">%confirmationUrl%</a>
 
             Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.
 
@@ -67,7 +67,7 @@ resetting:
             Pour réinitialiser votre mot de passe , merci de <a href="%confirmationUrl%">cliquer sur ce lien</a>.
 
             Si le lien ne fonctionne pas, copiez cette URL et collez-la dans votre navigateur :
-            %confirmationUrl%
+            <a href="%confirmationUrl%">%confirmationUrl%</a>
 
             Cordialement,
 
@@ -109,3 +109,13 @@ crowdfunding:
     no_project_warning: |
         Nous n'avons aucune information sur vos projects, ou vous n'avez pas encore contribué.<br>
         Vous pouvez synchroniser vos projets si vous avez contribué et que les projets ne sont pas affichés ici.
+
+subscription.email:
+    subscription.esteren_maps.subject: Merci d'avoir souscrit à l'accès à Esteren Maps!
+    subscription.esteren_maps.link: Allez à Esteren Maps
+    subscription.esteren_maps.content: |
+        Cette souscription vous donne l'accès à toutes les fonctionnalités d'Esteren Maps.
+
+        La souscription durera jusqu'à cette date: %end_date%
+
+        Vous pouvez dès à présenter visiter Esteren Maps !

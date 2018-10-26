@@ -48,12 +48,11 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
         $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 
-        $client->request('GET', "/$locale/");
+        $crawler = $client->request('GET', "/$locale/");
 
-        static::assertSame(302, $client->getResponse()->getStatusCode());
-        static::assertContains("/$locale/?action=list&entity=PortalElement", $client->getResponse()->headers->get('Location'));
-        $client->followRedirect();
-        static::assertSame(200, $client->getResponse()->getStatusCode());
+        static::assertSame(200, $client->getResponse()->getStatusCode(), $crawler->filter('title')->html());
+        static::assertSame('EasyAdmin', $crawler->filter('meta[name="generator"]')->attr('content'));
+        static::assertSame('', \trim($crawler->filter('#main')->text()));
     }
 
     public function testRegisterAndLoginWithoutConfirmingEmail()

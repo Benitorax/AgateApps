@@ -11,7 +11,6 @@
 
 namespace Tests\EsterenMaps\Controller\PantherTests;
 
-use PHPUnit\Framework\AssertionFailedError;
 use Symfony\Component\Panther\Client;
 use Symfony\Component\Panther\PantherTestCase;
 use Tests\WebTestCase as PiersTestCase;
@@ -44,7 +43,8 @@ class JSMapsControllerTest extends PantherTestCase
 
     public function login(Client $pantherClient, string $host, string $username, string $password): void
     {
-        $crawler = $pantherClient->request('GET', "http://$host:9080/fr/login");
+        $port = static::$defaultOptions['port'];
+        $crawler = $pantherClient->request('GET', "http://$host:$port/fr/login");
 
         $form = $crawler->filter('#form_login')->form();
         $form->get('_username_or_email')->setValue($username);
@@ -76,34 +76,20 @@ class JSMapsControllerTest extends PantherTestCase
      */
     public function testMapIndex()
     {
-        try {
-            $client = static::createPantherClient();
+        $client = static::createPantherClient();
 
-            $this->login($client, 'maps.esteren.docker', 'Pierstoval', 'admin');
+        $this->login($client, 'maps.esteren.docker', 'Pierstoval', 'admin');
 
-            $this->screenshot($client, 'login_response');
+        $this->screenshot($client, 'login_response');
 
-            $crawler = $client->request('GET', 'http://maps.esteren.docker:9080/fr/map-tri-kazel');
+        $port = static::$defaultOptions['port'];
+        $crawler = $client->request('GET', "http://maps.esteren.docker:$port/fr/map-tri-kazel");
 
-            $this->screenshot($client, 'map_view');
+        $this->screenshot($client, 'map_view');
 
-            static::assertSame(200, $client->getInternalResponse()->getStatus());
-            static::assertCount(1, $crawler->filter('#map_wrapper'), 'Map link does not redirect to map view, or map view is broken');
-        } catch (\Exception $e) {
-            if ($e instanceof AssertionFailedError) {
-                throw $e;
-            }
-
-            $msg = '';
-
-            $i = 0;
-            do {
-                $msg .= "\n#$i: ".$e->getMessage();
-                $i++;
-            } while ($e = $e->getPrevious());
-
-            $this->markAsRisky();
-            static::markTestSkipped(\sprintf('Panthère test returned error:%s', $msg));
-        }
+        static::assertSame(200, $client->getInternalResponse()->getStatus());
+        $mapWrapper = $crawler->filter('#map_wrapper');
+        static::assertNotEmpty($mapWrapper, 'Map link does not redirect to map view, or map view is broken');
+        static::assertCount(1, $mapWrapper, 'Not the right number of map links on list page');
     }
 }

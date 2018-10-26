@@ -65,7 +65,7 @@ db:
 .PHONY: db
 
 prod-db: ## Installs production database if it has been saved in "var/dump.sql". You have to download it manually.
-prod-db: download-prod-db
+prod-db: var/dump.sql
 	@if [ -f var/dump.sql ]; then \
         $(SYMFONY) doctrine:database:drop --if-exists --force ;\
         $(SYMFONY) doctrine:database:create --if-not-exists ;\
@@ -75,8 +75,8 @@ prod-db: download-prod-db
 		echo "No prod database to process. Download it and save it to var/dump.sql." ;\
 	fi;
 
-download-prod-db: ## Tries to download a database from production environment
-download-prod-db:
+var/dump.sql: ## Tries to download a database from production environment
+var/dump.sql:
 	@if [ "${AGATE_DEPLOY_REMOTE}" = "" ]; then \
 		echo "[ERROR] Please specify the AGATE_DEPLOY_REMOTE env var to connect to a remote" ;\
 		exit 1 ;\
@@ -86,7 +86,6 @@ download-prod-db:
 		exit 1 ;\
 	fi; \
 	ssh ${AGATE_DEPLOY_REMOTE} ${AGATE_DEPLOY_DIR}/../dump_db.bash > var/dump.sql
-.PHONY: download-prod-db
 
 fixtures: ## Install all fixtures in the database
 fixtures:

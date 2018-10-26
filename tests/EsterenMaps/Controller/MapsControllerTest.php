@@ -14,6 +14,7 @@ namespace Tests\EsterenMaps\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Link;
 use Tests\WebTestCase as PiersTestCase;
+use User\Repository\SubscriptionRepository;
 use User\Repository\UserRepository;
 
 class MapsControllerTest extends WebTestCase
@@ -77,7 +78,24 @@ class MapsControllerTest extends WebTestCase
         static::assertSame(403, $res->getStatusCode());
     }
 
-    public function test view while connected is accessible for backer user()
+    public function test view while connected is accessible for admin()
+    {
+        $client = $this->getClient('maps.esteren.docker');
+
+        $user = self::$container->get(UserRepository::class)->findByUsernameOrEmail('pierstoval');
+
+        static::assertNotNull($user);
+        $user->addRole('ROLE_ADMIN');
+        static::setToken($client, $user, $user->getRoles());
+
+        $crawler = $client->request('GET', '/fr/map-tri-kazel');
+        $res = $client->getResponse();
+
+        static::assertSame(200, $res->getStatusCode());
+        static::assertCount(1, $crawler->filter('#map_wrapper'), 'Map link does not redirect to map view, or map view is broken');
+    }
+
+    public function test view while connected is accessible for legacy subscriber user()
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -86,6 +104,25 @@ class MapsControllerTest extends WebTestCase
         static::assertNotNull($user);
         $user->addRole('ROLE_MAPS_VIEW');
         static::setToken($client, $user, $user->getRoles());
+
+        $crawler = $client->request('GET', '/fr/map-tri-kazel');
+        $res = $client->getResponse();
+
+        static::assertSame(200, $res->getStatusCode());
+        static::assertCount(1, $crawler->filter('#map_wrapper'), 'Map link does not redirect to map view, or map view is broken');
+    }
+
+    public function test view while connected is accessible for user with active subscription()
+    {
+        $client = $this->getClient('maps.esteren.docker');
+
+        $user = self::$container->get(UserRepository::class)->findByUsernameOrEmail('map-subscribed');
+        $subscriptions = self::$container->get(SubscriptionRepository::class)->getUserActiveSubscriptions($user);
+
+        static::assertNotNull($user);
+        static::setToken($client, $user, $user->getRoles());
+        static::assertCount(1, $subscriptions);
+        static::assertSame('subscription.esteren_maps', $subscriptions[0]->getType());
 
         $crawler = $client->request('GET', '/fr/map-tri-kazel');
         $res = $client->getResponse();

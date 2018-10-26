@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("has_role('ROLE_MANAGER')")
+ * @Security("has_role('ROLE_ADMIN')")
  * @Route(host="%esteren_domains.backoffice%")
  */
 class EditMapInteractiveController extends AbstractController

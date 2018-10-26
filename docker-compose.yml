@@ -42,11 +42,11 @@ services:
         image: phpmyadmin/phpmyadmin
         environment:
             - PMA_HOSTS=db,db_legacy
-        restart: always
         ports:
             - 8081:80
         links:
             - db
+            - db_legacy
 
     db:
         image: 'mysql:5.7'

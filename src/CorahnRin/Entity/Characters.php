@@ -734,10 +734,6 @@ class Characters extends BaseCharacter
 
     public function setMentalResistanceBonus(int $mentalResistanceBonus): self
     {
-        if ($mentalResistanceBonus < 1) {
-            throw new \InvalidArgumentException('Mental resistance must be equal or superior to zero.');
-        }
-
         $this->mentalResistanceBonus = $mentalResistanceBonus;
 
         return $this;
