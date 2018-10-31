@@ -14,7 +14,7 @@ namespace Tests\EsterenMaps\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Link;
 use Tests\WebTestCase as PiersTestCase;
-use User\Repository\SubscriptionRepository;
+use Subscription\Repository\SubscriptionRepository;
 use User\Repository\UserRepository;
 
 class MapsControllerTest extends WebTestCase

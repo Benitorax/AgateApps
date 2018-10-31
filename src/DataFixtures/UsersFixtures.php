@@ -72,6 +72,7 @@ final class UsersFixtures extends AbstractFixture implements OrderedFixtureInter
 
         $this->fixtureObject($repo, 1, 'Pierstoval', 'pierstoval@gmail.com', 'admin', true);
         $this->fixtureObject($repo, 2, 'map-subscribed', 'foo@bar.com', 'foobar', false);
+        $this->fixtureObject($repo, 3, 'lambda-user', 'foo2@bar.com', 'foobar', false);
 
         $this->manager->flush();
 

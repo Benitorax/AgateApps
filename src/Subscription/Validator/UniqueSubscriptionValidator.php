@@ -1,13 +1,13 @@
 <?php
 
-namespace User\Validator;
+namespace Subscription\Validator;
 
+use Subscription\Constraint\UniqueSubscription;
+use Subscription\Entity\Subscription;
+use Subscription\Repository\SubscriptionRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use User\Constraint\UniqueSubscription;
-use User\Entity\Subscription;
-use User\Repository\SubscriptionRepository;
 
 class UniqueSubscriptionValidator extends ConstraintValidator
 {
@@ -21,7 +21,7 @@ class UniqueSubscriptionValidator extends ConstraintValidator
     public function validate($subscription, Constraint $constraint)
     {
         if (!$constraint instanceof UniqueSubscription) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\UniqueSubscriptionValidator');
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__ . '\UniqueSubscription');
         }
 
         if (!$subscription instanceof Subscription) {

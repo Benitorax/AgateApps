@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace User\Mailer;
+namespace Subscription\Mailer;
 
+use Subscription\Entity\Subscription;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Environment;
-use User\Entity\Subscription;
 
 final class SubscriptionMailer
 {
@@ -30,7 +30,8 @@ final class SubscriptionMailer
         Environment $twig,
         TranslatorInterface $translator,
         string $agateDomain
-    ) {
+    )
+    {
         $this->twig = $twig;
         $this->mailer = $mailer;
         $this->translator = $translator;
@@ -57,11 +58,10 @@ final class SubscriptionMailer
 
         $message
             ->setSubject($this->translator->trans("subscription.email.$type.subject", [], 'user'))
-            ->setFrom('no-reply@'.$this->requestContext->getHost())
+            ->setFrom('no-reply@' . $this->requestContext->getHost())
             ->setContentType('text/html')
             ->setTo($user->getEmail())
-            ->setBody($rendered)
-        ;
+            ->setBody($rendered);
 
         $this->mailer->send($message);
     }

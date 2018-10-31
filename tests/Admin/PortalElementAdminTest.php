@@ -77,8 +77,13 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
             'buttonLink' => '/',
         ];
 
+        $search = [
+            'portal' => 'agate',
+            'locale' => 'en',
+        ];
+
         /** @var PortalElement $entity */
-        $entity = $this->submitData($submitted, $expected, 'new');
+        $entity = $this->submitData($submitted, $expected, $search, 'new');
 
         static::assertRegExp(self::TEMPFILE_REGEX, $entity->getImageUrl(), $entity->getImageUrl());
 
@@ -113,8 +118,13 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
             'buttonLink' => '/',
         ];
 
+        $search = [
+            'portal' => 'esteren',
+            'locale' => 'fr',
+        ];
+
         /** @var PortalElement $entity */
-        $entity = $this->submitData($submitted, $expected, 'edit');
+        $entity = $this->submitData($submitted, $expected, $search, 'edit');
 
         static::assertRegExp(self::TEMPFILE_REGEX, $entity->getImageUrl(), $entity->getImageUrl());
 

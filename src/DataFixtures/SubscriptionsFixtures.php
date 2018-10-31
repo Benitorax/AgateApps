@@ -4,7 +4,7 @@ namespace DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
-use User\Entity\Subscription;
+use Subscription\Entity\Subscription;
 
 class SubscriptionsFixtures extends AbstractFixture implements ORMFixtureInterface
 {

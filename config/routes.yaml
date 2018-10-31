@@ -9,6 +9,13 @@ root:
         _locale: null
     requirements: { _locale: '^(?:%locales_regex%)$' }
 
+main:
+    resource: '../src/Main/Controller/'
+    type: annotation
+    prefix: '/{_locale}/'
+    defaults: { _locale: '%locale%' }
+    requirements: { _locale: '^(?:%locales_regex%)$' }
+
 #
 # User
 #
@@ -26,6 +33,13 @@ user_logout:
 
 user_security:
     resource: '../src/User/Controller/'
+    type: annotation
+    prefix: '/{_locale}/'
+    defaults: { _locale: '%locale%' }
+    requirements: { _locale: '^(?:%locales_regex%)$' }
+
+subscription:
+    resource: '../src/Subscription/Controller/'
     type: annotation
     prefix: '/{_locale}/'
     defaults: { _locale: '%locale%' }

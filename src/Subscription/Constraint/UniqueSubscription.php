@@ -1,9 +1,9 @@
 <?php
 
-namespace User\Constraint;
+namespace Subscription\Constraint;
 
+use Subscription\Validator\UniqueSubscriptionValidator;
 use Symfony\Component\Validator\Constraint;
-use User\Validator\UniqueSubscriptionValidator;
 
 /**
  * @Annotation

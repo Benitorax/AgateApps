@@ -1,14 +1,15 @@
 <?php
 
-namespace User\Entity;
+namespace Subscription\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use User\Constraint\UniqueSubscription;
+use Subscription\Constraint\UniqueSubscription;
+use User\Entity\User;
 
 /**
- * @ORM\Entity(repositoryClass="User\Repository\SubscriptionRepository")
+ * @ORM\Entity(repositoryClass="Subscription\Repository\SubscriptionRepository")
  * @ORM\Table(name="user_subscriptions")
  * @Gedmo\Loggable
  * @UniqueSubscription
@@ -40,7 +41,7 @@ class Subscription
      * @ORM\Column(name="type", type="string", nullable=false)
      *
      * @Assert\NotBlank
-     * @Assert\Choice(User\Subscription\SubscriptionType::TYPES)
+     * @Assert\Choice(Subscription\SubscriptionType::TYPES)
      */
     private $type;
 

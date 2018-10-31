@@ -1,12 +1,12 @@
 <?php
 
-namespace User\Security\Voter;
+namespace Subscription\Security\Voter;
 
+use Subscription\Repository\SubscriptionRepository;
+use Subscription\SubscriptionType;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use User\Entity\User;
-use User\Repository\SubscriptionRepository;
-use User\Subscription\SubscriptionType;
 
 class SubscriptionVoter extends Voter
 {

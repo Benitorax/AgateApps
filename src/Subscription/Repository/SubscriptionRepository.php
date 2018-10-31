@@ -1,10 +1,10 @@
 <?php
 
-namespace User\Repository;
+namespace Subscription\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use User\Entity\Subscription;
+use Subscription\Entity\Subscription;
 use User\Entity\User;
 
 class SubscriptionRepository extends ServiceEntityRepository
@@ -27,8 +27,7 @@ class SubscriptionRepository extends ServiceEntityRepository
             ->setParameter('now', new \DateTimeImmutable('now'))
             ->setMaxResults(1)
             ->getQuery()
-            ->getArrayResult()
-        ;
+            ->getArrayResult();
 
         return \count($results) > 0;
     }
@@ -45,7 +44,6 @@ class SubscriptionRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->setParameter('now', new \DateTimeImmutable('now'))
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 }

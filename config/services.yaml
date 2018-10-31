@@ -93,6 +93,9 @@ services:
     Main\:
         resource: '../src/Main/{Controller,Twig}'
 
+    Subscription\:
+        resource: '../src/Subscription/{Controller,Mailer,Repository,Security,Validator}'
+
     EsterenMaps\Cache\CacheManager:
         tags: [{ name: doctrine.event_subscriber, connection: default }]
 

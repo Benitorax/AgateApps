@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Subscription;
+namespace Subscription;
 
 final class SubscriptionType
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace User\Controller\Admin;
+namespace Subscription\Controller\Admin;
 
 use Admin\Controller\AdminController;
-use User\Entity\Subscription;
+use Subscription\Entity\Subscription;
+use Subscription\Mailer\SubscriptionMailer;
 use User\Entity\User;
-use User\Mailer\SubscriptionMailer;
 
 class AdminSubscriptionController extends AdminController
 {

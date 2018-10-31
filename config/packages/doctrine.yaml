@@ -28,6 +28,12 @@ doctrine:
                 is_bundle: false
                 prefix: User\Entity
                 alias: User
+            Subscription:
+                type: annotation
+                dir: '%kernel.project_dir%/src/Subscription/Entity/'
+                is_bundle: false
+                prefix: Subscription\Entity
+                alias: Subscription
 
         metadata_cache_driver:
             type: service

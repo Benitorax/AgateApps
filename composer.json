@@ -102,6 +102,7 @@
             "Esteren\\": "src/Esteren",
             "EsterenMaps\\": "src/EsterenMaps",
             "Main\\": "src/Main",
+            "Subscription\\": "src/Subscription",
             "User\\": "src/User"
         },
         "classmap": [

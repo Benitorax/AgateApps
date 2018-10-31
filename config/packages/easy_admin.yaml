@@ -1,2 +1,2 @@
 imports:
-    - { resource: easy_admin/ }
+    - { resource: _easy_admin/ }

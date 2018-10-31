@@ -1,9 +1,9 @@
 easy_admin:
     entities:
         Subscriptions:
-            class: User\Entity\Subscription
+            class: Subscription\Entity\Subscription
 
-            controller: User\Controller\Admin\AdminSubscriptionController
+            controller: Subscription\Controller\Admin\AdminSubscriptionController
 
             disabled_actions:
                 - edit
@@ -35,4 +35,4 @@ easy_admin:
                     - property: type
                       type: choice
                       type_options:
-                          choices: !php/const User\Subscription\SubscriptionType::TYPES
+                          choices: !php/const Subscription\SubscriptionType::TYPES
