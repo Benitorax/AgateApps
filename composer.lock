@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7933d530b25082ef8a66eb624635a314",
+    "content-hash": "9cccf1d47998d4502971b33e966b73fc",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.69.1",
+            "version": "3.70.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "975bdc3181d08438174ce70cf25e361e18506242"
+                "reference": "49c563dfdf890ac510f441c9ae5537ffc2de8ccf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/975bdc3181d08438174ce70cf25e361e18506242",
-                "reference": "975bdc3181d08438174ce70cf25e361e18506242",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/49c563dfdf890ac510f441c9ae5537ffc2de8ccf",
+                "reference": "49c563dfdf890ac510f441c9ae5537ffc2de8ccf",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
                 "ext-pcre": "*",
                 "ext-simplexml": "*",
                 "ext-spl": "*",
-                "guzzlehttp/guzzle": "^5.3.1|^6.2.1",
+                "guzzlehttp/guzzle": "^5.3.3|^6.2.1",
                 "guzzlehttp/promises": "~1.0",
                 "guzzlehttp/psr7": "^1.4.1",
                 "mtdowling/jmespath.php": "~2.2",
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-10-05T21:06:02+00:00"
+            "time": "2018-10-30T20:50:23+00:00"
         },
         {
             "name": "behat/transliterator",
@@ -135,16 +135,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "46afded9720f40b9dc63542af4e3e43a1177acb0"
+                "reference": "8afa52cd417f4ec417b4bfe86b68106538a87660"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/46afded9720f40b9dc63542af4e3e43a1177acb0",
-                "reference": "46afded9720f40b9dc63542af4e3e43a1177acb0",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/8afa52cd417f4ec417b4bfe86b68106538a87660",
+                "reference": "8afa52cd417f4ec417b4bfe86b68106538a87660",
                 "shasum": ""
             },
             "require": {
@@ -187,7 +187,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2018-08-08T08:57:40+00:00"
+            "time": "2018-10-18T06:09:13+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -1905,16 +1905,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.47",
+            "version": "1.0.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "a11e4a75f256bdacf99d20780ce42d3b8272975c"
+                "reference": "a6ded5b2f6055e2db97b4b859fdfca2b952b78aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a11e4a75f256bdacf99d20780ce42d3b8272975c",
-                "reference": "a11e4a75f256bdacf99d20780ce42d3b8272975c",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a6ded5b2f6055e2db97b4b859fdfca2b952b78aa",
+                "reference": "a6ded5b2f6055e2db97b4b859fdfca2b952b78aa",
                 "shasum": ""
             },
             "require": {
@@ -1985,7 +1985,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2018-09-14T15:30:29+00:00"
+            "time": "2018-10-15T13:53:10+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -2918,16 +2918,16 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v5.2.1",
+            "version": "v5.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "535b56b7b0325e87b15b9c57bd3631ae2a0b9f16"
+                "reference": "9ef408febe2f12e70118ef61c6515035a06c5830"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/535b56b7b0325e87b15b9c57bd3631ae2a0b9f16",
-                "reference": "535b56b7b0325e87b15b9c57bd3631ae2a0b9f16",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/9ef408febe2f12e70118ef61c6515035a06c5830",
+                "reference": "9ef408febe2f12e70118ef61c6515035a06c5830",
                 "shasum": ""
             },
             "require": {
@@ -2985,24 +2985,25 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2018-09-30T05:16:57+00:00"
+            "time": "2018-10-26T14:09:02+00:00"
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v4.1.8",
+            "version": "v5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "dc270d5fec418cc6ac983671dba5d80ffaffb142"
+                "reference": "9ea927417c949039a9cfb0d92af76fd1c538d9e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/dc270d5fec418cc6ac983671dba5d80ffaffb142",
-                "reference": "dc270d5fec418cc6ac983671dba5d80ffaffb142",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/9ea927417c949039a9cfb0d92af76fd1c538d9e9",
+                "reference": "9ea927417c949039a9cfb0d92af76fd1c538d9e9",
                 "shasum": ""
             },
             "require": {
                 "composer/ca-bundle": "^1.0",
+                "php": ">=5.5.9",
                 "symfony/console": "~2.7|~3.0|~4.0"
             },
             "bin": [
@@ -3011,12 +3012,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "SensioLabs\\Security": ""
+                "psr-4": {
+                    "SensioLabs\\Security\\": "SensioLabs/Security"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3030,7 +3031,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2018-02-28T22:10:01+00:00"
+            "time": "2018-10-16T10:30:44+00:00"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
@@ -5197,16 +5198,16 @@
         },
         {
             "name": "symfony/swiftmailer-bundle",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/swiftmailer-bundle.git",
-                "reference": "7bd5de67552ee3f7e04df89d662d41eba346dc83"
+                "reference": "bd47db86d0b8415f6317c2be149bbacfab11a9cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/7bd5de67552ee3f7e04df89d662d41eba346dc83",
-                "reference": "7bd5de67552ee3f7e04df89d662d41eba346dc83",
+                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/bd47db86d0b8415f6317c2be149bbacfab11a9cf",
+                "reference": "bd47db86d0b8415f6317c2be149bbacfab11a9cf",
                 "shasum": ""
             },
             "require": {
@@ -5255,7 +5256,7 @@
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2018-08-29T08:49:17+00:00"
+            "time": "2018-10-27T16:17:38+00:00"
         },
         {
             "name": "symfony/templating",
@@ -6492,12 +6493,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/panther.git",
-                "reference": "c93fa3caa9f02a7b422f27e5175f35f37ff1f95d"
+                "reference": "eb8d23ce053554297d5dd5e983bdf118f71584d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/panther/zipball/c93fa3caa9f02a7b422f27e5175f35f37ff1f95d",
-                "reference": "c93fa3caa9f02a7b422f27e5175f35f37ff1f95d",
+                "url": "https://api.github.com/repos/symfony/panther/zipball/eb8d23ce053554297d5dd5e983bdf118f71584d5",
+                "reference": "eb8d23ce053554297d5dd5e983bdf118f71584d5",
                 "shasum": ""
             },
             "require": {
@@ -6553,7 +6554,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2018-10-01T11:09:22+00:00"
+            "time": "2018-10-29T21:21:14+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
