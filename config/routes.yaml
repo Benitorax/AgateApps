@@ -12,10 +12,6 @@ root:
 #
 # User
 #
-crowdfunding:
-    resource: '../src/User/Controller/Crowdfunding/'
-    type: annotation
-
 user_login_check:
     path: /{_locale}/login_check
     methods: ['POST']
