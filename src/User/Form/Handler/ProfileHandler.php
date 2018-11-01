@@ -25,19 +25,17 @@ final class ProfileHandler
     private $em;
     private $router;
     private $translator;
-    private $session;
 
     /**
      * @var Request
      */
     private $request;
 
-    public function __construct(ObjectManager $em, RouterInterface $router, TranslatorInterface $translator, Session $session)
+    public function __construct(ObjectManager $em, RouterInterface $router, TranslatorInterface $translator)
     {
         $this->em = $em;
         $this->router = $router;
         $this->translator = $translator;
-        $this->session = $session;
     }
 
     public function handle(Request $request, FormInterface $editProfileForm, FormInterface $ululeConnectForm): ?Response
@@ -97,8 +95,12 @@ final class ProfileHandler
         return null;
     }
 
-    private function addFlash(string $type, string $message)
+    private function addFlash(string $type, string $message): void
     {
-        $this->session->getFlashBag()->add($type, $message);
+        $session = $this->request->getSession();
+
+        if ($session instanceof Session) {
+            $session->getFlashBag()->add($type, $message);
+        }
     }
 }
