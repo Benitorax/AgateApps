@@ -11,9 +11,10 @@
 
 namespace CorahnRin\Command;
 
+use CorahnRin\Data\Ways;
+use CorahnRin\Entity\CharacterProperties\Ways as CharWays;
 use CorahnRin\Entity\Characters;
 use CorahnRin\Entity\Games;
-use CorahnRin\Repository\WaysRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\DBAL\Connection;
@@ -54,22 +55,13 @@ class ImportLegacyCharactersCommand extends Command
     /** @var Games[] */
     private $games = [];
 
-    /** @var Ways[] */
-    private $ways;
-    /**
-     * @var WaysRepository
-     */
-    private $waysRepository;
-
     public function __construct(
         ManagerRegistry $managerRegistry,
-        UserRepository $userManager,
-        WaysRepository $waysRepository
+        UserRepository $userManager
     ) {
         parent::__construct(static::$defaultName);
         $this->managerRegistry = $managerRegistry;
         $this->userManager = $userManager;
-        $this->waysRepository = $waysRepository;
     }
 
     /**
@@ -318,18 +310,15 @@ SQL;
 
     private function processWays(Characters $character, array $jsonCharacter): self
     {
-        $ways = $this->ways ?: ($this->ways = $this->waysRepository->findAll('id'));
+        $waysObject = new CharWays(
+            $jsonCharacter['voies'][1]['val'],
+            $jsonCharacter['voies'][2]['val'],
+            $jsonCharacter['voies'][3]['val'],
+            $jsonCharacter['voies'][4]['val'],
+            $jsonCharacter['voies'][5]['val']
+        );
 
-        foreach ($jsonCharacter['voies'] as $id => $voie) {
-            if (\array_key_exists($id, $ways)) {
-                /** @var Ways $way */
-                $way = $ways[$id];
-            } else {
-                throw new \RuntimeException('Cannot find way id "'.$id.'".');
-            }
-
-            new CharWays($character, $way, $voie['val']);
-        }
+        $character->setWay($waysObject);
 
         return $this;
     }

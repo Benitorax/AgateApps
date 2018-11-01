@@ -130,20 +130,4 @@ class Books
     {
         return $this->description;
     }
-
-    /**
-     * Set created.
-     *
-     * @param \DateTime $created
-     *
-     * @return Books
-     *
-     * @codeCoverageIgnore
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
 }

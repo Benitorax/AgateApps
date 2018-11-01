@@ -91,7 +91,7 @@ class MapsTilesManager
             // Détermine la taille de l'image initiale une fois et place les attributs dans l'objet
             $size = \getimagesize($this->map->getImage());
             if (!$size || !isset($size[0], $size[1])) {
-                throw new \RunTimeException('Error while retrieving map dimensions');
+                throw new \RuntimeException('Error while retrieving map dimensions');
             }
             [$w, $h] = $size;
             $this->imgWidth = $w;

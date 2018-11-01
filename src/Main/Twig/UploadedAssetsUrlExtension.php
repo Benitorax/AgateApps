@@ -19,7 +19,7 @@ class UploadedAssetsUrlExtension extends AbstractExtension
     private $awsRegion;
     private $awsBucket;
 
-    public function __construct(bool $debug, string $awsRegion, string $awsBucket)
+    public function __construct(string $awsRegion, string $awsBucket)
     {
         $this->awsRegion = $awsRegion;
         $this->awsBucket = $awsBucket;

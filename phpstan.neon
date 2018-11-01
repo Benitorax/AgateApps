@@ -1,3 +1,11 @@
 parameters:
+    level: 1
+    paths:
+        - %rootDir%/../../../src/
+        - %rootDir%/../../../tests/
     autoload_files:
         - vendor/bin/.phpunit/phpunit-6.5/vendor/autoload.php
+    excludes_analyse:
+        - %rootDir%/../../../src/Migrations
+        - %rootDir%/../../../src/DataFixtures/Internal
+        - %rootDir%/../../../src/CorahnRin/PDF

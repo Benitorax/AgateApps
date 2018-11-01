@@ -41,7 +41,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityRepository;
 use EsterenMaps\Entity\Zones;
-use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Pierstoval\Bundle\CharacterManagerBundle\Resolver\StepResolverInterface;
 
 final class SessionToCharacter
@@ -133,7 +132,7 @@ final class SessionToCharacter
     /**
      * @param string $class
      *
-     * @return EntityRepository|ObjectRepository|EntityRepositoryHelperTrait
+     * @return EntityRepository|ObjectRepository
      */
     private function getRepository($class)
     {

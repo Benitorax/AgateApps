@@ -19,6 +19,7 @@ class S3Client
     private $region;
     private $bucket;
     private $key;
+    private $secret;
 
     /** @var AwsS3Client */
     private $client;
