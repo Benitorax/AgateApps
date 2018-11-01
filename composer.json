@@ -70,6 +70,9 @@
     "require-dev": {
         "ext-zip": "*",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "phpstan/phpstan": "^0.10.5",
+        "phpstan/phpstan-doctrine": "^0.10.0",
+        "phpstan/phpstan-symfony": "^0.10.2",
         "pierstoval/web-test-case": "^0.2.0",
         "pyrech/composer-changelogs": "^1.6",
         "symfony/browser-kit": "^4.1",
