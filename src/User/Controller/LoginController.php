@@ -25,14 +25,11 @@ class LoginController extends AbstractController
     /**
      * @Route("/login", name="user_login", methods={"GET", "POST"})
      */
-    public function loginAction(Request $request)
+    public function loginAction(Request $request, Session $session)
     {
         if ($this->getUser() instanceof User) {
             return $this->redirect('/'.$request->getLocale().'/');
         }
-
-        /** @var $session Session */
-        $session = $request->getSession();
 
         $error = null;
         $authErrorKey = Security::AUTHENTICATION_ERROR;

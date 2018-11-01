@@ -142,7 +142,7 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     {
         $user = $userProvider->loadUserByUsername($credentials->getUsernameOrEmail());
 
-        if (!$user) {
+        if (!$user instanceof User) {
             throw new AuthenticationException('security.bad_credentials');
         }
 

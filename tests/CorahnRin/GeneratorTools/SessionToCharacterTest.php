@@ -71,9 +71,7 @@ class SessionToCharacterTest extends KernelTestCase
             static::bootKernel();
         }
 
-        return static::$kernel
-            ->getContainer()
-            ->get('test.service_container')
+        return static::$container
             ->get(SessionToCharacter::class)
         ;
     }

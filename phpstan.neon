@@ -1,3 +1,7 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+
 parameters:
     level: 1
     paths:
@@ -9,3 +13,5 @@ parameters:
         - %rootDir%/../../../src/Migrations
         - %rootDir%/../../../src/DataFixtures/Internal
         - %rootDir%/../../../src/CorahnRin/PDF
+    symfony:
+        container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml

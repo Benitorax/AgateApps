@@ -16,26 +16,28 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use User\Entity\User;
 
 final class ProfileHandler
 {
     private $em;
     private $router;
     private $translator;
+    private $session;
 
     /**
      * @var Request
      */
     private $request;
 
-    public function __construct(ObjectManager $em, RouterInterface $router, TranslatorInterface $translator)
+    public function __construct(ObjectManager $em, RouterInterface $router, TranslatorInterface $translator, Session $session)
     {
         $this->em = $em;
         $this->router = $router;
         $this->translator = $translator;
+        $this->session = $session;
     }
 
     public function handle(Request $request, FormInterface $editProfileForm, FormInterface $ululeConnectForm): ?Response
@@ -97,6 +99,6 @@ final class ProfileHandler
 
     private function addFlash(string $type, string $message)
     {
-        $this->request->getSession()->getFlashBag()->add($type, $message);
+        $this->session->getFlashBag()->add($type, $message);
     }
 }
