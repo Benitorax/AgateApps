@@ -37,13 +37,13 @@ class DirectionsManagerTest extends WebTestCase
     {
         static::resetDatabase();
 
-        static::bootKernel();
+        $client = $this->getClient('maps.esteren.docker', [], ['ROLE_MAPS_VIEW']);
         $container = static::$container;
 
         $em = $container->get(EntityManagerInterface::class);
 
-        /** @var ApiDirectionsController $directions */
-        $directions = $container->get(ApiDirectionsController::class);
+        /** @var ApiDirectionsController $directionsController */
+        $directionsController = $container->get(ApiDirectionsController::class);
 
         /** @var Maps $map */
         $map = $em->getRepository(Maps::class)->findOneBy(['nameSlug' => $map]);
@@ -56,18 +56,16 @@ class DirectionsManagerTest extends WebTestCase
         /** @var Markers $to */
         $to = $markersRepo->find($to);
 
-        $request = new Request();
-        $request->headers->addCacheControlDirective('no-cache');
-        $request->query->set('hours_per_day', 7);
+        $queryString = 'hours_per_day=7';
 
         if ($transport) {
             $transport = $em->getRepository(TransportTypes::class)->findOneBy(['slug' => $transport]);
-            $request->query->set('transport', $transport->getId());
+            $queryString .= '&transport='.$transport->getId();
         }
 
-        $response = $directions->getDirectionsAction($map, $from, $to, $request);
+        $client->request('GET', \sprintf('/fr/api/maps/directions/%d/%d/%d?%s', $map->getId(), $from->getId(), $to->getId(), $queryString));
 
-        $dirs = \json_decode($response->getContent(), true);
+        $dirs = \json_decode($client->getResponse()->getContent(), true);
 
         foreach ($expectedData as $key => $expectedValue) {
             static::assertArrayHasKey($key, $dirs);

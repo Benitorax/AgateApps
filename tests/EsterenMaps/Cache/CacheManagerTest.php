@@ -23,7 +23,7 @@ class CacheManagerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function testdUpdatingRouteShouldClearMapsCache()
+    public function test updating route should clear maps cache()
     {
         static::resetDatabase();
 
@@ -35,7 +35,7 @@ class CacheManagerTest extends WebTestCase
 
         $coordinates = '[{"lat":0,"lng":0},{"lat":10,"lng":10},{"lat":5,"lng":5},{"lat":0,"lng":5},{"lat":0,"lng":10}]';
 
-        $client = $this->getClient('api.esteren.docker', [], ['ROLE_ADMIN']);
+        $client = $this->getClient('back.esteren.docker', [], ['ROLE_ADMIN']);
         $client->enableProfiler();
 
         /** @var Routes $route */
@@ -47,7 +47,7 @@ class CacheManagerTest extends WebTestCase
         /*
          * Here we only change coordinates for greater distance.
          */
-        $client->request('POST', "/fr/routes/$routeId", [], [], [], \json_encode(
+        $client->request('POST', "/fr/api/routes/$routeId", [], [], [], \json_encode(
             [
                 'map' => $route->getMap()->getId(),
                 'name' => $route->getName(),
@@ -65,6 +65,7 @@ class CacheManagerTest extends WebTestCase
 
         $profile = $client->getProfile();
 
+        $em->clear();
         $route = $em->find(Routes::class, $routeId);
         static::assertNotNull($route);
         static::assertSame($coordinates, $route->getCoordinates());

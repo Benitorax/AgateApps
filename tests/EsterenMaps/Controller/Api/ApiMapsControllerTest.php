@@ -153,11 +153,11 @@ class ApiMapsControllerTest extends WebTestCase
 
     private function getMapData()
     {
-        $client = $this->getClient('api.esteren.docker');
+        $client = $this->getClient('maps.esteren.docker');
 
         static::setToken($client, 'map_allowed', ['ROLE_MAPS_VIEW']);
 
-        $client->request('GET', '/fr/maps/1');
+        $client->request('GET', '/fr/api/maps/1');
 
         $response = $client->getResponse();
         static::assertSame(200, $response->getStatusCode());

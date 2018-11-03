@@ -49,7 +49,7 @@ class ApiDirectionsController extends AbstractController
     }
 
     /**
-     * @Route("/maps/directions/{id}/{from}/{to}",
+     * @Route("/api/maps/directions/{id}/{from}/{to}",
      *     name="esterenmaps_directions",
      *     requirements={"id" = "\d+", "from" = "\d+", "to" = "\d+"},
      *     methods={"GET"}

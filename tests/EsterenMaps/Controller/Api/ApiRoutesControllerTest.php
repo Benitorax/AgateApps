@@ -22,7 +22,7 @@ class ApiRoutesControllerTest extends WebTestCase
     {
         static::resetDatabase();
 
-        $client = $this->getClient('api.esteren.docker', [], 'ROLE_ADMIN');
+        $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 
         $data = [
             'name' => 'Test name',
@@ -37,7 +37,7 @@ class ApiRoutesControllerTest extends WebTestCase
             'faction' => null,
         ];
 
-        $client->request('POST', '/fr/routes', [], [], [], \json_encode($data));
+        $client->request('POST', '/fr/api/routes', [], [], [], \json_encode($data));
 
         static::assertSame(200, $client->getResponse()->getStatusCode());
         static::assertSame('application/json', $client->getResponse()->headers->get('Content-Type'));
@@ -52,9 +52,9 @@ class ApiRoutesControllerTest extends WebTestCase
     {
         static::resetDatabase();
 
-        $client = $this->getClient('api.esteren.docker', [], 'ROLE_ADMIN');
+        $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 
-        $client->request('POST', '/fr/routes', [], [], [], '[]');
+        $client->request('POST', '/fr/api/routes', [], [], [], '[]');
 
         static::assertSame(400, $client->getResponse()->getStatusCode());
         static::assertSame('application/json', $client->getResponse()->headers->get('Content-Type'));
@@ -76,7 +76,7 @@ class ApiRoutesControllerTest extends WebTestCase
     {
         static::resetDatabase();
 
-        $client = $this->getClient('api.esteren.docker', [], 'ROLE_ADMIN');
+        $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 
         $dataToSend = [
             'name' => 'Test name',
@@ -91,7 +91,7 @@ class ApiRoutesControllerTest extends WebTestCase
             'faction' => 9999999999,
         ];
 
-        $client->request('POST', '/fr/routes', [], [], [], \json_encode($dataToSend));
+        $client->request('POST', '/fr/api/routes', [], [], [], \json_encode($dataToSend));
 
         static::assertSame(400, $client->getResponse()->getStatusCode());
         static::assertSame('application/json', $client->getResponse()->headers->get('Content-Type'));
