@@ -15,10 +15,10 @@ use EsterenMaps\Api\MapApi;
 use Main\DependencyInjection\PublicService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ApiMapsController implements PublicService
 {
@@ -54,7 +54,7 @@ class ApiMapsController implements PublicService
         }
 
         if (!$this->security->isGranted(['ROLE_MAPS_VIEW', 'SUBSCRIBED_TO_MAPS_VIEW', 'ROLE_ADMIN'])) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         }
 
         $response = new JsonResponse();
