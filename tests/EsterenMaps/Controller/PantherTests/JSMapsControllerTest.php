@@ -53,11 +53,6 @@ class JSMapsControllerTest extends PantherTestCase
         $pantherClient->submit($form);
     }
 
-    public function __toString()
-    {
-        return $this->toString();
-    }
-
     protected function screenshot(Client $client, string $suffix)
     {
         $normalizedMethod = \preg_replace(
