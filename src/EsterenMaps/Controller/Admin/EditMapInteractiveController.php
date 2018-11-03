@@ -36,7 +36,7 @@ class EditMapInteractiveController extends AbstractController
     /**
      * @Route("/maps/edit-interactive/{id}", name="admin_esterenmaps_maps_maps_editInteractive", methods={"GET"})
      */
-    public function editAction(Request $request, Maps $map): Response
+    public function __invoke(Request $request, Maps $map): Response
     {
         if (\count($request->query->all())) {
             // To avoid polluting the URL with useless query string.

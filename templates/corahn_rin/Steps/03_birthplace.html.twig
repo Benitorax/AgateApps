@@ -30,13 +30,13 @@
     d._map_params = {
         id: {{ map.id }},
         apiUrls:                 {
-            map:        "{{ url('maps_api_maps_get', {"id": map.id}) }}",
+            map:        "{{ url('api_maps_corahn_rin', {"id": map.id}) }}",
             directions: "{{ url('esterenmaps_directions', {
                 "id": map.id,
                 'from': '9999',
                 'to': '8888'
             })|replace({'9999': '{from}', '8888': '{to}'}) }}",
-            tiles:      "{{ app.request.scheme }}://{{ esteren_domains_api }}{{ app.request.port != 80 ? (':'~app.request.port) }}{{ asset('maps_tiles/'~map.id~'/{z}/{y}/{x}.jpg') }}"
+            tiles:      "{{ app.request.scheme }}://{{ esteren_domains_esterenmaps }}{{ app.request.port not in [80, 443] ? (':'~app.request.port) }}{{ asset('maps_tiles/'~map.id~'/{z}/{y}/{x}.jpg') }}"
         },
         loadCallback: function () {
             {% if region_value %}

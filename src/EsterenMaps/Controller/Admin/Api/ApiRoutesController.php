@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace EsterenMaps\Controller\Api;
+namespace EsterenMaps\Controller\Admin\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Api\RouteApi;
@@ -24,9 +24,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-/**
- * @Route(host="%esteren_domains.api%")
- */
 class ApiRoutesController implements PublicService
 {
     use ApiValidationTrait;
@@ -46,7 +43,13 @@ class ApiRoutesController implements PublicService
     }
 
     /**
-     * @Route("/routes", name="maps_api_routes_create", methods={"POST"}, defaults={"_format" = "json"})
+     * @Route(
+     *     "/api/routes",
+     *     name="maps_api_routes_create",
+     *     methods={"POST"},
+     *     defaults={"_format" = "json"},
+     *     host="%esteren_domains.backoffice%"
+     * )
      */
     public function create(Request $request): Response
     {
@@ -64,7 +67,13 @@ class ApiRoutesController implements PublicService
     }
 
     /**
-     * @Route("/routes/{id}", name="maps_api_routes_update", methods={"POST"}, defaults={"_format" = "json"})
+     * @Route(
+     *     "/api/routes/{id}",
+     *     name="maps_api_routes_update",
+     *     methods={"POST"},
+     *     defaults={"_format" = "json"},
+     *     host="%esteren_domains.backoffice%"
+     * )
      */
     public function update(Routes $route, Request $request): Response
     {

@@ -19,29 +19,33 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 
-/**
- * @Route(host="%esteren_domains.api%")
- */
 class ApiDirectionsController extends AbstractController
 {
     private $versionCode;
     private $transportTypesRepository;
     private $directionsManager;
     private $translator;
+    /**
+     * @var array
+     */
+    private $mapsAcceptableHosts;
 
     public function __construct(
         string $versionCode,
         TransportTypesRepository $transportTypesRepository,
         DirectionsManager $directionsManager,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        array  $mapsAcceptableHosts
     ) {
         $this->versionCode = $versionCode;
         $this->transportTypesRepository = $transportTypesRepository;
         $this->directionsManager = $directionsManager;
         $this->translator = $translator;
+        $this->mapsAcceptableHosts = $mapsAcceptableHosts;
     }
 
     /**
@@ -53,8 +57,16 @@ class ApiDirectionsController extends AbstractController
      * @ParamConverter(name="from", class="EsterenMaps\Entity\Markers", options={"id" = "from"})
      * @ParamConverter(name="to", class="EsterenMaps\Entity\Markers", options={"id" = "to"})
      */
-    public function getDirectionsAction(Maps $map, Markers $from, Markers $to, Request $request): JsonResponse
+    public function __invoke(Maps $map, Markers $from, Markers $to, Request $request): JsonResponse
     {
+        if (!\in_array($request->getHost(), $this->mapsAcceptableHosts, true)) {
+            throw new NotFoundHttpException();
+        }
+
+        if (!$this->isGranted(['ROLE_MAPS_VIEW', 'SUBSCRIBED_TO_MAPS_VIEW', 'ROLE_ADMIN'])) {
+            throw $this->createAccessDeniedException();
+        }
+
         $transportId = $request->query->get('transport');
         $transport = $this->transportTypesRepository->findOneBy(['id' => $transportId]);
 

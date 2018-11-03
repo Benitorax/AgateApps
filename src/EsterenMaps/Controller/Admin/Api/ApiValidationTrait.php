@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace EsterenMaps\Controller\Api;
+namespace EsterenMaps\Controller\Admin\Api;
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

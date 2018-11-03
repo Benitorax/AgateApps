@@ -55,8 +55,8 @@
                         'from': '9999',
                         'to': '8888'
                     })|replace({'9999': '{from}', '8888': '{to}'}) }}",
-                    tiles: "{{ app.request.scheme }}://{{ esteren_domains_api }}{{ app.request.port != 80 ? (':'~app.request.port) }}{{ asset('maps_tiles/'~map.id~'/{z}/{y}/{x}.jpg') }}",
-                    endpoint: "{{ app.request.scheme }}://{{ esteren_domains_api }}{{ app.request.port != 80 ? (':'~app.request.port) }}/{{ app.request.locale }}"
+                    tiles: "{{ app.request.scheme }}://{{ esteren_domains_api }}{{ app.request.port not in [80, 443] ? (':'~app.request.port) }}{{ asset('maps_tiles/'~map.id~'/{z}/{y}/{x}.jpg') }}",
+                    endpoint: "{{ app.request.scheme }}://{{ esteren_domains_backoffice }}{{ app.request.port not in [80, 443] ? (':'~app.request.port) }}/{{ app.request.locale }}/api"
                 },
                 LeafletMapBaseOptions: {
                     zoom: {{ map.startZoom }},

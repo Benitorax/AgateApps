@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace EsterenMaps\Controller\Api;
+namespace EsterenMaps\Controller\Admin\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
-use EsterenMaps\Api\ZoneApi;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Api\MarkerApi;
+use EsterenMaps\Entity\Markers;
 use Main\DependencyInjection\PublicService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,29 +24,32 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-/**
- * @Route(host="%esteren_domains.api%")
- */
-class ApiZonesController implements PublicService
+class ApiMarkersController implements PublicService
 {
     use ApiValidationTrait;
 
     private $security;
     private $em;
-    private $zoneApi;
+    private $markerApi;
 
     public function __construct(
         AuthorizationCheckerInterface $security,
-        ZoneApi $zoneApi,
+        MarkerApi $markerApi,
         EntityManagerInterface $em
     ) {
         $this->security = $security;
         $this->em = $em;
-        $this->zoneApi = $zoneApi;
+        $this->markerApi = $markerApi;
     }
 
     /**
-     * @Route("/zones", name="maps_api_zones_create", methods={"POST"}, defaults={"_format" = "json"})
+     * @Route(
+     *     "/api/markers",
+     *     name="maps_api_markers_create",
+     *     methods={"POST"},
+     *     defaults={"_format" = "json"},
+     *     host="%esteren_domains.backoffice%"
+     * )
      */
     public function create(Request $request): Response
     {
@@ -55,42 +58,48 @@ class ApiZonesController implements PublicService
         }
 
         try {
-            $zone = Zones::fromApi($this->zoneApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
+            $marker = Markers::fromApi($this->markerApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
 
-            return $this->handleResponse($this->validate($zone), $zone);
+            return $this->handleResponse($this->validate($marker), $marker);
         } catch (HttpException $e) {
             return $this->handleException($e);
         }
     }
 
     /**
-     * @Route("/zones/{id}", name="maps_api_zones_update", methods={"POST"}, defaults={"_format" = "json"})
+     * @Route(
+     *     "/api/markers/{id}",
+     *     name="maps_api_markers_update",
+     *     methods={"POST"},
+     *     defaults={"_format" = "json"},
+     *     host="%esteren_domains.backoffice%"
+     * )
      */
-    public function update(Zones $zone, Request $request): Response
+    public function update(Markers $marker, Request $request): Response
     {
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
 
         try {
-            $zone->updateFromApi($this->zoneApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
+            $marker->updateFromApi($this->markerApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
 
-            return $this->handleResponse($this->validate($zone), $zone);
+            return $this->handleResponse($this->validate($marker), $marker);
         } catch (HttpException $e) {
             return $this->handleException($e);
         }
     }
 
-    private function handleResponse(array $messages, Zones $zone): Response
+    private function handleResponse(array $messages, Markers $marker): Response
     {
         if (\count($messages) > 0) {
             throw new BadRequestHttpException(\json_encode($messages, JSON_PRETTY_PRINT));
         }
 
-        $this->em->persist($zone);
+        $this->em->persist($marker);
         $this->em->flush();
 
-        return new JsonResponse($zone, 200);
+        return new JsonResponse($marker, 200);
     }
 
     private function handleException(HttpException $exception): Response

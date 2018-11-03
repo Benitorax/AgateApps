@@ -16,6 +16,9 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
 use EsterenMaps\Entity\TransportTypes;
 
+/**
+ * @method TransportTypes|null findOneBy(array $criteria, array $orderBy = null)
+ */
 class TransportTypesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

@@ -40,7 +40,7 @@
                             'from': '9999',
                             'to': '8888'
                         })|replace({'9999': '{from}', '8888': '{to}'}) }}",{#
-                        #}tiles: "{{ app.request.scheme }}://{{ esteren_domains_api }}{{ app.request.port ? (':'~app.request.port) }}{{ asset('maps_tiles/'~map.id~'/{z}/{y}/{x}.jpg') }}"{#
+                        #}tiles: "{{ app.request.scheme }}://{{ esteren_domains_api }}{{ app.request.port not in [80, 443] ? (':'~app.request.port) }}{{ asset('maps_tiles/'~map.id~'/{z}/{y}/{x}.jpg') }}"{#
                     #}},{#
                     #}LeafletMapBaseOptions: { {#
                         #}zoom: {{ map.startZoom }},{#

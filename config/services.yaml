@@ -66,6 +66,7 @@ services:
             $agateDomain:     '%env(AGATE_DOMAIN)%'
             $kernelEnvironment: '%kernel.environment%'
             $doctrineResultCache: '@doctrine.result_cache_provider'
+            $mapsAcceptableHosts: ['%esteren_domains.esterenmaps%', '%esteren_domains.corahnrin%']
             $corahnRinManagerName: '%corahnrin_manager_name%'
             $enableContactCaptcha: '%enable_contact_captcha%'
     _instanceof:
