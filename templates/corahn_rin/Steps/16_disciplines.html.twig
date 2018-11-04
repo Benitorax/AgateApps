@@ -40,8 +40,10 @@
 
                 <div class="col s3">
                     {% set input_id = 'dse_'~domain_id~'_'~id %}
-                    <input type="checkbox" id="{{ input_id }}" name="disciplines_spend_exp[{{ domain_id }}][{{ id }}]" data-discipline-id="{{ id }}" data-domain-id="{{ domain_id }}" class="filled-in" {{ value ? ' checked' }}>
-                    <label for="{{ input_id }}">{{ discipline.name }}</label>
+                    <label for="{{ input_id }}">
+                        <input type="checkbox" id="{{ input_id }}" name="disciplines_spend_exp[{{ domain_id }}][{{ id }}]" data-discipline-id="{{ id }}" data-domain-id="{{ domain_id }}" class="filled-in" {{ value ? ' checked' }}>
+                        <span>{{ discipline.name }}</span>
+                    </label>
                 </div>
 
             {% endfor %}

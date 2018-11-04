@@ -17,8 +17,10 @@
         <div class="row">
             {% for id, weapon in weapons %}
                 <div class="col s3">
-                    <input type="checkbox" id="weapon_{{ id }}" name="weapons[{{ id }}]"{{ selected_weapons[id] is defined ? ' checked' }} value="{{ id }}">
-                    <label for="weapon_{{ id }}">{{ weapon.name }}</label>
+                    <label for="weapon_{{ id }}">
+                        <input type="checkbox" id="weapon_{{ id }}" name="weapons[{{ id }}]"{{ selected_weapons[id] is defined ? ' checked' }} value="{{ id }}">
+                        <span>{{ weapon.name }}</span>
+                    </label>
                 </div>
             {% endfor %}
         </div>
@@ -29,8 +31,10 @@
         <div class="row">
             {% for id, armor in armors %}
                 <div class="col s3">
-                    <input type="checkbox" id="armor_{{ id }}" name="armors[{{ id }}]"{{ selected_armors[id] is defined ? ' checked'  }} value="{{ id }}">
-                    <label for="armor_{{ id }}">{{ armor.name }}</label>
+                    <label for="armor_{{ id }}">
+                        <input type="checkbox" id="armor_{{ id }}" name="armors[{{ id }}]"{{ selected_armors[id] is defined ? ' checked'  }} value="{{ id }}">
+                        <span>{{ armor.name }}</span>
+                    </label>
                 </div>
             {% endfor %}
         </div>

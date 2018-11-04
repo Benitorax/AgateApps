@@ -34,8 +34,10 @@
             {% set value = character_combat_arts[id]|default(0) %}
             <div>
                 {% set input_id = 'combat_art_'~id %}
-                <input type="checkbox" id="{{ input_id }}" name="combat_arts_spend_exp[{{ id }}]" data-combat-art-id="{{ id }}" class="filled-in" {{ value ? ' checked' }}>
-                <label for="{{ input_id }}">{{ combat_art.name }}</label>
+                <label for="{{ input_id }}">
+                    <input type="checkbox" id="{{ input_id }}" name="combat_arts_spend_exp[{{ id }}]" data-combat-art-id="{{ id }}" class="filled-in" {{ value ? ' checked' }}>
+                    <span>{{ combat_art.name }}</span>
+                </label>
             </div>
         {% endfor %}
 
