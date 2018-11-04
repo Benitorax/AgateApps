@@ -78,8 +78,13 @@
     </testsuites>
 
     <listeners>
+        <listener class="Symfony\Component\Panther\ServerListener" />
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
+
+    <extensions>
+        <extension class="Symfony\Component\Panther\ServerExtension" />
+    </extensions>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
