@@ -89,10 +89,12 @@
                     node.setAttribute('style', listsElementsStyles);
                     node.innerHTML =
                         '<div>'
-                            +'<input id="markerType'+markerType.id+'" type="checkbox" class="leaflet-filter-checkbox" checked="checked" />'
                             +'<label for="markerType'+markerType.id+'">'
+                                +'<input id="markerType'+markerType.id+'" type="checkbox" class="leaflet-filter-checkbox" checked="checked" />'
+                                +'<span>'
                                 +'<img src="'+markerType.icon+'" class="ib" style="'+captionStyle+'"> '
                                 +markerType.name
+                                +'</span>'
                             +'</label>'
                         +'</div>'
                     ;
@@ -109,10 +111,12 @@
                     node.setAttribute('style', listsElementsStyles);
                     node.innerHTML =
                         '<div>'
-                            +'<input id="routeType'+routeType.id+'" type="checkbox" class="leaflet-filter-checkbox" checked="checked" />'
                             +'<label for="routeType'+routeType.id+'">'
+                                +'<input id="routeType'+routeType.id+'" type="checkbox" class="leaflet-filter-checkbox" checked="checked" />'
+                                +'<span>'
                                 +'<span class="ib" style="'+captionStyle+' background: '+routeType.color+'"></span> '
                                 +routeType.name
+                                +'</span>'
                             +'</label>'
                         +'</div>'
                     ;
@@ -129,10 +133,12 @@
                     node.setAttribute('style', listsElementsStyles);
                     node.innerHTML =
                         '<div>'
-                            +'<input id="zoneType'+zoneType.id+'" type="checkbox" class="leaflet-filter-checkbox" checked="checked" />'
                             +'<label for="zoneType'+zoneType.id+'">'
+                                +'<input id="zoneType'+zoneType.id+'" type="checkbox" class="leaflet-filter-checkbox" checked="checked" />'
+                                +'<span>'
                                 +'<span class="ib" style="'+captionStyle+' background: '+zoneType.color+'"></span> '
                                 +zoneType.name
+                                +'</span>'
                             +'</label>'
                         +'</div>'
                     ;

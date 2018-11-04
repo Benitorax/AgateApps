@@ -174,8 +174,11 @@
             $.each(map._mapOptions.data.references.transports, function(i, e){
                 transportsOptions +=
                     '<div>' +
-                        '<input name="directions_transport" type="radio" id="directions_transport_' + e.id + '" value="' + e.id + '">' +
-                        '<label for="directions_transport_' + e.id + '">' + e.name + '</label>' +
+
+                        '<label for="directions_transport_' + e.id + '">' +
+                            '<input name="directions_transport" type="radio" id="directions_transport_' + e.id + '" value="' + e.id + '">' +
+                                '<span>' + e.name + '</span>' +
+                            '</label>' +
                     '</div>'
                 ;
             });
