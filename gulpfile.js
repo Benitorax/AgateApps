@@ -19,9 +19,6 @@ const config = {
      *     ]
      */
     "copy": {
-        "fonts/roboto": [
-            "node_modules/materialize-css/dist/fonts/roboto/*"
-        ],
         "fonts/": [
             "node_modules/font-awesome/fonts/*"
         ],
