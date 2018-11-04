@@ -58,7 +58,7 @@ class JSMapsControllerTest extends PantherTestCase
         $normalizedMethod = \preg_replace(
             '~^tests_~i',
             '_',
-            \str_replace(['\\', '::', ':'], '_', (string) $this)
+            \str_replace(['\\', '::', ':'], '_', $this->toString())
         );
 
         $fileName = __DIR__.'/../../../../build/screenshots/'.$normalizedMethod.$suffix.'.png';
