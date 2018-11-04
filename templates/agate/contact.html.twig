@@ -15,7 +15,7 @@
     <div class="container">
 
         <div class="row">
-            <div class="col s6 offset-s3">
+            <div class="col l6 offset-l3 m12">
                 {% block flash_messages %}
                     {{ parent() }}
                 {% endblock %}
@@ -23,8 +23,6 @@
                 <h1 class="text-4xl center">{{ 'contact.send_message'|trans }}</h1>
 
                 {{- form_start(form, {attr: {id: 'contact_form'}}) -}}
-
-                {{- form_errors(form) -}}
 
                 {{- form_widget(form) -}}
 

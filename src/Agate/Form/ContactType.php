@@ -45,12 +45,14 @@ class ContactType extends AbstractType
                     'pattern' => '.{2,}',
                 ],
                 'constraints' => [
+                    new Constraints\NotBlank(),
                     new Constraints\Length(['min' => 2]),
                 ],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'contact.form.email',
                 'constraints' => [
+                    new Constraints\NotBlank(),
                     new Constraints\Email([
                         'checkHost' => 'prod' === $this->kernelEnvironment,
                         'checkMX' => 'prod' === $this->kernelEnvironment,
@@ -80,6 +82,9 @@ class ContactType extends AbstractType
             ])
             ->add('message', TextareaType::class, [
                 'label' => 'contact.form.message',
+                'constraints' => [
+                    new Constraints\NotBlank(),
+                ],
             ])
             ->addEventSubscriber($this->captchaFormSubscriber)
         ;
