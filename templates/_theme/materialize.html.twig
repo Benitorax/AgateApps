@@ -76,10 +76,10 @@
             <li><a href="javascript:void(0);">Navbar Link</a></li>
         </ul>
 
-        <ul id="nav-mobile" class="side-nav">
+        <ul id="nav-mobile" class="sidenav">
             <li><a href="javascript:void(0);">Navbar Link</a></li>
         </ul>
-        <a href="javascript:void(0);" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="javascript:void(0);" data-target="nav-mobile" class="button-collapse sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
 </nav>
 
@@ -279,7 +279,7 @@
         <li><a href="javascript:void(0);">two<span class="new badge">1</span></a></li>
         <li><a href="javascript:void(0);">three</a></li>
     </ul>
-    <a class="btn dropdown-button" href="javascript:void(0);" data-activates="dropdown2">Dropdown<i class="mdi-navigation-arrow-drop-down right"></i></a>
+    <a class="btn sidenav-trigger dropdown-button" href="javascript:void(0);" data-target="dropdown2">Dropdown<i class="mdi-navigation-arrow-drop-down right"></i></a>
 
     <h5>In navbar</h5>
     <nav class="blue darken-3">
@@ -411,7 +411,7 @@
 <div class="container">
     <h4>Dropdown</h4>
     <!-- Dropdown Trigger -->
-    <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
+    <a class='dropdown-button sidenav-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
 
     <!-- Dropdown Structure -->
     <ul id='dropdown1' class='dropdown-content'>

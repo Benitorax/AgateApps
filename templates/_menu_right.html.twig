@@ -18,7 +18,7 @@
 
     <li>
         {% if dropdown %}
-            <a href="#" class="dropdown-button" data-activates="profile-dropdown">
+            <a href="#" class="dropdown-button sidenav-trigger" data-target="profile-dropdown">
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'user') -}}
                 &nbsp;<span class="fa fa-caret-down"></span>
             </a>

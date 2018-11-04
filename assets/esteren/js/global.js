@@ -9,6 +9,7 @@ window._enableJsComponents = null;
 
     // Manage the "disable tags" cookie CNIL requirement
     var button = d.querySelector('button.disable_tags');
+
     if (button) {
         button.addEventListener('click', function(e){
             if (e.target.tagName.toLowerCase() === 'button' && e.target.className.match('disable_tags')) {

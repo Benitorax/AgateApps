@@ -36,8 +36,8 @@
 {% import _self as macros %}
 
 <nav>
-    <a href="#" data-activates="steps-side" class="right button-collapse text-l"><i class="fa fa-bars"></i> {{ 'menu.steps'|trans }}</a>
-    <ul class="side-nav" id="steps-side">
+    <a href="#" data-target="steps-side" class="right button-collapse sidenav-trigger text-l"><i class="fa fa-bars"></i> {{ 'menu.steps'|trans }}</a>
+    <ul class="sidenav" id="steps-side">
         {{ macros.menu_items(current_step, steps, true, current_character) }}
     </ul>
     <div class="step_progress progress">
