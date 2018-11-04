@@ -1,42 +1,10 @@
 window._enableJsComponents = null;
 
-(function($, d){
+(function($, d, Materialize){
     "use strict";
 
     function enableJsComponents(context) {
-        // Automatically activate button collapse "side" navigation
-        if (context.querySelector('.button-collapse')) {
-            $('.button-collapse').sideNav();
-        }
-
-        // Automatically add parallax when available
-        if (context.querySelector('.parallax')) {
-            $('.parallax').parallax();
-        }
-
-        // Automatically activate tooltips
-        if (context.querySelector('.tooltipped')) {
-            $('.tooltipped').tooltip();
-        }
-
-        // Automatically activate modals
-        if (context.querySelector('.modal')) {
-            $('.modal').modal();
-        }
-
-        // Automatically activate materialize select tags
-        if (context.querySelector('select')) {
-            $('select').material_select();
-        }
-
-        if (context.querySelector('.chips')) {
-            $('.chips').material_chip();
-        }
-
-        // Automatically activate dropdowns if there are some
-        if (context.querySelector('.dropdown-button')) {
-            $('.dropdown-button').dropdown();
-        }
+        Materialize.AutoInit(context);
     }
 
     // Manage the "disable tags" cookie CNIL requirement
@@ -50,7 +18,7 @@ window._enableJsComponents = null;
         });
     }
 
-    enableJsComponents(d);
+    enableJsComponents(d.body);
 
     window._enableJsComponents = enableJsComponents;
-})(jQuery, document);
+})(jQuery, document, M);
