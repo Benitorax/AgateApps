@@ -4,7 +4,6 @@
     {% if errors|length %}
         {% set class = attr.class|default('') %}
         {% set attr = attr|merge({class: class ~ ' invalid'}) %}
-        {% dump attr %}
     {% endif %}
     {{ parent() }}
 {%- endblock widget_attributes -%}
