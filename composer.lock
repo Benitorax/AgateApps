@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.71.3",
+            "version": "3.72.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "fa7f498cb41c7eb47e952355b8be2061816a9a60"
+                "reference": "5e36d7d70917133a244f62ff81d38871669951b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fa7f498cb41c7eb47e952355b8be2061816a9a60",
-                "reference": "fa7f498cb41c7eb47e952355b8be2061816a9a60",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5e36d7d70917133a244f62ff81d38871669951b5",
+                "reference": "5e36d7d70917133a244f62ff81d38871669951b5",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-11-09T21:57:53+00:00"
+            "time": "2018-11-16T21:17:38+00:00"
         },
         {
             "name": "behat/transliterator",
@@ -3837,16 +3837,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.1.6",
+            "version": "v1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "27473c8bdf817b462dd26e9e4581795aa095d445"
+                "reference": "955774ecf07b10230bb5b44e150ba078b45f68fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/27473c8bdf817b462dd26e9e4581795aa095d445",
-                "reference": "27473c8bdf817b462dd26e9e4581795aa095d445",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/955774ecf07b10230bb5b44e150ba078b45f68fa",
+                "reference": "955774ecf07b10230bb5b44e150ba078b45f68fa",
                 "shasum": ""
             },
             "require": {
@@ -3880,7 +3880,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2018-11-10T12:25:57+00:00"
+            "time": "2018-11-15T06:11:38+00:00"
         },
         {
             "name": "symfony/form",
@@ -5700,16 +5700,16 @@
         },
         {
             "name": "twig/extensions",
-            "version": "v1.5.2",
+            "version": "v1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig-extensions.git",
-                "reference": "2c1a86526d0044065220d1b51ac08348bea5ca82"
+                "reference": "e187386bea539a2cc2726689d6b4d468672a8ab4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/2c1a86526d0044065220d1b51ac08348bea5ca82",
-                "reference": "2c1a86526d0044065220d1b51ac08348bea5ca82",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/e187386bea539a2cc2726689d6b4d468672a8ab4",
+                "reference": "e187386bea539a2cc2726689d6b4d468672a8ab4",
                 "shasum": ""
             },
             "require": {
@@ -5751,7 +5751,7 @@
                 "i18n",
                 "text"
             ],
-            "time": "2018-05-22T13:26:07+00:00"
+            "time": "2018-11-16T03:34:09+00:00"
         },
         {
             "name": "twig/twig",
@@ -7352,12 +7352,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/panther.git",
-                "reference": "770cfeeb57da4ba85f809652a5af8b56bc1cba18"
+                "reference": "bb5b0e50ec013e9f6920d7ba06324c85c8fc3566"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/panther/zipball/770cfeeb57da4ba85f809652a5af8b56bc1cba18",
-                "reference": "770cfeeb57da4ba85f809652a5af8b56bc1cba18",
+                "url": "https://api.github.com/repos/symfony/panther/zipball/bb5b0e50ec013e9f6920d7ba06324c85c8fc3566",
+                "reference": "bb5b0e50ec013e9f6920d7ba06324c85c8fc3566",
                 "shasum": ""
             },
             "require": {
@@ -7373,7 +7373,7 @@
             "require-dev": {
                 "fabpot/goutte": "^3.2.3",
                 "guzzlehttp/guzzle": "^6.3",
-                "phpunit/phpunit": "^7.0",
+                "phpunit/phpunit": "^7.3",
                 "symfony/css-selector": "^3.4 || ^4.0",
                 "symfony/framework-bundle": "^3.4 || ^4.0"
             },
@@ -7413,7 +7413,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2018-11-05T06:38:32+00:00"
+            "time": "2018-11-16T10:56:35+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
