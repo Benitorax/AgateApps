@@ -66,9 +66,6 @@ class JSMapsControllerTest extends PantherTestCase
         $client->takeScreenshot($fileName);
     }
 
-    /**
-     * @legacy
-     */
     public function testMapIndex()
     {
         $client = static::createPantherClient();
