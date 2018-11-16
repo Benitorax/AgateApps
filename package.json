@@ -2,7 +2,7 @@
     "name": "esteren",
     "description": "Global Esteren project",
     "homepage": "http://www.esteren.org/",
-    "author": "Alex \"Pierstoval\" Ancelet <pierstoval@gmail.com>",
+    "author": "Alex \"Pierstoval\" Ancelet <alex@orbitale.io>",
     "repository": {
         "type": "git",
         "url": "https://github.com/Pierstoval/corahn_rin"

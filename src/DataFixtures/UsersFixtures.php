@@ -70,7 +70,7 @@ final class UsersFixtures extends AbstractFixture implements OrderedFixtureInter
 
         $this->passwordEncoder = $this->container->get('security.password_encoder');
 
-        $this->fixtureObject($repo, 1, 'Pierstoval', 'pierstoval@gmail.com', 'admin', true);
+        $this->fixtureObject($repo, 1, 'Pierstoval', 'alex@orbitale.io', 'admin', true);
         $this->fixtureObject($repo, 2, 'map-subscribed', 'foo@bar.com', 'foobar', false);
         $this->fixtureObject($repo, 3, 'lambda-user', 'foo2@bar.com', 'foobar', false);
 
