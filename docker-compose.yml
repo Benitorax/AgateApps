@@ -1,11 +1,14 @@
 version: '3'
 
+volumes:
+    node_modules:
+
 services:
     php:
         # Docker build here:
         # https://hub.docker.com/r/pierstoval/studio-agate-portal/
         # https://github.com/StudioAgate/DockerPortalApp
-        image: 'pierstoval/studio-agate-portal:latest'
+        image: 'pierstoval/studio-agate-portal:v0.4.7'
         working_dir: /srv/
         volumes:
             - ./:/srv
@@ -23,7 +26,8 @@ services:
         build: ./docker/node/
         working_dir: /srv/
         volumes:
-            - ./:/srv/
+            - .:/srv
+            - node_modules:/srv/node_modules/
             - ~/.npm/:/root/.npm
         command: 'npm run gulp watch'
 
