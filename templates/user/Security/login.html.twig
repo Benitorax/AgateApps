@@ -36,6 +36,9 @@
             <a href="{{ path('user_resetting_request') }}" class="bl mt10">
                 {{ 'security.login.password_forgotten'|trans }}
             </a>
+            <a href="{{ path('user_register') }}" class="bl mt10">
+                {{ 'security.login.no_account_register'|trans }}
+            </a>
         </form>
     </div>
 {% endblock content_for_layout %}

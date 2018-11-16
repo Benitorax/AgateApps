@@ -1,1 +1,7 @@
-{% extends 'base.html.twig' %}
+{% set layout = 'base.html.twig' %}
+
+{% if app.request.host == agate_domains_portal %}
+    {% set layout = 'agate/agate-layout.html.twig' %}
+{% endif %}
+
+{% extends layout %}

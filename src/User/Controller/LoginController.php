@@ -38,17 +38,17 @@ class LoginController extends AbstractController
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has($authErrorKey)) {
             $error = $request->attributes->get($authErrorKey);
-        } elseif (null !== $session && $session->has($authErrorKey)) {
+        } elseif ($session->has($authErrorKey)) {
             $error = $session->get($authErrorKey);
             $session->remove($authErrorKey);
         }
 
         if ($error instanceof AuthenticationException) {
-            $this->addFlash('error', $error->getMessage());
+            $this->addFlash('error', $error->getMessage() ?: $error->getMessageKey());
         }
 
         return $this->render('user/Security/login.html.twig', [
-            'last_username' => (null === $session) ? '' : $session->get($lastUsernameKey),
+            'last_username' => $session->get($lastUsernameKey),
             'csrf_token' => $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue(),
             'username_form_field' => FormLoginAuthenticator::USERNAME_OR_EMAIL_FORM_FIELD,
             'password_form_field' => FormLoginAuthenticator::PASSWORD_FORM_FIELD,

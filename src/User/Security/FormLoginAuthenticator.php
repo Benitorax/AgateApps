@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -140,9 +141,9 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $user = $userProvider->loadUserByUsername($credentials->getUsernameOrEmail());
-
-        if (!$user instanceof User) {
+        try {
+            $user = $userProvider->loadUserByUsername($credentials->getUsernameOrEmail());
+        } catch (UsernameNotFoundException $e) {
             throw new AuthenticationException('security.bad_credentials');
         }
 
