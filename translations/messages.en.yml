@@ -161,3 +161,25 @@ maps:
     none: No map
 
 subscription.esteren_maps: Esteren Maps access
+subscription.esteren_maps.used_voucher: |
+    You just used a voucher code for an Esteren Maps access.
+    Your subscription is active right now and will be for 90
+    days.<br>
+    A notification has been sent to you by e-mail.
+
+voucher.redeem.title: Activate a code
+voucher.redeem.message: |
+    You may have received a code to activate here for a subscription or a special access.
+    By submitting the code in this form, you can enjoy its advantage if possible.
+voucher.redeem.code_label: Code
+voucher.redeem.submit: Activate
+voucher.redeem.code_does_not_exist: Specified code does not exist.
+voucher.redeem.confirmation_message: Do you really want to use this code?
+voucher.redeem.confirmation_button: Activate this code
+
+voucher.redeem.error.no_handler: This code seems to not have been implemented yet.
+voucher.redeem.error.save_error: Could not save voucher of type "%voucher_type%" for user "%username%".
+voucher.redeem.error.not_available: This code is not available.
+voucher.redeem.error.exceeded_uses: This code is no longer available.
+voucher.redeem.error.already_used: You already have used this code.
+voucher.redeem.success: Thanks for using this code!

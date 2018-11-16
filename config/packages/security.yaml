@@ -51,4 +51,5 @@ security:
         - { path: '^/(?:%locales_regex%)/register',   role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/(?:%locales_regex%)/resetting',  role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/(?:%locales_regex%)/profile',    role: ROLE_USER }
+        - { path: '^/(?:%locales_regex%)/voucher',    role: ROLE_USER }
         - { path: '^/',                               host: '%esteren_domains.backoffice%',  role: ROLE_ADMIN }

@@ -45,6 +45,14 @@ subscription:
     defaults: { _locale: '%locale%' }
     requirements: { _locale: '^(?:%locales_regex%)$' }
 
+voucher:
+    resource: '../src/Voucher/Controller/'
+    type: annotation
+    host: '%agate_domains.portal%'
+    prefix: '/{_locale}/'
+    defaults: { _locale: '%locale%' }
+    requirements: { _locale: '^(?:%locales_regex%)$' }
+
 #
 # CorahnRin
 #

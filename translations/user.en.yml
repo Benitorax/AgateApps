@@ -3,6 +3,7 @@ security.login.password: Password
 security.login.remember_me: 'Remember me'
 security.login.submit: 'Log in'
 security.login.password_forgotten: 'Forgot password?'
+security.login.no_account_register: 'No account yet? Register!'
 
 profile:
     go_back: 'Go back to my profile'

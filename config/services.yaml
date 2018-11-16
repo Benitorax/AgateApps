@@ -72,6 +72,8 @@ services:
     _instanceof:
         Main\DependencyInjection\PublicService:
             public: true
+        Voucher\Handler\VoucherHandlerInterface:
+            tags: ['subscription.voucher_handler']
 
     Admin\:
         resource: '../src/Admin/{Controller}'
@@ -96,6 +98,11 @@ services:
 
     Subscription\:
         resource: '../src/Subscription/{Controller,Mailer,Repository,Security,Validator}'
+
+    Voucher\:
+        resource: '../src/Voucher/{Controller,Form,Handler,Redeem,Repository}'
+
+    Voucher\Redeem\Redeemer: [!tagged subscription.voucher_handler]
 
     EsterenMaps\Cache\CacheManager:
         tags: [{ name: doctrine.event_subscriber, connection: default }]

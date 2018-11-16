@@ -4,6 +4,7 @@ namespace Subscription\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Subscription\SubscriptionType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Subscription\Constraint\UniqueSubscription;
 use User\Entity\User;
@@ -83,6 +84,18 @@ class Subscription
         $this->endsAt = new \DateTimeImmutable('+1 month');
     }
 
+    public static function create(User $user, string $type, \DateTimeImmutable $endsAt): self
+    {
+        $subscription = new self();
+
+        $subscription->user = $user;
+        $subscription->setType($type);
+        $subscription->startsAt = new \DateTimeImmutable();
+        $subscription->endsAt = $endsAt;
+
+        return $subscription;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +118,10 @@ class Subscription
 
     public function setType(?string $type): void
     {
+        if (!isset(SubscriptionType::TYPES[$type])) {
+            throw new \InvalidArgumentException(\sprintf('Subscription type %s does not exist.', $type));
+        }
+
         $this->type = $type;
     }
 

@@ -165,3 +165,26 @@ maps:
     none: Aucune carte
 
 subscription.esteren_maps: Accès à Esteren Maps
+subscription.esteren_maps.used_voucher: |
+    Vous venez d'utiliser un code d'accès à Esteren Maps.
+    Votre souscription est effective dès maintenant, et
+    celle-ci sera effective pendant une durée de 90 jours.<br>
+    Un e-mail de notification vous a été envoyé pour vous en informer.
+
+voucher.redeem.title: Activer un code
+voucher.redeem.message: |
+    Vous pouvez avoir reçu un code à activer ici-même dans le cadre d'une souscription ou d'un accès particulier à
+    une ressource.
+    En entrant ce code dans ce formulaire, vous pourrez profiter de ses bénéfices si possible.
+voucher.redeem.code_label: Code
+voucher.redeem.submit: Activer
+voucher.redeem.code_does_not_exist: Le code spécifié n'existe pas
+voucher.redeem.confirmation_message: Voulez-vous vraiment utiliser ce code ?
+voucher.redeem.confirmation_button: Activer ce code
+
+voucher.redeem.error.no_handler: Ce code ne semble pas avoir été implémenté.
+voucher.redeem.error.save_error: Une erreur est survenue lors de l'enregistrement de votre souscription.
+voucher.redeem.error.not_available: Ce code n'est pas disponible.
+voucher.redeem.error.exceeded_uses: Ce code ne peut plus être utilisé.
+voucher.redeem.error.already_used: Vous avez déjà utilisé ce code.
+voucher.redeem.success: Merci d'avoir utilisé votre code !

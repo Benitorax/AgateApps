@@ -1,0 +1,26 @@
+{% extends 'agate/agate-layout.html.twig' %}
+
+{% block content_for_layout %}
+    <div class="row">
+        <div class="col l6 offset-l3 m12">
+            {{ form_start(form) }}
+                <h3>
+                    {{ 'voucher.redeem.title'|trans }}
+                </h3>
+                <p>{{ 'voucher.redeem.message'|trans|nl2br }}</p>
+                {{ form_errors(form) }}
+                {{ form_row(form.voucher_code) }}
+                {% if remove_confirmation_button %}
+                    {{ form_row(form.activate) }}
+                    {% do form.confirmation.setRendered() %}
+                {% else %}
+                    <div class="card-panel {{ get_flash_class('warning') }}">
+                        {{ 'voucher.redeem.confirmation_message'|trans }}
+                        {{ form_row(form.confirmation) }}
+                    </div>
+                    {% do form.activate.setRendered() %}
+                {% endif %}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

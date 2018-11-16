@@ -106,7 +106,8 @@
             "EsterenMaps\\": "src/EsterenMaps",
             "Main\\": "src/Main",
             "Subscription\\": "src/Subscription",
-            "User\\": "src/User"
+            "User\\": "src/User",
+            "Voucher\\": "src/Voucher"
         },
         "classmap": [
             "src/Kernel.php"

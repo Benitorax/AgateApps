@@ -54,6 +54,10 @@ body#vermine {
     }
 }
 
+input, textarea, select {
+    color: black;
+}
+
 // Materialize's $medium-screen-up
 @media (min-width: 768px) and (max-width: 993px) and (orientation: portrait) {
     body#vermine img#vermine_logo {

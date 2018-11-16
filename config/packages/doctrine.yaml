@@ -34,6 +34,12 @@ doctrine:
                 is_bundle: false
                 prefix: Subscription\Entity
                 alias: Subscription
+            Voucher:
+                type: annotation
+                dir: '%kernel.project_dir%/src/Voucher/Entity/'
+                is_bundle: false
+                prefix: Voucher\Entity
+                alias: Voucher
 
         metadata_cache_driver:
             type: service
