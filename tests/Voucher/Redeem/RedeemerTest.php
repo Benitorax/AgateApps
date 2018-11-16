@@ -24,7 +24,7 @@ class RedeemerTest extends TestCase
 {
     /**
      * @expectedException \Voucher\Exception\RedeemExceptionInterface
-     * @expectedExceptionMessage No handler for voucher of type "test_type" and for user "test_user".
+     * @expectedExceptionMessage voucher.redeem.error.no_handler
      */
     public function test redeem with no handlers throws exception()
     {
