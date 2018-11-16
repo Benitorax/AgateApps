@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Voucher\Repository\VoucherRepository")
  * @ORM\Table(name="vouchers")
  *
- * @UniqueEntity("uniqueCode")
+ * @UniqueEntity("uniqueCode", errorPath="uniqueCode")
  */
 class Voucher
 {
@@ -58,8 +58,7 @@ class Voucher
      * @ORM\Column(name="valid_until", type="date_immutable", nullable=true)
      *
      * @Assert\DateTime
-     * @Assert\GreaterThanOrEqual("tomorrow")
-     * @Assert\GreaterThanOrEqual(propertyPath="startsAt")
+     * @Assert\GreaterThanOrEqual(propertyPath="validFrom")
      */
     protected $validUntil;
 
