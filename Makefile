@@ -148,8 +148,8 @@ checks: ## Execute linting and security checks
 checks: composer.lock
 	$(EXEC_PHP) vendor/bin/security-checker security:check
 	$(SYMFONY) lint:twig templates src
-	$(SYMFONY) lint:yaml config
-	$(SYMFONY) lint:yaml src
+	$(SYMFONY) lint:yaml --parse-tags config
+	$(SYMFONY) lint:yaml --parse-tags src
 .PHONY: checks
 
 phpunit: ## Execute all PHPUnit tests

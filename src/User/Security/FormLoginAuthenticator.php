@@ -144,7 +144,7 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         try {
             $user = $userProvider->loadUserByUsername($credentials->getUsernameOrEmail());
         } catch (UsernameNotFoundException $e) {
-            throw new AuthenticationException('security.bad_credentials');
+            throw new BadCredentialsException('security.bad_credentials');
         }
 
         if ($user && !$user->isEmailConfirmed()) {
