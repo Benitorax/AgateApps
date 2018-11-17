@@ -46,7 +46,10 @@ class JSMapsControllerTest extends PantherTestCase
         $port = static::$defaultOptions['port'];
         $crawler = $pantherClient->request('GET', "http://$host:$port/fr/login");
 
-        $form = $crawler->filter('#form_login')->form();
+        $formNode = $crawler->filter('#form_login');
+        static::assertNotEmpty($formNode, "Could not retrieve login form.\n".$crawler->html());
+
+        $form = $formNode->form();
         $form->get('_username_or_email')->setValue($username);
         $form->get('_password')->setValue($password);
 
