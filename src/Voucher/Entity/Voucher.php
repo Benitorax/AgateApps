@@ -73,16 +73,20 @@ class Voucher
      */
     protected $maxNumberOfUses = 0;
 
-    public static function createBasic(
+    public static function create(
         string $type,
         string $uniqueCode,
-        \DateTimeImmutable $validFrom
+        \DateTimeImmutable $validFrom,
+        \DateTimeImmutable $validUntil = null,
+        int $maxNumberOfUses = 0
     ): self {
         $object = new self();
 
         $object->uniqueCode = $uniqueCode;
         $object->setType($type);
         $object->validFrom = $validFrom;
+        $object->validUntil = $validUntil;
+        $object->maxNumberOfUses = $maxNumberOfUses;
 
         return $object;
     }

@@ -78,7 +78,6 @@
     </testsuites>
 
     <listeners>
-        <listener class="Symfony\Component\Panther\ServerListener" />
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 

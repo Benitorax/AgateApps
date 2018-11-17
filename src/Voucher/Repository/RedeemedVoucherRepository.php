@@ -18,7 +18,7 @@ class RedeemedVoucherRepository extends ServiceEntityRepository
     public function getNumberOfVouchersUsedForType(string $type): int
     {
         return $this->createQueryBuilder('redeemed_voucher')
-            ->select('COUNT(redeemed.voucher.id) as number_of_vouchers')
+            ->select('COUNT(redeemed_voucher.id) as number_of_vouchers')
             ->leftJoin('redeemed_voucher.voucher', 'voucher')
             ->where('voucher.type = :type')
             ->setParameter('type', $type)

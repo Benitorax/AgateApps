@@ -14,13 +14,17 @@ declare(strict_types=1);
 namespace Tests\Voucher\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DomCrawler\Crawler;
 use Tests\WebTestCase as PiersTestCase;
 use User\Repository\UserRepository;
 use Voucher\Entity\RedeemedVoucher;
+use Voucher\Entity\Voucher;
+use Voucher\Exception\ExceededNumberOfUsesForVoucher;
+use Voucher\Exception\UserHasAlreadyRedeemedThisVoucher;
+use Voucher\Exception\VoucherNotAvailable;
+use Voucher\Redeem\Redeemer;
 use Voucher\Repository\VoucherRepository;
+use Voucher\VoucherType;
 
 class RedeemVoucherControllerTest extends WebTestCase
 {
@@ -39,41 +43,74 @@ class RedeemVoucherControllerTest extends WebTestCase
     {
         static::resetDatabase();
 
-        $client = $this->getClient('www.studio-agate.docker');
+        static::bootKernel();
 
         $code = 'ESTEREN_MAPS_3M';
 
-        $user = static::$container->get(UserRepository::class)->findByUsernameOrEmail('Pierstoval');
+        $redeemer = static::$container->get(Redeemer::class);
+        $user = static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user');
         $voucher = static::$container->get(VoucherRepository::class)->findByCode($code);
 
-        static::setToken($client, $user);
+        // We need to redeem it twice to trigger the exception in the second call.
+        $result = $redeemer->redeem($voucher, $user);
 
-        $redeemed = RedeemedVoucher::create($voucher, $user);
+        static::assertSame(4, $result);
 
-        $em = static::$container->get(EntityManagerInterface::class);
-        $em->persist($redeemed);
-        $em->flush();
+        $this->expectException(UserHasAlreadyRedeemedThisVoucher::class);
 
-        $crawler = $client->request('GET', '/fr/voucher');
-
-        $this->submitAndConfirmVoucher($client, $crawler, $code);
-
-        static::assertSame(302, $client->getResponse()->getStatusCode());
-        static::assertTrue($client->getResponse()->isRedirect('/fr/voucher'));
+        $redeemer->redeem($voucher, $user);
     }
 
-    private function submitAndConfirmVoucher(Client $client, Crawler $crawler, string $code)
+    public function test redeem impossible if voucher too much used()
     {
-        $form = $crawler->selectButton('Activer')->form();
+        static::resetDatabase();
 
-        $crawler = $client->submit($form, [
-            'redeem_voucher[voucher_code]' => $code,
-        ]);
+        static::bootKernel();
 
-        static::assertSame(200, $client->getResponse()->getStatusCode());
+        $em = static::$container->get(EntityManagerInterface::class);
+        $redeemer = static::$container->get(Redeemer::class);
+        $voucher = Voucher::create(VoucherType::ESTEREN_MAPS, 'ESTEREN_MAPS_TEST', new \DateTimeImmutable(), null, 1);
+        $redeemedVoucher = RedeemedVoucher::create($voucher, static::$container->get(UserRepository::class)->findByUsernameOrEmail('Pierstoval'));
+        $em->persist($voucher);
+        $em->persist($redeemedVoucher);
+        $em->flush();
 
-        $form = $crawler->selectButton('Activer ce code')->form();
+        $this->expectException(ExceededNumberOfUsesForVoucher::class);
 
-        return $client->submit($form);
+        $redeemer->redeem($voucher, static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user'));
+    }
+
+    public function test redeem impossible if voucher not yet available()
+    {
+        static::resetDatabase();
+
+        static::bootKernel();
+
+        $em = static::$container->get(EntityManagerInterface::class);
+        $redeemer = static::$container->get(Redeemer::class);
+        $voucher = Voucher::create(VoucherType::ESTEREN_MAPS, 'ESTEREN_MAPS_TEST', new \DateTimeImmutable('+1 day'));
+        $em->persist($voucher);
+        $em->flush();
+
+        $this->expectException(VoucherNotAvailable::class);
+
+        $redeemer->redeem($voucher, static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user'));
+    }
+
+    public function test redeem impossible if voucher not available anymore()
+    {
+        static::resetDatabase();
+
+        static::bootKernel();
+
+        $em = static::$container->get(EntityManagerInterface::class);
+        $redeemer = static::$container->get(Redeemer::class);
+        $voucher = Voucher::create(VoucherType::ESTEREN_MAPS, 'ESTEREN_MAPS_TEST', new \DateTimeImmutable('-7 days'), new \DateTimeImmutable('-3 days'));
+        $em->persist($voucher);
+        $em->flush();
+
+        $this->expectException(VoucherNotAvailable::class);
+
+        $redeemer->redeem($voucher, static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user'));
     }
 }

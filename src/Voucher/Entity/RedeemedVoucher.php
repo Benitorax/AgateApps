@@ -24,7 +24,7 @@ class RedeemedVoucher
      * @var Voucher
      *
      * @ORM\ManyToOne(targetEntity="Voucher\Entity\Voucher")
-     * @ORM\JoinColumn(name="voucher_id")
+     * @ORM\JoinColumn(name="voucher_id", nullable=false)
      */
     private $voucher;
 
@@ -32,7 +32,7 @@ class RedeemedVoucher
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User\Entity\User")
-     * @ORM\JoinColumn(name="user_id")
+     * @ORM\JoinColumn(name="user_id", nullable=false)
      */
     private $user;
 

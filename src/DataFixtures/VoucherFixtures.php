@@ -22,7 +22,7 @@ class VoucherFixtures extends AbstractFixture implements ORMFixtureInterface
 {
     protected function createNewInstance(array $data)
     {
-        return Voucher::createBasic($data['type'], $data['uniqueCode'], $data['validFrom']);
+        return Voucher::create($data['type'], $data['uniqueCode'], $data['validFrom']);
     }
 
     public function load(ObjectManager $manager)

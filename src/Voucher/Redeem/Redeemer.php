@@ -65,7 +65,7 @@ final class Redeemer
             VoucherHandlerInterface $handler1,
             VoucherHandlerInterface $handler2
         ) {
-            return $handler1->getPriority() <=> $handler2->getPriority();
+            return $handler2->getPriority() <=> $handler1->getPriority();
         });
 
         $this->handlers = $handlers;

@@ -32,7 +32,7 @@ class MaxNumberOfUsesVoucherHandler implements VoucherHandlerInterface
         if ($maxNumberOfUses > 0) {
             $used = $this->redeemedVoucherRepository->getNumberOfVouchersUsedForType($voucher->getType());
 
-            if ($used > $maxNumberOfUses) {
+            if ($used >= $maxNumberOfUses) {
                 throw new ExceededNumberOfUsesForVoucher($voucher, $user);
             }
         }
