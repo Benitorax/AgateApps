@@ -23,6 +23,7 @@ use Voucher\Exception\ExceededNumberOfUsesForVoucher;
 use Voucher\Exception\UserHasAlreadyRedeemedThisVoucher;
 use Voucher\Exception\VoucherNotAvailable;
 use Voucher\Redeem\Redeemer;
+use Voucher\Repository\RedeemedVoucherRepository;
 use Voucher\Repository\VoucherRepository;
 use Voucher\VoucherType;
 
@@ -45,11 +46,9 @@ class RedeemVoucherControllerTest extends WebTestCase
 
         static::bootKernel();
 
-        $code = 'ESTEREN_MAPS_3M';
-
         $redeemer = static::$container->get(Redeemer::class);
         $user = static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user');
-        $voucher = static::$container->get(VoucherRepository::class)->findByCode($code);
+        $voucher = static::$container->get(VoucherRepository::class)->findByCode('ESTEREN_MAPS_3M');
 
         // We need to redeem it twice to trigger the exception in the second call.
         $result = $redeemer->redeem($voucher, $user);
@@ -112,5 +111,28 @@ class RedeemVoucherControllerTest extends WebTestCase
         $this->expectException(VoucherNotAvailable::class);
 
         $redeemer->redeem($voucher, static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user'));
+    }
+
+    public function test valid redeem for esteren maps voucher()
+    {
+        static::resetDatabase();
+
+        static::bootKernel();
+
+        $redeemer = static::$container->get(Redeemer::class);
+        $voucher = static::$container->get(VoucherRepository::class)->findByCode('ESTEREN_MAPS_3M');
+        $user = static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user');
+
+        $redeemDate = new \DateTimeImmutable();
+        $result = $redeemer->redeem($voucher, $user);
+
+        static::assertSame(4, $result);
+
+        $redeemed = static::$container->get(RedeemedVoucherRepository::class)->findByVoucherAndUser($voucher, $user);
+
+        static::assertCount(1, $redeemed);
+        static::assertSame($voucher, $redeemed[0]->getVoucher());
+        static::assertSame($user, $redeemed[0]->getUser());
+        static::assertSame($redeemed[0]->getRedeemedAt()->format('Y-m-d H:i:s'), $redeemDate->format('Y-m-d H:i:s'));
     }
 }

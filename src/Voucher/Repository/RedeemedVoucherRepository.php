@@ -27,6 +27,9 @@ class RedeemedVoucherRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return RedeemedVoucher[]|array
+     */
     public function findByVoucherAndUser(Voucher $voucher, User $user)
     {
         return $this->createQueryBuilder('redeemed_voucher')
