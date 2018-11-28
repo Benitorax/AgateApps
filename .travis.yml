@@ -24,6 +24,15 @@ jobs:
               - sudo mv docker-compose /usr/local/bin
               - make install-php
           script: make php-tests
+          after_failure:
+              - git status
+              - cat var/log/test.log
+              - cat var/log/panther.log
+              - ls -lah build/log/*
+              - cat build/log/*
+          after_success:
+              - make phpunit-coverage
+              - cat build/log/coverage.xml
 
         - name: NodeJS
           before_cache: 'test -d $HOME/.npm/ || mkdir $HOME/.npm'
