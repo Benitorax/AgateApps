@@ -57,6 +57,10 @@ clean: kill
 ## -----
 ##
 
+cc: ## Clear and warmup PHP cache
+	$(SYMFONY) cache:clear --no-warmup
+	$(SYMFONY) cache:warmup
+
 db: ## Reset the database
 db:
 	-$(SYMFONY) doctrine:database:drop --if-exists --force
