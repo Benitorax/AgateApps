@@ -154,7 +154,7 @@ checks: composer.lock
 
 phpunit: ## Execute all PHPUnit tests
 phpunit: composer.lock
-	$(EXEC_PHP) bin/phpunit --log-junit=build/log/logfile.xml
+	$(EXEC_PHP) bin/phpunit --log-junit=build/log/logfile.xml --testdox
 .PHONY: phpunit
 
 phpunit-coverage: ## Execute all PHPUnit tests with code coverage support
