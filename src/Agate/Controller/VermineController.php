@@ -29,7 +29,7 @@ class VermineController extends AbstractController
     }
 
     /**
-     * @Route("/", name="vermine_portal_home", methods={"GET"})
+     * @Route("", name="vermine_portal_home", methods={"GET"})
      */
     public function indexAction(Request $request): Response
     {

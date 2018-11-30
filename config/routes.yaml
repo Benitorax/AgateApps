@@ -1,133 +1,82 @@
-#
-# Root route that redirects "/" to "/%locale%/"
-#
-root:
-    path: '/{_locale}'
-    controller: 'Agate\Controller\RootController'
+# Please never rename "root".
+# It's a hack to help the router take this route in account,
+#  so we can benefit from the yaml merge features (check http://yaml.org/type/merge.html)
+# The "root" route is overriden by the RootController, so it's safe and correct
+root: &defaults
+    path: ''
     methods: ['GET']
-    defaults:
-        _locale: null
+    defaults: { _locale: '%locale%' }
     requirements: { _locale: '^(?:%locales_regex%)$' }
+    trailing_slash_on_root: false
+
+metadata: &metadata
+    resource: /dev/null
+    type: annotation
+    prefix: '/{_locale}'
+    defaults: { _locale: '%locale%' }
+    requirements: { _locale: '^(?:%locales_regex%)$' }
+    trailing_slash_on_root: false
 
 main:
     resource: '../src/Main/Controller/'
     type: annotation
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
+    trailing_slash_on_root: false
 
-#
-# User
-#
 user_login_check:
+    <<: *defaults
     path: /{_locale}/login_check
     methods: ['POST']
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
 user_logout:
+    <<: *defaults
     path: /{_locale}/logout
     methods: ['GET', 'POST']
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
 user_security:
+    <<: *metadata
     resource: '../src/User/Controller/'
-    type: annotation
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
-
-subscription:
-    resource: '../src/Subscription/Controller/'
-    type: annotation
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
 voucher:
+    <<: *metadata
     resource: '../src/Voucher/Controller/'
-    type: annotation
     host: '%agate_domains.portal%'
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
-#
-# CorahnRin
-#
 corahnrin_characters:
+    <<: *metadata
     resource: '../src/CorahnRin/Controller/'
-    type:     annotation
-    host:     '%esteren_domains.corahnrin%'
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
+    host: '%esteren_domains.corahnrin%'
 
 corahnrin_steps:
+    <<: *metadata
     resource: '@PierstovalCharacterManagerBundle/Resources/config/routing.xml'
     prefix:   /{_locale}/character
     host:     '%esteren_domains.corahnrin%'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
-#
-# Esteren Maps
-# Some controllers use a different domain name, check the @Route annotation on them to be sure.
-#
 esterenmaps:
+    <<: *metadata
     resource: '../src/EsterenMaps/Controller/'
-    type:     annotation
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
-#
-# Agate portal
-#
+esterenmaps_api:
+    <<: *metadata
+    resource: '../src/EsterenMaps/Controller/Api'
+    host: '{host}'
+    requirements:
+        host: "(%esteren_domains.esterenmaps%|%esteren_domains.backoffice%)"
+
 agate:
+    <<: *metadata
     resource: '../src/Agate/Controller/'
-    type: annotation
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
-#
-# Dragons
-#
 dragons:
+    <<: *metadata
     resource: '../src/Dragons/Controller/'
-    type: annotation
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
-#
-# Esteren portal
-#
 esteren_portal:
+    <<: *metadata
     resource: '../src/Esteren/Controller/'
-    type: annotation
     host: '%esteren_domains.portal%'
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
 
-#
-# Utils
-#
-utils:
-    resource: '../src/Main/Controller/'
-    type: annotation
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
-
-#
-# Admin
-#
 admin:
-    resource: 'routes/easy_admin.yaml'
-    prefix: '/{_locale}/'
-    defaults: { _locale: '%locale%' }
-    requirements: { _locale: '^(?:%locales_regex%)$' }
+    <<: *metadata
+    resource: '../src/Admin/Controller/AdminController.php'
+    host: '%esteren_domains.backoffice%'
