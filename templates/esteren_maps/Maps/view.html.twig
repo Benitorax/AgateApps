@@ -34,11 +34,12 @@
                 #}d.map = new EsterenMap({ {#
                     #}id: {{ map.id }},{#
                     #}apiUrls: { {#
-                        #}map: "{{ url('maps_api_maps_get', {"id": map.id}) }}",{#
+                        #}map: "{{ url('maps_api_maps_get', {id: map.id, host: app.request.host}) }}",{#
                         #}directions: "{{ url('esterenmaps_directions', {
-                            "id": map.id,
-                            'from': '9999',
-                            'to': '8888'
+                            id: map.id,
+                            from: '9999',
+                            to: '8888',
+                            host: app.request.host
                         })|replace({'9999': '{from}', '8888': '{to}'}) }}",{#
                         #}tiles: "{{ app.request.scheme }}://{{ esteren_domains_api }}{{ app.request.port not in [80, 443] ? (':'~app.request.port) }}{{ asset('maps_tiles/'~map.id~'/{z}/{y}/{x}.jpg') }}"{#
                     #}},{#
