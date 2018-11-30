@@ -25,12 +25,10 @@ use Symfony\Component\Validator\Constraints;
 
 class ContactType extends AbstractType
 {
-    private $kernelEnvironment;
     private $captchaFormSubscriber;
 
-    public function __construct(string $kernelEnvironment, CaptchaFormSubscriber $captchaFormSubscriber)
+    public function __construct(CaptchaFormSubscriber $captchaFormSubscriber)
     {
-        $this->kernelEnvironment = $kernelEnvironment;
         $this->captchaFormSubscriber = $captchaFormSubscriber;
     }
 
