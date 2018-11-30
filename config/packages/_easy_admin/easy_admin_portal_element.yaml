@@ -3,7 +3,7 @@ easy_admin:
         PortalElement:
             class: Agate\Entity\PortalElement
             label: PortalElement
-            controller: Agate\Controller\Admin\PortalElementController
+            controller: Admin\CustomController\PortalElementController
 
             list:
                 actions:

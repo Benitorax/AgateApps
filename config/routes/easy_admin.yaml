@@ -1,4 +1,0 @@
-easy_admin_bundle:
-    resource:     '../../src/Admin/Controller/'
-    type:         annotation
-    host:         '%esteren_domains.backoffice%'

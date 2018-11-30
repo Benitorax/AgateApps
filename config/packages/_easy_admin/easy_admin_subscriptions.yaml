@@ -3,7 +3,7 @@ easy_admin:
         Subscriptions:
             class: Subscription\Entity\Subscription
 
-            controller: Subscription\Controller\Admin\AdminSubscriptionController
+            controller: Admin\CustomController\AdminSubscriptionController
 
             disabled_actions:
                 - edit

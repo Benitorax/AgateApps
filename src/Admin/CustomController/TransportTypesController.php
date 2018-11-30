@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace EsterenMaps\Controller\Admin;
+namespace Admin\CustomController;
 
 use EsterenMaps\Entity\RoutesTypes;
 use EsterenMaps\Entity\TransportModifiers;

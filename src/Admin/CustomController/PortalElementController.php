@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Agate\Controller\Admin;
+namespace Admin\CustomController;
 
 use Admin\Controller\AdminController;
 use Agate\Entity\PortalElement;
