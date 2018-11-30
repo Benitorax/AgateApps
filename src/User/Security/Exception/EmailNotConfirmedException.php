@@ -14,15 +14,14 @@ declare(strict_types=1);
 namespace User\Security\Exception;
 
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
-use Throwable;
 
 class EmailNotConfirmedException extends AccountStatusException
 {
-    private const EXCEPTION_MESSAGE = 'Email is not confirmed.';
+    private const EXCEPTION_MESSAGE = 'security.email_not_confirmed';
 
-    public function __construct(string $message = '', int $code = 0, Throwable $previous = null)
+    public function __construct()
     {
-        parent::__construct($message ?: static::EXCEPTION_MESSAGE, $code, $previous);
+        parent::__construct(static::EXCEPTION_MESSAGE);
     }
 
     /**

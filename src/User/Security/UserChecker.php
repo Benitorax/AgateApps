@@ -18,19 +18,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use User\Entity\User;
 use User\Security\Exception\EmailNotConfirmedException;
 
-class ConfirmedEmailChecker implements UserCheckerInterface
+class UserChecker implements UserCheckerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function checkPreAuth(UserInterface $user)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function checkPostAuth(UserInterface $user)
     {
         if (!$user instanceof User) {
             return;
@@ -39,5 +29,9 @@ class ConfirmedEmailChecker implements UserCheckerInterface
         if (!$user->isEmailConfirmed()) {
             throw new EmailNotConfirmedException();
         }
+    }
+
+    public function checkPostAuth(UserInterface $user)
+    {
     }
 }
