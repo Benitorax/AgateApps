@@ -79,10 +79,6 @@
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 
-    <!--<extensions>-->
-        <!--<extension class="Symfony\Component\Panther\ServerExtension" />-->
-    <!--</extensions>-->
-
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory>./src</directory>
