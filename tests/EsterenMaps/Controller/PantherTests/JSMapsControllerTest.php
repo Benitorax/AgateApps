@@ -11,7 +11,6 @@
 
 namespace Tests\EsterenMaps\Controller\PantherTests;
 
-use PHPUnit\Framework\AssertionFailedError;
 use Symfony\Component\Panther\Client;
 use Symfony\Component\Panther\PantherTestCase;
 use Tests\WebTestCase as PiersTestCase;
@@ -89,10 +88,6 @@ class JSMapsControllerTest extends PantherTestCase
             static::assertNotEmpty($mapWrapper, 'Map link does not redirect to map view, or map view is broken');
             static::assertCount(1, $mapWrapper, 'Not the right number of map links on list page');
         } catch (\Exception $e) {
-            if ($e instanceof AssertionFailedError) {
-                throw $e;
-            }
-
             $msg = '';
 
             $i = 0;
