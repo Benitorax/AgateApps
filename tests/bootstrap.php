@@ -9,7 +9,7 @@ $time = microtime(true);
 
 echo "\nBootstraping test suite...";
 
-$getenv = function (string $name) {
+$getenv = function (string $name, $default = null) {
     if (isset($_ENV[$name])) {
         return $_ENV[$name];
     }
@@ -19,15 +19,15 @@ $getenv = function (string $name) {
     }
 
     if (false === ($env = getenv($name)) || null === $env) {
-        return null;
+        return $default;
     }
 
     return $env;
 };
 
-define('NO_RECREATE_DB', (bool) $getenv('NO_RECREATE_DB') ?: false);
-define('CLEAR_CACHE', (bool) $getenv('CLEAR_CACHE') ?: true);
-define('RECREATE_DB', (bool) $getenv('RECREATE_DB') ?: false);
+define('NO_RECREATE_DB', '1' === $getenv('NO_RECREATE_DB', false));
+define('CLEAR_CACHE', '1' === $getenv('CLEAR_CACHE', true));
+define('RECREATE_DB', '1' === $getenv('RECREATE_DB', false));
 
 gc_disable();
 ini_set('memory_limit', -1);
@@ -47,18 +47,21 @@ if (!file_exists($file)) {
 
 require $file;
 
-if ($debug = ((bool) $getenv('APP_DEBUG') ?: true)) {
+if ($debug = ('1' === $getenv('APP_DEBUG', true))) {
     echo "\nEnabling debug";
     Debug::enable();
 }
 
-echo "\nCreating kernel & console application";
+$application = null;
 
-$kernel = new Kernel($getenv('APP_ENV') ?: 'test', $debug);
-$application = new Application($kernel);
-$application->setAutoExit(false);
+$runCommand = function (string $cmd) use (&$application, $getenv, $debug): void {
+    if (!$application) {
+        echo "\nCreating kernel & console application for bootstraping commands";
+        $kernel = new Kernel($getenv('APP_ENV') ?: 'test', $debug);
+        $application = new Application($kernel);
+        $application->setAutoExit(false);
+    }
 
-$runCommand = function (string $cmd) use ($application): void {
     $code = $application->run(new StringInput($cmd));
     if ($code) {
         throw new \RuntimeException(sprintf('Command %s failed with code "%d".', $cmd, $code));
