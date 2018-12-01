@@ -1,6 +1,6 @@
 <?php
 
-namespace Subscription\Controller\Admin;
+namespace Admin\CustomController;
 
 use Admin\Controller\AdminController;
 use Subscription\Entity\Subscription;

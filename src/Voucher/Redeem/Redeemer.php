@@ -26,7 +26,7 @@ final class Redeemer
     }
 
     /**
-     * @return int The number of handlers that were executed.
+     * @return int the number of handlers that were executed
      *
      * @throws RedeemExceptionInterface
      */
@@ -61,7 +61,7 @@ final class Redeemer
     {
         $handlers = $this->handlers;
 
-        usort($handlers, function (
+        \usort($handlers, function (
             VoucherHandlerInterface $handler1,
             VoucherHandlerInterface $handler2
         ) {

@@ -147,10 +147,6 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
             throw new BadCredentialsException('security.bad_credentials');
         }
 
-        if ($user && !$user->isEmailConfirmed()) {
-            throw new AuthenticationException('security.email_not_confirmed');
-        }
-
         return $user;
     }
 
@@ -179,7 +175,7 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         $targetPath = $this->getTargetPath($session, $providerKey);
 
         if (!$targetPath) {
-            $targetPath = \rtrim($this->router->generate('root', ['_locale' => $request->getLocale() ?: $this->defaultLocale]), '/').'/';
+            $targetPath = \rtrim($this->router->generate('root'), '/').'/'.$request->getLocale();
         }
 
         // Make sure username is not stored for next login

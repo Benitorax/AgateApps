@@ -39,11 +39,13 @@ class RedeemerTest extends TestCase
 
         $handler->expects($this->once())
             ->method('supports')
-            ->willReturn(true);
+            ->willReturn(true)
+        ;
 
         $handler->expects($this->once())
             ->method('handle')
-            ->willThrowException(new StopRedeemPropagation());
+            ->willThrowException(new StopRedeemPropagation())
+        ;
 
         $return = $this->createRedeemer([$handler])->redeem($this->createVoucher(), $this->createUser());
 
@@ -55,7 +57,8 @@ class RedeemerTest extends TestCase
         $voucher = $this->createMock(Voucher::class);
         $voucher->expects($this->any())
             ->method('getType')
-            ->willReturn('test_type');
+            ->willReturn('test_type')
+        ;
 
         return $voucher;
     }
@@ -65,7 +68,8 @@ class RedeemerTest extends TestCase
         $voucher = $this->createMock(User::class);
         $voucher->expects($this->any())
             ->method('getUsername')
-            ->willReturn('test_user');
+            ->willReturn('test_user')
+        ;
 
         return $voucher;
     }

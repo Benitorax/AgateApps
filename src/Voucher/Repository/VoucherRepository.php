@@ -9,8 +9,8 @@ use Voucher\Entity\Voucher;
 /**
  * @method Voucher|null find($id, $lockMode = null, $lockVersion = null)
  * @method Voucher|null findOneBy(array $criteria, array $orderBy = null)
- * @method Voucher[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method Voucher[] findAll()
+ * @method Voucher[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Voucher[]    findAll()
  */
 class VoucherRepository extends ServiceEntityRepository
 {

@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Agate\Controller;
+namespace Main\Controller;
 
 use Main\DependencyInjection\PublicService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class RootController extends AbstractController implements PublicService
+class RootController implements PublicService
 {
     private $locales;
 
@@ -26,12 +26,20 @@ class RootController extends AbstractController implements PublicService
         $this->locales = $locales;
     }
 
+    /**
+     * Don't rename the "root" route, it must stay the same,
+     * because of the yaml "hack" it induces.
+     * Check "routes.yaml" for more information.
+     *
+     * @Route("", methods={"GET"}, name="root")
+     * @-Route("/{_locale}/", methods={"GET"}, name="root_with_locale")
+     */
     public function __invoke(Request $request, string $_locale = null): Response
     {
         if (!$_locale) {
             $_locale = $request->getPreferredLanguage(\array_values($this->locales));
         }
 
-        return new RedirectResponse("/$_locale/", 301);
+        return new RedirectResponse("/$_locale", 301);
     }
 }

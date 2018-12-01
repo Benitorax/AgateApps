@@ -7,13 +7,12 @@ use Subscription\Entity\Subscription;
 use Subscription\Mailer\SubscriptionMailer;
 use Subscription\SubscriptionType;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
+use User\Entity\User;
 use Voucher\Entity\RedeemedVoucher;
 use Voucher\Entity\Voucher;
 use Voucher\Exception\SaveError;
 use Voucher\Exception\StopRedeemPropagation;
 use Voucher\VoucherType;
-use User\Entity\User;
 
 class EsterenMapsVoucherHandler implements VoucherHandlerInterface
 {
@@ -35,7 +34,7 @@ class EsterenMapsVoucherHandler implements VoucherHandlerInterface
 
     public function supports(Voucher $voucher, User $user): bool
     {
-        return $voucher->getType() === VoucherType::ESTEREN_MAPS;
+        return VoucherType::ESTEREN_MAPS === $voucher->getType();
     }
 
     public function handle(Voucher $voucher, User $user): void

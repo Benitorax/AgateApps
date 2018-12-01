@@ -32,22 +32,7 @@ class StaticUrlsTest extends WebTestCase
         ]);
 
         static::assertSame(301, $client->getResponse()->getStatusCode());
-        static::assertTrue($client->getResponse()->isRedirect("/$browserLocale/"));
-    }
-
-    /**
-     * @dataProvider provideRootData
-     */
-    public function test root with slash redirects with locale(string $locale, string $host): void
-    {
-        $client = $this->getClient($host, [], ['ROLE_ADMIN']);
-
-        $client->request('GET', "/$locale", [], [], [
-            'HTTP_ACCEPT_LANGUAGE' => [$locale],
-        ]);
-
-        static::assertSame(301, $client->getResponse()->getStatusCode());
-        static::assertTrue($client->getResponse()->isRedirect("/$locale/"));
+        static::assertTrue($client->getResponse()->isRedirect("/$browserLocale"));
     }
 
     public function provideRootData()
@@ -119,29 +104,29 @@ class StaticUrlsTest extends WebTestCase
     public function provideTestUrls(): ?\Generator
     {
         // Studio Agate
-        yield 0 => ['www.studio-agate.docker', '/fr/', 'agate_portal_home', 200, 'Bienvenue sur le nouveau portail du Studio Agate'];
-        yield 1 => ['www.studio-agate.docker', '/en/', 'agate_portal_home', 200, 'Welcome to the new Studio Agate portal'];
+        yield 0 => ['www.studio-agate.docker', '/fr', 'agate_portal_home', 200, 'Bienvenue sur le nouveau portail du Studio Agate'];
+        yield 1 => ['www.studio-agate.docker', '/en', 'agate_portal_home', 200, 'Welcome to the new Studio Agate portal'];
         yield 2 => ['www.studio-agate.docker', '/fr/team', 'agate_team', 200, 'L\'Équipe du studio Agate'];
         yield 3 => ['www.studio-agate.docker', '/en/team', 'agate_team', 200, 'The Studio Agate team'];
         yield 4 => ['www.studio-agate.docker', '/fr/legal', 'legal_mentions', 200, 'Mentions légales', '#content h2'];
         yield 5 => ['www.studio-agate.docker', '/en/legal', 'legal_mentions', 404];
 
         // Vermine portal
-        yield 6 => ['www.vermine2047.docker', '/fr/', 'vermine_portal_home', 200, 'Vermine 2047', 'title'];
-        yield 7 => ['www.vermine2047.docker', '/en/', 'vermine_portal_home', 200, 'Vermine 2047', 'title'];
+        yield 6 => ['www.vermine2047.docker', '/fr', 'vermine_portal_home', 200, 'Vermine 2047', 'title'];
+        yield 7 => ['www.vermine2047.docker', '/en', 'vermine_portal_home', 200, 'Vermine 2047', 'title'];
 
         // Esteren portal
-        yield 8 => ['portal.esteren.docker', '/fr/', 'esteren_portal_home', 200, 'Bienvenue sur le nouveau portail des Ombres d\'Esteren'];
-        yield 9 => ['portal.esteren.docker', '/en/', 'esteren_portal_home', 200, 'Welcome to the new Shadows of Esteren\'s portal!'];
+        yield 8 => ['portal.esteren.docker', '/fr', 'esteren_portal_home', 200, 'Bienvenue sur le nouveau portail des Ombres d\'Esteren'];
+        yield 9 => ['portal.esteren.docker', '/en', 'esteren_portal_home', 200, 'Welcome to the new Shadows of Esteren\'s portal!'];
         yield 10 => ['portal.esteren.docker', '/fr/feond-beer', 'esteren_portal_feond_beer', 200, 'La bière du Féond', 'title'];
         yield 11 => ['portal.esteren.docker', '/en/feond-beer', 'esteren_portal_feond_beer', 200, 'La bière du Féond', 'title'];
 
         // Corahn-Rin
-        yield 12 => ['corahnrin.esteren.docker', '/fr/', 'corahn_rin_home', 200, 'Corahn-Rin, le générateur de personnage pour Les Ombres d\'Esteren', 'title'];
-        yield 13 => ['corahnrin.esteren.docker', '/en/', 'corahn_rin_home', 200, 'Corahn-Rin, the character manager for Shadows of Esteren', 'title'];
+        yield 12 => ['corahnrin.esteren.docker', '/fr', 'corahn_rin_home', 200, 'Corahn-Rin, le générateur de personnage pour Les Ombres d\'Esteren', 'title'];
+        yield 13 => ['corahnrin.esteren.docker', '/en', 'corahn_rin_home', 200, 'Corahn-Rin, the character manager for Shadows of Esteren', 'title'];
 
         // Dragons
-        yield 14 => ['www.dragons-rpg.docker', '/fr/', 'dragons_home', 200, 'Bienvenue sur le nouveau portail du jeu de rôle Dragons'];
-        yield 15 => ['www.dragons-rpg.docker', '/en/', 'dragons_home', 200, 'Welcome to Dragons RPG portal'];
+        yield 14 => ['www.dragons-rpg.docker', '/fr', 'dragons_home', 200, 'Bienvenue sur le nouveau portail du jeu de rôle Dragons'];
+        yield 15 => ['www.dragons-rpg.docker', '/en', 'dragons_home', 200, 'Welcome to Dragons RPG portal'];
     }
 }

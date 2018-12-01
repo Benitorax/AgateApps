@@ -5,7 +5,11 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Filesystem\Filesystem;
 
-$getenv = function (string $name) {
+$time = microtime(true);
+
+echo "\nBootstraping test suite...";
+
+$getenv = function (string $name, $default = null) {
     if (isset($_ENV[$name])) {
         return $_ENV[$name];
     }
@@ -15,17 +19,15 @@ $getenv = function (string $name) {
     }
 
     if (false === ($env = getenv($name)) || null === $env) {
-        return null;
+        return $default;
     }
 
     return $env;
 };
 
-$time = microtime(true);
-
-define('NO_RECREATE_DB', (bool) $getenv('NO_RECREATE_DB') ?: false);
-define('CLEAR_CACHE', (bool) $getenv('CLEAR_CACHE') ?: true);
-define('RECREATE_DB', (bool) $getenv('RECREATE_DB') ?: false);
+define('NO_RECREATE_DB', '1' === $getenv('NO_RECREATE_DB', false));
+define('CLEAR_CACHE', '1' === $getenv('CLEAR_CACHE', true));
+define('RECREATE_DB', '1' === $getenv('RECREATE_DB', false));
 
 gc_disable();
 ini_set('memory_limit', -1);
@@ -45,15 +47,22 @@ if (!file_exists($file)) {
 
 require $file;
 
-if ($debug = ((bool) $getenv('APP_DEBUG') ?: true)) {
+if ($debug = ('1' === $getenv('APP_DEBUG', true))) {
+    echo "\nEnabling debug";
     Debug::enable();
 }
 
-$kernel = new Kernel($getenv('APP_ENV') ?: 'test', $debug);
-$application = new Application($kernel);
-$application->setAutoExit(false);
+$kernel = null;
+$application = null;
 
-$runCommand = function (string $cmd) use ($application): void {
+$runCommand = function (string $cmd) use (&$application, &$kernel, $getenv, $debug): void {
+    if (!$application) {
+        echo "\nCreating kernel & console application for bootstraping commands";
+        $kernel = new Kernel($getenv('APP_ENV') ?: 'test', $debug);
+        $application = new Application($kernel);
+        $application->setAutoExit(false);
+    }
+
     $code = $application->run(new StringInput($cmd));
     if ($code) {
         throw new \RuntimeException(sprintf('Command %s failed with code "%d".', $cmd, $code));
@@ -109,7 +118,9 @@ $runCommand('doctrine:fixtures:load --append');
 echo "\nCopying test database to reference file";
 $fs->copy(DATABASE_TEST_FILE, DATABASE_REFERENCE_FILE);
 
-$kernel->shutdown();
+if ($kernel) {
+    $kernel->shutdown();
+}
 
 end:
 

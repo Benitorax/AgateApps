@@ -29,7 +29,7 @@ class CacheManager implements EventSubscriber, CacheClearerInterface
     private $doctrineResultCache;
     private $logger;
 
-    public function __construct(Cache $doctrineResultCache = null, LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, Cache $doctrineResultCache = null)
     {
         $this->doctrineResultCache = $doctrineResultCache;
         $this->logger = $logger;

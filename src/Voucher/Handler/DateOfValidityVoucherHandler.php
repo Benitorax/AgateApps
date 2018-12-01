@@ -2,9 +2,9 @@
 
 namespace Voucher\Handler;
 
+use User\Entity\User;
 use Voucher\Entity\Voucher;
 use Voucher\Exception\VoucherNotAvailable;
-use User\Entity\User;
 
 class DateOfValidityVoucherHandler implements VoucherHandlerInterface
 {

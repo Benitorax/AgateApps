@@ -39,6 +39,7 @@ security:
                 invalidate_session: false
                 path: user_logout
                 target: root
+            user_checker: User\Security\UserChecker
             guard:
                 authenticators:
                     - User\Security\FormLoginAuthenticator

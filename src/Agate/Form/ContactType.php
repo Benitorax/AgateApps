@@ -25,12 +25,10 @@ use Symfony\Component\Validator\Constraints;
 
 class ContactType extends AbstractType
 {
-    private $kernelEnvironment;
     private $captchaFormSubscriber;
 
-    public function __construct(string $kernelEnvironment, CaptchaFormSubscriber $captchaFormSubscriber)
+    public function __construct(CaptchaFormSubscriber $captchaFormSubscriber)
     {
-        $this->kernelEnvironment = $kernelEnvironment;
         $this->captchaFormSubscriber = $captchaFormSubscriber;
     }
 
@@ -53,10 +51,7 @@ class ContactType extends AbstractType
                 'label' => 'contact.form.email',
                 'constraints' => [
                     new Constraints\NotBlank(),
-                    new Constraints\Email([
-                        'checkHost' => 'prod' === $this->kernelEnvironment,
-                        'checkMX' => 'prod' === $this->kernelEnvironment,
-                    ]),
+                    new Constraints\Email(['mode' => Constraints\Email::VALIDATION_MODE_HTML5]),
                 ],
             ])
             ->add('subject', ChoiceType::class, [

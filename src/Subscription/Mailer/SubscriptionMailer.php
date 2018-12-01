@@ -30,8 +30,7 @@ final class SubscriptionMailer
         Environment $twig,
         TranslatorInterface $translator,
         string $agateDomain
-    )
-    {
+    ) {
         $this->twig = $twig;
         $this->mailer = $mailer;
         $this->translator = $translator;
@@ -58,10 +57,11 @@ final class SubscriptionMailer
 
         $message
             ->setSubject($this->translator->trans("subscription.email.$type.subject", [], 'user'))
-            ->setFrom('no-reply@' . $this->requestContext->getHost())
+            ->setFrom('no-reply@'.$this->requestContext->getHost())
             ->setContentType('text/html')
             ->setTo($user->getEmail())
-            ->setBody($rendered);
+            ->setBody($rendered)
+        ;
 
         $this->mailer->send($message);
     }

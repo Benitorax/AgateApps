@@ -23,10 +23,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends BaseAdminController implements PublicService
 {
     /**
-     * @Route("/", name="easyadmin", methods={"GET", "POST", "DELETE"})
+     * @Route(
+     *     "/{entity}/{action}/{id}",
+     *     name="easyadmin",
+     *     methods={"GET", "POST", "DELETE"},
+     *     defaults={
+     *         "entity" = null,
+     *         "action" = null,
+     *         "id" = null
+     *     }
+     * )
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, string $entity = null, string $action = null, string $id = null)
     {
+        if (!$id && \in_array($action, ['delete', 'show', 'edit'], true)) {
+            throw $this->createNotFoundException('An id must be specified for this action.');
+        }
+
         return parent::indexAction($request);
     }
 

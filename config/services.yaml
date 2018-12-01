@@ -64,7 +64,6 @@ services:
             $awsRegion:       '%aws_region%'
             $awsBucket:       '%aws_bucket%'
             $agateDomain:     '%env(AGATE_DOMAIN)%'
-            $kernelEnvironment: '%kernel.environment%'
             $doctrineResultCache: '@doctrine.result_cache_provider'
             $mapsAcceptableHosts: ['%esteren_domains.esterenmaps%', '%esteren_domains.corahnrin%']
             $corahnRinManagerName: '%corahnrin_manager_name%'
@@ -76,7 +75,7 @@ services:
             tags: ['subscription.voucher_handler']
 
     Admin\:
-        resource: '../src/Admin/{Controller}'
+        resource: '../src/Admin/{Controller,CustomController,EventListener}'
 
     Agate\:
         resource: '../src/Agate/{Controller,Form,Mailer}'
@@ -97,7 +96,7 @@ services:
         resource: '../src/Main/{Controller,Twig}'
 
     Subscription\:
-        resource: '../src/Subscription/{Controller,Mailer,Repository,Security,Validator}'
+        resource: '../src/Subscription/{Mailer,Repository,Security,Validator}'
 
     Voucher\:
         resource: '../src/Voucher/{Controller,Form,Handler,Redeem,Repository}'

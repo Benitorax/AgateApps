@@ -83,7 +83,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
 
         $entityName = $this->getEntityName();
 
-        $crawler = $client->request('GET', '/fr/?entity='.$entityName.'&action=list');
+        $crawler = $client->request('GET', "/fr/$entityName/list");
 
         $wishedColumns = $this->provideListingFields();
 
@@ -122,7 +122,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
 
         $entityName = $this->getEntityName();
 
-        $crawler = $client->request('GET', '/fr/?entity='.$entityName.'&action=list');
+        $crawler = $client->request('GET', "/fr/$entityName/list");
 
         static::assertSame(200, $client->getResponse()->getStatusCode(), $entityName."\n".$crawler->filter('title')->text());
 
@@ -191,7 +191,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
 
         // We'll make the DELETE request starting from the EDIT page.
 
-        $crawler = $client->request('DELETE', '/fr/?action=edit&id='.$id.'&entity='.$entityName.'&referer=/');
+        $crawler = $client->request('DELETE', "/fr/$entityName/edit/$id?referer=/");
 
         $deleteForm = $crawler->filter('#delete_form_submit');
 
@@ -229,7 +229,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
 
         $entityName = $this->getEntityName();
 
-        $crawler = $client->request('GET', "/fr/?action=$view&id=$id&entity=$entityName");
+        $crawler = $client->request('GET', "/fr/$entityName/$view".($id ? "/$id" : ''));
 
         static::assertSame(200, $client->getResponse()->getStatusCode(), $entityName);
 
@@ -263,7 +263,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
         }
 
         static::assertSame(302, $response->getStatusCode(), "Not redirecting after submitting $view action ".$entityName.$message);
-        static::assertSame('/fr/?action=list&entity='.$entityName, $response->headers->get('location'), $entityName);
+        static::assertSame("/fr/$entityName/list", $response->headers->get('location'), $entityName);
 
         $crawler->clear();
         $client->followRedirect();

@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Controller\Admin;
+namespace Admin\CustomController;
 
 use Admin\Controller\AdminController;
 use Symfony\Component\Form\FormEvent;

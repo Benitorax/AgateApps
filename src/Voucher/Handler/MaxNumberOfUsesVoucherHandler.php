@@ -2,16 +2,17 @@
 
 namespace Voucher\Handler;
 
+use User\Entity\User;
 use Voucher\Entity\Voucher;
 use Voucher\Exception\ExceededNumberOfUsesForVoucher;
 use Voucher\Repository\RedeemedVoucherRepository;
-use User\Entity\User;
 
 class MaxNumberOfUsesVoucherHandler implements VoucherHandlerInterface
 {
     private $redeemedVoucherRepository;
 
-    public function __construct(RedeemedVoucherRepository $redeemedVoucherRepository) {
+    public function __construct(RedeemedVoucherRepository $redeemedVoucherRepository)
+    {
         $this->redeemedVoucherRepository = $redeemedVoucherRepository;
     }
 

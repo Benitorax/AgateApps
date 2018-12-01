@@ -11,10 +11,10 @@
 
 namespace Tests\EsterenMaps\Controller;
 
+use Subscription\Repository\SubscriptionRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Link;
 use Tests\WebTestCase as PiersTestCase;
-use Subscription\Repository\SubscriptionRepository;
 use User\Repository\UserRepository;
 
 class MapsControllerTest extends WebTestCase

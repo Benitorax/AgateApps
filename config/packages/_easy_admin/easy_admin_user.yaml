@@ -3,7 +3,7 @@ easy_admin:
         Users:
             class: User\Entity\User
 
-            controller: User\Controller\Admin\AdminUserController
+            controller: Admin\CustomController\AdminUserController
 
             disabled_actions:
                 - edit

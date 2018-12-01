@@ -17,7 +17,6 @@ use EsterenMaps\Entity\Maps;
 use EsterenMaps\Entity\Markers;
 use EsterenMaps\Entity\TransportTypes;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Request;
 use Tests\WebTestCase as PiersTestCase;
 
 class DirectionsManagerTest extends WebTestCase

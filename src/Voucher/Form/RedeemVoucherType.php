@@ -42,5 +42,4 @@ class RedeemVoucherType extends AbstractType
         $resolver->setDefault('show_confirmation', false);
         $resolver->setAllowedTypes('show_confirmation', ['bool']);
     }
-
 }
