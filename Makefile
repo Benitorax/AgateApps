@@ -165,7 +165,7 @@ phpunit-coverage: ## Execute all PHPUnit tests with code coverage support
 phpunit-coverage: composer.lock
 	$(EXEC_PHP) docker-php-ext-enable xdebug
 	$(EXEC_PHP) bin/phpunit --log-junit=build/log/logfile_coverage.xml --coverage-text --coverage-clover=build/log/coverage.xml
-	$(EXEC_PHP) php --ini | grep xdebug | xargs rm -f
+	$(EXEC_PHP) php --ini | grep xdebug | sed 's/,$//' | xargs rm -f
 .PHONY: phpunit
 
 ##
