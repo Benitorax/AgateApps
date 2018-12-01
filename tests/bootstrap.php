@@ -52,9 +52,10 @@ if ($debug = ('1' === $getenv('APP_DEBUG', true))) {
     Debug::enable();
 }
 
+$kernel = null;
 $application = null;
 
-$runCommand = function (string $cmd) use (&$application, $getenv, $debug): void {
+$runCommand = function (string $cmd) use (&$application, &$kernel, $getenv, $debug): void {
     if (!$application) {
         echo "\nCreating kernel & console application for bootstraping commands";
         $kernel = new Kernel($getenv('APP_ENV') ?: 'test', $debug);
@@ -117,7 +118,9 @@ $runCommand('doctrine:fixtures:load --append');
 echo "\nCopying test database to reference file";
 $fs->copy(DATABASE_TEST_FILE, DATABASE_REFERENCE_FILE);
 
-$kernel->shutdown();
+if ($kernel) {
+    $kernel->shutdown();
+}
 
 end:
 
