@@ -59,20 +59,17 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     private $httpUtils;
     private $router;
     private $encoder;
-    private $defaultLocale;
 
     public function __construct(
         HttpKernelInterface $kernel,
         HttpUtils $httpUtils,
         RouterInterface $router,
-        UserPasswordEncoderInterface $encoder,
-        string $defaultLocale
+        UserPasswordEncoderInterface $encoder
     ) {
         $this->httpKernel = $kernel;
         $this->httpUtils = $httpUtils;
         $this->router = $router;
         $this->encoder = $encoder;
-        $this->defaultLocale = $defaultLocale;
     }
 
     /**

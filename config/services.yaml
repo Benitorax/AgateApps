@@ -50,7 +50,6 @@ services:
         bind:
             $debug:           '%kernel.debug%'
             $locales:         '%locales%'
-            $defaultLocale:   '%locale%'
             $googleTags:      '%google_tags%'
             $imageMagickPath: '%env(IMAGEMAGICK_BINARIES_PATH)%'
             $outputDirectory: '%esterenmaps.output_directory%'
