@@ -75,7 +75,7 @@ services:
             tags: ['subscription.voucher_handler']
 
     Admin\:
-        resource: '../src/Admin/{Controller,CustomController}'
+        resource: '../src/Admin/{Controller,CustomController,EventListener}'
 
     Agate\:
         resource: '../src/Agate/{Controller,Form,Mailer}'

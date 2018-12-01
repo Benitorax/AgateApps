@@ -178,11 +178,11 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
     {
         parent::resetDatabase();
 
-        $kernel = static::bootKernel();
+        static::bootKernel();
 
         $class = PortalElement::class;
 
-        $kernel->getContainer()->get('doctrine.orm.entity_manager')
+        static::$container->get('doctrine.orm.entity_manager')
             ->createQuery(<<<DQL
                 DELETE FROM {$class} element 
                 WHERE element.portal = :portal 
