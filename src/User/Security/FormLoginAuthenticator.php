@@ -175,7 +175,7 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         $targetPath = $this->getTargetPath($session, $providerKey);
 
         if (!$targetPath) {
-            $targetPath = $this->router->generate('root').'/'.$request->getLocale();
+            $targetPath = rtrim($this->router->generate('root'), '/').'/'.$request->getLocale();
         }
 
         // Make sure username is not stored for next login
