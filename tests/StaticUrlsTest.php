@@ -35,20 +35,6 @@ class StaticUrlsTest extends WebTestCase
         static::assertTrue($client->getResponse()->isRedirect("/$browserLocale"));
     }
 
-    /**
-     * @dataProvider provideRootData
-     */
-    public function test root with slash returns 404(string $locale, string $host): void
-    {
-        $client = $this->getClient($host, [], ['ROLE_ADMIN']);
-
-        $client->request('GET', "/$locale/", [], [], [
-            'HTTP_ACCEPT_LANGUAGE' => [$locale],
-        ]);
-
-        static::assertSame(404, $client->getResponse()->getStatusCode());
-    }
-
     public function provideRootData()
     {
         yield 0 => ['fr', 'portal.esteren.docker'];
