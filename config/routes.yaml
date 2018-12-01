@@ -62,7 +62,7 @@ esterenmaps_api:
     resource: '../src/EsterenMaps/Controller/Api'
     host: '{host}'
     requirements:
-        host: "(%esteren_domains.esterenmaps%|%esteren_domains.backoffice%)"
+        host: "(%esteren_domains.esterenmaps%|%esteren_domains.corahnrin%|%esteren_domains.backoffice%)"
 
 agate:
     <<: *metadata
