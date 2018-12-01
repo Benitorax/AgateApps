@@ -5,6 +5,10 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Filesystem\Filesystem;
 
+$time = microtime(true);
+
+echo "\nBootstraping test suite...";
+
 $getenv = function (string $name) {
     if (isset($_ENV[$name])) {
         return $_ENV[$name];
@@ -20,8 +24,6 @@ $getenv = function (string $name) {
 
     return $env;
 };
-
-$time = microtime(true);
 
 define('NO_RECREATE_DB', (bool) $getenv('NO_RECREATE_DB') ?: false);
 define('CLEAR_CACHE', (bool) $getenv('CLEAR_CACHE') ?: true);
@@ -46,8 +48,11 @@ if (!file_exists($file)) {
 require $file;
 
 if ($debug = ((bool) $getenv('APP_DEBUG') ?: true)) {
+    echo "\nEnabling debug";
     Debug::enable();
 }
+
+echo "\nCreating kernel & console application";
 
 $kernel = new Kernel($getenv('APP_ENV') ?: 'test', $debug);
 $application = new Application($kernel);
