@@ -17,7 +17,7 @@ final class Version20181115160035 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql(<<<SQL
+        $this->addSql(<<<'SQL'
             CREATE TABLE used_vouchers (
                 id          INT auto_increment NOT NULL,
                 voucher_id  INT DEFAULT NULL,
@@ -33,7 +33,7 @@ final class Version20181115160035 extends AbstractMigration
 SQL
         );
 
-        $this->addSql(<<<SQL
+        $this->addSql(<<<'SQL'
             CREATE TABLE vouchers (
                 id                 INT auto_increment NOT NULL,
                 unique_code        VARCHAR(255) NOT NULL,
@@ -54,10 +54,10 @@ SQL
         $this->addSql('ALTER TABLE used_vouchers ADD CONSTRAINT fk_592812e7a76ed395 FOREIGN KEY (user_id) REFERENCES fos_user_user (id);');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
         $this->addSql('ALTER TABLE used_vouchers DROP FOREIGN KEY FK_592812E728AA1B6F');
         $this->addSql('DROP TABLE used_vouchers');
         $this->addSql('DROP TABLE vouchers');

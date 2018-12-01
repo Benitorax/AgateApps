@@ -11,7 +11,6 @@
 
 namespace CorahnRin\Command;
 
-use CorahnRin\Data\Ways;
 use CorahnRin\Entity\CharacterProperties\Ways as CharWays;
 use CorahnRin\Entity\Characters;
 use CorahnRin\Entity\Games;

@@ -28,7 +28,7 @@ class Voucher
      *
      * @ORM\Column(name="unique_code", type="string", length=255, unique=true)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      */
     private $uniqueCode;
 
@@ -37,7 +37,7 @@ class Voucher
      *
      * @ORM\Column(name="type", type="string", length=255)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      * @Assert\Choice(Voucher\VoucherType::TYPES)
      */
     private $type;
@@ -124,7 +124,7 @@ class Voucher
     private function setType(string $type): void
     {
         if (!\in_array($type, \Voucher\VoucherType::TYPES, true)) {
-            throw new \InvalidArgumentException(sprintf('Invalid voucher type "%s"', $type));
+            throw new \InvalidArgumentException(\sprintf('Invalid voucher type "%s"', $type));
         }
 
         $this->type = $type;

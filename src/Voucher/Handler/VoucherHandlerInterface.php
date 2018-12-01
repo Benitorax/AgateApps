@@ -2,10 +2,10 @@
 
 namespace Voucher\Handler;
 
+use User\Entity\User;
 use Voucher\Entity\Voucher;
 use Voucher\Exception\RedeemException;
 use Voucher\Exception\StopRedeemPropagation;
-use User\Entity\User;
 
 interface VoucherHandlerInterface
 {
@@ -26,7 +26,7 @@ interface VoucherHandlerInterface
      * May throw an exception if redeem failed.
      *
      * @throws RedeemException
-     * @throws StopRedeemPropagation To prevent executing next handlers.
+     * @throws StopRedeemPropagation to prevent executing next handlers
      */
     public function handle(Voucher $voucher, User $user): void;
 }

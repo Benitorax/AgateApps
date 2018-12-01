@@ -2,8 +2,8 @@
 
 namespace Voucher\Exception;
 
-use Voucher\Entity\Voucher;
 use User\Entity\User;
+use Voucher\Entity\Voucher;
 
 interface RedeemExceptionInterface extends \Throwable
 {

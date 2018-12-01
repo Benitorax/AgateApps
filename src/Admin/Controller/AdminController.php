@@ -28,15 +28,15 @@ class AdminController extends BaseAdminController implements PublicService
      *     name="easyadmin",
      *     methods={"GET", "POST", "DELETE"},
      *     defaults={
-     *         "entity": null,
-     *         "action": null,
-     *         "id": null
+     *         "entity" = null,
+     *         "action" = null,
+     *         "id" = null
      *     }
      * )
      */
     public function indexAction(Request $request, string $entity = null, string $action = null, string $id = null)
     {
-        if (!$id && \in_array($action, ['delete', 'show', 'edit'])) {
+        if (!$id && \in_array($action, ['delete', 'show', 'edit'], true)) {
             throw $this->createNotFoundException('An id must be specified for this action.');
         }
 

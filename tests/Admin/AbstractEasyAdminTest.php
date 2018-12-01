@@ -229,7 +229,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
 
         $entityName = $this->getEntityName();
 
-        $crawler = $client->request('GET', "/fr/$entityName/$view".($id?"/$id":''));
+        $crawler = $client->request('GET', "/fr/$entityName/$view".($id ? "/$id" : ''));
 
         static::assertSame(200, $client->getResponse()->getStatusCode(), $entityName);
 

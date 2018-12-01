@@ -4,9 +4,9 @@ namespace Subscription\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Subscription\Constraint\UniqueSubscription;
 use Subscription\SubscriptionType;
 use Symfony\Component\Validator\Constraints as Assert;
-use Subscription\Constraint\UniqueSubscription;
 use User\Entity\User;
 
 /**
