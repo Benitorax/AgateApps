@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Agate\Form;
+namespace Agate\Form\Type;
 
-use Agate\EventListener\CaptchaFormSubscriber;
+use Agate\Form\EventListener\CaptchaFormSubscriber;
 use Agate\Model\ContactMessage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

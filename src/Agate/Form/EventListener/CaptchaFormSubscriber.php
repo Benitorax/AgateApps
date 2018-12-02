@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Agate\EventListener;
+namespace Agate\Form\EventListener;
 
 use ReCaptcha\ReCaptcha;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

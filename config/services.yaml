@@ -74,31 +74,37 @@ services:
             tags: ['subscription.voucher_handler']
 
     Admin\:
-        resource: '../src/Admin/{Controller,CustomController,EventListener}'
+        resource: '../src/Admin/*'
 
     Agate\:
-        resource: '../src/Agate/{Controller,Form,Mailer}'
+        resource: '../src/Agate/*'
+        exclude: '../src/Agate/{Entity,Exception,Model}'
 
     CorahnRin\:
-        resource: '../src/CorahnRin/{Controller,Repository,GeneratorTools,SheetsManagers,Step,Twig}'
+        resource: '../src/CorahnRin/*'
+        exclude: '../src/CorahnRin/{Data,Entity,Exception,Model,PDF,Resources}'
 
     Esteren\:
-        resource: '../src/Esteren/{Controller,Twig}'
+        resource: '../src/Esteren/*'
 
     EsterenMaps\:
-        resource: '../src/EsterenMaps/{Api,Cache,Command,Controller,Repository,Services,Twig}'
-
-    User\:
-        resource: '../src/User/{Controller,ConnectApi,Command,Mailer,Form,Repository,Security,Twig,Util,Validator}'
+        resource: '../src/EsterenMaps/*'
+        exclude: '../src/EsterenMaps/{Constraints,Entity,ImageManagement,Mode}'
 
     Main\:
-        resource: '../src/Main/{Controller,Twig}'
+        resource: '../src/Main/*'
 
     Subscription\:
-        resource: '../src/Subscription/{Mailer,Repository,Security,Validator}'
+        resource: '../src/Subscription/*'
+        exclude: '../src/Subscription/{Constraint,Entity}'
+
+    User\:
+        resource: '../src/User/*'
+        exclude: '../src/User/{Entity,Model,Security/Exception}'
 
     Voucher\:
-        resource: '../src/Voucher/{Controller,Form,Handler,Redeem,Repository}'
+        resource: '../src/Voucher/*'
+        exclude: '../src/Voucher/{Entity,Data,Exception}'
 
     Voucher\Redeem\Redeemer: [!tagged subscription.voucher_handler]
 
@@ -107,5 +113,5 @@ services:
 
     # This class must not be autoconfigured in the Container,
     # because it is used only by Forms, not the global EventDispatcher.
-    Agate\EventListener\CaptchaFormSubscriber:
+    Agate\Form\EventListener\CaptchaFormSubscriber:
         autoconfigure: false

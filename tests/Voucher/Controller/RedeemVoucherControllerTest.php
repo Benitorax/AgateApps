@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tests\WebTestCase as PiersTestCase;
 use User\Repository\UserRepository;
+use Voucher\Data\VoucherType;
 use Voucher\Entity\RedeemedVoucher;
 use Voucher\Entity\Voucher;
 use Voucher\Exception\ExceededNumberOfUsesForVoucher;
@@ -25,7 +26,6 @@ use Voucher\Exception\VoucherNotAvailable;
 use Voucher\Redeem\Redeemer;
 use Voucher\Repository\RedeemedVoucherRepository;
 use Voucher\Repository\VoucherRepository;
-use Voucher\VoucherType;
 
 class RedeemVoucherControllerTest extends WebTestCase
 {

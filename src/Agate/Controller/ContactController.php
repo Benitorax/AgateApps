@@ -11,7 +11,7 @@
 
 namespace Agate\Controller;
 
-use Agate\Form\ContactType;
+use Agate\Form\Type\ContactType;
 use Agate\Mailer\PortalMailer;
 use Agate\Model\ContactMessage;
 use Main\DependencyInjection\PublicService;

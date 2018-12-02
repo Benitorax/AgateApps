@@ -8,11 +8,11 @@ use Subscription\Mailer\SubscriptionMailer;
 use Subscription\SubscriptionType;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use User\Entity\User;
+use Voucher\Data\VoucherType;
 use Voucher\Entity\RedeemedVoucher;
 use Voucher\Entity\Voucher;
 use Voucher\Exception\SaveError;
 use Voucher\Exception\StopRedeemPropagation;
-use Voucher\VoucherType;
 
 class EsterenMapsVoucherHandler implements VoucherHandlerInterface
 {

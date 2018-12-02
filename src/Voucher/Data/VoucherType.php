@@ -1,6 +1,6 @@
 <?php
 
-namespace Voucher;
+namespace Voucher\Data;
 
 final class VoucherType
 {
