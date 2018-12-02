@@ -11,6 +11,7 @@
 
 namespace Agate\Form\Type;
 
+use ReCaptcha\ReCaptcha;
 use Agate\Form\EventListener\CaptchaFormSubscriber;
 use Agate\Model\ContactMessage;
 use Symfony\Component\Form\AbstractType;
@@ -25,17 +26,17 @@ use Symfony\Component\Validator\Constraints;
 
 class ContactType extends AbstractType
 {
-    private $captchaFormSubscriber;
+    private $reCaptcha;
+    private $enableCaptcha;
 
-    public function __construct(CaptchaFormSubscriber $captchaFormSubscriber)
+    public function __construct(bool $enableContactCaptcha, ReCaptcha $reCaptcha)
     {
-        $this->captchaFormSubscriber = $captchaFormSubscriber;
+        $this->enableCaptcha = $enableContactCaptcha;
+        $this->reCaptcha = $reCaptcha;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->captchaFormSubscriber->setRequest($options['request']);
-
         $builder
             ->add('name', TextType::class, [
                 'label' => 'contact.form.name',
@@ -81,8 +82,11 @@ class ContactType extends AbstractType
                     new Constraints\NotBlank(),
                 ],
             ])
-            ->addEventSubscriber($this->captchaFormSubscriber)
         ;
+
+        if ($this->enableCaptcha) {
+            $builder->addEventSubscriber(new CaptchaFormSubscriber($this->reCaptcha, $options['request']));
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

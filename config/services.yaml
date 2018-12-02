@@ -110,8 +110,3 @@ services:
 
     EsterenMaps\Cache\CacheManager:
         tags: [{ name: doctrine.event_subscriber, connection: default }]
-
-    # This class must not be autoconfigured in the Container,
-    # because it is used only by Forms, not the global EventDispatcher.
-    Agate\Form\EventListener\CaptchaFormSubscriber:
-        autoconfigure: false

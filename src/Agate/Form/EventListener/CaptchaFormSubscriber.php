@@ -28,15 +28,12 @@ use Symfony\Component\HttpFoundation\Request;
 class CaptchaFormSubscriber implements EventSubscriberInterface
 {
     private $reCaptcha;
-    private $enabled;
-
-    /** @var Request */
     private $request;
 
-    public function __construct(bool $enableContactCaptcha, ReCaptcha $reCaptcha)
+    public function __construct(ReCaptcha $reCaptcha, Request $request)
     {
-        $this->enabled = $enableContactCaptcha;
         $this->reCaptcha = $reCaptcha;
+        $this->request = $request;
     }
 
     public function setRequest(Request $request): void
@@ -44,9 +41,6 @@ class CaptchaFormSubscriber implements EventSubscriberInterface
         $this->request = $request;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -56,14 +50,6 @@ class CaptchaFormSubscriber implements EventSubscriberInterface
 
     public function onFormSubmit(FormEvent $event): void
     {
-        if (false === $this->enabled) {
-            return;
-        }
-
-        if (null === $this->request) {
-            throw new \RuntimeException('Cannot validate the captcha without a request.');
-        }
-
         $captcha = $this->request->request->get('g-recaptcha-response');
 
         if (
