@@ -15,6 +15,8 @@ namespace Tests\Voucher\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector;
 use Tests\WebTestCase as PiersTestCase;
 use User\Repository\UserRepository;
 use Voucher\Data\VoucherType;
@@ -44,20 +46,44 @@ class RedeemVoucherControllerTest extends WebTestCase
     {
         static::resetDatabase();
 
-        static::bootKernel();
+        $client = $this->getClient('www.studio-agate.docker', ['debug' => true]);
 
-        $redeemer = static::$container->get(Redeemer::class);
-        $user = static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user');
-        $voucher = static::$container->get(VoucherRepository::class)->findByCode('ESTEREN_MAPS_3M');
+        $this->login($client, 'www.studio-agate.docker', 'lambda-user', 'foobar');
 
-        // We need to redeem it twice to trigger the exception in the second call.
-        $result = $redeemer->redeem($voucher, $user);
+        $voucherCode = 'ESTEREN_MAPS_3M';
 
-        static::assertSame(4, $result);
+        $client->request('GET', '/fr/voucher');
 
-        $this->expectException(UserHasAlreadyRedeemedThisVoucher::class);
+        $client->submitForm('Activer', [
+            'redeem_voucher[voucher_code]' => $voucherCode,
+        ]);
 
-        $redeemer->redeem($voucher, $user);
+        $client->enableProfiler();
+        $client->submitForm('Activer ce code');
+        $profile = $client->getProfile();
+
+        static::assertSame(302, $client->getResponse()->getStatusCode());
+        static::assertTrue($client->getResponse()->isRedirect('/fr/voucher'));
+
+        /** @var MessageDataCollector $emailCollector */
+        $emailCollector = $profile->getCollector('swiftmailer');
+
+        /** @var \Swift_Message[] $mails */
+        $mails = $emailCollector->getMessages();
+
+        static::assertCount(1, $mails);
+        static::assertSame('Merci d\'avoir souscrit à l\'accès à Esteren Maps!', $mails[0]->getSubject());
+        static::assertContains('Cette souscription vous donne l\'accès à toutes les fonctionnalités d\'Esteren Maps.', $mails[0]->getBody());
+
+        $crawler = $client->followRedirect();
+
+        $flashMessages = $crawler->filter('#flash-messages')->text();
+
+        static::assertSame('Vous venez d\'utiliser un code d\'accès à Esteren Maps.
+Votre souscription est effective dès maintenant, et
+celle-ci sera effective pendant une durée de 90 jours.
+Un e-mail de notification vous a été envoyé pour vous en informer.
+Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($flashMessages)));
     }
 
     public function test redeem impossible if voucher too much used()
@@ -134,5 +160,19 @@ class RedeemVoucherControllerTest extends WebTestCase
         static::assertSame($voucher, $redeemed[0]->getVoucher());
         static::assertSame($user, $redeemed[0]->getUser());
         static::assertSame($redeemed[0]->getRedeemedAt()->format('Y-m-d H:i:s'), $redeemDate->format('Y-m-d H:i:s'));
+    }
+
+    public function login(Client $client, string $host, string $username, string $password): void
+    {
+        $crawler = $client->request('GET', "http://$host/fr/login");
+
+        $formNode = $crawler->filter('#form_login');
+        static::assertNotEmpty($formNode, "Could not retrieve login form.\n".$crawler->html());
+
+        $form = $formNode->form();
+        $form->get('_username_or_email')->setValue($username);
+        $form->get('_password')->setValue($password);
+
+        $client->submit($form);
     }
 }

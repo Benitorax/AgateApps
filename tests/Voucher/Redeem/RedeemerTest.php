@@ -13,15 +13,21 @@ declare(strict_types=1);
 
 namespace Tests\Voucher\Redeem;
 
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Tests\WebTestCase as PiersTestCase;
 use User\Entity\User;
+use User\Repository\UserRepository;
 use Voucher\Entity\Voucher;
 use Voucher\Exception\StopRedeemPropagation;
+use Voucher\Exception\UserHasAlreadyRedeemedThisVoucher;
 use Voucher\Handler\VoucherHandlerInterface;
 use Voucher\Redeem\Redeemer;
+use Voucher\Repository\VoucherRepository;
 
-class RedeemerTest extends TestCase
+class RedeemerTest extends KernelTestCase
 {
+    use PiersTestCase;
+
     /**
      * @expectedException \Voucher\Exception\RedeemExceptionInterface
      * @expectedExceptionMessage voucher.redeem.error.no_handler
@@ -50,6 +56,26 @@ class RedeemerTest extends TestCase
         $return = $this->createRedeemer([$handler])->redeem($this->createVoucher(), $this->createUser());
 
         static::assertSame(1, $return);
+    }
+
+    public function test redeem impossible if voucher already used()
+    {
+        static::resetDatabase();
+
+        static::bootKernel();
+
+        $redeemer = static::$container->get(Redeemer::class);
+        $user = static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user');
+        $voucher = static::$container->get(VoucherRepository::class)->findByCode('ESTEREN_MAPS_3M');
+
+        // We need to redeem it twice to trigger the exception in the second call.
+        $result = $redeemer->redeem($voucher, $user);
+
+        static::assertSame(4, $result);
+
+        $this->expectException(UserHasAlreadyRedeemedThisVoucher::class);
+
+        $redeemer->redeem($voucher, $user);
     }
 
     private function createVoucher(): Voucher
