@@ -39,7 +39,6 @@ class EsterenMapsVoucherHandler implements VoucherHandlerInterface
 
     public function handle(Voucher $voucher, User $user): void
     {
-        $saved = false;
         try {
             $redeemedVoucher = RedeemedVoucher::create($voucher, $user);
             $subscription = Subscription::create(
@@ -56,14 +55,10 @@ class EsterenMapsVoucherHandler implements VoucherHandlerInterface
             $this->mailer->sendNewSubscriptionEmail($subscription);
 
             $this->session->add('success', 'subscription.esteren_maps.used_voucher');
-
-            $saved = true;
         } catch (\Throwable $previous) {
             throw new SaveError($voucher, $user, $previous);
         }
 
-        if ($saved) {
-            throw new StopRedeemPropagation();
-        }
+        throw new StopRedeemPropagation();
     }
 }
