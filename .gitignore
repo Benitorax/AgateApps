@@ -9,8 +9,6 @@ phpunit.phar
 !.env.dist
 .php_cs.cache
 docker-compose.override.yml
-/src/DataFixtures/Internal/*
-!/src/DataFixtures/Internal/.gitkeep
 
 # Esteren Maps
 /public/maps_tiles/*

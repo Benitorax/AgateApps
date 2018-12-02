@@ -4,4 +4,3 @@ services:
 
     DataFixtures\:
         resource: ../../../src/DataFixtures/
-        exclude: ../../../src/DataFixtures/Internal
