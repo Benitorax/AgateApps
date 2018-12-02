@@ -15,7 +15,7 @@ class VoucherTest extends TestCase
         Voucher::create(
             'invalid voucher type', //$type,
             'unique', //$uniqueCode,
-            new \DateTimeImmutable(), //$validFrom
+            new \DateTimeImmutable() //$validFrom
         );
     }
 }
