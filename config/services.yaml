@@ -78,7 +78,7 @@ services:
 
     Agate\:
         resource: '../src/Agate/*'
-        exclude: '../src/Agate/{Entity,Exception,Model}'
+        exclude: '../src/Agate/{Entity,Exception,Form/EventListener,Model}'
 
     CorahnRin\:
         resource: '../src/CorahnRin/*'
