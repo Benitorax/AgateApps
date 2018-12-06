@@ -48,12 +48,15 @@ class RedeemerTest extends KernelTestCase
             ->willReturn(true)
         ;
 
+        $voucher = $this->createVoucher();
+        $user = $this->createUser();
+
         $handler->expects($this->once())
             ->method('handle')
-            ->willThrowException(new StopRedeemPropagation())
+            ->with($voucher, $user)
         ;
 
-        $return = $this->createRedeemer([$handler])->redeem($this->createVoucher(), $this->createUser());
+        $return = $this->createRedeemer([$handler])->redeem($voucher, $user);
 
         static::assertSame(1, $return);
     }
@@ -81,7 +84,7 @@ class RedeemerTest extends KernelTestCase
     private function createVoucher(): Voucher
     {
         $voucher = $this->createMock(Voucher::class);
-        $voucher->expects($this->any())
+        $voucher
             ->method('getType')
             ->willReturn('test_type')
         ;
@@ -92,7 +95,7 @@ class RedeemerTest extends KernelTestCase
     private function createUser(): User
     {
         $voucher = $this->createMock(User::class);
-        $voucher->expects($this->any())
+        $voucher
             ->method('getUsername')
             ->willReturn('test_user')
         ;

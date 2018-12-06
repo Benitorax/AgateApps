@@ -32,7 +32,6 @@ class RootController implements PublicService
      * Check "routes.yaml" for more information.
      *
      * @Route("", methods={"GET"}, name="root")
-     * @-Route("/{_locale}/", methods={"GET"}, name="root_with_locale")
      */
     public function __invoke(Request $request, string $_locale = null): Response
     {

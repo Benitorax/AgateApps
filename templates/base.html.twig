@@ -157,13 +157,15 @@
 
                             <p class="right light">
                             {%- set route_name = app.request.attributes.get('_route') -%}
-                            {%- set route_params = app.request.attributes.get('_route_params') -%}
+                            {%- set route_params = app.request.attributes.get('_route_params', {}) -%}
                             {%- if route_name -%}
                                 {%- for loc in locales %}
                                     {%- if loc == locale -%}
                                         {{- loc | trans({}, 'Languages') -}}
                                     {%- else -%}
-                                        <a class="text-underline" href="{{ path(route_name, ((route_params|default({}, 'Languages')) | merge({'_locale':loc})) ) }}">{{ loc | trans({}, 'Languages') }}</a>
+                                        <a class="text-underline" href="{{ path(route_name, (route_params | merge({'_locale':loc})) ) }}">
+                                            {{ loc | trans({}, 'Languages') }}
+                                        </a>
                                     {%- endif -%}
                                     {%- if not loop.last %} &ndash; {% endif -%}
                                 {%- endfor -%}

@@ -42,7 +42,7 @@ class RedeemVoucherControllerTest extends WebTestCase
         static::assertSame(401, $client->getResponse()->getStatusCode());
     }
 
-    public function test redeem impossible if voucher already used()
+    public function test redeem with correct voucher()
     {
         static::resetDatabase();
 
