@@ -6,6 +6,7 @@ parameters:
     level: 1
     paths:
         - %rootDir%/../../../src/
+        - %rootDir%/../../../tests/
     autoload_files:
         - vendor/bin/.phpunit/phpunit-6.5/vendor/autoload.php
     excludes_analyse:
@@ -14,3 +15,6 @@ parameters:
         - %rootDir%/../../../src/CorahnRin/PDF
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcKernelDevDebugContainer.xml
+    ignoreErrors:
+        - message: '#^Service "[^"]+" is private.$#'
+          path: %rootDir%/../../../tests/
