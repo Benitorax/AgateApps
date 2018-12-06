@@ -32,7 +32,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class ImportTiddlyWikiCommand extends Command
 {
@@ -109,11 +109,11 @@ class ImportTiddlyWikiCommand extends Command
     private $repos = [];
 
     /**
-     * @var PropertyAccessor
+     * @var PropertyAccessorInterface
      */
     private $propertyAccessor;
 
-    public function __construct(PropertyAccessor $propertyAccessor, EntityManagerInterface $em)
+    public function __construct(PropertyAccessorInterface $propertyAccessor, EntityManagerInterface $em)
     {
         $this->propertyAccessor = $propertyAccessor;
         $this->em = $em;
