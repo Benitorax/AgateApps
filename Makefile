@@ -143,17 +143,27 @@ php-tests: ## Execute checks & tests
 php-tests: start checks phpunit
 .PHONY: php-tests
 
+phpstan: ## Execute phpstan for the src/ dir
+phpstan: start
+	$(EXEC_PHP) vendor/bin/phpstan analyse --debug -c phpstan.neon
+.PHONY: php-tests
+
+phpstan_tests: ## Execute phpstan for the tests/dir
+phpstan_tests: start
+	$(EXEC_PHP) vendor/bin/phpstan analyse --debug -c phpstan_tests.neon
+.PHONY: php-tests
+
 node-tests: ## Execute checks & tests
 node-tests: start
 	$(EXEC_JS) npm run-script test --verbose -LLLL
 .PHONY: node-tests
 
-checks: ## Execute linting and security checks
-checks: composer.lock
-	$(EXEC_PHP) vendor/bin/security-checker security:check
+checks: ## Execute CS, linting and security checks
+checks: composer.lock phpstan phpstan_tests
 	$(SYMFONY) lint:twig templates src
 	$(SYMFONY) lint:yaml --parse-tags config
 	$(SYMFONY) lint:yaml --parse-tags src
+	$(EXEC_PHP) vendor/bin/security-checker security:check
 .PHONY: checks
 
 phpunit: ## Execute all PHPUnit tests
