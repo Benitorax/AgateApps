@@ -14,6 +14,7 @@ namespace EsterenMaps\Command;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\UnitOfWork;
 use EsterenMaps\Entity\Factions;
@@ -25,7 +26,7 @@ use EsterenMaps\Entity\RoutesTypes;
 use EsterenMaps\Entity\Zones;
 use EsterenMaps\Entity\ZonesTypes;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,8 +34,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
-class ImportTiddlyWikiCommand extends ContainerAwareCommand
+class ImportTiddlyWikiCommand extends Command
 {
+    public static $defaultName = 'esterenmaps:import:tiddly-wiki';
+
     /**
      * @var array
      */
@@ -110,13 +113,19 @@ class ImportTiddlyWikiCommand extends ContainerAwareCommand
      */
     private $propertyAccessor;
 
+    public function __construct(PropertyAccessor $propertyAccessor, EntityManagerInterface $em)
+    {
+        $this->propertyAccessor = $propertyAccessor;
+        $this->em = $em;
+        parent::__construct(static::$defaultName);
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-            ->setName('esterenmaps:import:tiddly-wiki')
             ->setDescription('Generate all tiles for a specific map.')
             ->setHelp('This command imports data from a tiddly wiki file or url into the database.')
             ->addArgument('file', InputArgument::REQUIRED, 'The file or the url to check.')
@@ -135,8 +144,6 @@ class ImportTiddlyWikiCommand extends ContainerAwareCommand
 
         $this->dryRun = !$input->getOption('force');
 
-        $this->propertyAccessor = $this->getContainer()->get('property_accessor');
-
         $file = $input->getArgument('file');
 
         $data = \file_get_contents($file);
@@ -151,13 +158,12 @@ class ImportTiddlyWikiCommand extends ContainerAwareCommand
         }
 
         /** @var array $data */
-        $data = \json_decode($data, true);
+        $data = \json_decode((string) $data, true);
 
         if (!$data) {
             throw new \InvalidArgumentException('Json error while decoding: <error>'.\json_last_error_msg().'</error>.');
         }
 
-        $this->em = $this->getContainer()->get('doctrine')->getManager();
         $this->uow = $this->em->getUnitOfWork();
 
         // Setting all data in the class for we can use it in the other methods
@@ -318,11 +324,7 @@ class ImportTiddlyWikiCommand extends ContainerAwareCommand
 
             // Checks automatically if the objects exists from its ID.
             // If not, we get the object by title
-            if (isset($objects[$id])) {
-                $object = $objects[$id];
-            } else {
-                $object = $repo->findOneBy([$nameProperty => $datum['title']]);
-            }
+            $object = $objects[$id] ?? $repo->findOneBy([$nameProperty => $datum['title']]);
 
             if ($object) {
                 $existing[$object->getId()] = $object;
@@ -375,11 +377,7 @@ class ImportTiddlyWikiCommand extends ContainerAwareCommand
 
             // Checks automatically if the objects exists from its ID.
             // If not, we get the object by title
-            if (isset($objects[$id])) {
-                $object = $objects[$id];
-            } else {
-                $object = $repo->findOneBy(['name' => $datum['title']]);
-            }
+            $object = $objects[$id] ?? $repo->findOneBy(['name' => $datum['title']]);
 
             if ($object) {
                 $existing[$object->getId()] = $object;
@@ -456,10 +454,10 @@ class ImportTiddlyWikiCommand extends ContainerAwareCommand
                 ->setMarkerEnd($this->getOneReferencedObject('markers', $data['markerend_id']))
             ;
             if (!$object->isLocalized()) {
-                $object->setCoordinates([
+                $object->setCoordinates(\json_encode([
                     ['lat' => 0, 'lng' => 0],
                     ['lat' => 1, 'lng' => 1],
-                ]);
+                ]));
             }
             $object->refresh();
         } elseif ($object instanceof Zones) {
@@ -467,11 +465,11 @@ class ImportTiddlyWikiCommand extends ContainerAwareCommand
                 ->setZoneType($this->getOneReferencedObject('zonesTypes', $data['zonetype_id']))
             ;
             if (!$object->isLocalized()) {
-                $object->setCoordinates([
+                $object->setCoordinates(json_encode([
                     ['lat' => 0, 'lng' => 0],
                     ['lat' => 0, 'lng' => 1],
                     ['lat' => 1, 'lng' => 0],
-                ]);
+                ]));
             }
         } else {
             throw new \RuntimeException('Unknown type "'.$data['tags'].'".');
