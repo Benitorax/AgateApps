@@ -59,6 +59,7 @@ SQL
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
         $this->addSql('ALTER TABLE used_vouchers DROP FOREIGN KEY FK_592812E728AA1B6F');
+        $this->addSql('ALTER TABLE used_vouchers DROP FOREIGN KEY FK_592812E7A76ED395');
         $this->addSql('DROP TABLE used_vouchers');
         $this->addSql('DROP TABLE vouchers');
     }
