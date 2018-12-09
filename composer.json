@@ -35,7 +35,7 @@
         "symfony/cache": "^4.2",
         "symfony/config": "^4.2",
         "symfony/console": "^4.2",
-        "symfony/contracts": "^1.0@RC",
+        "symfony/contracts": "^1.0",
         "symfony/dependency-injection": "^4.2",
         "symfony/doctrine-bridge": "^4.2",
         "symfony/dotenv": "^4.2",
