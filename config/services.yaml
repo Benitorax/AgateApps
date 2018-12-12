@@ -64,7 +64,10 @@ services:
             $awsBucket:       '%aws_bucket%'
             $agateDomain:     '%env(AGATE_DOMAIN)%'
             $doctrineResultCache: '@doctrine.result_cache_provider'
-            $mapsAcceptableHosts: ['%esteren_domains.esterenmaps%', '%esteren_domains.corahnrin%']
+            $mapsAcceptableHosts:
+                - '%esteren_domains.esterenmaps%'
+                - '%esteren_domains.corahnrin%'
+                - '%esteren_domains.backoffice%'
             $corahnRinManagerName: '%corahnrin_manager_name%'
             $enableContactCaptcha: '%enable_contact_captcha%'
     _instanceof:

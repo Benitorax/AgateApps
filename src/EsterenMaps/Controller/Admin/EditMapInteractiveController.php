@@ -14,14 +14,12 @@ declare(strict_types=1);
 namespace EsterenMaps\Controller\Admin;
 
 use EsterenMaps\Entity\Maps;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
  * @Route(host="%esteren_domains.backoffice%")
  */
 class EditMapInteractiveController extends AbstractController
@@ -38,6 +36,8 @@ class EditMapInteractiveController extends AbstractController
      */
     public function __invoke(Request $request, Maps $map): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if (\count($request->query->all())) {
             // To avoid polluting the URL with useless query string.
             return $this->redirectToRoute($request->attributes->get('_route'), $request->attributes->get('_route_params'));

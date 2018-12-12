@@ -30,7 +30,7 @@ class AssetsController extends AbstractController
     }
 
     /**
-     * @Route("/js/translations", name="pierstoval_tools_assets_jstranslations", host="%agate_domains.portal%", methods={"GET"})
+     * @Route("/js/translations", name="pierstoval_tools_assets_jstranslations", methods={"GET"})
      */
     public function jsTranslationsAction(Request $request, $_locale): Response
     {

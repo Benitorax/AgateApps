@@ -49,7 +49,7 @@
                 editMode: true,
                 showDirections: false,
                 apiUrls: {
-                    map: "{{ url('maps_api_maps_get_editmode', {"id": map.id}) }}",
+                    map: "{{ url('maps_api_maps_get', {id: map.id, host: app.request.host, edit_mode: 1}) }}",
                     directions: "{{ url('esterenmaps_directions', {
                         id: map.id,
                         from: '9999',

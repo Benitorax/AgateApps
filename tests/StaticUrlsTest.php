@@ -128,5 +128,13 @@ class StaticUrlsTest extends WebTestCase
         // Dragons
         yield 14 => ['www.dragons-rpg.docker', '/fr', 'dragons_home', 200, 'Bienvenue sur le nouveau portail du jeu de rôle Dragons'];
         yield 15 => ['www.dragons-rpg.docker', '/en', 'dragons_home', 200, 'Welcome to Dragons RPG portal'];
+
+        // Assets
+        yield 16 => ['www.studio-agate.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
+        yield 17 => ['www.vermine2047.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
+        yield 18 => ['portal.esteren.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
+        yield 19 => ['corahnrin.esteren.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
+        yield 20 => ['maps.esteren.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
+        yield 21 => ['www.dragons-rpg.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
     }
 }

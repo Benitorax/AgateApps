@@ -62,4 +62,15 @@ class MapsAdminTest extends AbstractEasyAdminTest
     {
         return false;
     }
+
+    public function test edit interactive route returns 200()
+    {
+        $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
+
+        $crawler = $client->request('GET', '/fr/maps/edit-interactive/1');
+
+        static::assertSame(200, $client->getResponse()->getStatusCode());
+        static::assertCount(1, $crawler->filter('div#esterenmap_sidebar'));
+        static::assertCount(1, $crawler->filter('div#map'));
+    }
 }

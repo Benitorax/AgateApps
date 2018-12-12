@@ -18,9 +18,13 @@ metadata: &metadata
     trailing_slash_on_root: false
 
 main:
-    resource: '../src/Main/Controller/'
+    resource: '../src/Main/Controller/RootController.php'
     type: annotation
     trailing_slash_on_root: false
+
+assets_js:
+    <<: *metadata
+    resource: '../src/Main/Controller/AssetsController.php'
 
 user_login_check:
     <<: *defaults

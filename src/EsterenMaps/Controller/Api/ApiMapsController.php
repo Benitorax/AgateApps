@@ -31,7 +31,7 @@ class ApiMapsController implements PublicService
         string $versionCode,
         MapApi $api,
         AuthorizationCheckerInterface $security,
-        array  $mapsAcceptableHosts
+        array $mapsAcceptableHosts
     ) {
         $this->api = $api;
         $this->versionCode = $versionCode;
@@ -64,18 +64,24 @@ class ApiMapsController implements PublicService
 
         $response->setEtag($etag = \sha1('map'.$id.$this->versionCode));
 
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
+        $cache = [];
 
-        return $response
-            ->setData($this->api->getMap($id))
-            ->setCache([
+        if (!$editMode = $request->query->has('edit_mode') ?? $this->security->isGranted('ROLE_ADMIN')) {
+            $cache = [
                 'etag' => $etag,
                 'max_age' => 600,
                 's_maxage' => 3600,
                 'public' => false,
-            ])
+            ];
+
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
+        return $response
+            ->setData($this->api->getMap($id, $editMode))
+            ->setCache($cache)
         ;
     }
 
