@@ -29,14 +29,16 @@ class PortalElementController extends AdminController
         $this->filesystem = $oneupFlysystem;
     }
 
-    protected function preUpdatePortalElementEntity(PortalElement $portalElement)
+    protected function updateEntity($portalElement)
     {
         $this->uploadImageFile($portalElement, false);
+        parent::updateEntity($portalElement);
     }
 
-    protected function prePersistPortalElementEntity(PortalElement $portalElement)
+    protected function persistEntity($portalElement)
     {
         $this->uploadImageFile($portalElement, true);
+        parent::persistEntity($portalElement);
     }
 
     protected function uploadImageFile(PortalElement $portalElement, bool $required): void

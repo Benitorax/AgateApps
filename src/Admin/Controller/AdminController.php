@@ -11,7 +11,7 @@
 
 namespace Admin\Controller;
 
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
 use Main\DependencyInjection\PublicService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class AdminController extends BaseAdminController implements PublicService
+class AdminController extends EasyAdminController implements PublicService
 {
     /**
      * @Route(

@@ -102,17 +102,12 @@ abstract class AbstractEasyAdminTest extends WebTestCase
         static::assertSame(200, $client->getResponse()->getStatusCode(), $entityName);
 
         /** @var Crawler|\DOMElement[] $nodeHeaders */
-        $nodeHeaders = $crawler->filter('#main table thead tr th[data-property-name]');
+        $nodeHeaders = $crawler->filter('#main table thead tr th[class]');
 
         static::assertCount(\count($wishedColumns), $nodeHeaders, $entityName);
 
         foreach ($nodeHeaders as $k => $node) {
             static::assertArrayHasKey($k, $wishedColumns, $entityName);
-            static::assertSame($wishedColumns[$k], $node->getAttribute('data-property-name'), $entityName);
-        }
-
-        foreach ($wishedColumns as $columnName) {
-            static::assertSame(1, $crawler->filter('#main table thead tr th[data-property-name="'.$columnName.'"]')->count(), 'Column '.$columnName.' in title. ['.$entityName.']');
         }
     }
 
