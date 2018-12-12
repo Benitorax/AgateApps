@@ -8,7 +8,8 @@ parameters:
         - %rootDir%/../../../src/
         - %rootDir%/../../../tests/
     autoload_files:
-        - vendor/bin/.phpunit/phpunit-6.5/vendor/autoload.php
+        - vendor/autoload.php
+        - bin/.phpunit/phpunit-7.4/vendor/autoload.php
     excludes_analyse:
         - %rootDir%/../../../src/Migrations
         - %rootDir%/../../../src/DataFixtures/Internal
