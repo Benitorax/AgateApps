@@ -140,13 +140,13 @@ install-node: build node_modules start
 .PHONY: install-node
 
 php-tests: ## Execute checks & tests
-php-tests: start checks phpunit
+php-tests: start checks phpunit phpstan
 .PHONY: php-tests
 
 phpstan: ## Execute phpstan
 phpstan: start
 	$(EXEC_PHP) vendor/bin/phpstan analyse --debug -c phpstan.neon
-.PHONY: php-tests
+.PHONY: phpstan
 
 node-tests: ## Execute checks & tests
 node-tests: start
@@ -154,7 +154,7 @@ node-tests: start
 .PHONY: node-tests
 
 checks: ## Execute CS, linting and security checks
-checks: composer.lock phpstan
+checks: composer.lock
 	$(SYMFONY) lint:twig templates src
 	$(SYMFONY) lint:yaml --parse-tags config
 	$(SYMFONY) lint:yaml --parse-tags src
