@@ -3,43 +3,20 @@
 {% trans_default_domain 'agate' %}
 {% import 'agate/email/_macros.html.twig' as macros %}
 
-{# For demonstration only #}
-{% if message is not defined and app.environment == 'dev' and app.debug %}
-    {% set message = {
-        'name': 'USER',
-        'subject': 'SUBJECT',
-        'email' : 'no-reply@esteren.org',
-        'message': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti eaque labore minima sit tempora voluptas! Aspernatur dolor, ducimus eligendi iste itaque laudantium, modi nam nemo nulla numquam, odio quo vero.',
-        'title': 'Message title'
-    } %}
-    {% set ip = '127.0.0.1' %}
-{% endif %}
-
-{% set messageSubject -%}
-    {{- 'contact.form.message_subject_with_title'|trans({
-        '%name%': message.name,
-        '%subject%': (message.subject|trans),
-        '%title%': message.title
-    }, 'agate') -}}
-{%- endset %}
-
-{% block title (messageSubject|striptags|raw) %}
+{% block title "[#{message.subject|trans}] #{message.title}"|striptags|raw %}
 
 {% block content -%}
     {%- spaceless %}
-    {{ macros.text('contact.form.message_subject'|trans({
-        '%name%': message.name,
-        '%subject%': (message.subject|trans)
-    }, 'agate')) }}
-    {% if message.productRange %}
-        {{ macros.text(('contact.mail.product_range'|trans)~' : '~(message.productRange|trans)) }}
-    {% endif %}
+    {{ macros.text('['~(message.subject|trans)~']', 20) }}
+    {{ macros.text('contact.email.sender'|trans({'%sender%': message.name~' &lt;'~message.email~'&gt;'}), 18) }}
     <hr>
+    {{ 'contact.form.subject'|trans }}:
     {{ macros.text(message.title, 16) }}
+    <hr>
+    {{ 'contact.email.message'|trans }}:
     {{ macros.text(message.message, 14)|nl2br }}
     <hr>
     {{ macros.link_btn_center('mailto:'~message.email, 'Répondre') }}
-
     {% endspaceless -%}
 {%- endblock %}
 

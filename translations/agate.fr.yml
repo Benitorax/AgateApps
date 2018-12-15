@@ -1,27 +1,31 @@
 contact.send_message: 'Envoyez-nous un message'
-contact.mail.product_range: 'Gamme'
+
+contact.email.message: 'Message'
+contact.email.sender: 'Sent by: %sender%'
+
 contact.form.name: 'Nom'
 contact.form.email: 'Adresse e-mail'
 contact.form.message: 'Votre message'
 contact.form.subject: 'Objet'
 contact.form.title: 'Sujet de votre message'
-contact.form.product_range: 'Gamme (si applicable)'
 contact.form.send: 'Envoyer'
 contact.form.message_sent: 'Votre message a été envoyé, merci!'
 contact.form.error: 'Une erreur est survenue lors de l''envoi du mail. Nos équipes ont été prévenues.'
 contact.form.message_subject: '[%subject%] Message de "%name%"'
-contact.form.message_subject_with_title: '[%subject%] Message de "%name%" : %title%'
+
 contact.subject.specify: '- Spécifiez un sujet -'
-contact.subject.application: Candidature
-contact.subject.after_sales: SAV
-contact.subject.conventions: Conventions
-contact.subject.other: Autre (préciser)
-contact.product_range.specify: '- Spécifiez une gamme (si applicable) -'
-contact.product_range.dragons: Dragons
-contact.product_range.7th_sea: 7e Mer
-contact.product_range.requiem: 'Vampire : Le Requiem'
-contact.product_range.esteren: 'Les Ombres d''Esteren'
-contact.subject.esteren_maps: Esteren Maps
+contact.subject.application: 'Candidature'
+contact.subject.collaboration: 'Collaboration'
+contact.subject.authorization: 'Licences et autorisations'
+contact.subject.events: 'Évènements'
+contact.subject.after_sales_crowdfunding: 'SAV'
+contact.subject.after_sales_pdf: 'Fichiers PDFs'
+contact.subject.7th_sea: '7e Mer'
+contact.subject.dragons: 'Dragons'
+contact.subject.esteren: 'Les Ombres d''Esteren'
+contact.subject.esteren_maps: 'Esteren Maps'
+contact.subject.requiem: 'Vampire : Le Requiem'
+contact.subject.other: 'Autre (préciser)'
 
 menu:
     contact: 'Contact'

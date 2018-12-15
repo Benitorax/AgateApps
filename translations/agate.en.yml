@@ -1,27 +1,31 @@
 contact.send_message: 'Send us a message'
-contact.mail.product_range: 'Product range'
+
+contact.email.message: 'Message'
+contact.email.sender: 'Envoyé par : %sender%'
+
 contact.form.name: 'Name'
 contact.form.email: 'E-mail address'
 contact.form.message: 'Your message'
 contact.form.subject: 'Subject'
 contact.form.title: 'Title of your message'
-contact.form.product_range: 'Product range (if applicable)'
 contact.form.send: 'Send'
 contact.form.message_sent: 'Your email has been sent! Thanks!'
 contact.form.error: 'An error occured when sending the email. Our team was warned and will work on it.'
 contact.form.message_subject: '[%subject%] Message by "%name%"'
-contact.form.message_subject_with_title: '[%subject%] Message by "%name%" : %title%'
+
 contact.subject.specify: '- Specify a subject -'
-contact.subject.application: Application
-contact.subject.after_sales: After sales
-contact.subject.conventions: Conventions
-contact.subject.other: Other (specify)
-contact.product_range.specify: '- Specify a product range (if applicable) -'
-contact.product_range.dragons: Dragons
-contact.product_range.7th_sea: 7th sea
-contact.product_range.requiem: 'Vampire: The Requiem'
-contact.product_range.esteren: Shadows of Esteren
-contact.subject.esteren_maps: Esteren Maps
+contact.subject.application: 'Application'
+contact.subject.collaboration: 'Collaboration'
+contact.subject.authorization: 'Licenses and authorizations'
+contact.subject.events: 'Events'
+contact.subject.after_sales_crowdfunding: 'After sales'
+contact.subject.after_sales_pdf: 'PDF files'
+contact.subject.7th_sea: '7th sea'
+contact.subject.dragons: 'Dragons'
+contact.subject.esteren: 'Shadows of Esteren'
+contact.subject.esteren_maps: 'Esteren Maps'
+contact.subject.requiem: 'Vampire: The Requiem'
+contact.subject.other: 'Other (specify)'
 
 menu:
     contact: 'Contact'

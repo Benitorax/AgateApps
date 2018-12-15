@@ -32,7 +32,6 @@ class ContactControllerTest extends WebTestCase
         $data = [
             'name' => 'username',
             'subject' => 'contact.subject.application',
-            'productRange' => 'contact.product_range.dragons',
             'email' => 'test@local.host',
             'message' => 'a message for testing purpose',
             'title' => 'Some message title',
@@ -68,7 +67,7 @@ class ContactControllerTest extends WebTestCase
         // Asserting email data
         static::assertInstanceOf(\Swift_Message::class, $message);
         static::assertSame($data['email'], \key($message->getFrom()));
-        static::assertSame('[Candidature] Message de "username"', $message->getSubject());
+        static::assertSame('[Candidature] Some message title', $message->getSubject());
         static::assertContains($data['message'], $message->getBody());
 
         if (\count($collectedMessages) > 1) {

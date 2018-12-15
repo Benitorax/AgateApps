@@ -62,14 +62,6 @@ class ContactType extends AbstractType
                     new Constraints\Choice(['choices' => ContactMessage::SUBJECTS]),
                 ],
             ])
-            ->add('productRange', ChoiceType::class, [
-                'label' => 'contact.form.product_range',
-                'choices' => ContactMessage::PRODUCT_RANGES,
-                'required' => false,
-                'constraints' => [
-                    new Constraints\Choice(['choices' => ContactMessage::PRODUCT_RANGES]),
-                ],
-            ])
             ->add('title', TextType::class, [
                 'label' => 'contact.form.title',
                 'constraints' => [

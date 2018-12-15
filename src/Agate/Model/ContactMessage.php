@@ -14,31 +14,35 @@ namespace Agate\Model;
 class ContactMessage
 {
     public const SUBJECT_APPLICATION = 'contact.subject.application';
-    public const SUBJECT_AFTER_SALES = 'contact.subject.after_sales';
-    public const SUBJECT_CONVENTIONS = 'contact.subject.conventions';
-    public const SUBJECT_ESTEREN_MAPS = 'contact.subject.esteren_maps';
-    public const SUBJECT_OTHER = 'contact.subject.other';
+    public const SUBJECT_COLLABORATION = 'contact.subject.collaboration';
+    public const SUBJECT_AUTHORIZATION = 'contact.subject.authorization';
+    public const SUBJECT_EVENTS = 'contact.subject.events';
 
-    public const PRODUCT_RANGE_DRAGONS = 'contact.product_range.dragons';
-    public const PRODUCT_RANGE_7TH_SEA = 'contact.product_range.7th_sea';
-    public const PRODUCT_RANGE_REQUIEM = 'contact.product_range.requiem';
-    public const PRODUCT_RANGE_ESTEREN = 'contact.product_range.esteren';
+    public const SUBJECT_AFTER_SALES_CROWDFUNDING = 'contact.subject.after_sales_crowdfunding';
+    public const SUBJECT_AFTER_SALES_PDF = 'contact.subject.after_sales_pdf';
+
+    public const SUBJECT_7TH_SEA = 'contact.subject.7th_sea';
+    public const SUBJECT_DRAGONS = 'contact.subject.dragons';
+    public const SUBJECT_ESTEREN = 'contact.subject.esteren';
+    public const SUBJECT_ESTEREN_MAPS = 'contact.subject.esteren_maps';
+    public const SUBJECT_REQUIEM = 'contact.subject.requiem';
+
+    public const SUBJECT_OTHER = 'contact.subject.other';
 
     public const SUBJECTS = [
         'contact.subject.specify' => '',
         self::SUBJECT_APPLICATION => self::SUBJECT_APPLICATION,
-        self::SUBJECT_AFTER_SALES => self::SUBJECT_AFTER_SALES,
-        self::SUBJECT_CONVENTIONS => self::SUBJECT_CONVENTIONS,
+        self::SUBJECT_COLLABORATION => self::SUBJECT_COLLABORATION,
+        self::SUBJECT_AUTHORIZATION => self::SUBJECT_AUTHORIZATION,
+        self::SUBJECT_EVENTS => self::SUBJECT_EVENTS,
+        self::SUBJECT_AFTER_SALES_CROWDFUNDING => self::SUBJECT_AFTER_SALES_CROWDFUNDING,
+        self::SUBJECT_AFTER_SALES_PDF => self::SUBJECT_AFTER_SALES_PDF,
+        self::SUBJECT_7TH_SEA => self::SUBJECT_7TH_SEA,
+        self::SUBJECT_DRAGONS => self::SUBJECT_DRAGONS,
+        self::SUBJECT_ESTEREN => self::SUBJECT_ESTEREN,
         self::SUBJECT_ESTEREN_MAPS => self::SUBJECT_ESTEREN_MAPS,
+        self::SUBJECT_REQUIEM => self::SUBJECT_REQUIEM,
         self::SUBJECT_OTHER => self::SUBJECT_OTHER,
-    ];
-
-    public const PRODUCT_RANGES = [
-        'contact.product_range.specify' => '',
-        self::PRODUCT_RANGE_DRAGONS => self::PRODUCT_RANGE_DRAGONS,
-        self::PRODUCT_RANGE_7TH_SEA => self::PRODUCT_RANGE_7TH_SEA,
-        self::PRODUCT_RANGE_REQUIEM => self::PRODUCT_RANGE_REQUIEM,
-        self::PRODUCT_RANGE_ESTEREN => self::PRODUCT_RANGE_ESTEREN,
     ];
 
     /** @var string */
@@ -52,9 +56,6 @@ class ContactMessage
 
     /** @var string */
     private $subject = '';
-
-    /** @var string */
-    private $productRange = '';
 
     /** @var string */
     private $title = '';
@@ -106,18 +107,6 @@ class ContactMessage
     public function setSubject(?string $subject): self
     {
         $this->subject = (string) $subject;
-
-        return $this;
-    }
-
-    public function getProductRange(): string
-    {
-        return $this->productRange;
-    }
-
-    public function setProductRange(?string $productRange): self
-    {
-        $this->productRange = (string) $productRange;
 
         return $this;
     }
