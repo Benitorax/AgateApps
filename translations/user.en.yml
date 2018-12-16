@@ -105,6 +105,12 @@ form:
         need_api_token: 'If you specify Ulule username, you must fill the API token too'
         ulule_credentials_invalid: 'Ulule credentials are invalid'
 
+registration.optin: >
+    I grant Studio Agate and its partners to do nothing with my data. <small>Anyway, Studio Agate
+    will not do anything with these data, they're used only to make the website work properly for you,
+    so we will never spread your data anywhere to anyone, nor sell them, nothing. These are your
+    property.</small>
+
 crowdfunding:
     my_projects: 'My projects contributions'
     sync_projects: 'Synchronize my projects'

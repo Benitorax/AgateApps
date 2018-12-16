@@ -12,13 +12,14 @@
 namespace User\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints;
 use User\Entity\User;
 use User\Util\CanonicalizerTrait;
 
@@ -26,9 +27,6 @@ class RegistrationFormType extends AbstractType
 {
     use CanonicalizerTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $canonicalizer = \Closure::fromCallable([$this, 'canonicalize']);
@@ -47,7 +45,15 @@ class RegistrationFormType extends AbstractType
                 'label' => 'form.password',
                 'invalid_message' => 'user.password.mismatch',
                 'constraints' => [
-                    new NotBlank(),
+                    new Constraints\NotBlank(),
+                ],
+            ])
+            ->add('optin', CheckboxType::class, [
+                'translation_domain' => 'user',
+                'label' => 'registration.optin',
+                'mapped' => false,
+                'constraints' => [
+                    new Constraints\IsTrue(),
                 ],
             ])
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($canonicalizer) {
@@ -59,9 +65,6 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

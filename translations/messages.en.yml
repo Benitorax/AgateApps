@@ -26,12 +26,6 @@ footer:
     social_networks: 'Social networks'
     about: 'About'
 
-register_optin: >
-    I grant Studio Agate and its partners to do nothing with my data. <small>Anyway, Studio Agate
-    will not do anything with these data, they're used only to make the website work properly for you,
-    so we will never spread your data anywhere to anyone, nor sell them, nothing. These are your
-    property.</small>
-
 templates:
     base: 'Bootstrap'
     material: 'Materialize'

@@ -69,9 +69,7 @@
     </div>
 {%- endblock checkbox_row %}
 
-{% block checkbox_widget -%}
-    <input type="checkbox" class="filled-in"{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-{%- endblock checkbox_widget %}
+{% block checkbox_widget '' %}
 
 {# Checkbox label is raw here #}
 {%- block checkbox_label -%}
@@ -93,11 +91,14 @@
             {%- endif -%}
         {%- endif -%}
         <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
-            {%- if translation_domain is same as(false) -%}
-                {{- label|raw -}}
-            {%- else -%}
-                {{- label|trans({}, translation_domain)|raw -}}
-            {%- endif -%}
+        <input type="checkbox" class="filled-in"{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+            <span>
+                {%- if translation_domain is same as(false) -%}
+                    {{- label|raw -}}
+                {%- else -%}
+                    {{- label|trans({}, translation_domain)|raw -}}
+                {%- endif -%}
+            </span>
         </{{ element|default('label') }}>
     {%- endif -%}
 {%- endblock -%}

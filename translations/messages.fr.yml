@@ -26,12 +26,6 @@ footer:
     social_networks: 'Réseaux sociaux'
     about: 'À propos'
 
-register_optin: >
-    J'autorise le studio Agate et ses partenaires à ne rien faire de mes données. <small>De toute façon,
-    le studio Agate ne fera rien du tout avec ces données, elles servent uniquement au bon fonctionnement
-    de ce site, donc nous ne diffuserons jamais vos données à qui que ce soit, ni ne les vendrons, ni rien.
-    Elles sont votre propriété.</small>
-
 templates:
     base: 'Bootstrap'
     material: 'Materialize'

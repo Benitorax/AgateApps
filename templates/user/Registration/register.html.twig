@@ -2,8 +2,6 @@
 
 {% trans_default_domain 'user' %}
 
-{% form_theme form 'form/form_theme_materialize.html.twig' %}
-
 {% block content_for_layout %}
 
 <div class="row">
@@ -16,8 +14,7 @@
     {{ form_row(form.username) }}
     {{ form_row(form.email) }}
     {{ form_row(form.plainPassword) }}
-
-    <p>{{ 'register_optin'|trans({}, 'messages')|raw}}</p>
+    {{ form_row(form.optin) }}
 
     <br>
 
