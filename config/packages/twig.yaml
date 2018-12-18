@@ -21,3 +21,5 @@ twig:
         vermine_domains_portal: '%vermine_domains.portal%'
 
         enable_contact_captcha: '%enable_contact_captcha%'
+
+        fathom_site_id: '%env(FATHOM_SITE_ID)%'
