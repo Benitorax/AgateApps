@@ -1,6 +1,6 @@
 parameters:
-    env(DATABASE_URL): ''
-    env(DATABASE_URL_LEGACY): ''
+    env(DATABASE_URL): 'mysql://localhost/db?serverVersion=10.2'
+    env(DATABASE_URL_LEGACY): 'mysql://localhost/db?serverVersion=10.2'
 
 doctrine:
     orm:
