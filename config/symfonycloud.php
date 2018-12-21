@@ -16,6 +16,10 @@ $getenv = function (string $name, $default = null) {
     return $env;
 };
 
+$setEnv = function(string $name, string $value) use ($container): void {
+    $container->setParameter("env($name)", $_ENV[$name] = $_SERVER[$name] = $value);
+};
+
 $relationships = $getenv('SYMFONY_RELATIONSHIPS');
 if (!$relationships) {
     return;
@@ -28,7 +32,7 @@ if (!isset($relationships['database'])) {
 $db = $relationships['database'][0];
 $dbLegacy = $relationships['database_legacy'][0];
 
-$container->setParameter('env(DATABASE_URL)', sprintf(
+$setEnv('DATABASE_URL', sprintf(
     '%s://%s:%s@%s:%s/%s',
     $db['scheme'],
     $db['username'],
@@ -37,7 +41,8 @@ $container->setParameter('env(DATABASE_URL)', sprintf(
     $db['port'],
     $db['path']
 ));
-$container->setParameter('env(DATABASE_URL_LEGACY)', sprintf(
+
+$setEnv('DATABASE_URL_LEGACY', sprintf(
     '%s://%s:%s@%s:%s/%s',
     $dbLegacy['scheme'],
     $dbLegacy['username'],
