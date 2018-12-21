@@ -13,8 +13,8 @@ runtime:
         - curl
 
 relationships:
-    database: "mysql:main"
-    database_legacy: "mysql:main"
+    database: "mysql:agate"
+    database_legacy: "mysql:legacy"
 
 build:
     flavor: none

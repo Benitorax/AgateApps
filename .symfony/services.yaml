@@ -1,0 +1,16 @@
+mysql:
+    type: mysql:5.7
+    disk: 2048
+    configuration:
+        schemas:
+            - agate
+            - legacy
+        endpoints:
+            main:
+                default_schema: main
+                privileges:
+                    main: admin
+            legacy:
+                default_schema: legacy
+                privileges:
+                    legacy: admin
