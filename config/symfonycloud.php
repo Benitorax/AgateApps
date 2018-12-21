@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Dotenv\Dotenv;
+
 $getenv = function (string $name, $default = null) {
     if (isset($_ENV[$name])) {
         return $_ENV[$name];
@@ -24,6 +26,12 @@ $relationships = $getenv('SYMFONY_RELATIONSHIPS');
 if (!$relationships) {
     return;
 }
+
+if (!$getenv('AGATE_DOMAIN')) {
+    // Means we're at deploy time.
+    (new Dotenv())->load(__DIR__.'/../.env.prod');
+}
+
 $relationships = json_decode(base64_decode($relationships), true);
 
 if (!isset($relationships['database'])) {
