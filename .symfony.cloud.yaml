@@ -12,6 +12,10 @@ runtime:
         - intl
         - curl
 
+relationships:
+    database: "mysql:main"
+    database_legacy: "mysql:main"
+
 build:
     flavor: none
 
@@ -24,6 +28,9 @@ web:
 
 disk: 2048
 
+dependencies:
+    nodejs: {}
+
 mounts:
     "/var": "shared:files/var"
 
@@ -34,7 +41,13 @@ hooks:
         curl -s https://get.symfony.com/cloud/configurator | (>&2 bash)
         (>&2 symfony-build)
 
+        npm install
+
+        npm run deploy
+
     deploy: |
         set -x -e
 
         (>&2 symfony-deploy)
+
+        bin/console doctrine:migrations:migrate --no-interaction
