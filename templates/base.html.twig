@@ -57,7 +57,7 @@
                     <nav id="main_navigation" role="navigation">
                         <div class="nav-wrapper container blue-text">
                             {% block menu_brand_link %}
-                                <a href="{{ path('root') }}/{{ app.request.locale }}" class="brand-logo position-static left" title="{{ 'links.home' | trans }}">
+                                <a href="{{ path('root') }}" class="brand-logo position-static left" title="{{ 'links.home' | trans }}">
                                     <img id="esteren_logo" src="{{ asset('img/Esteren_logo_400.png') }}" alt="{{ 'links.home' | trans }}">
                                 </a>
                             {% endblock %}
