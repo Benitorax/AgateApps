@@ -45,6 +45,9 @@ else
     echo "[DEPLOY] > ${CHANGELOG}"
 fi
 
+# Just a safety because cross-platform isn't something in NodeJS...
+git co package-lock.json
+
 echo "[DEPLOY] > Applying these commits..."
 git merge origin/master
 
