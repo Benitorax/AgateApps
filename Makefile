@@ -96,6 +96,11 @@ fixtures:
 	-$(SYMFONY) doctrine:fixtures:load --append --no-interaction
 .PHONY: fixtures
 
+watch: ## Run Gulp to compile assets on change
+watch:
+	$(NPM) run gulp watch
+.PHONY: watch
+
 assets: ## Run Gulp to compile assets
 assets: node_modules
 	$(NPM) run gulp dump

@@ -29,7 +29,7 @@ services:
             - .:/srv
             - node_modules:/srv/node_modules/
             - ~/.npm/:/root/.npm
-        command: 'npm run gulp watch'
+        command: 'sleep 99999d'
 
     nginx:
         build: ./docker/nginx/
