@@ -8,9 +8,10 @@
         "url": "https://github.com/Pierstoval/corahn_rin"
     },
     "scripts": {
+        "watch": "gulp watch",
+        "dump": "gulp dump",
         "deploy": "gulp dump --prod",
-        "test": "gulp test --prod",
-        "gulp": "gulp"
+        "test": "gulp test --prod"
     },
     "dependencies": {
         "font-awesome": "^4.7.0",

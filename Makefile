@@ -98,7 +98,7 @@ fixtures:
 
 watch: ## Run Gulp to compile assets on change
 watch:
-	$(NPM) run gulp watch
+	$(NPM) run watch
 .PHONY: watch
 
 assets: ## Run Gulp to compile assets
