@@ -1,13 +1,14 @@
 nelmio_cors:
+    defaults:
+        allow_credentials: true
+        origin_regex: true
+        allow_origin: ['%env(resolve:CORS_ALLOW_ORIGIN)%']
+        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
+        allow_headers: ['Content-Type', 'Authorization', 'Origin', 'Accept']
+        expose_headers: ['Link']
+        max_age: 3600
+        hosts:
+            - '%esteren_domains.api%'
+            - '%esteren_domains.corahnrin%'
     paths:
-        '^/':
-            allow_credentials: true
-            origin_regex: true
-            allow_origin: ['%env(resolve:CORS_ALLOW_ORIGIN)%']
-            allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
-            allow_headers: ['Content-Type', 'Origin', 'Accept']
-            expose_headers: ['Link']
-            max_age: 3600
-            hosts:
-                - '%esteren_domains.api%'
-                - '%esteren_domains.corahnrin%'
+        '^/': ~

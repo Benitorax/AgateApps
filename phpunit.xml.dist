@@ -3,86 +3,25 @@
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.4/phpunit.xsd"
+         backupGlobals="false"
          colors="true"
-         verbose="true"
-         bootstrap="./tests/bootstrap.php"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutTodoAnnotatedTests="true"
-         beStrictAboutResourceUsageDuringSmallTests="true"
+         bootstrap="config/bootstrap.php"
 >
-    <!--%
-    <logging>
-        <log type="junit" target="./build/log/logfile.xml" />
-        <log type="coverage-html" target="./build/log/report" lowUpperBound="35" highLowerBound="70" />
-        <log type="coverage-clover" target="./build/log/clover.xml" />
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false" />
-    </logging>
-    %-->
-
     <php>
         <ini name="error_reporting" value="-1" />
-        <ini name="zend.enable_gc" value="0" />
-        <env name="KERNEL_CLASS" value="Kernel" />
-
-        <env name="PANTHERE_CHROME_DRIVER_BINARY" value="chromedriver" />
-        <env name="PANTHERE_NO_SANDBOX" value="1" />
-
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak_vendors" />
-        <env name="RELEASE_VERSION" value="v1" />
-        <env name="RELEASE_DATE" value="2018-04-09T22:36:58+02:00" />
-        <env name="IMAGEMAGICK_BINARIES_PATH" value="/usr/bin" />
-        <env name="AGATE_DOMAIN" value="studio-agate.docker" />
-        <env name="DRAGONS_DOMAIN" value="dragons-rpg.docker" />
-        <env name="ESTEREN_DOMAIN" value="esteren.docker" />
-        <env name="VERMINE_DOMAIN" value="vermine2047.docker" />
-        <env name="GOOGLE_RECAPTCHA_SITE_KEY" value="" />
-        <env name="GOOGLE_RECAPTCHA_SECRET" value="1" />
-        <env name="FATHOM_SITE_ID" value="" />
-        <env name="CORS_ALLOW_ORIGIN" value="^https?://(%esteren_domains.esterenmaps%|%esteren_domains.corahnrin%|%esteren_domains.api%|%esteren_domains.backoffice%)/" />
-
-        <!-- Uncomment this if you do not need to refresh the whole cache between runs
-        <env name="CLEAR_CACHE" value="1" />
-        -->
-        <!-- Uncomment this if you don't want to reset the database between runs
-        <env name="NO_RECREATE_DB" value="1" />
-        -->
-        <!-- Uncomment this if you want to force database recreation between runs
-        <env name="RECREATE_DB" value="1" />
-        -->
-        <!-- Uncomment this if you want less tests for Step 7 random tests, which is 100 by default
-        <env name="STEP7_RANDOMNESS_COUNT" value="1" />
-        -->
-
-        <!-- ###+ symfony/framework-bundle ### -->
-        <env name="APP_ENV" value="test"/>
-        <env name="APP_DEBUG" value="1"/>
-        <env name="APP_SECRET" value="54528f71f41df46312ac7a9029e74104"/>
+        <env name="APP_ENV" value="test" />
         <env name="SHELL_VERBOSITY" value="-1" />
-        <!-- ###- symfony/framework-bundle ### -->
-
-        <!-- ###+ doctrine/doctrine-bundle ### -->
-        <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/build/database_test.db"/>
-        <env name="DATABASE_URL_LEGACY" value="sqlite:///%kernel.project_dir%/build/database_legacy.db"/>
-        <!-- ###- doctrine/doctrine-bundle ### -->
-
-        <!-- ###+ symfony/swiftmailer-bundle ### -->
-        <env name="MAILER_URL" value="null://localhost"/>
-        <!-- ###- symfony/swiftmailer-bundle ### -->
     </php>
 
     <testsuites>
-        <testsuite name="Shadows of Esteren project test suite">
-            <directory>./tests/</directory>
+        <testsuite name="Agate Test Suite">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-    </listeners>
-
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>./src</directory>
+        <whitelist>
+            <directory>src</directory>
             <exclude>
                 <directory>./src/CorahnRin/PDF</directory><!-- External library cannot be tested -->
                 <directory>./src/*/DataFixtures</directory>
@@ -90,4 +29,8 @@
             </exclude>
         </whitelist>
     </filter>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+    </listeners>
 </phpunit>

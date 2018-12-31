@@ -27,7 +27,7 @@ class Kernel extends BaseKernel
     {
         $contents = require $this->getProjectDir().'/config/bundles.php';
         foreach ($contents as $class => $envs) {
-            if (isset($envs['all']) || isset($envs[$this->environment])) {
+            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
                 yield new $class();
             }
         }
@@ -47,14 +47,12 @@ class Kernel extends BaseKernel
 
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
-        $exts = self::CONFIG_EXTS;
-        $routesDir = $this->getProjectDir().'/config/{routes}';
+        $confDir = $this->getProjectDir().'/config';
 
-        $env = $this->environment;
-        $scheme = 'prod' === $env ? 'https' : 'http';
+        $scheme = 'prod' === $this->environment ? 'https' : 'http';
 
-        $routes->import("$routesDir/*$exts", '/', 'glob')->setSchemes($scheme);
-        $routes->import("$routesDir/$env/**/*$exts", '/', 'glob')->setSchemes($scheme);
-        $routes->import("$routesDir$exts", '/', 'glob')->setSchemes($scheme);
+        $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob')->setSchemes($scheme);
+        $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob')->setSchemes($scheme);
+        $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob')->setSchemes($scheme);
     }
 }
