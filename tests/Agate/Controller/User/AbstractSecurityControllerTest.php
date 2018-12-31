@@ -120,7 +120,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $response = $client->getResponse();
 
         // Check redirection was made correctly to the Profile page
-        static::assertTrue($response->isRedirect("/$locale/login"), "Does not redirect to login page. Maybe form values are incorrect?");
+        static::assertTrue($response->isRedirect("/$locale/login"), 'Does not redirect to login page. Maybe form values are incorrect?');
 
         $crawler->clear();
         $crawler = $client->followRedirect();
