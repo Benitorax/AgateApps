@@ -53,6 +53,7 @@ final class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         'user_resetting_check_email',
         'user_resetting_reset',
         'user_change_password',
+        'pierstoval_tools_assets_jstranslations',
     ];
 
     private $httpKernel;
