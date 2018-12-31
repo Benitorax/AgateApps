@@ -23,7 +23,7 @@ help:
 .PHONY: help
 
 install: ## Install and start the project
-install: .env build node_modules start vendor db fixtures assets map-tiles
+install: build node_modules start vendor db fixtures assets map-tiles
 .PHONY: install
 
 build: ## Build the Docker images
@@ -49,7 +49,7 @@ reset: kill install
 
 clean: ## Stop the project and remove generated files and configuration
 clean: kill
-	rm -rf .env vendor node_modules build var/cache/* var/log/* var/sessions/*
+	rm -rf vendor node_modules build var/cache/* var/log/* var/sessions/*
 .PHONY: clean
 
 ##
@@ -119,18 +119,6 @@ node_modules: package-lock.json
 	$(DOCKER_COMPOSE) run node npm install
 	$(DOCKER_COMPOSE) up -d node
 
-.env: ## Create an `.env` file if it does not exist
-.env: .env.dist
-	@if [ -f .env ]; \
-	then\
-		echo '\033[1;41m/!\ The .env.dist file has changed. Please check your .env file (this message will not be displayed again).\033[0m';\
-		touch .env;\
-		exit 1;\
-	else\
-		echo cp .env.dist .env;\
-		cp .env.dist .env;\
-	fi
-
 ##
 ## Tests
 ## -----
@@ -159,7 +147,7 @@ node-tests: start
 .PHONY: node-tests
 
 checks: ## Execute CS, linting and security checks
-checks: composer.lock
+checks:
 	$(SYMFONY) lint:twig templates src
 	$(SYMFONY) lint:yaml --parse-tags config
 	$(SYMFONY) lint:yaml --parse-tags src
@@ -167,15 +155,13 @@ checks: composer.lock
 .PHONY: checks
 
 phpunit: ## Execute all PHPUnit tests
-phpunit: composer.lock
+phpunit:
 	$(EXEC_PHP) bin/phpunit --log-junit=build/log/logfile.xml
 .PHONY: phpunit
 
-phpunit-coverage: ## Execute all PHPUnit tests with code coverage support
-phpunit-coverage: composer.lock
-	$(EXEC_PHP) docker-php-ext-enable xdebug
-	$(EXEC_PHP) bin/phpunit --log-junit=build/log/logfile_coverage.xml --coverage-text --coverage-clover=build/log/coverage.xml
-	$(EXEC_PHP) sh -c "php --ini | grep xdebug | sed 's/,\$//' | xargs rm -f"
+coverage: ## Retrieves the code coverage of the phpunit suite
+coverage:
+	$(EXEC_PHP) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/
 .PHONY: phpunit
 
 ##
