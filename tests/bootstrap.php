@@ -33,14 +33,14 @@ gc_disable();
 ini_set('memory_limit', -1);
 error_reporting(E_ALL);
 
-$rootDir = __DIR__.'/..';
+$rootDir = dirname(__DIR__);
 
 define('BUILD_DIR', $rootDir.'/build');
 
 define('DATABASE_TEST_FILE', $rootDir.'/build/database_test.db');
 define('DATABASE_REFERENCE_FILE', $rootDir.'/build/database_reference.db');
 
-$file = $rootDir.'/vendor/autoload.php';
+$file = $rootDir.'/config/bootstrap.php';
 if (!file_exists($file)) {
     throw new RuntimeException('Install dependencies to run test suite.');
 }
@@ -125,7 +125,7 @@ if ($kernel) {
 end:
 
 // Unset everything so PHPUnit can't dump these globals.
-unset($rootDir, $file, $autoload, $kernel, $application, $runCommand, $fs);
+unset($file, $autoload, $kernel, $application, $runCommand, $fs);
 
 $seconds = number_format(microtime(true) - $time, 2);
 

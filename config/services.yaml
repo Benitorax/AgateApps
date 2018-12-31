@@ -63,6 +63,7 @@ services:
             $awsRegion:       '%aws_region%'
             $awsBucket:       '%aws_bucket%'
             $agateDomain:     '%env(AGATE_DOMAIN)%'
+            $doctrineResultCache: '@doctrine.result_cache_provider'
             $mapsAcceptableHosts:
                 - '%esteren_domains.esterenmaps%'
                 - '%esteren_domains.corahnrin%'
