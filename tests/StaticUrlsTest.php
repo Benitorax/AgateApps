@@ -11,6 +11,7 @@
 
 namespace Tests;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -136,5 +137,47 @@ class StaticUrlsTest extends WebTestCase
         yield 19 => ['corahnrin.esteren.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
         yield 20 => ['maps.esteren.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
         yield 21 => ['www.dragons-rpg.docker', '/fr/js/translations', 'pierstoval_tools_assets_jstranslations', 200];
+    }
+
+    /**
+     * @dataProvider providePortalsThatShouldReturn404IfNotDefined
+     */
+    public function test portal not defined returns 404(string $host, string $url): void
+    {
+        static::resetDatabase();
+
+        static::bootKernel();
+
+        $linesRemoved = static::$container
+            ->get(EntityManagerInterface::class)
+            ->createQuery('DELETE FROM Agate\Entity\PortalElement')
+            ->execute()
+        ;
+
+        static::ensureKernelShutdown();
+
+        static::assertSame(6, $linesRemoved);
+
+        $client = $this->getClient($host);
+
+        $client->request('GET', $url);
+
+        static::assertSame(404, $client->getResponse()->getStatusCode());
+    }
+
+    public function providePortalsThatShouldReturn404IfNotDefined()
+    {
+        // Studio Agate
+        yield 'www.studio-agate.docker/fr' => ['www.studio-agate.docker', '/fr'];
+        yield 'www.studio-agate.docker/en' => ['www.studio-agate.docker', '/en'];
+
+        // Esteren portal
+        yield 'portal.esteren.docker/fr' => ['portal.esteren.docker', '/fr'];
+        yield 'portal.esteren.docker/en' => ['portal.esteren.docker', '/en'];
+
+        // Dragons
+        yield 'www.dragons-rpg.docker/fr' => ['www.dragons-rpg.docker', '/fr'];
+        yield 'www.dragons-rpg.docker/en' => ['www.dragons-rpg.docker', '/en'];
+
     }
 }
