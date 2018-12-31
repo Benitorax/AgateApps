@@ -12,7 +12,6 @@
 namespace Agate\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,7 +23,7 @@ class LegalMentionsController extends AbstractController
     /**
      * @Route("/legal", name="legal_mentions")
      */
-    public function legalMentionsAction(string $_locale, Request $request): Response
+    public function legalMentionsAction(string $_locale): Response
     {
         $response = new Response();
 
@@ -33,10 +32,6 @@ class LegalMentionsController extends AbstractController
             's_maxage' => 3600,
             'public' => $this->getUser() ? false : true,
         ]);
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
 
         if ('fr' !== $_locale) {
             throw $this->createNotFoundException();
