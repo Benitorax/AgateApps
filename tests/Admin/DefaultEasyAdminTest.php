@@ -21,7 +21,7 @@ class DefaultEasyAdminTest extends WebTestCase
     /**
      * Test backend homepage.
      */
-    public function testIndex()
+    public function test index returns 200(): void
     {
         static::resetDatabase();
 
@@ -32,5 +32,24 @@ class DefaultEasyAdminTest extends WebTestCase
         static::assertSame(200, $client->getResponse()->getStatusCode(), $crawler->filter('title')->html());
         static::assertSame('EasyAdmin', $crawler->filter('meta[name="generator"]')->attr('content'));
         static::assertSame('', \trim($crawler->filter('#main')->text()));
+    }
+
+    /**
+     * @dataProvider provideActionsThatNeedId
+     */
+    public function test actions that need id(string $action): void
+    {
+        $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
+
+        $crawler = $client->request('GET', "/fr/PortalElement/edit/$action");
+
+        static::assertSame(404, $client->getResponse()->getStatusCode(), $crawler->filter('title')->html());
+    }
+
+    public function provideActionsThatNeedId(): iterable
+    {
+        yield 'delete' => ['delete'];
+        yield 'show' => ['show'];
+        yield 'edit' => ['edit'];
     }
 }
