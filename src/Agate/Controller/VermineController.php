@@ -12,7 +12,6 @@
 namespace Agate\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,29 +20,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class VermineController extends AbstractController
 {
-    private $versionDate;
-
-    public function __construct($versionDate)
-    {
-        $this->versionDate = $versionDate;
-    }
-
     /**
      * @Route("", name="vermine_portal_home", methods={"GET"})
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(): Response
     {
         $response = new Response();
         $response->setCache([
-            'last_modified' => new \DateTime($this->versionDate),
             'max_age' => 600,
             's_maxage' => 3600,
             'public' => true,
         ]);
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
 
         return $this->render('agate/vermine/vermine-home.html.twig', [], $response);
     }
