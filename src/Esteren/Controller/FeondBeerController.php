@@ -11,11 +11,11 @@
 
 namespace Esteren\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FeondBeerController extends Controller
+class FeondBeerController extends AbstractController
 {
     /**
      * @Route("/feond-beer", name="esteren_portal_feond_beer", methods={"GET"})

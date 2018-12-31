@@ -13,12 +13,12 @@ namespace CorahnRin\Controller;
 
 use CorahnRin\Entity\Characters;
 use CorahnRin\SheetsManagers\PdfManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CharacterExportPDFController extends Controller
+class CharacterExportPDFController extends AbstractController
 {
     private $pdfManager;
 

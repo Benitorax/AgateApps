@@ -13,14 +13,14 @@ namespace Dragons\Controller;
 
 use Agate\Entity\PortalElement;
 use Agate\Exception\PortalElementNotFound;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(host="%dragons_domains.portal%")
  */
-class HomeController extends Controller
+class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="dragons_home", methods={"GET"})

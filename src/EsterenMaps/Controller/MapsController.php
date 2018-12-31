@@ -12,7 +12,7 @@
 namespace EsterenMaps\Controller;
 
 use EsterenMaps\Entity\Maps;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * @Route(host="%esteren_domains.esterenmaps%")
  */
-class MapsController extends Controller
+class MapsController extends AbstractController
 {
     /**
      * @Route("/", methods={"GET"}, name="esterenmaps_maps_list")
