@@ -161,7 +161,7 @@ phpunit:
 
 coverage: ## Retrieves the code coverage of the phpunit suite
 coverage:
-	$(EXEC_PHP) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/
+	$(EXEC_PHP) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/ --coverage-text
 .PHONY: phpunit
 
 ##
