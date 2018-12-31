@@ -15,7 +15,6 @@ use Agate\Entity\PortalElement;
 use Agate\Exception\PortalElementNotFound;
 use Main\DependencyInjection\PublicService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,13 +23,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HomeController extends AbstractController implements PublicService
 {
-    private $versionDate;
-
-    public function __construct($versionDate)
-    {
-        $this->versionDate = $versionDate;
-    }
-
     /**
      * @Route("/", name="agate_portal_home", methods={"GET"})
      */
@@ -62,20 +54,15 @@ class HomeController extends AbstractController implements PublicService
     /**
      * @Route("/team", name="agate_team", methods={"GET"})
      */
-    public function teamAction(Request $request): Response
+    public function teamAction(): Response
     {
         $response = new Response();
 
         $response->setCache([
-            'last_modified' => new \DateTime($this->versionDate),
             'max_age' => 600,
             's_maxage' => 3600,
             'public' => true,
         ]);
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
 
         return $this->render('agate/home/team.html.twig', [], $response);
     }

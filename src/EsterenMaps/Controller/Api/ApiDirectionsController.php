@@ -70,11 +70,12 @@ class ApiDirectionsController extends AbstractController
         $transportId = $request->query->get('transport');
         $transport = $this->transportTypesRepository->findOneBy(['id' => $transportId]);
 
-        $response = $this->checkResponseCache($map, $from, $to, $request);
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
+        $response = new JsonResponse();
+        $response->setCache([
+            'max_age' => 600,
+            's_maxage' => 3600,
+            'public' => true,
+        ]);
 
         if (!$transport && $transportId) {
             $output = $this->getError($from, $to, $transportId, 'Transport not found.');
@@ -88,34 +89,6 @@ class ApiDirectionsController extends AbstractController
         }
 
         return $response->setData($output);
-    }
-
-    private function checkResponseCache(Maps $map, Markers $from, Markers $to, Request $request): JsonResponse
-    {
-        $transportId = $request->query->get('transport');
-        $hoursPerDay = $request->query->get('hours_per_day', 7);
-
-        $etag = \sha1(\implode('_', [
-            'js',
-            $map->getId(),
-            $from->getId(),
-            $to->getId(),
-            $hoursPerDay,
-            $transportId,
-            $this->versionCode,
-        ]));
-
-        $response = new JsonResponse();
-        if (!$request->isNoCache()) {
-            $response->setCache([
-                'etag' => $etag,
-                'max_age' => 600,
-                's_maxage' => 3600,
-                'public' => true,
-            ]);
-        }
-
-        return $response;
     }
 
     private function getError(Markers $from, Markers $to, int $transportId = null, string $message = 'No path found for this query.'): array

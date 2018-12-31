@@ -62,21 +62,14 @@ class ApiMapsController implements PublicService
         // Fixes issues with floats converted to string when array is encoded.
         $response->setEncodingOptions($response::DEFAULT_ENCODING_OPTIONS | JSON_PRESERVE_ZERO_FRACTION);
 
-        $response->setEtag($etag = \sha1('map'.$id.$this->versionCode));
-
         $cache = [];
 
         if (!$editMode = $request->query->has('edit_mode') ?? $this->security->isGranted('ROLE_ADMIN')) {
             $cache = [
-                'etag' => $etag,
                 'max_age' => 600,
                 's_maxage' => 3600,
                 'public' => false,
             ];
-
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
         }
 
         return $response
