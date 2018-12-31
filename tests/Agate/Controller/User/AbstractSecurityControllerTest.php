@@ -113,13 +113,14 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $form['registration_form[username]'] = static::USER_NAME.$locale;
         $form['registration_form[email]'] = "test-$locale@local.docker";
         $form['registration_form[plainPassword]'] = 'fakePassword';
+        $form['registration_form[optin]'] = true;
 
         // Submit form
         $crawler = $client->submit($form);
         $response = $client->getResponse();
 
         // Check redirection was made correctly to the Profile page
-        static::assertTrue($response->isRedirect("/$locale/login"), "Does not redirect to login page.\n".$response->getContent());
+        static::assertTrue($response->isRedirect("/$locale/login"), "Does not redirect to login page. Maybe form values are incorrect?");
 
         $crawler->clear();
         $crawler = $client->followRedirect();
