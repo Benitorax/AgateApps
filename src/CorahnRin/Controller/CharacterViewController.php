@@ -13,7 +13,7 @@ namespace CorahnRin\Controller;
 
 use CorahnRin\Entity\Characters;
 use CorahnRin\Repository\CharactersRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/characters")
  */
-class CharacterViewController extends Controller
+class CharacterViewController extends AbstractController
 {
     /**
      * @Route("/", name="corahnrin_characters_list", methods={"GET"})

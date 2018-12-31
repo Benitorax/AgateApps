@@ -31,18 +31,6 @@ class MapsController extends AbstractController
         /** @var Maps[] $allMaps */
         $allMaps = $this->getDoctrine()->getRepository(Maps::class)->findAllRoot();
 
-        $updatedAt = null;
-
-        foreach ($allMaps as $map) {
-            if (!$updatedAt) {
-                $updatedAt = $map->getUpdatedAt();
-                continue;
-            }
-            if ($updatedAt < $map->getUpdatedAt()) {
-                $updatedAt = $map->getUpdatedAt();
-            }
-        }
-
         return $this->render('esteren_maps/Maps/index.html.twig', [
             'list' => $allMaps,
         ]);
@@ -75,7 +63,7 @@ class MapsController extends AbstractController
         return $this->render('esteren_maps/Maps/view.html.twig', [
             'map' => $map,
             'tilesUrl' => $tilesUrl,
-            'tile_size' => $this->container->getParameter('esterenmaps.tile_size'),
+            'tile_size' => $this->getParameter('esterenmaps.tile_size'),
         ], $response);
     }
 }

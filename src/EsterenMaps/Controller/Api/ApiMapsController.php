@@ -23,20 +23,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ApiMapsController implements PublicService
 {
     private $api;
-    private $versionCode;
     private $security;
-    private $mapsAcceptableHosts;
 
     public function __construct(
-        string $versionCode,
         MapApi $api,
-        AuthorizationCheckerInterface $security,
-        array $mapsAcceptableHosts
+        AuthorizationCheckerInterface $security
     ) {
         $this->api = $api;
-        $this->versionCode = $versionCode;
         $this->security = $security;
-        $this->mapsAcceptableHosts = $mapsAcceptableHosts;
     }
 
     /**
@@ -49,10 +43,6 @@ class ApiMapsController implements PublicService
      */
     public function getMap(int $id, Request $request): JsonResponse
     {
-        if (!\in_array($request->getHost(), $this->mapsAcceptableHosts, true)) {
-            throw new NotFoundHttpException();
-        }
-
         if (!$this->security->isGranted(['ROLE_MAPS_VIEW', 'SUBSCRIBED_TO_MAPS_VIEW', 'ROLE_ADMIN'])) {
             throw new AccessDeniedException();
         }
@@ -64,7 +54,13 @@ class ApiMapsController implements PublicService
 
         $cache = [];
 
-        if (!$editMode = $request->query->has('edit_mode') ?? $this->security->isGranted('ROLE_ADMIN')) {
+        $editMode = $request->query->has('edit_mode');
+
+        if ($editMode && !$this->security->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
+        if (!$editMode) {
             $cache = [
                 'max_age' => 600,
                 's_maxage' => 3600,
@@ -86,12 +82,8 @@ class ApiMapsController implements PublicService
      *     methods={"GET"}
      * )
      */
-    public function getCorahnRinMap(int $id, Request $request): JsonResponse
+    public function getCorahnRinMap(int $id): JsonResponse
     {
-        if (!\in_array($request->getHost(), $this->mapsAcceptableHosts, true)) {
-            throw new NotFoundHttpException();
-        }
-
         $response = new JsonResponse();
 
         // Fixes issues with floats converted to string when array is encoded.
