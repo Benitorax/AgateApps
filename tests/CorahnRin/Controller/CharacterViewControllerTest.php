@@ -35,6 +35,15 @@ class CharacterViewControllerTest extends WebTestCase
         static::assertSame(1, $crawler->filter('table.table.table-condensed')->count());
     }
 
+    public function test list with invalid query must return 400()
+    {
+        $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
+
+        $client->request('GET', '/fr/characters/?order=undefined');
+
+        static::assertSame(400, $client->getResponse()->getStatusCode());
+    }
+
     /**
      * @see CharacterViewController::viewAction
      */

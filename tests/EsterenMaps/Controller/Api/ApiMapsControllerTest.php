@@ -12,15 +12,51 @@
 namespace Tests\EsterenMaps\Controller\Api;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DomCrawler\Crawler;
 use Tests\WebTestCase as PiersTestCase;
 
 class ApiMapsControllerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function testMapInfo()
+    public function test getting map api without role needs authentication()
     {
-        $data = $this->getMapData();
+        $client = $this->getClient('maps.esteren.docker');
+
+        $client->request('GET', '/fr/api/maps/1');
+
+        $response = $client->getResponse();
+        static::assertSame(401, $response->getStatusCode());
+    }
+
+    public function test getting map api edit mode without being admin throws 403()
+    {
+        $client = $this->getClient('maps.esteren.docker');
+
+        static::setToken($client, 'map-not-allowed');
+
+        $client->request('GET', '/fr/api/maps/1?edit-mode');
+
+        $response = $client->getResponse();
+        static::assertSame(403, $response->getStatusCode());
+    }
+
+    public function test getting map api edit mode as admin data()
+    {
+        $client = $this->getClient('maps.esteren.docker');
+
+        static::setToken($client, 'map-allowed', ['ROLE_ADMIN']);
+
+        $client->request('GET', '/fr/api/maps/1?edit_mode=1');
+
+        $response = $client->getResponse();
+        static::assertSame(200, $response->getStatusCode());
+        $jsonContent = $response->getContent();
+        $data = \json_decode($jsonContent, true);
+
+        if (\json_last_error()) {
+            static::fail(\json_last_error_msg());
+        }
 
         static::assertSame(1, $data['map']['id'] ?? null);
         static::assertSame('tri-kazel', $data['map']['name_slug'] ?? null);
@@ -29,13 +65,66 @@ class ApiMapsControllerTest extends WebTestCase
             'id', 'name', 'name_slug', 'image', 'description', 'max_zoom', 'start_zoom', 'start_x', 'start_y',
             'bounds', 'coordinates_ratio', 'markers', 'routes', 'zones',
         ];
-        $dataKeys = \array_keys($data['map']);
-        static::assertSame(\sort($mapKeys), \sort($dataKeys));
+        foreach ($mapKeys as $key) {
+            static::assertArrayHasKey($key, $data['map']);
+        }
+
+        $element = new Crawler($data['templates']['LeafletPopupMarkerBaseContent']);
+        static::assertCount(1, $element->filter('form[name="api_markers"]'));
+        static::assertCount(1, $element->filter('#api_markers'));
+
+        $element = new Crawler($data['templates']['LeafletPopupPolylineBaseContent']);
+        static::assertCount(1, $element->filter('form[name="api_route"]'));
+        static::assertCount(1, $element->filter('#api_route'));
+
+        $element = new Crawler($data['templates']['LeafletPopupPolygonBaseContent']);
+        static::assertCount(1, $element->filter('form[name="api_zone"]'));
+        static::assertCount(1, $element->filter('#api_zone'));
     }
 
-    public function testMapMarkers()
+    public function provideRolesToFetchMap()
     {
-        $data = $this->getMapData();
+        yield 'ROLE_MAPS_VIEW' => ['ROLE_MAPS_VIEW'];
+        yield 'ROLE_ADMIN' => ['ROLE_ADMIN'];
+    }
+
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapInfo(string $role)
+    {
+        $data = $this->getMapData($role);
+
+        static::assertSame(1, $data['map']['id'] ?? null);
+        static::assertSame('tri-kazel', $data['map']['name_slug'] ?? null);
+        static::assertInternalType('array', $data['map']['bounds'] ?? null);
+        $mapKeys = [
+            'id', 'name', 'name_slug', 'image', 'description', 'max_zoom', 'start_zoom', 'start_x', 'start_y',
+            'bounds', 'coordinates_ratio', 'markers', 'routes', 'zones',
+        ];
+        foreach ($mapKeys as $key) {
+            static::assertArrayHasKey($key, $data['map']);
+        }
+
+        $element = new Crawler($data['templates']['LeafletPopupMarkerBaseContent']);
+        static::assertCount(1, $element->filter('h3#marker_popup_name'));
+        static::assertCount(1, $element->filter('p#marker_popup_type'));
+
+        $element = new Crawler($data['templates']['LeafletPopupPolylineBaseContent']);
+        static::assertCount(1, $element->filter('h3#polyline_popup_name'));
+        static::assertCount(1, $element->filter('p#polyline_popup_type'));
+
+        $element = new Crawler($data['templates']['LeafletPopupPolygonBaseContent']);
+        static::assertCount(1, $element->filter('h3#polygon_popup_name'));
+        static::assertCount(1, $element->filter('p#polygon_popup_type'));
+    }
+
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapMarkers(string $role)
+    {
+        $data = $this->getMapData($role);
 
         $marker = $data['map']['markers'][8] ?? null;
         static::assertSame('Osta-Baille', $marker['name'] ?? null);
@@ -44,13 +133,17 @@ class ApiMapsControllerTest extends WebTestCase
         static::assertInternalType('int', $marker['marker_type'] ?? null);
         static::assertInternalType('int', $marker['faction'] ?? null);
         $markerKeys = ['id', 'name', 'description', 'latitude', 'longitude', 'marker_type', 'faction'];
-        $dataKeys = \array_keys($marker ?: []);
-        static::assertSame(\sort($markerKeys), \sort($dataKeys));
+        foreach ($markerKeys as $key) {
+            static::assertArrayHasKey($key, $marker);
+        }
     }
 
-    public function testMapRoutes()
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapRoutes(string $role)
     {
-        $data = $this->getMapData();
+        $data = $this->getMapData($role);
 
         // Route
         $route = $data['map']['routes'][700] ?? null;
@@ -60,8 +153,9 @@ class ApiMapsControllerTest extends WebTestCase
             'id', 'name', 'description', 'coordinates', 'distance', 'guarded',
             'marker_start', 'marker_end', 'faction', 'route_type',
         ];
-        $dataKeys = \array_keys($route ?: []);
-        static::assertSame(\sort($routeKeys), \sort($dataKeys));
+        foreach ($routeKeys as $key) {
+            static::assertArrayHasKey($key, $route);
+        }
         static::assertInternalType('array', $route['coordinates'] ?? null);
         static::assertArrayHasKey('lat', $route['coordinates'][0] ?? null);
         static::assertArrayHasKey('lng', $route['coordinates'][0] ?? null);
@@ -74,16 +168,23 @@ class ApiMapsControllerTest extends WebTestCase
         static::assertNull($route['faction']);
     }
 
-    public function testMapZones()
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapZones(string $role)
     {
-        $data = $this->getMapData();
+        $data = $this->getMapData($role);
 
         $zone = $data['map']['zones'][1] ?? null;
         static::assertNotNull($zone);
+        /**
+         * @dataProvider provideRolesToFetchMap
+         */
         static::assertSame('Kingdom test', $zone['name']);
         $zoneKeys = ['id', 'name', 'description', 'coordinates', 'faction', 'zone_type'];
-        $dataKeys = \array_keys($zone ?: []);
-        static::assertSame(\sort($zoneKeys), \sort($dataKeys));
+        foreach ($zoneKeys as $key) {
+            static::assertArrayHasKey($key, $zone);
+        }
         static::assertInternalType('array', $zone['coordinates'] ?? null);
         static::assertArrayHasKey('lat', $zone['coordinates'][0] ?? null);
         static::assertArrayHasKey('lng', $zone['coordinates'][0] ?? null);
@@ -93,69 +194,133 @@ class ApiMapsControllerTest extends WebTestCase
         static::assertInternalType('int', $zone['faction'] ?? null);
     }
 
-    public function testMapTemplates()
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapTemplates(string $role)
     {
-        $data = $this->getMapData();
+        $data = $this->getMapData($role);
 
         static::assertContains('id="marker_popup_name"', $data['templates']['LeafletPopupMarkerBaseContent'] ?? null);
         static::assertContains('id="polyline_popup_name"', $data['templates']['LeafletPopupPolylineBaseContent'] ?? null);
         static::assertContains('id="polygon_popup_name"', $data['templates']['LeafletPopupPolygonBaseContent'] ?? null);
     }
 
-    public function testMapMarkersTypes()
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapMarkersTypes(string $role)
     {
-        $data = $this->getMapData();
+        $data = $this->getMapData($role);
 
         $type = $data['references']['markers_types'][1] ?? null;
         static::assertSame('City', $type['name'] ?? null);
         $typeKeys = ['id', 'name', 'description', 'icon', 'icon_width', 'icon_height', 'icon_center_x', 'icon_center_y'];
-        $dataKeys = \array_keys($type ?: []);
-        static::assertSame(\sort($typeKeys), \sort($dataKeys));
+        foreach ($typeKeys as $key) {
+            static::assertArrayHasKey($key, $type);
+        }
         static::assertInternalType('int', $type['icon_width'] ?? null);
         static::assertInternalType('int', $type['icon_height'] ?? null);
     }
 
-    public function testMapRoutesTypes()
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapRoutesTypes(string $role)
     {
-        $data = $this->getMapData();
+        $data = $this->getMapData($role);
 
         $type = $data['references']['routes_types'][1] ?? null;
         static::assertSame('Track', $type['name'] ?? null);
         $typeKeys = ['id', 'name', 'description', 'color'];
-        $dataKeys = \array_keys($type ?: []);
-        static::assertSame(\sort($typeKeys), \sort($dataKeys));
+        foreach ($typeKeys as $key) {
+            static::assertArrayHasKey($key, $type);
+        }
         static::assertInternalType('string', $type['color'] ?? null);
     }
 
-    public function testMapZonesTypes()
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapZonesTypes(string $role)
     {
-        $data = $this->getMapData();
+        $data = $this->getMapData($role);
 
         $type = $data['references']['zones_types'][2] ?? null;
         static::assertSame('Kingdom', $type['name'] ?? null);
         $typeKeys = ['id', 'name', 'description', 'color', 'parent_id'];
-        $dataKeys = \array_keys($type ?: []);
-        static::assertSame(\sort($typeKeys), \sort($dataKeys));
+        foreach ($typeKeys as $key) {
+            static::assertArrayHasKey($key, $type);
+        }
         static::assertInternalType('string', $type['color'] ?? null);
         static::assertInternalType('int', $type['parent_id'] ?? null);
     }
 
-    public function testMapFactions()
+    /**
+     * @dataProvider provideRolesToFetchMap
+     */
+    public function testMapFactions(string $role)
     {
-        $data = $this->getMapData();
+        $data = $this->getMapData($role);
 
         $type = $data['references']['factions'][1] ?? null;
         static::assertSame('Faction Test', $type['name'] ?? null);
         $typeKeys = ['id', 'name', 'description'];
-        $dataKeys = \array_keys($type ?: []);
-        static::assertSame(\sort($typeKeys), \sort($dataKeys));
+        foreach ($typeKeys as $key) {
+            static::assertArrayHasKey($key, $type);
+        }
     }
 
-    private function getMapData()
+    public function testCorahnRinMap()
+    {
+        $client = $this->getClient('corahnrin.esteren.docker');
+
+        $client->request('GET', '/fr/api/maps/corahn_rin/1');
+
+        $response = $client->getResponse();
+        static::assertSame(200, $response->getStatusCode());
+        $jsonContent = $response->getContent();
+        $data = \json_decode($jsonContent, true);
+
+        if (\json_last_error()) {
+            static::fail(\json_last_error_msg());
+        }
+
+        static::assertSame(1, $data['map']['id'] ?? null);
+        static::assertSame('tri-kazel', $data['map']['name_slug'] ?? null);
+        static::assertInternalType('array', $data['map']['bounds'] ?? null);
+        $mapKeys = [
+            'id', 'name', 'name_slug', 'image', 'description', 'max_zoom', 'start_zoom', 'start_x', 'start_y',
+            'bounds', 'coordinates_ratio', 'markers', 'routes', 'zones',
+        ];
+        foreach ($mapKeys as $key) {
+            static::assertArrayHasKey($key, $data['map']);
+        }
+
+        static::assertSame([], $data['map']['routes']);
+        static::assertSame([], $data['map']['markers']);
+        static::assertSame([], $data['references']['markers_types']);
+        static::assertSame([], $data['references']['routes_types']);
+        static::assertSame([], $data['references']['transports']);
+
+        $element = new Crawler($data['templates']['LeafletPopupMarkerBaseContent']);
+        static::assertCount(1, $element->filter('h3#marker_popup_name'));
+        static::assertCount(1, $element->filter('p#marker_popup_type'));
+
+        $element = new Crawler($data['templates']['LeafletPopupPolylineBaseContent']);
+        static::assertCount(1, $element->filter('h3#polyline_popup_name'));
+        static::assertCount(1, $element->filter('p#polyline_popup_type'));
+
+        $element = new Crawler($data['templates']['LeafletPopupPolygonBaseContent']);
+        static::assertCount(1, $element->filter('h3#polygon_popup_name'));
+        static::assertCount(1, $element->filter('p#polygon_popup_type'));
+    }
+
+    private function getMapData(string $role)
     {
         $client = $this->getClient('maps.esteren.docker');
 
-        static::setToken($client, 'map_allowed', ['ROLE_MAPS_VIEW']);
+        static::setToken($client, 'map-allowed', [$role]);
 
         $client->request('GET', '/fr/api/maps/1');
 

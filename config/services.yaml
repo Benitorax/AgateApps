@@ -58,7 +58,6 @@ services:
             $sheetsFolder:    '%kernel.project_dir%/src/CorahnRin/Resources/pdf_sources'
             $tileSize:        '%esterenmaps.tile_size%'
             $versionCode:     '%version_code%'
-            $versionDate:     '%version_date%'
             $oneupFlysystem:  '@oneup_flysystem.assets_fs_filesystem'
             $awsRegion:       '%aws_region%'
             $awsBucket:       '%aws_bucket%'
