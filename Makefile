@@ -103,7 +103,7 @@ watch:
 
 assets: ## Run Gulp to compile assets
 assets: node_modules
-	$(NPM) run gulp dump
+	$(NPM) run dump
 .PHONY: assets
 
 composer.lock: ## Update lockfile

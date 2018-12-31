@@ -482,16 +482,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.9.1",
+            "version": "v2.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "ec74d6e300d78fbc896669c3ca57ef9719adc9c6"
+                "reference": "22800bd651c1d8d2a9719e2a3dc46d5108ebfcc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/ec74d6e300d78fbc896669c3ca57ef9719adc9c6",
-                "reference": "ec74d6e300d78fbc896669c3ca57ef9719adc9c6",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/22800bd651c1d8d2a9719e2a3dc46d5108ebfcc9",
+                "reference": "22800bd651c1d8d2a9719e2a3dc46d5108ebfcc9",
                 "shasum": ""
             },
             "require": {
@@ -560,7 +560,7 @@
                 "php",
                 "queryobject"
             ],
-            "time": "2018-12-14T04:51:13+00:00"
+            "time": "2018-12-31T03:27:51+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -2489,7 +2489,7 @@
             "authors": [
                 {
                     "name": "Alex Rock Ancelet",
-                    "email": "pierstoval@gmail.com",
+                    "email": "alex@orbitale.io",
                     "homepage": "http://www.orbitale.io/"
                 }
             ],
@@ -2540,7 +2540,7 @@
             "authors": [
                 {
                     "name": "Alex Rock Ancelet",
-                    "email": "pierstoval@gmail.com",
+                    "email": "alex@orbitale.io",
                     "homepage": "http://www.orbitale.io/"
                 }
             ],
@@ -7067,12 +7067,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "bb34537bfd265da8df5875bb9f8d2ba1b5ff4d3e"
+                "reference": "4ef459db54a35d30c703ed81320633de35f58182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bb34537bfd265da8df5875bb9f8d2ba1b5ff4d3e",
-                "reference": "bb34537bfd265da8df5875bb9f8d2ba1b5ff4d3e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4ef459db54a35d30c703ed81320633de35f58182",
+                "reference": "4ef459db54a35d30c703ed81320633de35f58182",
                 "shasum": ""
             },
             "require": {
@@ -7132,7 +7132,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2018-12-28T14:10:23+00:00"
+            "time": "2018-12-31T10:02:41+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
