@@ -138,7 +138,7 @@ php-tests: start checks phpunit phpstan
 
 phpstan: ## Execute phpstan
 phpstan: start
-	$(EXEC_PHP) vendor/bin/phpstan analyse --debug -c phpstan.neon
+	$(EXEC_PHP) vendor/bin/phpstan analyse -c phpstan.neon
 .PHONY: phpstan
 
 node-tests: ## Execute checks & tests
