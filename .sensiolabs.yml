@@ -2,7 +2,8 @@ php_version: 7.1
 
 pre_composer_script: |
     #!/bin/bash
-    cp .env.ci .env
+    # Hope it'll be easier in the future...
+    cp .env.test .env
 
 post_composer_script: |
     #!/bin/bash
