@@ -56,3 +56,5 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob')->setSchemes($scheme);
     }
 }
+
+\class_alias('App\Kernel', Kernel::class, false);

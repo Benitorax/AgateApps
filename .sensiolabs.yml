@@ -17,6 +17,7 @@ exclude_patterns:
     - src/CorahnRin/SheetsManagers/PdfManager.php
     - src/CorahnRin/Command/ImportLegacyCharactersCommand.php
     - public/index.php
+    - config/bootstrap.php
 
 rules:
     symfony.controller.missing_redirect_after_post: { enabled: false }

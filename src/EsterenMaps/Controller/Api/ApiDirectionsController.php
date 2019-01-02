@@ -25,7 +25,6 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class ApiDirectionsController extends AbstractController
 {
-    private $versionCode;
     private $transportTypesRepository;
     private $directionsManager;
     private $translator;
@@ -35,13 +34,11 @@ class ApiDirectionsController extends AbstractController
     private $mapsAcceptableHosts;
 
     public function __construct(
-        string $versionCode,
         TransportTypesRepository $transportTypesRepository,
         DirectionsManager $directionsManager,
         TranslatorInterface $translator,
         array  $mapsAcceptableHosts
     ) {
-        $this->versionCode = $versionCode;
         $this->transportTypesRepository = $transportTypesRepository;
         $this->directionsManager = $directionsManager;
         $this->translator = $translator;
