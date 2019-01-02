@@ -465,7 +465,7 @@ class ImportTiddlyWikiCommand extends Command
                 ->setZoneType($this->getOneReferencedObject('zonesTypes', $data['zonetype_id']))
             ;
             if (!$object->isLocalized()) {
-                $object->setCoordinates(json_encode([
+                $object->setCoordinates(\json_encode([
                     ['lat' => 0, 'lng' => 0],
                     ['lat' => 0, 'lng' => 1],
                     ['lat' => 1, 'lng' => 0],

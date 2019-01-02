@@ -178,6 +178,5 @@ class StaticUrlsTest extends WebTestCase
         // Dragons
         yield 'www.dragons-rpg.docker/fr' => ['www.dragons-rpg.docker', '/fr'];
         yield 'www.dragons-rpg.docker/en' => ['www.dragons-rpg.docker', '/en'];
-
     }
 }

@@ -18,7 +18,6 @@ use Tests\WebTestCase as PiersTestCase;
 use User\Entity\User;
 use User\Repository\UserRepository;
 use Voucher\Entity\Voucher;
-use Voucher\Exception\StopRedeemPropagation;
 use Voucher\Exception\UserHasAlreadyRedeemedThisVoucher;
 use Voucher\Handler\VoucherHandlerInterface;
 use Voucher\Redeem\Redeemer;

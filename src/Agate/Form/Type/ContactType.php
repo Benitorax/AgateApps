@@ -11,9 +11,9 @@
 
 namespace Agate\Form\Type;
 
-use ReCaptcha\ReCaptcha;
 use Agate\Form\EventListener\CaptchaFormSubscriber;
 use Agate\Model\ContactMessage;
+use ReCaptcha\ReCaptcha;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

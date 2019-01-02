@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Tests\Voucher\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector;
 use Tests\WebTestCase as PiersTestCase;
 use User\Repository\UserRepository;
@@ -23,7 +23,6 @@ use Voucher\Data\VoucherType;
 use Voucher\Entity\RedeemedVoucher;
 use Voucher\Entity\Voucher;
 use Voucher\Exception\ExceededNumberOfUsesForVoucher;
-use Voucher\Exception\UserHasAlreadyRedeemedThisVoucher;
 use Voucher\Exception\VoucherNotAvailable;
 use Voucher\Redeem\Redeemer;
 use Voucher\Repository\RedeemedVoucherRepository;
