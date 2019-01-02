@@ -57,4 +57,4 @@ class Kernel extends BaseKernel
     }
 }
 
-\class_alias('App\Kernel', Kernel::class, false);
+\class_alias(Kernel::class, 'App\Kernel', false);
