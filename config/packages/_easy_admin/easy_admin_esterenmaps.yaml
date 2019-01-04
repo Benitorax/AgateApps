@@ -147,7 +147,7 @@ easy_admin:
 
         RoutesTypes:
             label: admin.maps.routes_types
-            class: EsterenMaps\Entity\RoutesTypes
+            class: EsterenMaps\Entity\RouteType
             controller: Admin\CustomController\BaseMapAdminController
             list:
                 actions:

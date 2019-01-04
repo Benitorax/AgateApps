@@ -11,7 +11,7 @@
 
 namespace Admin\CustomController;
 
-use EsterenMaps\Entity\RoutesTypes;
+use EsterenMaps\Entity\RouteType;
 use EsterenMaps\Entity\TransportModifiers;
 use EsterenMaps\Entity\TransportTypes;
 use Symfony\Component\Form\FormBuilder;
@@ -39,7 +39,7 @@ class TransportTypesController extends BaseMapAdminController
         );
 
         $missingRoutesTypes = $this->em
-            ->getRepository(RoutesTypes::class)
+            ->getRepository(RouteType::class)
             ->findNotInIds($routesTypesIds)
         ;
 

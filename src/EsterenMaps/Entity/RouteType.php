@@ -17,12 +17,10 @@ use EsterenMaps\Cache\EntityToClearInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * RoutesTypes.
- *
  * @ORM\Table(name="maps_routes_types")
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\RoutesTypesRepository")
  */
-class RoutesTypes implements EntityToClearInterface
+class RouteType implements EntityToClearInterface
 {
     use TimestampableEntity;
 
@@ -120,7 +118,7 @@ class RoutesTypes implements EntityToClearInterface
      *
      * @param string $name
      *
-     * @return RoutesTypes
+     * @return RouteType
      *
      * @codeCoverageIgnore
      */
@@ -147,7 +145,7 @@ class RoutesTypes implements EntityToClearInterface
      * Add resources.
      *
      *
-     * @return RoutesTypes
+     * @return RouteType
      */
     public function addResource(Resources $resources)
     {
@@ -180,7 +178,7 @@ class RoutesTypes implements EntityToClearInterface
      * Add routes.
      *
      *
-     * @return RoutesTypes
+     * @return RouteType
      */
     public function addRoute(Route $routes)
     {
@@ -222,7 +220,7 @@ class RoutesTypes implements EntityToClearInterface
     /**
      * @param string $color
      *
-     * @return RoutesTypes
+     * @return RouteType
      *
      * @codeCoverageIgnore
      */
@@ -246,7 +244,7 @@ class RoutesTypes implements EntityToClearInterface
     /**
      * @param string $description
      *
-     * @return RoutesTypes
+     * @return RouteType
      *
      * @codeCoverageIgnore
      */
@@ -261,7 +259,7 @@ class RoutesTypes implements EntityToClearInterface
      * Add transports.
      *
      *
-     * @return RoutesTypes
+     * @return RouteType
      */
     public function addTransport(TransportModifiers $transports)
     {
@@ -274,7 +272,7 @@ class RoutesTypes implements EntityToClearInterface
      * Remove transports.
      *
      *
-     * @return RoutesTypes
+     * @return RouteType
      */
     public function removeTransport(TransportModifiers $transports)
     {

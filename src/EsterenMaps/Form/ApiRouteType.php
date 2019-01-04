@@ -14,7 +14,7 @@ namespace EsterenMaps\Form;
 use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\Route;
-use EsterenMaps\Entity\RoutesTypes;
+use EsterenMaps\Entity\RouteType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -45,7 +45,7 @@ class ApiRouteType extends AbstractType
                 ],
             ])
             ->add('routeType', EntityType::class, [
-                'class' => RoutesTypes::class,
+                'class' => RouteType::class,
             ])
             ->add('markerStart', EntityType::class, [
                 'class' => Marker::class,

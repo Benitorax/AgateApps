@@ -11,7 +11,7 @@
 
 namespace Tests\Admin;
 
-use EsterenMaps\Entity\RoutesTypes;
+use EsterenMaps\Entity\RouteType;
 
 class RoutesTypesAdminTest extends AbstractEasyAdminTest
 {
@@ -28,7 +28,7 @@ class RoutesTypesAdminTest extends AbstractEasyAdminTest
      */
     public function getEntityClass()
     {
-        return RoutesTypes::class;
+        return RouteType::class;
     }
 
     /**

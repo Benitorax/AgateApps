@@ -36,9 +36,9 @@ class TransportModifiers implements EntityToClearInterface
     protected $id;
 
     /**
-     * @var RoutesTypes
+     * @var RouteType
      *
-     * @ORM\ManyToOne(targetEntity="EsterenMaps\Entity\RoutesTypes", inversedBy="transports")
+     * @ORM\ManyToOne(targetEntity="RouteType", inversedBy="transports")
      * @ORM\JoinColumn(name="route_type_id", nullable=false)
      * @Assert\NotNull
      */
@@ -94,7 +94,7 @@ class TransportModifiers implements EntityToClearInterface
     }
 
     /**
-     * @return RoutesTypes
+     * @return RouteType
      *
      * @codeCoverageIgnore
      */
@@ -104,7 +104,7 @@ class TransportModifiers implements EntityToClearInterface
     }
 
     /**
-     * @param RoutesTypes $routeType
+     * @param RouteType $routeType
      *
      * @return TransportModifiers
      *

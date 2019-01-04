@@ -17,7 +17,7 @@ use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\MarkerType;
 use EsterenMaps\Entity\Route;
-use EsterenMaps\Entity\RoutesTypes;
+use EsterenMaps\Entity\RouteType;
 use EsterenMaps\Entity\TransportTypes;
 use EsterenMaps\Entity\Zones;
 use EsterenMaps\Entity\ZonesTypes;
@@ -64,7 +64,7 @@ class MapApi
 
         // References
         $data['references']['markers_types'] = $this->em->getRepository(MarkerType::class)->findForApi();
-        $data['references']['routes_types'] = $this->em->getRepository(RoutesTypes::class)->findForApi();
+        $data['references']['routes_types'] = $this->em->getRepository(RouteType::class)->findForApi();
         $data['references']['zones_types'] = $this->em->getRepository(ZonesTypes::class)->findForApi();
         $data['references']['factions'] = $this->em->getRepository(Faction::class)->findForApi();
         $data['references']['transports'] = $this->em->getRepository(TransportTypes::class)->findForApi();

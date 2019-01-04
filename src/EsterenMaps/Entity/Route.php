@@ -133,12 +133,12 @@ class Route implements EntityToClearInterface, \JsonSerializable
     protected $faction;
 
     /**
-     * @var RoutesTypes
+     * @var RouteType
      *
-     * @ORM\ManyToOne(targetEntity="RoutesTypes", inversedBy="routes")
+     * @ORM\ManyToOne(targetEntity="RouteType", inversedBy="routes")
      * @ORM\JoinColumn(name="route_type_id", nullable=false)
      *
-     * @Assert\Type("EsterenMaps\Entity\RoutesTypes")
+     * @Assert\Type("EsterenMaps\Entity\RouteType")
      * @Assert\NotBlank
      */
     protected $routeType;
@@ -298,14 +298,14 @@ class Route implements EntityToClearInterface, \JsonSerializable
         return $this->faction;
     }
 
-    public function setRouteType(?RoutesTypes $routeType): self
+    public function setRouteType(?RouteType $routeType): self
     {
         $this->routeType = $routeType;
 
         return $this;
     }
 
-    public function getRouteType(): ?RoutesTypes
+    public function getRouteType(): ?RouteType
     {
         return $this->routeType;
     }
