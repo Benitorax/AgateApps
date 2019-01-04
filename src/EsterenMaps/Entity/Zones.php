@@ -84,12 +84,12 @@ class Zones implements EntityToClearInterface, \JsonSerializable
     protected $faction;
 
     /**
-     * @var ZonesTypes
+     * @var ZoneType
      *
-     * @ORM\ManyToOne(targetEntity="ZonesTypes", inversedBy="zones")
+     * @ORM\ManyToOne(targetEntity="ZoneType", inversedBy="zones")
      * @ORM\JoinColumn(name="zone_type_id", nullable=false)
      *
-     * @Assert\Type("EsterenMaps\Entity\ZonesTypes")
+     * @Assert\Type("EsterenMaps\Entity\ZoneType")
      * @Assert\NotBlank
      */
     protected $zoneType;
@@ -229,14 +229,14 @@ class Zones implements EntityToClearInterface, \JsonSerializable
         return $this->faction;
     }
 
-    public function setZoneType(?ZonesTypes $zoneType): self
+    public function setZoneType(?ZoneType $zoneType): self
     {
         $this->zoneType = $zoneType;
 
         return $this;
     }
 
-    public function getZoneType(): ?ZonesTypes
+    public function getZoneType(): ?ZoneType
     {
         return $this->zoneType;
     }

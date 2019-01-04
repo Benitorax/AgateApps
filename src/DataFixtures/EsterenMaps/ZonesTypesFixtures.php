@@ -14,7 +14,7 @@ namespace DataFixtures\EsterenMaps;
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use EsterenMaps\Entity\ZonesTypes;
+use EsterenMaps\Entity\ZoneType;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
 
 class ZonesTypesFixtures extends AbstractFixture implements ORMFixtureInterface
@@ -26,7 +26,7 @@ class ZonesTypesFixtures extends AbstractFixture implements ORMFixtureInterface
      */
     protected function getEntityClass(): string
     {
-        return ZonesTypes::class;
+        return ZoneType::class;
     }
 
     /**
@@ -54,7 +54,7 @@ class ZonesTypesFixtures extends AbstractFixture implements ORMFixtureInterface
             ],
             [
                 'id' => 2,
-                'parent' => function (ZonesTypes $obj, AbstractFixture $f, ObjectManager $manager) {
+                'parent' => function (ZoneType $obj, AbstractFixture $f, ObjectManager $manager) {
                     $ref = $manager->merge($f->getReference('esterenmaps-zonestypes-1'));
                     $obj->setParent($ref);
 

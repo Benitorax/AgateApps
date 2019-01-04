@@ -24,7 +24,7 @@ use EsterenMaps\Entity\MarkerType;
 use EsterenMaps\Entity\Route;
 use EsterenMaps\Entity\RouteType;
 use EsterenMaps\Entity\Zones;
-use EsterenMaps\Entity\ZonesTypes;
+use EsterenMaps\Entity\ZoneType;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -79,7 +79,7 @@ class ImportTiddlyWikiCommand extends Command
     private $markersTypes = [];
 
     /**
-     * @var ZonesTypes[][]
+     * @var ZoneType[][]
      */
     private $zonesTypes = [];
 
@@ -191,7 +191,7 @@ class ImportTiddlyWikiCommand extends Command
 
         $this->factions = $this->getReferenceObjects('factions', Faction::class);
         $this->markersTypes = $this->getReferenceObjects('markertype', MarkerType::class);
-        $this->zonesTypes = $this->getReferenceObjects('zonetype', ZonesTypes::class);
+        $this->zonesTypes = $this->getReferenceObjects('zonetype', ZoneType::class);
         $this->routesTypes = $this->getReferenceObjects('routetype', RouteType::class);
 
         $this->markers = $this->processObjects('marqueurs', Marker::class);

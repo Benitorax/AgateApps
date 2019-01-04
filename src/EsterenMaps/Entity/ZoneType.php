@@ -17,12 +17,10 @@ use EsterenMaps\Cache\EntityToClearInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * ZonesTypes.
- *
  * @ORM\Table(name="maps_zones_types")
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\ZonesTypesRepository")
  */
-class ZonesTypes implements EntityToClearInterface
+class ZoneType implements EntityToClearInterface
 {
     use TimestampableEntity;
 
@@ -57,9 +55,9 @@ class ZonesTypes implements EntityToClearInterface
     protected $color;
 
     /**
-     * @var ZonesTypes
+     * @var ZoneType
      *
-     * @ORM\ManyToOne(targetEntity="ZonesTypes")
+     * @ORM\ManyToOne(targetEntity="ZoneType")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $parent;
@@ -77,7 +75,6 @@ class ZonesTypes implements EntityToClearInterface
      */
     public function __construct()
     {
-        $this->resources = new ArrayCollection();
         $this->zones = new ArrayCollection();
     }
 
@@ -117,7 +114,7 @@ class ZonesTypes implements EntityToClearInterface
      *
      * @param string $name
      *
-     * @return ZonesTypes
+     * @return ZoneType
      *
      * @codeCoverageIgnore
      */
@@ -144,7 +141,7 @@ class ZonesTypes implements EntityToClearInterface
      * Add zones.
      *
      *
-     * @return ZonesTypes
+     * @return ZoneType
      */
     public function addZone(Zones $zones)
     {
@@ -176,9 +173,9 @@ class ZonesTypes implements EntityToClearInterface
     /**
      * Set parent.
      *
-     * @param ZonesTypes $parent
+     * @param ZoneType $parent
      *
-     * @return ZonesTypes
+     * @return ZoneType
      *
      * @codeCoverageIgnore
      */
@@ -192,7 +189,7 @@ class ZonesTypes implements EntityToClearInterface
     /**
      * Get parent.
      *
-     * @return ZonesTypes
+     * @return ZoneType
      *
      * @codeCoverageIgnore
      */
@@ -202,7 +199,7 @@ class ZonesTypes implements EntityToClearInterface
     }
 
     /**
-     * @param ZonesTypes $child
+     * @param ZoneType $child
      *
      * @return $this
      */
@@ -214,7 +211,7 @@ class ZonesTypes implements EntityToClearInterface
     }
 
     /**
-     * @param ZonesTypes[] $children
+     * @param ZoneType[] $children
      *
      * @return $this
      *
@@ -228,7 +225,7 @@ class ZonesTypes implements EntityToClearInterface
     }
 
     /**
-     * @return ZonesTypes[]
+     * @return ZoneType[]
      *
      * @codeCoverageIgnore
      */
@@ -238,7 +235,7 @@ class ZonesTypes implements EntityToClearInterface
     }
 
     /**
-     * @param ZonesTypes $child
+     * @param ZoneType $child
      *
      * @return $this
      */
@@ -276,7 +273,7 @@ class ZonesTypes implements EntityToClearInterface
     /**
      * @param string $color
      *
-     * @return ZonesTypes
+     * @return ZoneType
      *
      * @codeCoverageIgnore
      */
@@ -306,11 +303,11 @@ class ZonesTypes implements EntityToClearInterface
      *
      * @param int $level
      *
-     * @return ZonesTypes|null
+     * @return ZoneType|null
      */
     public function getParentByLevel($level = 0)
     {
-        /** @var ZonesTypes $actualParent */
+        /** @var ZoneType $actualParent */
         $actualParent = $this->parent;
         if ($actualParent) {
             while ($level > 0) {

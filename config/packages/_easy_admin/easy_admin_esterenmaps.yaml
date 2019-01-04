@@ -200,7 +200,7 @@ easy_admin:
 
         ZonesTypes:
             label: admin.maps.zones_types
-            class: EsterenMaps\Entity\ZonesTypes
+            class: EsterenMaps\Entity\ZoneType
             controller: Admin\CustomController\BaseMapAdminController
             list:
                 actions:
