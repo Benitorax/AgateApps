@@ -31,13 +31,13 @@ easy_admin:
 
             -   label: 'admin.menu.esterenmaps_data'
                 children:
-                    - { entity: 'Marker' }
-                    - { entity: 'Route' }
+                    - { entity: 'Markers' }
+                    - { entity: 'Routes' }
                     - { entity: 'Zones' }
 
             -   label: 'admin.menu.types'
                 children:
-                    - { entity: 'MarkerType' }
-                    - { entity: 'RouteType' }
+                    - { entity: 'MarkersTypes' }
+                    - { entity: 'RoutesTypes' }
                     - { entity: 'ZonesTypes' }
                     - { entity: 'TransportTypes' }

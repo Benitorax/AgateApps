@@ -65,6 +65,7 @@ class DirectionsManagerTest extends WebTestCase
         $client->request('GET', \sprintf('/fr/api/maps/directions/%d/%d/%d?%s', $map->getId(), $from->getId(), $to->getId(), $queryString));
 
         $dirs = \json_decode($client->getResponse()->getContent(), true);
+        static::assertInternalType('array', $dirs);
 
         foreach ($expectedData as $key => $expectedValue) {
             static::assertArrayHasKey($key, $dirs);

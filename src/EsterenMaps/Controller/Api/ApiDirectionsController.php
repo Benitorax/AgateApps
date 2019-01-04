@@ -51,8 +51,8 @@ class ApiDirectionsController extends AbstractController
      *     requirements={"id" = "\d+", "from" = "\d+", "to" = "\d+"},
      *     methods={"GET"}
      * )
-     * @ParamConverter(name="from", class="Marker", options={"id" = "from"})
-     * @ParamConverter(name="to", class="Marker", options={"id" = "to"})
+     * @ParamConverter(name="from", class="EsterenMaps\Entity\Marker", options={"id" = "from"})
+     * @ParamConverter(name="to", class="EsterenMaps\Entity\Marker", options={"id" = "to"})
      */
     public function __invoke(Map $map, Marker $from, Marker $to, Request $request): JsonResponse
     {
@@ -85,7 +85,9 @@ class ApiDirectionsController extends AbstractController
             }
         }
 
-        return $response->setData($output);
+        $response->setData($output);
+
+        return $response;
     }
 
     private function getError(Marker $from, Marker $to, int $transportId = null, string $message = 'No path found for this query.'): array
