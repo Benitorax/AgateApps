@@ -55,12 +55,6 @@ class RouteType implements EntityToClearInterface
     protected $color;
 
     /**
-     * @var Resources[]
-     * @ORM\ManyToMany(targetEntity="Resources", mappedBy="routesTypes")
-     */
-    protected $resources;
-
-    /**
      * @var Route[]
      * @ORM\OneToMany(targetEntity="Route", mappedBy="routeType")
      */
@@ -82,7 +76,6 @@ class RouteType implements EntityToClearInterface
      */
     public function __construct()
     {
-        $this->resources = new ArrayCollection();
         $this->routes = new ArrayCollection();
         $this->transports = new ArrayCollection();
     }
@@ -139,39 +132,6 @@ class RouteType implements EntityToClearInterface
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Add resources.
-     *
-     *
-     * @return RouteType
-     */
-    public function addResource(Resources $resources)
-    {
-        $this->resources[] = $resources;
-
-        return $this;
-    }
-
-    /**
-     * Remove resources.
-     */
-    public function removeResource(Resources $resources)
-    {
-        $this->resources->removeElement($resources);
-    }
-
-    /**
-     * Get resources.
-     *
-     * @return Resources[]
-     *
-     * @codeCoverageIgnore
-     */
-    public function getResources()
-    {
-        return $this->resources;
     }
 
     /**

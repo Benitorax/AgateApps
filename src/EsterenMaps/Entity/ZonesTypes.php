@@ -57,12 +57,6 @@ class ZonesTypes implements EntityToClearInterface
     protected $color;
 
     /**
-     * @var Resources[]
-     * @ORM\ManyToMany(targetEntity="Resources", mappedBy="zonesTypes")
-     */
-    protected $resources;
-
-    /**
      * @var ZonesTypes
      *
      * @ORM\ManyToOne(targetEntity="ZonesTypes")
@@ -144,39 +138,6 @@ class ZonesTypes implements EntityToClearInterface
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Add resources.
-     *
-     *
-     * @return ZonesTypes
-     */
-    public function addResource(Resources $resources)
-    {
-        $this->resources[] = $resources;
-
-        return $this;
-    }
-
-    /**
-     * Remove resources.
-     */
-    public function removeResource(Resources $resources)
-    {
-        $this->resources->removeElement($resources);
-    }
-
-    /**
-     * Get resources.
-     *
-     * @return Resources[]
-     *
-     * @codeCoverageIgnore
-     */
-    public function getResources()
-    {
-        return $this->resources;
     }
 
     /**
@@ -283,7 +244,7 @@ class ZonesTypes implements EntityToClearInterface
      */
     public function removeChild($child)
     {
-        if (\is_numeric($child)) {
+        if (!\is_object($child) && isset($this->children[$child])) {
             unset($this->children[$child]);
         } elseif (\is_object($child)) {
             unset($this->children[$child->getId()]);
