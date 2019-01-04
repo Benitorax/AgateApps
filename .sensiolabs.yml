@@ -4,12 +4,23 @@ pre_composer_script: |
     #!/bin/bash
     # Hope it'll be easier in the future...
     cp .env.test .env
+    yes '' | pecl install apcu
 
 post_composer_script: |
     #!/bin/bash
     source .env
     mkdir build/
     php tests/bootstrap.php
+
+php_ini: |
+    extension=apcu
+    extension=curl
+    extension=gd
+    extension=iconv
+    extension=intl
+    extension=mbstring
+    extension=pdo_mysql
+    extension=openssl
 
 exclude_patterns:
     - src/CorahnRin/PDF/FPDF.php
