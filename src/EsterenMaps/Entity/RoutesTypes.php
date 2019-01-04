@@ -63,8 +63,8 @@ class RoutesTypes implements EntityToClearInterface
     protected $resources;
 
     /**
-     * @var Routes[]
-     * @ORM\OneToMany(targetEntity="Routes", mappedBy="routeType")
+     * @var Route[]
+     * @ORM\OneToMany(targetEntity="Route", mappedBy="routeType")
      */
     protected $routes;
 
@@ -182,7 +182,7 @@ class RoutesTypes implements EntityToClearInterface
      *
      * @return RoutesTypes
      */
-    public function addRoute(Routes $routes)
+    public function addRoute(Route $routes)
     {
         $this->routes[] = $routes;
 
@@ -192,7 +192,7 @@ class RoutesTypes implements EntityToClearInterface
     /**
      * Remove routes.
      */
-    public function removeRoute(Routes $routes)
+    public function removeRoute(Route $routes)
     {
         $this->routes->removeElement($routes);
     }
@@ -200,7 +200,7 @@ class RoutesTypes implements EntityToClearInterface
     /**
      * Get routes.
      *
-     * @return Routes[]
+     * @return Route[]
      *
      * @codeCoverageIgnore
      */

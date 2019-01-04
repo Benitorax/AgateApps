@@ -21,7 +21,7 @@ use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\MarkerType;
-use EsterenMaps\Entity\Routes;
+use EsterenMaps\Entity\Route;
 use EsterenMaps\Entity\RoutesTypes;
 use EsterenMaps\Entity\Zones;
 use EsterenMaps\Entity\ZonesTypes;
@@ -89,7 +89,7 @@ class ImportTiddlyWikiCommand extends Command
     private $routesTypes = [];
 
     /**
-     * @var Routes[][]
+     * @var Route[][]
      */
     private $routes = [];
 
@@ -196,7 +196,7 @@ class ImportTiddlyWikiCommand extends Command
 
         $this->markers = $this->processObjects('marqueurs', Marker::class);
         $this->zones = $this->processObjects('zones', Zones::class);
-        $this->routes = $this->processObjects('routes', Routes::class);
+        $this->routes = $this->processObjects('routes', Route::class);
 
         $allData = \array_merge(
             $this->factions['new'],
@@ -314,7 +314,7 @@ class ImportTiddlyWikiCommand extends Command
         $new = [];
         $existing = [];
 
-        /** @var Marker[]|Zones[]|Routes[] $objects */
+        /** @var Marker[]|Zones[]|Route[] $objects */
         $objects = $repo->findAllRoot('id');
 
         foreach ($data as $datum) {
@@ -367,7 +367,7 @@ class ImportTiddlyWikiCommand extends Command
         $new = [];
         $existing = [];
 
-        /** @var Marker[]|Zones[]|Routes[] $objects */
+        /** @var Marker[]|Zones[]|Route[] $objects */
         $objects = $repo->findAllRoot(true);
 
         foreach ($data as $datum) {
@@ -420,7 +420,7 @@ class ImportTiddlyWikiCommand extends Command
     }
 
     /**
-     * @param Marker|Zones|Routes $object
+     * @param Marker|Zones|Route $object
      * @param array                $data
      */
     private function updateOneObject($object, $data)
@@ -447,7 +447,7 @@ class ImportTiddlyWikiCommand extends Command
             if (!$object->isLocalized()) {
                 $object->setLatitude(0)->setLongitude(0);
             }
-        } elseif ($object instanceof Routes) {
+        } elseif ($object instanceof Route) {
             $object
                 ->setRouteType($this->getOneReferencedObject('routesTypes', $data['routetype_id']))
                 ->setMarkerStart($this->getOneReferencedObject('markers', $data['markerstart_id']))

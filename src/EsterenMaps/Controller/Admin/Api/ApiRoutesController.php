@@ -13,7 +13,7 @@ namespace EsterenMaps\Controller\Admin\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Api\RouteApi;
-use EsterenMaps\Entity\Routes;
+use EsterenMaps\Entity\Route;
 use Main\DependencyInjection\PublicService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +58,7 @@ class ApiRoutesController implements PublicService
         }
 
         try {
-            $route = Routes::fromApi($this->routeApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
+            $route = Route::fromApi($this->routeApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
 
             return $this->handleResponse($this->validate($route), $route);
         } catch (HttpException $e) {
@@ -75,7 +75,7 @@ class ApiRoutesController implements PublicService
      *     host="%esteren_domains.backoffice%"
      * )
      */
-    public function update(Routes $route, Request $request): Response
+    public function update(Route $route, Request $request): Response
     {
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -90,7 +90,7 @@ class ApiRoutesController implements PublicService
         }
     }
 
-    private function handleResponse(array $messages, Routes $route): Response
+    private function handleResponse(array $messages, Route $route): Response
     {
         if (\count($messages) > 0) {
             throw new BadRequestHttpException(\json_encode($messages, JSON_PRETTY_PRINT));

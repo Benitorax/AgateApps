@@ -54,8 +54,8 @@ class Faction
     protected $zones;
 
     /**
-     * @var Routes[]
-     * @ORM\OneToMany(targetEntity="Routes", mappedBy="faction")
+     * @var Route[]
+     * @ORM\OneToMany(targetEntity="Route", mappedBy="faction")
      */
     protected $routes;
 
@@ -181,7 +181,7 @@ class Faction
      *
      * @return Faction
      */
-    public function addRoute(Routes $routes)
+    public function addRoute(Route $routes)
     {
         $this->routes[] = $routes;
 
@@ -191,7 +191,7 @@ class Faction
     /**
      * Remove routes.
      */
-    public function removeRoute(Routes $routes)
+    public function removeRoute(Route $routes)
     {
         $this->routes->removeElement($routes);
     }
@@ -199,7 +199,7 @@ class Faction
     /**
      * Get routes.
      *
-     * @return Routes[]
+     * @return Route[]
      *
      * @codeCoverageIgnore
      */

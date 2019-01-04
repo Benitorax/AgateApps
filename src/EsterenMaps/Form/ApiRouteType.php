@@ -13,7 +13,7 @@ namespace EsterenMaps\Form;
 
 use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Marker;
-use EsterenMaps\Entity\Routes;
+use EsterenMaps\Entity\Route;
 use EsterenMaps\Entity\RoutesTypes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -62,7 +62,7 @@ class ApiRouteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefault('data_class', Routes::class)
+            ->setDefault('data_class', Route::class)
         ;
     }
 }

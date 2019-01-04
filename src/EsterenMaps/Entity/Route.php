@@ -17,13 +17,11 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Routes.
- *
  * @ORM\Table(name="maps_routes")
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\RoutesRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Routes implements EntityToClearInterface, \JsonSerializable
+class Route implements EntityToClearInterface, \JsonSerializable
 {
     use TimestampableEntity;
 
@@ -463,7 +461,7 @@ class Routes implements EntityToClearInterface, \JsonSerializable
          * The "substr" trick truncates the numbers, else mysql 5.7 would throw a warning.
          * This parameter should depend on the "precision" specified in the $distance property.
          *
-         * @see Routes::$distance
+         * @see Route::$distance
          */
         $floatPrecision = 12;
 

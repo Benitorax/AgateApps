@@ -13,7 +13,7 @@ namespace Tests\EsterenMaps\Cache;
 
 use DataFixtures\RoutesFixtures;
 use Doctrine\ORM\EntityManagerInterface;
-use EsterenMaps\Entity\Routes;
+use EsterenMaps\Entity\Route;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\DataCollector\LoggerDataCollector;
 use Symfony\Component\VarDumper\Cloner\Data;
@@ -38,8 +38,8 @@ class CacheManagerTest extends WebTestCase
         $client = $this->getClient('back.esteren.docker', [], ['ROLE_ADMIN']);
         $client->enableProfiler();
 
-        /** @var Routes $route */
-        $route = $em->find(Routes::class, $routeId);
+        /** @var Route $route */
+        $route = $em->find(Route::class, $routeId);
         static::assertNotNull($route);
         static::assertSame('[{"lat":0,"lng":0},{"lat":0,"lng":10}]', $route->getCoordinates());
         static::assertSame(50, $route->getDistance());
@@ -66,7 +66,7 @@ class CacheManagerTest extends WebTestCase
         $profile = $client->getProfile();
 
         $em->clear();
-        $route = $em->find(Routes::class, $routeId);
+        $route = $em->find(Route::class, $routeId);
         static::assertNotNull($route);
         static::assertSame($coordinates, $route->getCoordinates());
         static::assertSame(156, $route->getDistance());

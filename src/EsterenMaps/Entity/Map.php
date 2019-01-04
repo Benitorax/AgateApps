@@ -117,10 +117,10 @@ class Map implements EntityToClearInterface
     protected $coordinatesRatio = 1;
 
     /**
-     * @var Routes[]|ArrayCollection
+     * @var Route[]|ArrayCollection
      *
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Routes", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="Route", mappedBy="map")
      */
     protected $routes;
 
@@ -299,7 +299,7 @@ class Map implements EntityToClearInterface
      *
      * @return Map
      */
-    public function addRoute(Routes $routes)
+    public function addRoute(Route $routes)
     {
         $this->routes[] = $routes;
 
@@ -309,7 +309,7 @@ class Map implements EntityToClearInterface
     /**
      * Remove routes.
      */
-    public function removeRoute(Routes $routes)
+    public function removeRoute(Route $routes)
     {
         $this->routes->removeElement($routes);
     }
@@ -317,7 +317,7 @@ class Map implements EntityToClearInterface
     /**
      * Get routes.
      *
-     * @return Routes[]|ArrayCollection
+     * @return Route[]|ArrayCollection
      *
      * @codeCoverageIgnore
      */
@@ -330,9 +330,9 @@ class Map implements EntityToClearInterface
      * Get zone.
      *
      *
-     * @return Routes|null
+     * @return Route|null
      */
-    public function getRoute(Routes $route)
+    public function getRoute(Route $route)
     {
         foreach ($this->routes as $mapRoute) {
             if ($mapRoute->getId() === $route->getId() ||
@@ -349,7 +349,7 @@ class Map implements EntityToClearInterface
      *
      * @return Map
      */
-    public function setRoute(Routes $route)
+    public function setRoute(Route $route)
     {
         $exists = $this->getRoute($route);
         if (!$exists) {

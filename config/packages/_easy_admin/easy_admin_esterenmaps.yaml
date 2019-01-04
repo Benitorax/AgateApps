@@ -120,7 +120,7 @@ easy_admin:
 
         Routes:
             label: admin.maps.routes
-            class: EsterenMaps\Entity\Routes
+            class: EsterenMaps\Entity\Route
             controller: Admin\CustomController\BaseMapAdminController
             list:
                 actions:

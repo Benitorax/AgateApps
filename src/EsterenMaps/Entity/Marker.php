@@ -115,16 +115,16 @@ class Marker implements EntityToClearInterface, \JsonSerializable
     protected $markerType;
 
     /**
-     * @var Routes[]
+     * @var Route[]
      *
-     * @ORM\OneToMany(targetEntity="Routes", mappedBy="markerStart")
+     * @ORM\OneToMany(targetEntity="Route", mappedBy="markerStart")
      */
     protected $routesStart;
 
     /**
-     * @var Routes[]
+     * @var Route[]
      *
-     * @ORM\OneToMany(targetEntity="Routes", mappedBy="markerEnd")
+     * @ORM\OneToMany(targetEntity="Route", mappedBy="markerEnd")
      */
     protected $routesEnd;
 
@@ -256,14 +256,14 @@ class Marker implements EntityToClearInterface, \JsonSerializable
         return $this->markerType;
     }
 
-    public function addRoutesStart(Routes $routesStart): self
+    public function addRoutesStart(Route $routesStart): self
     {
         $this->routesStart[] = $routesStart;
 
         return $this;
     }
 
-    public function removeRoutesStart(Routes $routesStart): self
+    public function removeRoutesStart(Route $routesStart): self
     {
         $this->routesStart->removeElement($routesStart);
 
@@ -275,14 +275,14 @@ class Marker implements EntityToClearInterface, \JsonSerializable
         return $this->routesStart;
     }
 
-    public function addRoutesEnd(Routes $routesEnd): self
+    public function addRoutesEnd(Route $routesEnd): self
     {
         $this->routesEnd[] = $routesEnd;
 
         return $this;
     }
 
-    public function removeRoutesEnd(Routes $routesEnd): self
+    public function removeRoutesEnd(Route $routesEnd): self
     {
         $this->routesEnd->removeElement($routesEnd);
 
