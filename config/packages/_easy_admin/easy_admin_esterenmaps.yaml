@@ -105,7 +105,7 @@ easy_admin:
 
         MarkersTypes:
             label: admin.maps.markers_types
-            class: EsterenMaps\Entity\MarkersTypes
+            class: EsterenMaps\Entity\MarkerType
             controller: Admin\CustomController\BaseMapAdminController
             list:
                 actions:

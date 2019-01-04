@@ -20,7 +20,7 @@ use Doctrine\ORM\UnitOfWork;
 use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Marker;
-use EsterenMaps\Entity\MarkersTypes;
+use EsterenMaps\Entity\MarkerType;
 use EsterenMaps\Entity\Routes;
 use EsterenMaps\Entity\RoutesTypes;
 use EsterenMaps\Entity\Zones;
@@ -74,7 +74,7 @@ class ImportTiddlyWikiCommand extends Command
     private $factions = [];
 
     /**
-     * @var MarkersTypes[][]
+     * @var MarkerType[][]
      */
     private $markersTypes = [];
 
@@ -190,7 +190,7 @@ class ImportTiddlyWikiCommand extends Command
         $this->maps = $this->getRepository(Map::class)->findAllRoot(true);
 
         $this->factions = $this->getReferenceObjects('factions', Faction::class);
-        $this->markersTypes = $this->getReferenceObjects('markertype', MarkersTypes::class);
+        $this->markersTypes = $this->getReferenceObjects('markertype', MarkerType::class);
         $this->zonesTypes = $this->getReferenceObjects('zonetype', ZonesTypes::class);
         $this->routesTypes = $this->getReferenceObjects('routetype', RoutesTypes::class);
 

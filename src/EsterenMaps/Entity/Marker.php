@@ -104,12 +104,12 @@ class Marker implements EntityToClearInterface, \JsonSerializable
     protected $map;
 
     /**
-     * @var MarkersTypes
+     * @var MarkerType
      *
-     * @ORM\ManyToOne(targetEntity="MarkersTypes", inversedBy="markers")
+     * @ORM\ManyToOne(targetEntity="MarkerType", inversedBy="markers")
      * @ORM\JoinColumn(name="marker_type_id", nullable=false)
      *
-     * @Assert\Type("EsterenMaps\Entity\MarkersTypes")
+     * @Assert\Type("EsterenMaps\Entity\MarkerType")
      * @Assert\NotBlank
      */
     protected $markerType;
@@ -244,14 +244,14 @@ class Marker implements EntityToClearInterface, \JsonSerializable
         return $this->map;
     }
 
-    public function setMarkerType(MarkersTypes $markerType): self
+    public function setMarkerType(MarkerType $markerType): self
     {
         $this->markerType = $markerType;
 
         return $this;
     }
 
-    public function getMarkerType(): ?MarkersTypes
+    public function getMarkerType(): ?MarkerType
     {
         return $this->markerType;
     }

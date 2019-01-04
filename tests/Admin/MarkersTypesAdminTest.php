@@ -11,7 +11,7 @@
 
 namespace Tests\Admin;
 
-use EsterenMaps\Entity\MarkersTypes;
+use EsterenMaps\Entity\MarkerType;
 
 class MarkersTypesAdminTest extends AbstractEasyAdminTest
 {
@@ -28,7 +28,7 @@ class MarkersTypesAdminTest extends AbstractEasyAdminTest
      */
     public function getEntityClass()
     {
-        return MarkersTypes::class;
+        return MarkerType::class;
     }
 
     /**

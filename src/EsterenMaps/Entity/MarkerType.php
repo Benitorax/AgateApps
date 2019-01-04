@@ -22,7 +22,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Table(name="maps_markers_types")
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\MarkersTypesRepository")
  */
-class MarkersTypes implements EntityToClearInterface
+class MarkerType implements EntityToClearInterface
 {
     use TimestampableEntity;
 

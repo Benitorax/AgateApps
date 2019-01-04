@@ -37,7 +37,7 @@ easy_admin:
 
             -   label: 'admin.menu.types'
                 children:
-                    - { entity: 'MarkersTypes' }
+                    - { entity: 'MarkerType' }
                     - { entity: 'RoutesTypes' }
                     - { entity: 'ZonesTypes' }
                     - { entity: 'TransportTypes' }

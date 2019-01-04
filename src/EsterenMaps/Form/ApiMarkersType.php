@@ -13,7 +13,7 @@ namespace EsterenMaps\Form;
 
 use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Marker;
-use EsterenMaps\Entity\MarkersTypes;
+use EsterenMaps\Entity\MarkerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{
@@ -34,7 +34,7 @@ class ApiMarkersType extends AbstractType
                 ],
             ])
             ->add('markerType', EntityType::class, [
-                'class' => MarkersTypes::class,
+                'class' => MarkerType::class,
                 'constraints' => [
                     new Constraints\NotBlank(),
                 ],
