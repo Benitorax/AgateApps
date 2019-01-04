@@ -114,12 +114,12 @@ class Routes implements EntityToClearInterface, \JsonSerializable
     protected $markerEnd;
 
     /**
-     * @var Maps
+     * @var Map
      *
-     * @ORM\ManyToOne(targetEntity="Maps", inversedBy="routes")
+     * @ORM\ManyToOne(targetEntity="Map", inversedBy="routes")
      * @ORM\JoinColumn(name="map_id", nullable=false)
      *
-     * @Assert\Type("EsterenMaps\Entity\Maps")
+     * @Assert\Type("EsterenMaps\Entity\Map")
      * @Assert\NotBlank
      */
     protected $map;
@@ -276,14 +276,14 @@ class Routes implements EntityToClearInterface, \JsonSerializable
         return (string) $this->coordinates;
     }
 
-    public function setMap(?Maps $map): self
+    public function setMap(?Map $map): self
     {
         $this->map = $map;
 
         return $this;
     }
 
-    public function getMap(): ?Maps
+    public function getMap(): ?Map
     {
         return $this->map;
     }

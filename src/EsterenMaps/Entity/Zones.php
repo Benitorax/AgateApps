@@ -63,12 +63,12 @@ class Zones implements EntityToClearInterface, \JsonSerializable
     protected $coordinates = '';
 
     /**
-     * @var Maps
+     * @var Map
      *
-     * @ORM\ManyToOne(targetEntity="Maps", inversedBy="zones")
+     * @ORM\ManyToOne(targetEntity="Map", inversedBy="zones")
      * @ORM\JoinColumn(name="map_id", nullable=false)
      *
-     * @Assert\Type("EsterenMaps\Entity\Maps")
+     * @Assert\Type("EsterenMaps\Entity\Map")
      * @Assert\NotBlank
      */
     protected $map;
@@ -205,14 +205,14 @@ class Zones implements EntityToClearInterface, \JsonSerializable
         return $this->coordinates;
     }
 
-    public function setMap(?Maps $map): self
+    public function setMap(?Map $map): self
     {
         $this->map = $map;
 
         return $this;
     }
 
-    public function getMap(): ?Maps
+    public function getMap(): ?Map
     {
         return $this->map;
     }

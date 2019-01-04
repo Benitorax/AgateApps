@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Controller;
 
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,8 +28,8 @@ class MapsController extends AbstractController
      */
     public function indexAction(): Response
     {
-        /** @var Maps[] $allMaps */
-        $allMaps = $this->getDoctrine()->getRepository(Maps::class)->findAllRoot();
+        /** @var Map[] $allMaps */
+        $allMaps = $this->getDoctrine()->getRepository(Map::class)->findAllRoot();
 
         return $this->render('esteren_maps/Maps/index.html.twig', [
             'list' => $allMaps,
@@ -39,7 +39,7 @@ class MapsController extends AbstractController
     /**
      * @Route("/map-{nameSlug}", methods={"GET"}, name="esterenmaps_maps_maps_view")
      */
-    public function viewAction(Maps $map, Request $request): Response
+    public function viewAction(Map $map, Request $request): Response
     {
         if (!$this->getUser() || !$this->isGranted(['ROLE_MAPS_VIEW', 'SUBSCRIBED_TO_MAPS_VIEW', 'ROLE_ADMIN'])) {
             throw $this->createAccessDeniedException('Access denied.');

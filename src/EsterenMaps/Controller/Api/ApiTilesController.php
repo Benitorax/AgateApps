@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Controller\Api;
 
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use EsterenMaps\Form\MapImageType;
 use EsterenMaps\Model\MapImageQuery;
 use EsterenMaps\Services\MapsTilesManager;
@@ -38,7 +38,7 @@ class ApiTilesController extends AbstractController
     /**
      * @Route("/maps/image/{id}", requirements={"id" = "\d+"}, name="esterenmaps_generate_map_image", methods={"GET"})
      */
-    public function generateMapImageAction(Request $request, Maps $map): Response
+    public function generateMapImageAction(Request $request, Map $map): Response
     {
         $baseData = new MapImageQuery();
         $form = $this->createForm(new MapImageType(), $baseData);
@@ -73,7 +73,7 @@ class ApiTilesController extends AbstractController
      *     methods={"GET"}
      * )
      */
-    public function tileAction(Maps $map, int $zoom, int $x, int $y): Response
+    public function tileAction(Map $map, int $zoom, int $x, int $y): Response
     {
         $file = $this->outputDirectory.$map->getId().'/'.$zoom.'/'.$x.'/'.$y.'.jpg';
 
@@ -88,7 +88,7 @@ class ApiTilesController extends AbstractController
         return $response;
     }
 
-    private function handleFormSuccess(MapImageQuery $data, Maps $map): ?Response
+    private function handleFormSuccess(MapImageQuery $data, Map $map): ?Response
     {
         try {
             $image = $this->tilesManager->setMap($map)->createImage($data['ratio'], $data['x'], $data['y'], $data['width'], $data['height'], $data['withImages']);

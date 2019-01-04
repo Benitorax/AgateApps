@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Controller\Api;
 
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Markers;
 use EsterenMaps\Repository\TransportTypesRepository;
 use EsterenMaps\Services\DirectionsManager;
@@ -54,7 +54,7 @@ class ApiDirectionsController extends AbstractController
      * @ParamConverter(name="from", class="EsterenMaps\Entity\Markers", options={"id" = "from"})
      * @ParamConverter(name="to", class="EsterenMaps\Entity\Markers", options={"id" = "to"})
      */
-    public function __invoke(Maps $map, Markers $from, Markers $to, Request $request): JsonResponse
+    public function __invoke(Map $map, Markers $from, Markers $to, Request $request): JsonResponse
     {
         if (!\in_array($request->getHost(), $this->mapsAcceptableHosts, true)) {
             throw new NotFoundHttpException();

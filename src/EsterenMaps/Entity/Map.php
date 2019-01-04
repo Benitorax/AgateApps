@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\MapsRepository")
  * @Gedmo\Uploadable(allowOverwrite=true, filenameGenerator="SHA1")
  */
-class Maps implements EntityToClearInterface
+class Map implements EntityToClearInterface
 {
     use TimestampableEntity;
 
@@ -186,7 +186,7 @@ class Maps implements EntityToClearInterface
      *
      * @param string $name
      *
-     * @return Maps
+     * @return Map
      *
      * @codeCoverageIgnore
      */
@@ -214,7 +214,7 @@ class Maps implements EntityToClearInterface
      *
      * @param string $image
      *
-     * @return Maps
+     * @return Map
      *
      * @codeCoverageIgnore
      */
@@ -242,7 +242,7 @@ class Maps implements EntityToClearInterface
      *
      * @param string $description
      *
-     * @return Maps
+     * @return Map
      *
      * @codeCoverageIgnore
      */
@@ -270,7 +270,7 @@ class Maps implements EntityToClearInterface
      *
      * @param bool $maxZoom
      *
-     * @return Maps
+     * @return Map
      *
      * @codeCoverageIgnore
      */
@@ -297,7 +297,7 @@ class Maps implements EntityToClearInterface
      * Add routes.
      *
      *
-     * @return Maps
+     * @return Map
      */
     public function addRoute(Routes $routes)
     {
@@ -347,7 +347,7 @@ class Maps implements EntityToClearInterface
      * Get zone.
      *
      *
-     * @return Maps
+     * @return Map
      */
     public function setRoute(Routes $route)
     {
@@ -366,7 +366,7 @@ class Maps implements EntityToClearInterface
      * Add markers.
      *
      *
-     * @return Maps
+     * @return Map
      */
     public function addMarker(Markers $markers)
     {
@@ -436,7 +436,7 @@ class Maps implements EntityToClearInterface
      * Add zones.
      *
      *
-     * @return Maps
+     * @return Map
      */
     public function addZone(Zones $zones)
     {
@@ -503,7 +503,7 @@ class Maps implements EntityToClearInterface
      *
      * @param string $nameSlug
      *
-     * @return Maps
+     * @return Map
      *
      * @codeCoverageIgnore
      */
@@ -611,7 +611,7 @@ class Maps implements EntityToClearInterface
     /**
      * @param string $bounds
      *
-     * @return Maps
+     * @return Map
      *
      * @codeCoverageIgnore
      */
@@ -635,7 +635,7 @@ class Maps implements EntityToClearInterface
     /**
      * @param int $coordinatesRatio
      *
-     * @return Maps
+     * @return Map
      *
      * @codeCoverageIgnore
      */

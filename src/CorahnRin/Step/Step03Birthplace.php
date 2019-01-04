@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Step;
 
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Zones;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,7 +35,7 @@ class Step03Birthplace extends AbstractStepAction
         $regions = $this->em->getRepository(Zones::class)->findAll(true);
 
         // Hardcoded here, it's base esteren map.
-        $map = $this->em->getRepository(Maps::class)->find(1);
+        $map = $this->em->getRepository(Map::class)->find(1);
 
         if ($this->request->isMethod('POST')) {
             $regionValue = (int) $this->request->request->get('region_value');

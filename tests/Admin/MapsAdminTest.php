@@ -11,7 +11,7 @@
 
 namespace Tests\Admin;
 
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 
 class MapsAdminTest extends AbstractEasyAdminTest
 {
@@ -28,7 +28,7 @@ class MapsAdminTest extends AbstractEasyAdminTest
      */
     public function getEntityClass()
     {
-        return Maps::class;
+        return Map::class;
     }
 
     /**

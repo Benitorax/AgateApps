@@ -13,7 +13,7 @@ namespace EsterenMaps\Services;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use EsterenMaps\Api\MapApi;
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Markers;
 use EsterenMaps\Entity\TransportModifiers;
 use EsterenMaps\Entity\TransportTypes;
@@ -38,7 +38,7 @@ class DirectionsManager
         $this->mapApi = $mapApi;
     }
 
-    public function getDirections(Maps $map, Markers $start, Markers $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
+    public function getDirections(Map $map, Markers $start, Markers $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
     {
         $directions = $this->doGetDirections($map, $start, $end, $hoursPerDay, $transportType);
 
@@ -47,7 +47,7 @@ class DirectionsManager
         return $directions;
     }
 
-    private function doGetDirections(Maps $map, Markers $start, Markers $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
+    private function doGetDirections(Map $map, Markers $start, Markers $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
     {
         $data = $this->mapApi->getMap($map->getId());
 

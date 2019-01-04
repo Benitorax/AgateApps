@@ -13,7 +13,7 @@ namespace Tests\EsterenMaps\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Controller\Api\ApiDirectionsController;
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Markers;
 use EsterenMaps\Entity\TransportTypes;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -44,8 +44,8 @@ class DirectionsManagerTest extends WebTestCase
         /** @var ApiDirectionsController $directionsController */
         $directionsController = $container->get(ApiDirectionsController::class);
 
-        /** @var Maps $map */
-        $map = $em->getRepository(Maps::class)->findOneBy(['nameSlug' => $map]);
+        /** @var Map $map */
+        $map = $em->getRepository(Map::class)->findOneBy(['nameSlug' => $map]);
 
         $markersRepo = $em->getRepository(Markers::class);
 

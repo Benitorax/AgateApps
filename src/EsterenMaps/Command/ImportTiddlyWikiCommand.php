@@ -18,7 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\UnitOfWork;
 use EsterenMaps\Entity\Faction;
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Markers;
 use EsterenMaps\Entity\MarkersTypes;
 use EsterenMaps\Entity\Routes;
@@ -64,7 +64,7 @@ class ImportTiddlyWikiCommand extends Command
     private $dryRun = true;
 
     /**
-     * @var Maps[]
+     * @var Map[]
      */
     private $maps = [];
 
@@ -187,7 +187,7 @@ class ImportTiddlyWikiCommand extends Command
         $table->setRows($tags);
         $table->render();
 
-        $this->maps = $this->getRepository(Maps::class)->findAllRoot(true);
+        $this->maps = $this->getRepository(Map::class)->findAllRoot(true);
 
         $this->factions = $this->getReferenceObjects('factions', Faction::class);
         $this->markersTypes = $this->getReferenceObjects('markertype', MarkersTypes::class);

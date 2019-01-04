@@ -12,7 +12,7 @@
 namespace EsterenMaps\Command;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use EsterenMaps\Repository\MapsRepository;
 use EsterenMaps\Services\MapsTilesManager;
 use Symfony\Component\Console\Command\Command;
@@ -61,13 +61,13 @@ class MapTilesCommand extends Command
         $id = $input->hasArgument('id') ? $input->getArgument('id') : null;
 
         /** @var MapsRepository $repo */
-        $repo = $this->em->getRepository(Maps::class);
+        $repo = $this->em->getRepository(Map::class);
 
         $list = null;
 
         $io->comment('Be careful: as maps may be huge, this application can use a lot of memory and take very long to execute.');
 
-        /** @var Maps $map */
+        /** @var Map $map */
         $map = null;
 
         do {
@@ -78,7 +78,7 @@ class MapTilesCommand extends Command
             if (!$map) {
                 $maps_list = [];
                 if (null === $list) {
-                    /* @var Maps[] $list */
+                    /* @var Map[] $list */
                     $maps_list = $repo->findAllRoot('id');
 
                     if (!\count($maps_list)) {

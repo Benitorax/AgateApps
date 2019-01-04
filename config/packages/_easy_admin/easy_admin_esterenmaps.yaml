@@ -22,7 +22,7 @@ easy_admin:
 
         Maps:
             label: admin.maps.maps
-            class: EsterenMaps\Entity\Maps
+            class: EsterenMaps\Entity\Map
             controller: Admin\CustomController\BaseMapAdminController
             list:
                 actions:
