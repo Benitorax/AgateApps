@@ -14,7 +14,7 @@ namespace EsterenMaps\Api;
 use Doctrine\Common\Persistence\ObjectManager;
 use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Map;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\MarkersTypes;
 use EsterenMaps\Entity\Routes;
 use EsterenMaps\Entity\RoutesTypes;
@@ -58,7 +58,7 @@ class MapApi
 
         // Map info
         $data['map'] = $this->em->getRepository(Map::class)->findForApi($id);
-        $data['map']['markers'] = $this->em->getRepository(Markers::class)->findForApiByMap($id);
+        $data['map']['markers'] = $this->em->getRepository(Marker::class)->findForApiByMap($id);
         $data['map']['routes'] = $this->em->getRepository(Routes::class)->findForApiByMap($id);
         $data['map']['zones'] = $this->em->getRepository(Zones::class)->findForApiByMap($id);
 

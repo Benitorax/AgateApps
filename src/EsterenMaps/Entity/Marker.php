@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\MarkersRepository")
  */
-class Markers implements EntityToClearInterface, \JsonSerializable
+class Marker implements EntityToClearInterface, \JsonSerializable
 {
     use TimestampableEntity;
 

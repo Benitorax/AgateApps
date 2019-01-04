@@ -60,8 +60,8 @@ class Faction
     protected $routes;
 
     /**
-     * @var Markers[]
-     * @ORM\OneToMany(targetEntity="Markers", mappedBy="faction")
+     * @var Marker[]
+     * @ORM\OneToMany(targetEntity="Marker", mappedBy="faction")
      */
     protected $markers;
 
@@ -214,7 +214,7 @@ class Faction
      *
      * @return Faction
      */
-    public function addMarker(Markers $markers)
+    public function addMarker(Marker $markers)
     {
         $this->markers[] = $markers;
 
@@ -224,7 +224,7 @@ class Faction
     /**
      * Remove markers.
      */
-    public function removeMarker(Markers $markers)
+    public function removeMarker(Marker $markers)
     {
         $this->markers->removeElement($markers);
     }
@@ -232,7 +232,7 @@ class Faction
     /**
      * Get markers.
      *
-     * @return Markers[]
+     * @return Marker[]
      *
      * @codeCoverageIgnore
      */

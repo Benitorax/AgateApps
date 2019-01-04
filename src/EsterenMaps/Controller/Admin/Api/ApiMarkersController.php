@@ -13,7 +13,7 @@ namespace EsterenMaps\Controller\Admin\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Api\MarkerApi;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use Main\DependencyInjection\PublicService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +58,7 @@ class ApiMarkersController implements PublicService
         }
 
         try {
-            $marker = Markers::fromApi($this->markerApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
+            $marker = Marker::fromApi($this->markerApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
 
             return $this->handleResponse($this->validate($marker), $marker);
         } catch (HttpException $e) {
@@ -75,7 +75,7 @@ class ApiMarkersController implements PublicService
      *     host="%esteren_domains.backoffice%"
      * )
      */
-    public function update(Markers $marker, Request $request): Response
+    public function update(Marker $marker, Request $request): Response
     {
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -90,7 +90,7 @@ class ApiMarkersController implements PublicService
         }
     }
 
-    private function handleResponse(array $messages, Markers $marker): Response
+    private function handleResponse(array $messages, Marker $marker): Response
     {
         if (\count($messages) > 0) {
             throw new BadRequestHttpException(\json_encode($messages, JSON_PRETTY_PRINT));

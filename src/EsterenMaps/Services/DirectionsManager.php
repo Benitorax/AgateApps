@@ -14,7 +14,7 @@ namespace EsterenMaps\Services;
 use Doctrine\Common\Persistence\ObjectManager;
 use EsterenMaps\Api\MapApi;
 use EsterenMaps\Entity\Map;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\TransportModifiers;
 use EsterenMaps\Entity\TransportTypes;
 use Twig\Environment;
@@ -38,7 +38,7 @@ class DirectionsManager
         $this->mapApi = $mapApi;
     }
 
-    public function getDirections(Map $map, Markers $start, Markers $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
+    public function getDirections(Map $map, Marker $start, Marker $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
     {
         $directions = $this->doGetDirections($map, $start, $end, $hoursPerDay, $transportType);
 
@@ -47,7 +47,7 @@ class DirectionsManager
         return $directions;
     }
 
-    private function doGetDirections(Map $map, Markers $start, Markers $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
+    private function doGetDirections(Map $map, Marker $start, Marker $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
     {
         $data = $this->mapApi->getMap($map->getId());
 
@@ -249,7 +249,7 @@ class DirectionsManager
         return $realPath;
     }
 
-    private function getDataArray(Markers $from, Markers $to, array $directions, int $hoursPerDay = 7, TransportTypes $transport = null): array
+    private function getDataArray(Marker $from, Marker $to, array $directions, int $hoursPerDay = 7, TransportTypes $transport = null): array
     {
         $distance = null;
         $NE = [];

@@ -14,7 +14,7 @@ namespace Tests\EsterenMaps\Services;
 use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Controller\Api\ApiDirectionsController;
 use EsterenMaps\Entity\Map;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\TransportTypes;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tests\WebTestCase as PiersTestCase;
@@ -47,12 +47,12 @@ class DirectionsManagerTest extends WebTestCase
         /** @var Map $map */
         $map = $em->getRepository(Map::class)->findOneBy(['nameSlug' => $map]);
 
-        $markersRepo = $em->getRepository(Markers::class);
+        $markersRepo = $em->getRepository(Marker::class);
 
-        /** @var Markers $from */
+        /** @var Marker $from */
         $from = $markersRepo->find($from);
 
-        /** @var Markers $to */
+        /** @var Marker $to */
         $to = $markersRepo->find($to);
 
         $queryString = 'hours_per_day=7';

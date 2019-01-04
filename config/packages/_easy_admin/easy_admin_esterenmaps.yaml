@@ -64,7 +64,7 @@ easy_admin:
 
         Markers:
             label: admin.maps.markers
-            class: EsterenMaps\Entity\Markers
+            class: EsterenMaps\Entity\Marker
             controller: Admin\CustomController\BaseMapAdminController
             list:
                 actions:

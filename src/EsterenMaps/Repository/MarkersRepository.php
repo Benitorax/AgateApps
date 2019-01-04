@@ -14,7 +14,7 @@ namespace EsterenMaps\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 
 /**
@@ -26,7 +26,7 @@ class MarkersRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Markers::class);
+        parent::__construct($registry, Marker::class);
     }
 
     public function findForApiByMap($mapId)

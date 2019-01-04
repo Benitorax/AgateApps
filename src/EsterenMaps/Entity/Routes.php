@@ -92,23 +92,23 @@ class Routes implements EntityToClearInterface, \JsonSerializable
     protected $guarded = false;
 
     /**
-     * @var Markers
+     * @var Marker
      *
-     * @ORM\ManyToOne(targetEntity="Markers", inversedBy="routesStart")
+     * @ORM\ManyToOne(targetEntity="Marker", inversedBy="routesStart")
      * @ORM\JoinColumn(name="marker_start_id", nullable=true)
      *
-     * @Assert\Type("EsterenMaps\Entity\Markers")
+     * @Assert\Type("EsterenMaps\Entity\Marker")
      * @Assert\NotBlank
      */
     protected $markerStart;
 
     /**
-     * @var Markers
+     * @var Marker
      *
-     * @ORM\ManyToOne(targetEntity="Markers", inversedBy="routesEnd")
+     * @ORM\ManyToOne(targetEntity="Marker", inversedBy="routesEnd")
      * @ORM\JoinColumn(name="marker_end_id", nullable=true)
      *
-     * @Assert\Type("EsterenMaps\Entity\Markers")
+     * @Assert\Type("EsterenMaps\Entity\Marker")
      * @Assert\NotBlank
      */
     protected $markerEnd;
@@ -312,26 +312,26 @@ class Routes implements EntityToClearInterface, \JsonSerializable
         return $this->routeType;
     }
 
-    public function setMarkerStart(?Markers $markerStart): self
+    public function setMarkerStart(?Marker $markerStart): self
     {
         $this->markerStart = $markerStart;
 
         return $this;
     }
 
-    public function getMarkerStart(): ?Markers
+    public function getMarkerStart(): ?Marker
     {
         return $this->markerStart;
     }
 
-    public function setMarkerEnd(?Markers $markerEnd): self
+    public function setMarkerEnd(?Marker $markerEnd): self
     {
         $this->markerEnd = $markerEnd;
 
         return $this;
     }
 
-    public function getMarkerEnd(): ?Markers
+    public function getMarkerEnd(): ?Marker
     {
         return $this->markerEnd;
     }

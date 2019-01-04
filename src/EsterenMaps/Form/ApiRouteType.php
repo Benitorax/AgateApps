@@ -12,7 +12,7 @@
 namespace EsterenMaps\Form;
 
 use EsterenMaps\Entity\Faction;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\Routes;
 use EsterenMaps\Entity\RoutesTypes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -48,10 +48,10 @@ class ApiRouteType extends AbstractType
                 'class' => RoutesTypes::class,
             ])
             ->add('markerStart', EntityType::class, [
-                'class' => Markers::class,
+                'class' => Marker::class,
             ])
             ->add('markerEnd', EntityType::class, [
-                'class' => Markers::class,
+                'class' => Marker::class,
             ])
             ->add('faction', EntityType::class, [
                 'class' => Faction::class,

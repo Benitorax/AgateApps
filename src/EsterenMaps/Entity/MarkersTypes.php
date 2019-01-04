@@ -81,9 +81,9 @@ class MarkersTypes implements EntityToClearInterface
     protected $iconCenterY;
 
     /**
-     * @var Markers[]
+     * @var Marker[]
      *
-     * @ORM\OneToMany(targetEntity="Markers", mappedBy="markerType")
+     * @ORM\OneToMany(targetEntity="Marker", mappedBy="markerType")
      */
     protected $markers;
 
@@ -124,14 +124,14 @@ class MarkersTypes implements EntityToClearInterface
         return (string) $this->name;
     }
 
-    public function addMarker(Markers $markers): self
+    public function addMarker(Marker $markers): self
     {
         $this->markers[] = $markers;
 
         return $this;
     }
 
-    public function removeMarker(Markers $markers): self
+    public function removeMarker(Marker $markers): self
     {
         $this->markers->removeElement($markers);
 
@@ -139,7 +139,7 @@ class MarkersTypes implements EntityToClearInterface
     }
 
     /**
-     * @return Markers[]
+     * @return Marker[]
      */
     public function getMarkers(): iterable
     {

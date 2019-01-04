@@ -12,7 +12,7 @@
 namespace EsterenMaps\Form;
 
 use EsterenMaps\Entity\Faction;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\MarkersTypes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -48,7 +48,7 @@ class ApiMarkersType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefault('data_class', Markers::class)
+            ->setDefault('data_class', Marker::class)
         ;
     }
 }

@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\UnitOfWork;
 use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Map;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\MarkersTypes;
 use EsterenMaps\Entity\Routes;
 use EsterenMaps\Entity\RoutesTypes;
@@ -99,7 +99,7 @@ class ImportTiddlyWikiCommand extends Command
     private $zones = [];
 
     /**
-     * @var Markers[][]
+     * @var Marker[][]
      */
     private $markers = [];
 
@@ -194,7 +194,7 @@ class ImportTiddlyWikiCommand extends Command
         $this->zonesTypes = $this->getReferenceObjects('zonetype', ZonesTypes::class);
         $this->routesTypes = $this->getReferenceObjects('routetype', RoutesTypes::class);
 
-        $this->markers = $this->processObjects('marqueurs', Markers::class);
+        $this->markers = $this->processObjects('marqueurs', Marker::class);
         $this->zones = $this->processObjects('zones', Zones::class);
         $this->routes = $this->processObjects('routes', Routes::class);
 
@@ -314,7 +314,7 @@ class ImportTiddlyWikiCommand extends Command
         $new = [];
         $existing = [];
 
-        /** @var Markers[]|Zones[]|Routes[] $objects */
+        /** @var Marker[]|Zones[]|Routes[] $objects */
         $objects = $repo->findAllRoot('id');
 
         foreach ($data as $datum) {
@@ -367,7 +367,7 @@ class ImportTiddlyWikiCommand extends Command
         $new = [];
         $existing = [];
 
-        /** @var Markers[]|Zones[]|Routes[] $objects */
+        /** @var Marker[]|Zones[]|Routes[] $objects */
         $objects = $repo->findAllRoot(true);
 
         foreach ($data as $datum) {
@@ -420,7 +420,7 @@ class ImportTiddlyWikiCommand extends Command
     }
 
     /**
-     * @param Markers|Zones|Routes $object
+     * @param Marker|Zones|Routes $object
      * @param array                $data
      */
     private function updateOneObject($object, $data)
@@ -440,7 +440,7 @@ class ImportTiddlyWikiCommand extends Command
             $object->setUpdatedAt(new DateTime());
         }
 
-        if ($object instanceof Markers) {
+        if ($object instanceof Marker) {
             $object
                 ->setMarkerType($this->getOneReferencedObject('markersTypes', $data['markertype_id']))
             ;

@@ -125,10 +125,10 @@ class Map implements EntityToClearInterface
     protected $routes;
 
     /**
-     * @var Markers[]|ArrayCollection
+     * @var Marker[]|ArrayCollection
      *
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Markers", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="Marker", mappedBy="map")
      */
     protected $markers;
 
@@ -368,7 +368,7 @@ class Map implements EntityToClearInterface
      *
      * @return Map
      */
-    public function addMarker(Markers $markers)
+    public function addMarker(Marker $markers)
     {
         $this->markers[] = $markers;
 
@@ -378,7 +378,7 @@ class Map implements EntityToClearInterface
     /**
      * Remove markers.
      */
-    public function removeMarker(Markers $markers)
+    public function removeMarker(Marker $markers)
     {
         $this->markers->removeElement($markers);
     }
@@ -386,7 +386,7 @@ class Map implements EntityToClearInterface
     /**
      * Get markers.
      *
-     * @return Markers[]|ArrayCollection
+     * @return Marker[]|ArrayCollection
      *
      * @codeCoverageIgnore
      */
@@ -401,7 +401,7 @@ class Map implements EntityToClearInterface
      *
      * @return Zones|null
      */
-    public function getMarker(Markers $marker)
+    public function getMarker(Marker $marker)
     {
         foreach ($this->markers as $mapMarker) {
             if ($mapMarker->getId() === $marker->getId() ||
@@ -419,7 +419,7 @@ class Map implements EntityToClearInterface
      *
      * @return $this
      */
-    public function setMarker(Markers $marker)
+    public function setMarker(Marker $marker)
     {
         $exists = $this->getMarker($marker);
         if (!$exists) {
