@@ -219,7 +219,7 @@ easy_admin:
 
         TransportTypes:
             label: admin.maps.transports_types
-            class: EsterenMaps\Entity\TransportTypes
+            class: EsterenMaps\Entity\TransportType
             controller: Admin\CustomController\TransportTypesController
             list:
                 actions:

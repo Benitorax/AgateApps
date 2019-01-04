@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Controller\Api\ApiDirectionsController;
 use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Marker;
-use EsterenMaps\Entity\TransportTypes;
+use EsterenMaps\Entity\TransportType;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tests\WebTestCase as PiersTestCase;
 
@@ -58,7 +58,7 @@ class DirectionsManagerTest extends WebTestCase
         $queryString = 'hours_per_day=7';
 
         if ($transport) {
-            $transport = $em->getRepository(TransportTypes::class)->findOneBy(['slug' => $transport]);
+            $transport = $em->getRepository(TransportType::class)->findOneBy(['slug' => $transport]);
             $queryString .= '&transport='.$transport->getId();
         }
 

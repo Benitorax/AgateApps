@@ -13,7 +13,7 @@ namespace Admin\CustomController;
 
 use EsterenMaps\Entity\RouteType;
 use EsterenMaps\Entity\TransportModifier;
-use EsterenMaps\Entity\TransportTypes;
+use EsterenMaps\Entity\TransportType;
 use Symfony\Component\Form\FormBuilder;
 
 class TransportTypesController extends BaseMapAdminController
@@ -25,7 +25,7 @@ class TransportTypesController extends BaseMapAdminController
      *
      * @return FormBuilder
      */
-    protected function createTransportTypesEntityFormBuilder(TransportTypes $entity, $view)
+    protected function createTransportTypesEntityFormBuilder(TransportType $entity, $view)
     {
         // Get IDs in the entity and try to retrieve non-existing transport ids.
         $routesTypesIds = \array_reduce(

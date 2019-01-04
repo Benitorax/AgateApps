@@ -256,7 +256,7 @@ class RouteType implements EntityToClearInterface
     /**
      * @return TransportModifier
      */
-    public function getTransport(TransportTypes $transportType)
+    public function getTransport(TransportType $transportType)
     {
         $transports = $this->transports->filter(function (TransportModifier $element) use ($transportType) {
             return $element->getTransportType()->getId() === $transportType->getId();

@@ -16,7 +16,7 @@ use EsterenMaps\Api\MapApi;
 use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\TransportModifier;
-use EsterenMaps\Entity\TransportTypes;
+use EsterenMaps\Entity\TransportType;
 use Twig\Environment;
 
 /**
@@ -38,7 +38,7 @@ class DirectionsManager
         $this->mapApi = $mapApi;
     }
 
-    public function getDirections(Map $map, Marker $start, Marker $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
+    public function getDirections(Map $map, Marker $start, Marker $end, int $hoursPerDay = 7, TransportType $transportType = null): array
     {
         $directions = $this->doGetDirections($map, $start, $end, $hoursPerDay, $transportType);
 
@@ -47,7 +47,7 @@ class DirectionsManager
         return $directions;
     }
 
-    private function doGetDirections(Map $map, Marker $start, Marker $end, int $hoursPerDay = 7, TransportTypes $transportType = null): array
+    private function doGetDirections(Map $map, Marker $start, Marker $end, int $hoursPerDay = 7, TransportType $transportType = null): array
     {
         $data = $this->mapApi->getMap($map->getId());
 
@@ -249,7 +249,7 @@ class DirectionsManager
         return $realPath;
     }
 
-    private function getDataArray(Marker $from, Marker $to, array $directions, int $hoursPerDay = 7, TransportTypes $transport = null): array
+    private function getDataArray(Marker $from, Marker $to, array $directions, int $hoursPerDay = 7, TransportType $transport = null): array
     {
         $distance = null;
         $NE = [];
@@ -302,7 +302,7 @@ class DirectionsManager
         return $data;
     }
 
-    private function updateTravelDuration(array $data, array $routes, int $hoursPerDay = 7, TransportTypes $transport): array
+    private function updateTravelDuration(array $data, array $routes, int $hoursPerDay = 7, TransportType $transport): array
     {
         $total = 0;
 
@@ -398,7 +398,7 @@ class DirectionsManager
     /**
      * Filter routes that are incompatible with this transport type.
      */
-    private function filterEdges(array $edges, TransportTypes $transportType = null): array
+    private function filterEdges(array $edges, TransportType $transportType = null): array
     {
         if (!$transportType) {
             return $edges;

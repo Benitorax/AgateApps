@@ -19,12 +19,10 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * TransportTypes.
- *
  * @ORM\Table(name="maps_transports_types")
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\TransportTypesRepository")
  */
-class TransportTypes implements EntityToClearInterface, \JsonSerializable
+class TransportType implements EntityToClearInterface, \JsonSerializable
 {
     use TimestampableEntity;
 
@@ -99,7 +97,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
     /**
      * @param int $id
      *
-     * @return TransportTypes
+     * @return TransportType
      *
      * @codeCoverageIgnore
      */
@@ -123,7 +121,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
     /**
      * @param string $name
      *
-     * @return TransportTypes
+     * @return TransportType
      *
      * @codeCoverageIgnore
      */
@@ -147,7 +145,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
     /**
      * @param string $slug
      *
-     * @return TransportTypes
+     * @return TransportType
      *
      * @codeCoverageIgnore
      */
@@ -171,7 +169,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
     /**
      * @param string $description
      *
-     * @return TransportTypes
+     * @return TransportType
      *
      * @codeCoverageIgnore
      */
@@ -195,7 +193,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
     /**
      * @param string $speed
      *
-     * @return TransportTypes
+     * @return TransportType
      *
      * @codeCoverageIgnore
      */
@@ -210,7 +208,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
      * Add transportsModifier.
      *
      *
-     * @return TransportTypes
+     * @return TransportType
      */
     public function addTransportsModifier(TransportModifier $transportsModifier)
     {
