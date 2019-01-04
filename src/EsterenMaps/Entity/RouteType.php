@@ -61,8 +61,8 @@ class RouteType implements EntityToClearInterface
     protected $routes;
 
     /**
-     * @var TransportModifiers[]
-     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\TransportModifiers", mappedBy="routeType")
+     * @var TransportModifier[]
+     * @ORM\OneToMany(targetEntity="TransportModifier", mappedBy="routeType")
      */
     protected $transports;
 
@@ -221,7 +221,7 @@ class RouteType implements EntityToClearInterface
      *
      * @return RouteType
      */
-    public function addTransport(TransportModifiers $transports)
+    public function addTransport(TransportModifier $transports)
     {
         $this->transports[] = $transports;
 
@@ -234,7 +234,7 @@ class RouteType implements EntityToClearInterface
      *
      * @return RouteType
      */
-    public function removeTransport(TransportModifiers $transports)
+    public function removeTransport(TransportModifier $transports)
     {
         $this->transports->removeElement($transports);
 
@@ -244,7 +244,7 @@ class RouteType implements EntityToClearInterface
     /**
      * Get transports.
      *
-     * @return TransportModifiers[]
+     * @return TransportModifier[]
      *
      * @codeCoverageIgnore
      */
@@ -254,11 +254,11 @@ class RouteType implements EntityToClearInterface
     }
 
     /**
-     * @return TransportModifiers
+     * @return TransportModifier
      */
     public function getTransport(TransportTypes $transportType)
     {
-        $transports = $this->transports->filter(function (TransportModifiers $element) use ($transportType) {
+        $transports = $this->transports->filter(function (TransportModifier $element) use ($transportType) {
             return $element->getTransportType()->getId() === $transportType->getId();
         });
 

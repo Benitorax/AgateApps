@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Form;
 
-use EsterenMaps\Entity\TransportModifiers;
+use EsterenMaps\Entity\TransportModifier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints\Range;
 /**
  * This FormType is used in EasyAdmin mostly.
  */
-class TransportModifiersType extends AbstractType
+class TransportModifierType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -52,7 +52,7 @@ class TransportModifiersType extends AbstractType
     {
         $resolver->setDefaults([
             'label' => false,
-            'data_class' => TransportModifiers::class,
+            'data_class' => TransportModifier::class,
         ]);
     }
 

@@ -17,12 +17,10 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * TransportModifiers.
- *
  * @ORM\Table(name="maps_routes_transports", uniqueConstraints={@ORM\UniqueConstraint(name="unique_route_transport", columns={"route_type_id", "transport_type_id"})})
  * @ORM\Entity
  */
-class TransportModifiers implements EntityToClearInterface
+class TransportModifier implements EntityToClearInterface
 {
     use TimestampableEntity;
 
@@ -82,7 +80,7 @@ class TransportModifiers implements EntityToClearInterface
     /**
      * @param int $id
      *
-     * @return TransportModifiers
+     * @return TransportModifier
      *
      * @codeCoverageIgnore
      */
@@ -106,7 +104,7 @@ class TransportModifiers implements EntityToClearInterface
     /**
      * @param RouteType $routeType
      *
-     * @return TransportModifiers
+     * @return TransportModifier
      *
      * @codeCoverageIgnore
      */
@@ -128,7 +126,7 @@ class TransportModifiers implements EntityToClearInterface
     }
 
     /**
-     * @return TransportModifiers
+     * @return TransportModifier
      *
      * @codeCoverageIgnore
      */
@@ -152,7 +150,7 @@ class TransportModifiers implements EntityToClearInterface
     /**
      * @param float $percentage
      *
-     * @return TransportModifiers
+     * @return TransportModifier
      *
      * @codeCoverageIgnore
      */

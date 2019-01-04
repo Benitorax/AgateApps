@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use EsterenMaps\Api\MapApi;
 use EsterenMaps\Entity\Map;
 use EsterenMaps\Entity\Marker;
-use EsterenMaps\Entity\TransportModifiers;
+use EsterenMaps\Entity\TransportModifier;
 use EsterenMaps\Entity\TransportTypes;
 use Twig\Environment;
 
@@ -312,12 +312,12 @@ class DirectionsManager
             $routesTypes[$route['route_type']] = $route['route_type'];
         }
 
-        $transportModifiersUnsorted = $this->entityManager->getRepository(TransportModifiers::class)->findBy([
+        $transportModifiersUnsorted = $this->entityManager->getRepository(TransportModifier::class)->findBy([
             'routeType' => $routesTypes,
             'transportType' => $transport,
         ]);
 
-        /** @var TransportModifiers[][] $transportModifiers */
+        /** @var TransportModifier[][] $transportModifiers */
         $transportModifiers = [];
         foreach ($transportModifiersUnsorted as $transportModifier) {
             $transportModifiers[$transportModifier->getRouteType()->getId()][] = $transportModifier;
@@ -410,7 +410,7 @@ class DirectionsManager
             $routesTypes[$route['type']] = $route['type'];
         }
 
-        $transportModifiers = $this->entityManager->getRepository(TransportModifiers::class)->findBy([
+        $transportModifiers = $this->entityManager->getRepository(TransportModifier::class)->findBy([
             'routeType' => $routesTypes,
             'transportType' => $transportType,
         ]);

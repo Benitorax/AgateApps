@@ -240,4 +240,4 @@ easy_admin:
                       label: 'admin.entities.transports.modifiers'
                       type: 'Symfony\Component\Form\Extension\Core\Type\CollectionType'
                       type_options:
-                          entry_type: 'EsterenMaps\Form\TransportModifiersType'
+                          entry_type: 'EsterenMaps\Form\TransportModifierType'

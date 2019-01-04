@@ -70,9 +70,9 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
     protected $speed;
 
     /**
-     * @var ArrayCollection|TransportModifiers[]
+     * @var ArrayCollection|TransportModifier[]
      *
-     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\TransportModifiers", mappedBy="transportType", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="TransportModifier", mappedBy="transportType", cascade={"persist", "remove"})
      */
     protected $transportsModifiers;
 
@@ -212,7 +212,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
      *
      * @return TransportTypes
      */
-    public function addTransportsModifier(TransportModifiers $transportsModifier)
+    public function addTransportsModifier(TransportModifier $transportsModifier)
     {
         $this->transportsModifiers[] = $transportsModifier;
 
@@ -225,7 +225,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
      *
      * @return $this
      */
-    public function removeTransportsModifier(TransportModifiers $transportsModifier)
+    public function removeTransportsModifier(TransportModifier $transportsModifier)
     {
         $this->transportsModifiers->removeElement($transportsModifier);
 
@@ -235,7 +235,7 @@ class TransportTypes implements EntityToClearInterface, \JsonSerializable
     /**
      * Get transportsModifiers.
      *
-     * @return ArrayCollection|TransportModifiers[]
+     * @return ArrayCollection|TransportModifier[]
      *
      * @codeCoverageIgnore
      */
