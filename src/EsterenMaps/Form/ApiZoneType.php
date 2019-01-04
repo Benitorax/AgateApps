@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Form;
 
-use EsterenMaps\Entity\Factions;
+use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Zones;
 use EsterenMaps\Entity\ZonesTypes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -35,7 +35,7 @@ class ApiZoneType extends AbstractType
                 'class' => ZonesTypes::class,
             ])
             ->add('faction', EntityType::class, [
-                'class' => Factions::class,
+                'class' => Faction::class,
             ])
         ;
     }

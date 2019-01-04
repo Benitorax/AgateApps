@@ -125,12 +125,12 @@ class Routes implements EntityToClearInterface, \JsonSerializable
     protected $map;
 
     /**
-     * @var Factions
+     * @var Faction
      *
-     * @ORM\ManyToOne(targetEntity="Factions", inversedBy="routes")
+     * @ORM\ManyToOne(targetEntity="Faction", inversedBy="routes")
      * @ORM\JoinColumn(name="faction_id", nullable=true)
      *
-     * @Assert\Type("EsterenMaps\Entity\Factions")
+     * @Assert\Type("EsterenMaps\Entity\Faction")
      */
     protected $faction;
 
@@ -288,14 +288,14 @@ class Routes implements EntityToClearInterface, \JsonSerializable
         return $this->map;
     }
 
-    public function setFaction(?Factions $faction): self
+    public function setFaction(?Faction $faction): self
     {
         $this->faction = $faction;
 
         return $this;
     }
 
-    public function getFaction(): ?Factions
+    public function getFaction(): ?Faction
     {
         return $this->faction;
     }

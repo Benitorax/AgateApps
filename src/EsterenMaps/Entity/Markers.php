@@ -83,12 +83,12 @@ class Markers implements EntityToClearInterface, \JsonSerializable
     protected $longitude = 0;
 
     /**
-     * @var Factions
+     * @var Faction
      *
-     * @ORM\ManyToOne(targetEntity="Factions", inversedBy="markers")
+     * @ORM\ManyToOne(targetEntity="Faction", inversedBy="markers")
      * @ORM\JoinColumn(name="faction_id", nullable=true)
      *
-     * @Assert\Type("EsterenMaps\Entity\Factions")
+     * @Assert\Type("EsterenMaps\Entity\Faction")
      */
     protected $faction;
 
@@ -220,14 +220,14 @@ class Markers implements EntityToClearInterface, \JsonSerializable
         return (string) $this->name;
     }
 
-    public function setFaction(Factions $faction = null): self
+    public function setFaction(Faction $faction = null): self
     {
         $this->faction = $faction;
 
         return $this;
     }
 
-    public function getFaction(): ?Factions
+    public function getFaction(): ?Faction
     {
         return $this->faction;
     }

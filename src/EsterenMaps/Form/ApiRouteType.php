@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Form;
 
-use EsterenMaps\Entity\Factions;
+use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Markers;
 use EsterenMaps\Entity\Routes;
 use EsterenMaps\Entity\RoutesTypes;
@@ -54,7 +54,7 @@ class ApiRouteType extends AbstractType
                 'class' => Markers::class,
             ])
             ->add('faction', EntityType::class, [
-                'class' => Factions::class,
+                'class' => Faction::class,
             ])
         ;
     }

@@ -17,12 +17,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * Factions.
- *
  * @ORM\Table(name="maps_factions")
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\FactionsRepository")
  */
-class Factions
+class Faction
 {
     use TimestampableEntity;
 
@@ -121,7 +119,7 @@ class Factions
      *
      * @param string $name
      *
-     * @return Factions
+     * @return Faction
      *
      * @codeCoverageIgnore
      */
@@ -148,7 +146,7 @@ class Factions
      * Add zones.
      *
      *
-     * @return Factions
+     * @return Faction
      */
     public function addZone(Zones $zones)
     {
@@ -181,7 +179,7 @@ class Factions
      * Add routes.
      *
      *
-     * @return Factions
+     * @return Faction
      */
     public function addRoute(Routes $routes)
     {
@@ -214,7 +212,7 @@ class Factions
      * Add markers.
      *
      *
-     * @return Factions
+     * @return Faction
      */
     public function addMarker(Markers $markers)
     {
@@ -248,7 +246,7 @@ class Factions
      *
      * @param string $description
      *
-     * @return Factions
+     * @return Faction
      *
      * @codeCoverageIgnore
      */
@@ -276,7 +274,7 @@ class Factions
      *
      * @param Books $book
      *
-     * @return Factions
+     * @return Faction
      *
      * @codeCoverageIgnore
      */

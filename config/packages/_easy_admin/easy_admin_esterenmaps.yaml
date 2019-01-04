@@ -5,7 +5,7 @@ easy_admin:
         ## Esteren Maps
         Factions:
             label: admin.maps.factions
-            class: EsterenMaps\Entity\Factions
+            class: EsterenMaps\Entity\Faction
             controller: Admin\CustomController\BaseMapAdminController
             list:
                 fields:

@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Form;
 
-use EsterenMaps\Entity\Factions;
+use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Markers;
 use EsterenMaps\Entity\MarkersTypes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -40,7 +40,7 @@ class ApiMarkersType extends AbstractType
                 ],
             ])
             ->add('faction', EntityType::class, [
-                'class' => Factions::class,
+                'class' => Faction::class,
             ])
         ;
     }

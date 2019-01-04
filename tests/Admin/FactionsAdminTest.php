@@ -11,7 +11,7 @@
 
 namespace Tests\Admin;
 
-use EsterenMaps\Entity\Factions;
+use EsterenMaps\Entity\Faction;
 
 class FactionsAdminTest extends AbstractEasyAdminTest
 {
@@ -28,7 +28,7 @@ class FactionsAdminTest extends AbstractEasyAdminTest
      */
     public function getEntityClass()
     {
-        return Factions::class;
+        return Faction::class;
     }
 
     /**

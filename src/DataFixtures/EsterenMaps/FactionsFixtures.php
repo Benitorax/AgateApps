@@ -14,7 +14,7 @@ namespace DataFixtures\EsterenMaps;
 use CorahnRin\Entity\Books;
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
-use EsterenMaps\Entity\Factions;
+use EsterenMaps\Entity\Faction;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
 
 class FactionsFixtures extends AbstractFixture implements ORMFixtureInterface
@@ -34,7 +34,7 @@ class FactionsFixtures extends AbstractFixture implements ORMFixtureInterface
      */
     protected function getEntityClass(): string
     {
-        return Factions::class;
+        return Faction::class;
     }
 
     /**

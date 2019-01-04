@@ -12,7 +12,7 @@
 namespace EsterenMaps\Api;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use EsterenMaps\Entity\Factions;
+use EsterenMaps\Entity\Faction;
 use EsterenMaps\Entity\Maps;
 use EsterenMaps\Entity\Markers;
 use EsterenMaps\Entity\MarkersTypes;
@@ -66,7 +66,7 @@ class MapApi
         $data['references']['markers_types'] = $this->em->getRepository(MarkersTypes::class)->findForApi();
         $data['references']['routes_types'] = $this->em->getRepository(RoutesTypes::class)->findForApi();
         $data['references']['zones_types'] = $this->em->getRepository(ZonesTypes::class)->findForApi();
-        $data['references']['factions'] = $this->em->getRepository(Factions::class)->findForApi();
+        $data['references']['factions'] = $this->em->getRepository(Faction::class)->findForApi();
         $data['references']['transports'] = $this->em->getRepository(TransportTypes::class)->findForApi();
 
         // Pre-compiled templates
