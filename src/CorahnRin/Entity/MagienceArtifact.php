@@ -15,12 +15,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Artifacts.
- *
  * @ORM\Table(name="artifacts")
  * @ORM\Entity
  */
-class Artifacts
+class MagienceArtifact
 {
     /**
      * @var int
@@ -158,7 +156,7 @@ class Artifacts
      *
      * @param string $name
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -186,7 +184,7 @@ class Artifacts
      *
      * @param int $price
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -214,7 +212,7 @@ class Artifacts
      *
      * @param int $consumption
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -242,7 +240,7 @@ class Artifacts
      *
      * @param int $consumptionInterval
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -270,7 +268,7 @@ class Artifacts
      *
      * @param int $tank
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -298,7 +296,7 @@ class Artifacts
      *
      * @param int $resistance
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -326,7 +324,7 @@ class Artifacts
      *
      * @param string $vulnerability
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -354,7 +352,7 @@ class Artifacts
      *
      * @param string $handling
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -382,7 +380,7 @@ class Artifacts
      *
      * @param int $damage
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -410,7 +408,7 @@ class Artifacts
      *
      * @param \DateTime $created
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -438,7 +436,7 @@ class Artifacts
      *
      * @param \DateTime $updated
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -466,7 +464,7 @@ class Artifacts
      *
      * @param Flux $flux
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -494,7 +492,7 @@ class Artifacts
      *
      * @param string $description
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */
@@ -522,7 +520,7 @@ class Artifacts
      *
      * @param \DateTime $deleted
      *
-     * @return Artifacts
+     * @return MagienceArtifact
      *
      * @codeCoverageIgnore
      */

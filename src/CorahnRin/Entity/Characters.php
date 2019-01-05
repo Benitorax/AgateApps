@@ -311,9 +311,9 @@ class Characters extends BaseCharacter
     protected $armors;
 
     /**
-     * @var Artifacts[]|ArrayCollection
+     * @var MagienceArtifact[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Artifacts")
+     * @ORM\ManyToMany(targetEntity="MagienceArtifact")
      */
     protected $artifacts;
 
@@ -1025,14 +1025,14 @@ class Characters extends BaseCharacter
         return $this->armors;
     }
 
-    public function addArtifact(Artifacts $artifact): self
+    public function addArtifact(MagienceArtifact $artifact): self
     {
         $this->artifacts[] = $artifact;
 
         return $this;
     }
 
-    public function removeArtifact(Artifacts $artifact): self
+    public function removeArtifact(MagienceArtifact $artifact): self
     {
         $this->artifacts->removeElement($artifact);
 
@@ -1040,7 +1040,7 @@ class Characters extends BaseCharacter
     }
 
     /**
-     * @return Artifacts[]|iterable
+     * @return MagienceArtifact[]|iterable
      */
     public function getArtifacts(): iterable
     {
