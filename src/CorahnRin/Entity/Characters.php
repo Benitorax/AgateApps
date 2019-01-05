@@ -383,7 +383,7 @@ class Characters extends BaseCharacter
     /**
      * @var Zone
      *
-     * @ORM\ManyToOne(targetEntity="Zone")
+     * @ORM\ManyToOne(targetEntity="EsterenMaps\Entity\Zone")
      */
     protected $birthPlace;
 
