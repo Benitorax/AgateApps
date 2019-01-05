@@ -15,7 +15,7 @@ use Behat\Transliterator\Transliterator;
 use CorahnRin\Data\DomainItem;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Ways as WaysData;
-use CorahnRin\Entity\Armors;
+use CorahnRin\Entity\Armor;
 use CorahnRin\Entity\CharacterAlteration;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
 use CorahnRin\Entity\CharacterProperties\CharacterDomains;
@@ -281,7 +281,7 @@ final class SessionToCharacter
         $character->setInventory($values['18_equipment']['equipment']);
 
         foreach ($values['18_equipment']['armors'] as $id => $value) {
-            $character->addArmor($this->getRepository(Armors::class)->find($id));
+            $character->addArmor($this->getRepository(Armor::class)->find($id));
         }
         foreach ($values['18_equipment']['weapons'] as $id => $value) {
             $character->addWeapon($this->getRepository(Weapon::class)->find($id));

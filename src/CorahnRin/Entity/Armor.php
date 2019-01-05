@@ -15,12 +15,10 @@ use CorahnRin\Entity\Traits\HasBook;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Armors.
- *
  * @ORM\Table(name="armors")
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\ArmorsRepository")
  */
-class Armors
+class Armor
 {
     use HasBook;
 
@@ -99,7 +97,7 @@ class Armors
      *
      * @param string $name
      *
-     * @return Armors
+     * @return Armor
      *
      * @codeCoverageIgnore
      */
@@ -127,7 +125,7 @@ class Armors
      *
      * @param string $description
      *
-     * @return Armors
+     * @return Armor
      *
      * @codeCoverageIgnore
      */
@@ -155,7 +153,7 @@ class Armors
      *
      * @param int $protection
      *
-     * @return Armors
+     * @return Armor
      *
      * @codeCoverageIgnore
      */
@@ -183,7 +181,7 @@ class Armors
      *
      * @param int $price
      *
-     * @return Armors
+     * @return Armor
      *
      * @codeCoverageIgnore
      */
@@ -211,7 +209,7 @@ class Armors
      *
      * @param string $availability
      *
-     * @return Armors
+     * @return Armor
      *
      * @codeCoverageIgnore
      */

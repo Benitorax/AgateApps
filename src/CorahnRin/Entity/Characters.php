@@ -304,9 +304,9 @@ class Characters extends BaseCharacter
     protected $people;
 
     /**
-     * @var Armors[]|ArrayCollection
+     * @var Armor[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Armors")
+     * @ORM\ManyToMany(targetEntity="Armor")
      */
     protected $armors;
 
@@ -1003,14 +1003,14 @@ class Characters extends BaseCharacter
         return $this->people;
     }
 
-    public function addArmor(Armors $armor): self
+    public function addArmor(Armor $armor): self
     {
         $this->armors[] = $armor;
 
         return $this;
     }
 
-    public function removeArmor(Armors $armor): self
+    public function removeArmor(Armor $armor): self
     {
         $this->armors->removeElement($armor);
 
@@ -1018,7 +1018,7 @@ class Characters extends BaseCharacter
     }
 
     /**
-     * @return Armors[]|iterable
+     * @return Armor[]|iterable
      */
     public function getArmors(): iterable
     {
