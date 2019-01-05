@@ -28,7 +28,7 @@ class CharSetbacks
      * @var Character
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Character", inversedBy="setbacks")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Character", inversedBy="setbacks")
      * @Assert\NotNull
      */
     protected $character;

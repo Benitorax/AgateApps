@@ -25,7 +25,7 @@ class CharacterAdvantageItem
      * @var Character
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Character", inversedBy="advantages")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Character", inversedBy="advantages")
      */
     protected $character;
 

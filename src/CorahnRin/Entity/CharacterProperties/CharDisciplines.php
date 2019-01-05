@@ -28,7 +28,7 @@ class CharDisciplines
      * @var Character
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Character", inversedBy="disciplines")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Character", inversedBy="disciplines")
      */
     protected $character;
 

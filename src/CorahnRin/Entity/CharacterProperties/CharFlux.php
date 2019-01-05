@@ -28,7 +28,7 @@ class CharFlux
      * @var Character
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Character", inversedBy="flux")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Character", inversedBy="flux")
      * @Assert\NotNull
      */
     protected $character;
