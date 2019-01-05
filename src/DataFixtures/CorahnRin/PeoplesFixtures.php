@@ -12,7 +12,7 @@
 namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Entity\Books;
-use CorahnRin\Entity\Peoples;
+use CorahnRin\Entity\People;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -42,7 +42,7 @@ class PeoplesFixtures extends AbstractFixture implements OrderedFixtureInterface
     {
         $this->manager = $manager;
 
-        $repo = $this->manager->getRepository(\CorahnRin\Entity\Peoples::class);
+        $repo = $this->manager->getRepository(\CorahnRin\Entity\People::class);
 
         /** @var Books $book */
         $book = $this->getReference('corahnrin-book-2');
@@ -71,7 +71,7 @@ class PeoplesFixtures extends AbstractFixture implements OrderedFixtureInterface
             $newObject = true;
         }
         if (true === $newObject) {
-            $obj = new Peoples();
+            $obj = new People();
             $obj->setId($id)
                 ->setName($name)
                 ->setDescription($description)

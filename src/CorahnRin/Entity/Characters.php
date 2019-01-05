@@ -297,9 +297,9 @@ class Characters extends BaseCharacter
     protected $experienceSpent = 0;
 
     /**
-     * @var Peoples
+     * @var People
      *
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Peoples")
+     * @ORM\ManyToOne(targetEntity="People")
      */
     protected $people;
 
@@ -991,14 +991,14 @@ class Characters extends BaseCharacter
         return $this->deleted;
     }
 
-    public function setPeople(Peoples $people = null): self
+    public function setPeople(People $people = null): self
     {
         $this->people = $people;
 
         return $this;
     }
 
-    public function getPeople(): Peoples
+    public function getPeople(): People
     {
         return $this->people;
     }

@@ -15,12 +15,10 @@ use CorahnRin\Entity\Traits\HasBook;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Peoples.
- *
  * @ORM\Table(name="peoples")
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\PeopleRepository")
  */
-class Peoples
+class People
 {
     use HasBook;
 
@@ -78,7 +76,7 @@ class Peoples
      *
      * @param string $name
      *
-     * @return Peoples
+     * @return People
      *
      * @codeCoverageIgnore
      */
@@ -106,7 +104,7 @@ class Peoples
      *
      * @param string $description
      *
-     * @return Peoples
+     * @return People
      *
      * @codeCoverageIgnore
      */

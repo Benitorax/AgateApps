@@ -31,7 +31,7 @@ use CorahnRin\Entity\Disciplines;
 use CorahnRin\Entity\Disorders;
 use CorahnRin\Entity\GeoEnvironments;
 use CorahnRin\Entity\Jobs;
-use CorahnRin\Entity\Peoples;
+use CorahnRin\Entity\People;
 use CorahnRin\Entity\Setbacks;
 use CorahnRin\Entity\SocialClass;
 use CorahnRin\Entity\PersonalityTrait;
@@ -156,7 +156,7 @@ final class SessionToCharacter
 
     private function setPeople(Characters $character, array $values): void
     {
-        $character->setPeople($this->getRepository(Peoples::class)->find($values['01_people']));
+        $character->setPeople($this->getRepository(People::class)->find($values['01_people']));
     }
 
     private function setJob(Characters $character, array $values): void

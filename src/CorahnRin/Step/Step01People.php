@@ -20,7 +20,7 @@ class Step01People extends AbstractStepAction
      */
     public function execute(): Response
     {
-        $peoples = $this->em->getRepository(\CorahnRin\Entity\Peoples::class)->findAll('id');
+        $peoples = $this->em->getRepository(\CorahnRin\Entity\People::class)->findAll('id');
 
         if ($this->request->isMethod('POST')) {
             $peopleId = (int) $this->request->request->get('gen-div-choice');
