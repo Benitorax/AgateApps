@@ -421,7 +421,7 @@ class ImportTiddlyWikiCommand extends Command
 
     /**
      * @param Marker|Zone|Route $object
-     * @param array              $data
+     * @param array             $data
      */
     private function updateOneObject($object, $data)
     {
