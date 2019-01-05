@@ -16,12 +16,10 @@ use CorahnRin\Entity\Traits\HasBook;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Disciplines.
- *
  * @ORM\Table(name="disciplines")
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\DisciplinesRepository")
  */
-class Disciplines
+class Discipline
 {
     public const RANK_PROFESSIONAL = 'discipline.rank.professional';
     public const RANK_EXPERT = 'discipline.rank.expert';

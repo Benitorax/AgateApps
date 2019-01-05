@@ -13,7 +13,7 @@ namespace CorahnRin\Entity\CharacterProperties;
 
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Entity\Characters;
-use CorahnRin\Entity\Disciplines;
+use CorahnRin\Entity\Discipline;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,10 +33,10 @@ class CharDisciplines
     protected $character;
 
     /**
-     * @var Disciplines
+     * @var Discipline
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Disciplines")
+     * @ORM\ManyToOne(targetEntity="Discipline")
      */
     protected $discipline;
 
@@ -54,7 +54,7 @@ class CharDisciplines
      */
     protected $score;
 
-    public function __construct(Characters $character, Disciplines $discipline, string $domain, int $score)
+    public function __construct(Characters $character, Discipline $discipline, string $domain, int $score)
     {
         DomainsData::validateDomain($domain);
 
@@ -69,7 +69,7 @@ class CharDisciplines
         return $this->character;
     }
 
-    public function getDiscipline(): Disciplines
+    public function getDiscipline(): Discipline
     {
         return $this->discipline;
     }

@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\Disciplines;
+use CorahnRin\Entity\Discipline;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,13 +19,13 @@ class DisciplinesRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Disciplines::class);
+        parent::__construct($registry, Discipline::class);
     }
 
     /**
      * @param int[] $domainsIds
      *
-     * @return Disciplines[]
+     * @return Discipline[]
      */
     public function findAllByDomains(array $domainsIds)
     {

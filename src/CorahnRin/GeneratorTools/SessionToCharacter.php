@@ -27,7 +27,7 @@ use CorahnRin\Entity\CharacterProperties\Money;
 use CorahnRin\Entity\CharacterProperties\Ways;
 use CorahnRin\Entity\Characters;
 use CorahnRin\Entity\CombatArts;
-use CorahnRin\Entity\Disciplines;
+use CorahnRin\Entity\Discipline;
 use CorahnRin\Entity\MentalDisorder;
 use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\Entity\Job;
@@ -261,7 +261,7 @@ final class SessionToCharacter
             foreach ($disciplines as $id => $v) {
                 $character->addDiscipline(new CharDisciplines(
                     $character,
-                    $this->getRepository(Disciplines::class)->find($id),
+                    $this->getRepository(Discipline::class)->find($id),
                     $domainId,
                     6
                 ));

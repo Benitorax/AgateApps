@@ -12,7 +12,7 @@
 namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\Disciplines;
+use CorahnRin\Entity\Discipline;
 use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\GeneratorTools\DomainsCalculator;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 class Step16Disciplines extends AbstractStepAction
 {
     /**
-     * @var Disciplines[]
+     * @var Discipline[]
      */
     private $availableDisciplines;
 
@@ -104,7 +104,7 @@ class Step16Disciplines extends AbstractStepAction
                 }, ARRAY_FILTER_USE_BOTH)
             );
 
-            $this->availableDisciplines = $this->em->getRepository(Disciplines::class)->findAllByDomains($availableDomainsForDisciplines);
+            $this->availableDisciplines = $this->em->getRepository(Discipline::class)->findAllByDomains($availableDomainsForDisciplines);
         }
 
         /* @var int[] $currentDisciplinesSpentWithExp */
