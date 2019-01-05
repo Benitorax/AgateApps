@@ -318,9 +318,9 @@ class Characters extends BaseCharacter
     protected $artifacts;
 
     /**
-     * @var Miracles[]|ArrayCollection
+     * @var Miracle[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Miracles")
+     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Miracle")
      */
     protected $miracles;
 
@@ -1047,14 +1047,14 @@ class Characters extends BaseCharacter
         return $this->artifacts;
     }
 
-    public function addMiracle(Miracles $miracle): self
+    public function addMiracle(Miracle $miracle): self
     {
         $this->miracles[] = $miracle;
 
         return $this;
     }
 
-    public function removeMiracle(Miracles $miracle): self
+    public function removeMiracle(Miracle $miracle): self
     {
         $this->miracles->removeElement($miracle);
 
@@ -1062,7 +1062,7 @@ class Characters extends BaseCharacter
     }
 
     /**
-     * @return Miracles[]|iterable
+     * @return Miracle[]|iterable
      */
     public function getMiracles(): iterable
     {
