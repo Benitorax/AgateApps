@@ -56,13 +56,13 @@ class RouteType implements EntityToClearInterface
 
     /**
      * @var Route[]
-     * @ORM\OneToMany(targetEntity="Route", mappedBy="routeType")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Route", mappedBy="routeType")
      */
     protected $routes;
 
     /**
      * @var TransportModifier[]
-     * @ORM\OneToMany(targetEntity="TransportModifier", mappedBy="routeType")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\TransportModifier", mappedBy="routeType")
      */
     protected $transports;
 

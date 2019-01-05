@@ -83,7 +83,7 @@ class MarkerType implements EntityToClearInterface
     /**
      * @var Marker[]
      *
-     * @ORM\OneToMany(targetEntity="Marker", mappedBy="markerType")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Marker", mappedBy="markerType")
      */
     protected $markers;
 

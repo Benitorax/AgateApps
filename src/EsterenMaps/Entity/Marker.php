@@ -85,7 +85,7 @@ class Marker implements EntityToClearInterface, \JsonSerializable
     /**
      * @var Faction
      *
-     * @ORM\ManyToOne(targetEntity="Faction", inversedBy="markers")
+     * @ORM\ManyToOne(targetEntity="EsterenMaps\Entity\Faction", inversedBy="markers")
      * @ORM\JoinColumn(name="faction_id", nullable=true)
      *
      * @Assert\Type("EsterenMaps\Entity\Faction")
@@ -95,7 +95,7 @@ class Marker implements EntityToClearInterface, \JsonSerializable
     /**
      * @var Map
      *
-     * @ORM\ManyToOne(targetEntity="Map", inversedBy="markers")
+     * @ORM\ManyToOne(targetEntity="EsterenMaps\Entity\Map", inversedBy="markers")
      * @ORM\JoinColumn(name="map_id", nullable=false)
      *
      * @Assert\Type("EsterenMaps\Entity\Map")
@@ -106,7 +106,7 @@ class Marker implements EntityToClearInterface, \JsonSerializable
     /**
      * @var MarkerType
      *
-     * @ORM\ManyToOne(targetEntity="MarkerType", inversedBy="markers")
+     * @ORM\ManyToOne(targetEntity="EsterenMaps\Entity\MarkerType", inversedBy="markers")
      * @ORM\JoinColumn(name="marker_type_id", nullable=false)
      *
      * @Assert\Type("EsterenMaps\Entity\MarkerType")
@@ -117,14 +117,14 @@ class Marker implements EntityToClearInterface, \JsonSerializable
     /**
      * @var Route[]
      *
-     * @ORM\OneToMany(targetEntity="Route", mappedBy="markerStart")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Route", mappedBy="markerStart")
      */
     protected $routesStart;
 
     /**
      * @var Route[]
      *
-     * @ORM\OneToMany(targetEntity="Route", mappedBy="markerEnd")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Route", mappedBy="markerEnd")
      */
     protected $routesEnd;
 

@@ -18,9 +18,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="avantages")
- * @ORM\Entity(repositoryClass="CharacterAlterationRepository")
+ * @ORM\Entity(repositoryClass="CorahnRin\Repository\CharacterAdvantageRepository")
  */
-class CharacterAlteration
+class Advantage
 {
     public const INDICATION_TYPE_SINGLE_VALUE = 'single_value';
     public const INDICATION_TYPE_SINGLE_CHOICE = 'single_choice';
@@ -105,9 +105,9 @@ class CharacterAlteration
     /**
      * @var int
      *
-     * @ORM\Column(name="augmentation_count", type="smallint", options={"default" = 0}, nullable=false)
+     * @ORM\Column(name="bonus_count", type="smallint", options={"default" = 0}, nullable=false)
      */
-    protected $augmentationCount;
+    protected $bonusCount;
 
     /**
      * @var string[]
@@ -138,13 +138,6 @@ class CharacterAlteration
      * @ORM\Column(type="boolean")
      */
     protected $isDisadvantage;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $isCombatArt;
 
     /**
      * @var string
@@ -180,7 +173,7 @@ class CharacterAlteration
      *
      * @param string $name
      *
-     * @return CharacterAlteration
+     * @return Advantage
      */
     public function setName($name)
     {
@@ -204,7 +197,7 @@ class CharacterAlteration
      *
      * @param string $nameFemale
      *
-     * @return CharacterAlteration
+     * @return Advantage
      */
     public function setNameFemale($nameFemale)
     {
@@ -228,7 +221,7 @@ class CharacterAlteration
      *
      * @param int $xp
      *
-     * @return CharacterAlteration
+     * @return Advantage
      */
     public function setXp($xp)
     {
@@ -252,7 +245,7 @@ class CharacterAlteration
      *
      * @param string $description
      *
-     * @return CharacterAlteration
+     * @return Advantage
      */
     public function setDescription($description)
     {
@@ -333,40 +326,16 @@ class CharacterAlteration
         return $this->isDisadvantage;
     }
 
-    /**
-     * Set isCombatArt.
-     *
-     * @param bool $isCombatArt
-     *
-     * @return CharacterAlteration
-     */
-    public function setCombatArt($isCombatArt)
+    public function setBonusCount(int $bonusCount): self
     {
-        $this->isCombatArt = $isCombatArt;
+        $this->bonusCount = $bonusCount;
 
         return $this;
     }
 
-    /**
-     * Get isCombatArt.
-     *
-     * @return bool
-     */
-    public function isCombatArt()
+    public function getBonusCount(): int
     {
-        return $this->isCombatArt;
-    }
-
-    public function setAugmentationCount(int $augmentationCount): self
-    {
-        $this->augmentationCount = $augmentationCount;
-
-        return $this;
-    }
-
-    public function getAugmentationCount(): int
-    {
-        return $this->augmentationCount;
+        return $this->bonusCount;
     }
 
     public function setGroup(?string $group): self

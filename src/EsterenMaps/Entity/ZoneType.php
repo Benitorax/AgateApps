@@ -57,14 +57,14 @@ class ZoneType implements EntityToClearInterface
     /**
      * @var ZoneType
      *
-     * @ORM\ManyToOne(targetEntity="ZoneType")
+     * @ORM\ManyToOne(targetEntity="EsterenMaps\Entity\ZoneType")
      * @ORM\JoinColumn(nullable=true)
      */
     protected $parent;
 
     /**
      * @var Zone[]
-     * @ORM\OneToMany(targetEntity="Zone", mappedBy="zoneType")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Zone", mappedBy="zoneType")
      */
     protected $zones;
 

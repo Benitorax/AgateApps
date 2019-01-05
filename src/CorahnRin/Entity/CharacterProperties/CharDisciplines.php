@@ -36,7 +36,7 @@ class CharDisciplines
      * @var Discipline
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Discipline")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Discipline")
      */
     protected $discipline;
 

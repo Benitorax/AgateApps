@@ -99,7 +99,7 @@ class MagienceArtifact
     /**
      * @var Flux
      *
-     * @ORM\ManyToOne(targetEntity="Flux")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Flux")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $flux;

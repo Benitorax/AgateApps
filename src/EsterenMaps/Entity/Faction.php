@@ -49,26 +49,26 @@ class Faction
 
     /**
      * @var Zone[]
-     * @ORM\OneToMany(targetEntity="Zone", mappedBy="faction")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Zone", mappedBy="faction")
      */
     protected $zones;
 
     /**
      * @var Route[]
-     * @ORM\OneToMany(targetEntity="Route", mappedBy="faction")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Route", mappedBy="faction")
      */
     protected $routes;
 
     /**
      * @var Marker[]
-     * @ORM\OneToMany(targetEntity="Marker", mappedBy="faction")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Marker", mappedBy="faction")
      */
     protected $markers;
 
     /**
      * @var Book
      *
-     * @ORM\ManyToOne(targetEntity="Book")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Book")
      * @ORM\JoinColumn(name="book_id", nullable=false)
      */
     protected $book;

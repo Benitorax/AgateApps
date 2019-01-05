@@ -24,14 +24,14 @@
         {% endset %}
 
         <label
-                id="label-char_alteration-{{ avtg.id }}"
+                id="label-char_advantage-{{ avtg.id }}"
                 for="{{ prefix }}-{{ avtg.id }}"
                 data-tooltip="{{ tooltip_text|raw }}"
                 data-position="top"
                 data-delay="50"
                 data-html="true"
-                class="change_char_alteration change_{{ prefix }} btn btn-medium bl tooltipped {{ class_more }}">
-            <input data-augmentation="{{ avtg.augmentationCount }}"
+                class="change_char_advantage change_{{ prefix }} btn btn-medium bl tooltipped {{ class_more }}">
+            <input data-bonus="{{ avtg.bonusCount }}"
                    type="hidden"
                    name="{{ avtg.isDisadvantage() ? 'dis' }}advantages[{{ avtg.id }}]"
                    value="{{ list_to_check[avtg.id] is defined and list_to_check[avtg.id] ? list_to_check[avtg.id] : '0' }}"
@@ -40,7 +40,7 @@
                    data-element-cost="{{ avtg.xp }}"
                    class="_hidden input_{{ prefix }}" />
             <span>
-                {%- if avtg.augmentationCount > 0 -%}
+                {%- if avtg.bonusCount > 0 -%}
                     <span class="text-red">*</span>&nbsp;
                 {%- endif -%}
                 {{- avtg.name }} <small>(XP&nbsp;:&nbsp;{{ avtg.xp }})</small>

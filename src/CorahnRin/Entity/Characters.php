@@ -15,7 +15,7 @@ use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Orientation;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
 use CorahnRin\Entity\CharacterProperties\CharacterDomains;
-use CorahnRin\Entity\CharacterProperties\CharAdvantages;
+use CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem;
 use CorahnRin\Entity\CharacterProperties\CharDisciplines;
 use CorahnRin\Entity\CharacterProperties\CharFlux;
 use CorahnRin\Entity\CharacterProperties\CharSetbacks;
@@ -145,7 +145,7 @@ class Characters extends BaseCharacter
     /**
      * @var GeoEnvironment
      *
-     * @ORM\ManyToOne(targetEntity="GeoEnvironment")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\GeoEnvironment")
      */
     protected $geoLiving;
 
@@ -299,21 +299,21 @@ class Characters extends BaseCharacter
     /**
      * @var People
      *
-     * @ORM\ManyToOne(targetEntity="People")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\People")
      */
     protected $people;
 
     /**
      * @var Armor[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Armor")
+     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Armor")
      */
     protected $armors;
 
     /**
      * @var MagienceArtifact[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="MagienceArtifact")
+     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\MagienceArtifact")
      */
     protected $artifacts;
 
@@ -334,21 +334,21 @@ class Characters extends BaseCharacter
     /**
      * @var Weapon[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Weapon")
+     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Weapon")
      */
     protected $weapons;
 
     /**
      * @var CombatArt[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="CombatArt")
+     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\CombatArt")
      */
     protected $combatArts;
 
     /**
      * @var SocialClass
      *
-     * @ORM\ManyToOne(targetEntity="SocialClass")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\SocialClass")
      */
     protected $socialClass;
 
@@ -369,14 +369,14 @@ class Characters extends BaseCharacter
     /**
      * @var MentalDisorder
      *
-     * @ORM\ManyToOne(targetEntity="MentalDisorder")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\MentalDisorder")
      */
     protected $mentalDisorder;
 
     /**
      * @var Job
      *
-     * @ORM\ManyToOne(targetEntity="Job")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Job")
      */
     protected $job;
 
@@ -389,24 +389,24 @@ class Characters extends BaseCharacter
 
     /**
      * @var PersonalityTrait
-     * @ORM\ManyToOne(targetEntity="PersonalityTrait")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\PersonalityTrait")
      * @ORM\JoinColumn(name="trait_flaw_id")
      */
     protected $flaw;
 
     /**
      * @var PersonalityTrait
-     * @ORM\ManyToOne(targetEntity="PersonalityTrait")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\PersonalityTrait")
      * @ORM\JoinColumn(name="trait_quality_id")
      */
     protected $quality;
 
     /**
-     * @var CharAdvantages[]
+     * @var CharacterAdvantageItem[]
      *
-     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharAdvantages", mappedBy="character")
+     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem", mappedBy="character")
      */
-    protected $charAdvantages;
+    protected $advantages;
 
     /**
      * @var CharacterDomains
@@ -444,7 +444,7 @@ class Characters extends BaseCharacter
 
     /**
      * @var Game
-     * @ORM\ManyToOne(targetEntity="Game", inversedBy="characters")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Game", inversedBy="characters")
      */
     protected $game;
 
@@ -481,7 +481,7 @@ class Characters extends BaseCharacter
         $this->ogham = new ArrayCollection();
         $this->weapons = new ArrayCollection();
         $this->combatArts = new ArrayCollection();
-        $this->charAdvantages = new ArrayCollection();
+        $this->advantages = new ArrayCollection();
         $this->disciplines = new ArrayCollection();
         $this->flux = new ArrayCollection();
         $this->setbacks = new ArrayCollection();
@@ -1231,26 +1231,26 @@ class Characters extends BaseCharacter
         return $this->quality;
     }
 
-    public function addCharAdvantage(CharAdvantages $advantage): self
+    public function addAdvantage(CharacterAdvantageItem $advantage): self
     {
-        $this->charAdvantages[] = $advantage;
+        $this->advantages[] = $advantage;
 
         return $this;
     }
 
-    public function removeCharAdvantage(CharAdvantages $advantage): self
+    public function removeAdvantage(CharacterAdvantageItem $advantage): self
     {
-        $this->charAdvantages->removeElement($advantage);
+        $this->advantages->removeElement($advantage);
 
         return $this;
     }
 
     /**
-     * @return CharAdvantages[]|iterable
+     * @return CharacterAdvantageItem[]|iterable
      */
-    public function getCharAdvantages(): iterable
+    public function getAllAdvantages(): iterable
     {
-        return $this->charAdvantages;
+        return $this->advantages;
     }
 
     public function setDomains(CharacterDomains $domain): void
@@ -1360,13 +1360,13 @@ class Characters extends BaseCharacter
     /*-------------------------------------------------*/
 
     /**
-     * @return CharAdvantages[]
+     * @return CharacterAdvantageItem[]
      */
     public function getAdvantages(): array
     {
         $advantages = [];
 
-        foreach ($this->charAdvantages as $charAdvantage) {
+        foreach ($this->advantages as $charAdvantage) {
             if (!$charAdvantage->getAdvantage()->isDisadvantage()) {
                 $advantages[] = $charAdvantage;
             }
@@ -1376,13 +1376,13 @@ class Characters extends BaseCharacter
     }
 
     /**
-     * @return CharAdvantages[]
+     * @return CharacterAdvantageItem[]
      */
     public function getDisadvantages(): array
     {
         $advantages = [];
 
-        foreach ($this->charAdvantages as $charAdvantage) {
+        foreach ($this->advantages as $charAdvantage) {
             if ($charAdvantage->getAdvantage()->isDisadvantage()) {
                 $advantages[] = $charAdvantage;
             }
@@ -1597,7 +1597,7 @@ class Characters extends BaseCharacter
     {
         $id = (int) $id;
 
-        foreach ($this->charAdvantages as $advantage) {
+        foreach ($this->advantages as $advantage) {
             if ($advantage->getAdvantage()->getId() === $id) {
                 return true;
             }

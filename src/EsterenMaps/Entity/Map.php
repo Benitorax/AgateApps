@@ -120,7 +120,7 @@ class Map implements EntityToClearInterface
      * @var Route[]|ArrayCollection
      *
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Route", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Route", mappedBy="map")
      */
     protected $routes;
 
@@ -128,7 +128,7 @@ class Map implements EntityToClearInterface
      * @var Marker[]|ArrayCollection
      *
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Marker", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Marker", mappedBy="map")
      */
     protected $markers;
 
@@ -136,7 +136,7 @@ class Map implements EntityToClearInterface
      * @var Zone[]|ArrayCollection
      *
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Zone", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Zone", mappedBy="map")
      */
     protected $zones;
 

@@ -49,7 +49,7 @@ class Ogham
 
     /**
      * @var OghamType
-     * @ORM\ManyToOne(targetEntity="OghamType")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\OghamType")
      */
     protected $oghamType;
 

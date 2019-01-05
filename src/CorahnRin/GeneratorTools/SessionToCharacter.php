@@ -16,10 +16,10 @@ use CorahnRin\Data\DomainItem;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Ways as WaysData;
 use CorahnRin\Entity\Armor;
-use CorahnRin\Entity\CharacterAlteration;
+use CorahnRin\Entity\Advantage;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
 use CorahnRin\Entity\CharacterProperties\CharacterDomains;
-use CorahnRin\Entity\CharacterProperties\CharAdvantages;
+use CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem;
 use CorahnRin\Entity\CharacterProperties\CharDisciplines;
 use CorahnRin\Entity\CharacterProperties\CharSetbacks;
 use CorahnRin\Entity\CharacterProperties\HealthCondition;
@@ -61,7 +61,7 @@ final class SessionToCharacter
     private $setbacks;
 
     /**
-     * @var CharacterAlteration[]
+     * @var Advantage[]
      */
     private $advantages;
 
@@ -151,7 +151,7 @@ final class SessionToCharacter
     {
         $this->setbacks = $this->getRepository(Setbacks::class)->findAll('_primary');
         $this->domains = DomainsData::allAsObjects();
-        $this->advantages = $this->getRepository(CharacterAlteration::class)->findAll('_primary');
+        $this->advantages = $this->getRepository(Advantage::class)->findAll('_primary');
     }
 
     private function setPeople(Characters $character, array $values): void
@@ -227,26 +227,26 @@ final class SessionToCharacter
             if (!$value) {
                 continue;
             }
-            $charAdvantage = CharAdvantages::create(
+            $charAdvantage = CharacterAdvantageItem::create(
                 $character,
                 $this->advantages[$id],
                 $value,
                 $values['11_advantages']['advantages_indications'][$id] ?? ''
             );
-            $character->addCharAdvantage($charAdvantage);
+            $character->addAdvantage($charAdvantage);
         }
 
         foreach ($values['11_advantages']['disadvantages'] as $id => $value) {
             if (!$value) {
                 continue;
             }
-            $charAdvantage = CharAdvantages::create(
+            $charAdvantage = CharacterAdvantageItem::create(
                 $character,
                 $this->advantages[$id],
                 $value,
                 $values['11_advantages']['advantages_indications'][$id] ?? ''
             );
-            $character->addCharAdvantage($charAdvantage);
+            $character->addAdvantage($charAdvantage);
         }
     }
 
@@ -379,7 +379,7 @@ final class SessionToCharacter
         $bad = $health->getBad();
         $critical = $health->getCritical();
 
-        foreach ($character->getCharAdvantages() as $charAdvantage) {
+        foreach ($character->getAllAdvantages() as $charAdvantage) {
             $adv = $charAdvantage->getAdvantage();
 
             foreach ($adv->getBonusesFor() as $bonus) {

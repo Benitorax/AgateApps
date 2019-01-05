@@ -159,9 +159,7 @@ class PdfManager implements SheetGeneratorInterface
         // Advantages and disadvantages
         $av = [];
         foreach ($character->getAdvantages() as $v) {
-            if (!$v->getAdvantage()->isDisadvantage()) {
-                $av[] = $translator->trans($v->getAdvantage()->getName()).($v->getScore() > 1 ? '    x'.$v->getScore() : '');
-            }
+            $av[] = $translator->trans($v->getAdvantage()->getName()).($v->getScore() > 1 ? '    x'.$v->getScore() : '');
         }
         if (isset($av[0])) {
             $pdf->textline(\mb_substr($av[0], 0, 25), 430, 500, $p['caro'], 18);
@@ -176,10 +174,8 @@ class PdfManager implements SheetGeneratorInterface
             $pdf->textline(\mb_substr($av[3], 0, 25), 430, 620, $p['caro'], 18);
         }
         $dv = [];
-        foreach ($character->getAdvantages() as $v) {
-            if ($v->getAdvantage()->isDisadvantage()) {
-                $dv[] = $translator->trans($v->getAdvantage()->getName()).($v->getScore() > 1 ? '    x'.$v->getScore() : '');
-            }
+        foreach ($character->getDisadvantages() as $v) {
+            $dv[] = $translator->trans($v->getAdvantage()->getName()).($v->getScore() > 1 ? '    x'.$v->getScore() : '');
         }
         if (isset($dv[0])) {
             $pdf->textline(\mb_substr($dv[0], 0, 25), 430, 685, $p['caro'], 18);
@@ -329,13 +325,11 @@ class PdfManager implements SheetGeneratorInterface
             }
         }
 
-        if ($character->getAdvantages()) {
+        if ($character->getAllAdvantages()) {
             $i = 0;
-            foreach ($character->getAdvantages() as $v) {
-                if ($v->getAdvantage()->isCombatArt()) {
-                    $pdf->textline($v->getAdvantage()->getName(), 448, 1026 + ($i * 44), $p['carbold'], 20, true);
-                    ++$i;
-                }
+            foreach ($character->getCombatArts() as $v) {
+                $pdf->textline($v->getName(), 448, 1026 + ($i * 44), $p['carbold'], 20, true);
+                ++$i;
             }
         }
 

@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="disorders")
- * @ORM\Entity(repositoryClass="MentalDisorderRepository")
+ * @ORM\Entity(repositoryClass="CorahnRin\Repository\MentalDisorderRepository")
  */
 class MentalDisorder
 {
@@ -49,7 +49,7 @@ class MentalDisorder
     /**
      * @var MentalDisorderWay[]
      *
-     * @ORM\OneToMany(targetEntity="MentalDisorderWay", mappedBy="disorder")
+     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\MentalDisorderWay", mappedBy="disorder")
      */
     protected $ways;
 

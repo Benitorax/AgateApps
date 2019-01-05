@@ -70,7 +70,7 @@ class TransportType implements EntityToClearInterface, \JsonSerializable
     /**
      * @var ArrayCollection|TransportModifier[]
      *
-     * @ORM\OneToMany(targetEntity="TransportModifier", mappedBy="transportType", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\TransportModifier", mappedBy="transportType", cascade={"persist", "remove"})
      */
     protected $transportsModifiers;
 

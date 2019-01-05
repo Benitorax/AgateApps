@@ -77,7 +77,7 @@ class Game
     /**
      * @var Characters[]
      *
-     * @ORM\OneToMany(targetEntity="Characters", mappedBy="game")
+     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\Characters", mappedBy="game")
      */
     protected $characters;
 

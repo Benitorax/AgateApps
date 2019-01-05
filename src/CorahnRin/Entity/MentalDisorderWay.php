@@ -24,7 +24,7 @@ class MentalDisorderWay
      * @var MentalDisorder
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="MentalDisorder", inversedBy="ways")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\MentalDisorder", inversedBy="ways")
      */
     protected $disorder;
 
