@@ -13,7 +13,7 @@ namespace CorahnRin\Command;
 
 use CorahnRin\Entity\CharacterProperties\Ways as CharWays;
 use CorahnRin\Entity\Characters;
-use CorahnRin\Entity\Games;
+use CorahnRin\Entity\Game;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
@@ -51,7 +51,7 @@ class ImportLegacyCharactersCommand extends Command
     /** @var EntityRepository[] */
     private $repositories = [];
 
-    /** @var Games[] */
+    /** @var Game[] */
     private $games = [];
 
     public function __construct(
@@ -278,10 +278,10 @@ SQL;
         }
 
         if (null === $game && $arrayCharacter['game_id']) {
-            $game = $this->getRepository(Games::class)->find($arrayCharacter['game_id']);
+            $game = $this->getRepository(Game::class)->find($arrayCharacter['game_id']);
 
             if (!$game) {
-                $game = new Games();
+                $game = new Game();
 
                 $user = $this->getUser($arrayCharacter['gm_user_email'], $arrayCharacter['gm_user_name']);
 

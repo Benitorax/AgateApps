@@ -443,8 +443,8 @@ class Characters extends BaseCharacter
     protected $user;
 
     /**
-     * @var Games
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Games", inversedBy="characters")
+     * @var Game
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="characters")
      */
     protected $game;
 
@@ -1341,14 +1341,14 @@ class Characters extends BaseCharacter
         return $this->user;
     }
 
-    public function setGame(Games $game = null): self
+    public function setGame(Game $game = null): self
     {
         $this->game = $game;
 
         return $this;
     }
 
-    public function getGame(): ?Games
+    public function getGame(): ?Game
     {
         return $this->game;
     }

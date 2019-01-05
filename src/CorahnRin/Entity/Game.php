@@ -17,12 +17,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use User\Entity\User;
 
 /**
- * Games.
- *
  * @ORM\Entity
  * @ORM\Table(name="games", uniqueConstraints={@ORM\UniqueConstraint(name="idgUnique", columns={"name", "game_master_id"})})
  */
-class Games
+class Game
 {
     /**
      * @var int
@@ -126,7 +124,7 @@ class Games
      *
      * @param string $name
      *
-     * @return Games
+     * @return Game
      *
      * @codeCoverageIgnore
      */
@@ -154,7 +152,7 @@ class Games
      *
      * @param string $summary
      *
-     * @return Games
+     * @return Game
      *
      * @codeCoverageIgnore
      */
@@ -182,7 +180,7 @@ class Games
      *
      * @param string $gmNotes
      *
-     * @return Games
+     * @return Game
      *
      * @codeCoverageIgnore
      */
@@ -210,7 +208,7 @@ class Games
      *
      * @param \DateTime $created
      *
-     * @return Games
+     * @return Game
      *
      * @codeCoverageIgnore
      */
@@ -238,7 +236,7 @@ class Games
      *
      * @param \DateTime $updated
      *
-     * @return Games
+     * @return Game
      *
      * @codeCoverageIgnore
      */
@@ -266,7 +264,7 @@ class Games
      *
      * @param User $gameMaster
      *
-     * @return Games
+     * @return Game
      *
      * @codeCoverageIgnore
      */
@@ -293,7 +291,7 @@ class Games
      * Add characters.
      *
      *
-     * @return Games
+     * @return Game
      */
     public function addCharacter(Characters $characters)
     {
@@ -327,7 +325,7 @@ class Games
      *
      * @param \DateTime $deleted
      *
-     * @return Games
+     * @return Game
      *
      * @codeCoverageIgnore
      */
