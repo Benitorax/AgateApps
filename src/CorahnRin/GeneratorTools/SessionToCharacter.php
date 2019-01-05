@@ -35,7 +35,7 @@ use CorahnRin\Entity\Peoples;
 use CorahnRin\Entity\Setbacks;
 use CorahnRin\Entity\SocialClass;
 use CorahnRin\Entity\Traits;
-use CorahnRin\Entity\Weapons;
+use CorahnRin\Entity\Weapon;
 use CorahnRin\Exception\CharactersException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
@@ -284,7 +284,7 @@ final class SessionToCharacter
             $character->addArmor($this->getRepository(Armors::class)->find($id));
         }
         foreach ($values['18_equipment']['weapons'] as $id => $value) {
-            $character->addWeapon($this->getRepository(Weapons::class)->find($id));
+            $character->addWeapon($this->getRepository(Weapon::class)->find($id));
         }
     }
 

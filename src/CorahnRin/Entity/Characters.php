@@ -332,9 +332,9 @@ class Characters extends BaseCharacter
     protected $ogham;
 
     /**
-     * @var Weapons[]|ArrayCollection
+     * @var Weapon[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Weapons")
+     * @ORM\ManyToMany(targetEntity="Weapon")
      */
     protected $weapons;
 
@@ -1091,14 +1091,14 @@ class Characters extends BaseCharacter
         return $this->ogham;
     }
 
-    public function addWeapon(Weapons $weapon): self
+    public function addWeapon(Weapon $weapon): self
     {
         $this->weapons[] = $weapon;
 
         return $this;
     }
 
-    public function removeWeapon(Weapons $weapon): self
+    public function removeWeapon(Weapon $weapon): self
     {
         $this->weapons->removeElement($weapon);
 
@@ -1106,7 +1106,7 @@ class Characters extends BaseCharacter
     }
 
     /**
-     * @return Weapons[]|iterable
+     * @return Weapon[]|iterable
      */
     public function getWeapons(): iterable
     {

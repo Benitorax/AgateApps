@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="weapons")
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\WeaponsRepository")
  */
-class Weapons
+class Weapon
 {
     /**
      * @var int
@@ -112,7 +112,7 @@ class Weapons
      *
      * @param string $name
      *
-     * @return Weapons
+     * @return Weapon
      *
      * @codeCoverageIgnore
      */
@@ -140,7 +140,7 @@ class Weapons
      *
      * @param string $description
      *
-     * @return Weapons
+     * @return Weapon
      *
      * @codeCoverageIgnore
      */
@@ -168,7 +168,7 @@ class Weapons
      *
      * @param int $damage
      *
-     * @return Weapons
+     * @return Weapon
      *
      * @codeCoverageIgnore
      */
@@ -196,7 +196,7 @@ class Weapons
      *
      * @param int $price
      *
-     * @return Weapons
+     * @return Weapon
      *
      * @codeCoverageIgnore
      */
@@ -224,7 +224,7 @@ class Weapons
      *
      * @param string $availability
      *
-     * @return Weapons
+     * @return Weapon
      *
      * @codeCoverageIgnore
      */
@@ -252,7 +252,7 @@ class Weapons
      *
      * @param int $melee
      *
-     * @return Weapons
+     * @return Weapon
      *
      * @codeCoverageIgnore
      */
@@ -280,7 +280,7 @@ class Weapons
      *
      * @param int $range
      *
-     * @return Weapons
+     * @return Weapon
      *
      * @codeCoverageIgnore
      */

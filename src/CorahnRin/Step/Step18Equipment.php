@@ -12,7 +12,7 @@
 namespace CorahnRin\Step;
 
 use CorahnRin\Entity\Armors;
-use CorahnRin\Entity\Weapons;
+use CorahnRin\Entity\Weapon;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step18Equipment extends AbstractStepAction
@@ -22,7 +22,7 @@ class Step18Equipment extends AbstractStepAction
      */
     public function execute(): Response
     {
-        $weapons = $this->em->getRepository(Weapons::class)->findAllSortedByName();
+        $weapons = $this->em->getRepository(Weapon::class)->findAllSortedByName();
         $armors = $this->em->getRepository(Armors::class)->findAllSortedByName();
         $setbacks = $this->getCharacterProperty('07_setbacks');
         $isPoor = isset($setbacks[9]) && !$setbacks[9]['avoided'];
