@@ -143,9 +143,9 @@ class Characters extends BaseCharacter
     protected $orientation;
 
     /**
-     * @var GeoEnvironments
+     * @var GeoEnvironment
      *
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\GeoEnvironments")
+     * @ORM\ManyToOne(targetEntity="GeoEnvironment")
      */
     protected $geoLiving;
 
@@ -651,14 +651,14 @@ class Characters extends BaseCharacter
         return $this->orientation;
     }
 
-    public function setGeoLiving(GeoEnvironments $geoLiving): self
+    public function setGeoLiving(GeoEnvironment $geoLiving): self
     {
         $this->geoLiving = $geoLiving;
 
         return $this;
     }
 
-    public function getGeoLiving(): GeoEnvironments
+    public function getGeoLiving(): GeoEnvironment
     {
         return $this->geoLiving;
     }

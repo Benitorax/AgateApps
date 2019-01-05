@@ -12,7 +12,7 @@
 namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\GeoEnvironments;
+use CorahnRin\Entity\GeoEnvironment;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -43,7 +43,7 @@ class GeoEnvironmentsFixtures extends AbstractFixture implements OrderedFixtureI
         $this->manager = $manager;
 
         /** @var EntityRepository $repo */
-        $repo = $this->manager->getRepository(GeoEnvironments::class);
+        $repo = $this->manager->getRepository(GeoEnvironment::class);
 
         $book = $this->getReference('corahnrin-book-2');
 
@@ -69,7 +69,7 @@ class GeoEnvironmentsFixtures extends AbstractFixture implements OrderedFixtureI
             $newObject = true;
         }
         if (true === $newObject) {
-            $obj = new GeoEnvironments($id, $name, $description, $domain);
+            $obj = new GeoEnvironment($id, $name, $description, $domain);
             $obj->setBook($book);
             if ($id) {
                 /** @var ClassMetadata $metadata */

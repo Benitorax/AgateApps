@@ -49,7 +49,7 @@ class Step17CombatArts extends AbstractStepAction
         $socialClassValues = $this->getCharacterProperty('05_social_class')['domains'];
         $primaryDomains = $this->getCharacterProperty('13_primary_domains');
         $domainBonuses = $this->getCharacterProperty('14_use_domain_bonuses');
-        $geoEnvironment = $this->em->find(\CorahnRin\Entity\GeoEnvironments::class, $this->getCharacterProperty('04_geo'));
+        $geoEnvironment = $this->em->find(\CorahnRin\Entity\GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
 
         // Calculate final values from previous steps
         $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(

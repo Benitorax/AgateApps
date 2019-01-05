@@ -16,12 +16,10 @@ use CorahnRin\Entity\Traits\HasBook;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * GeoEnvironments.
- *
  * @ORM\Table(name="geo_environments")
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\GeoEnvironmentsRepository")
  */
-class GeoEnvironments
+class GeoEnvironment
 {
     use HasBook;
 

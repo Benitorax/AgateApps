@@ -29,7 +29,7 @@ use CorahnRin\Entity\Characters;
 use CorahnRin\Entity\CombatArts;
 use CorahnRin\Entity\Disciplines;
 use CorahnRin\Entity\Disorders;
-use CorahnRin\Entity\GeoEnvironments;
+use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\Entity\Job;
 use CorahnRin\Entity\People;
 use CorahnRin\Entity\PersonalityTrait;
@@ -171,7 +171,7 @@ final class SessionToCharacter
 
     private function setGeoLiving(Characters $character, array $values): void
     {
-        $character->setGeoLiving($this->getRepository(GeoEnvironments::class)->find($values['04_geo']));
+        $character->setGeoLiving($this->getRepository(GeoEnvironment::class)->find($values['04_geo']));
     }
 
     private function setSocialClass(Characters $character, array $values): void
