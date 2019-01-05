@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Controller;
 
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use CorahnRin\SheetsManagers\PdfManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +37,7 @@ class CharacterExportPDFController extends AbstractController
      *
      * @return Response
      */
-    public function exportAction(Characters $character, Request $request)
+    public function exportAction(Character $character, Request $request)
     {
         $response = new Response();
 

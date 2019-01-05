@@ -11,7 +11,7 @@
 
 namespace Tests\CorahnRin\Controller;
 
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tests\WebTestCase as PiersTestCase;
 
@@ -64,9 +64,9 @@ class CharacterViewControllerTest extends WebTestCase
         $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 
         /**
-         * @var Characters|null
+         * @var Character|null
          */
-        $char = $client->getContainer()->get('doctrine')->getRepository(Characters::class)->find(608);
+        $char = $client->getContainer()->get('doctrine')->getRepository(Character::class)->find(608);
 
         if (!$char) {
             static::markTestIncomplete('No character available in the database to test the route.');

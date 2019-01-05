@@ -75,9 +75,9 @@ class Game
     protected $gameMaster;
 
     /**
-     * @var Characters[]
+     * @var Character[]
      *
-     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\Characters", mappedBy="game")
+     * @ORM\OneToMany(targetEntity="Character", mappedBy="game")
      */
     protected $characters;
 
@@ -293,7 +293,7 @@ class Game
      *
      * @return Game
      */
-    public function addCharacter(Characters $characters)
+    public function addCharacter(Character $characters)
     {
         $this->characters[] = $characters;
 
@@ -303,7 +303,7 @@ class Game
     /**
      * Remove characters.
      */
-    public function removeCharacter(Characters $characters)
+    public function removeCharacter(Character $characters)
     {
         $this->characters->removeElement($characters);
     }

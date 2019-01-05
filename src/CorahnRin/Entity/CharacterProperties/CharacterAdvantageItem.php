@@ -12,7 +12,7 @@
 namespace CorahnRin\Entity\CharacterProperties;
 
 use CorahnRin\Entity\Advantage;
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,10 +22,10 @@ use Doctrine\ORM\Mapping as ORM;
 class CharacterAdvantageItem
 {
     /**
-     * @var Characters
+     * @var Character
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Characters", inversedBy="advantages")
+     * @ORM\ManyToOne(targetEntity="Character", inversedBy="advantages")
      */
     protected $character;
 
@@ -52,7 +52,7 @@ class CharacterAdvantageItem
     protected $indication;
 
     public static function create(
-        Characters $character,
+        Character $character,
         Advantage $advantage,
         int $score,
         string $indication
@@ -67,7 +67,7 @@ class CharacterAdvantageItem
         return $object;
     }
 
-    public function getCharacter(): Characters
+    public function getCharacter(): Character
     {
         return $this->character;
     }

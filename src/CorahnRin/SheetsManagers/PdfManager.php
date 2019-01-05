@@ -11,7 +11,7 @@
 
 namespace CorahnRin\SheetsManagers;
 
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use CorahnRin\PDF\PDF;
 use Pierstoval\Bundle\CharacterManagerBundle\Model\CharacterInterface;
 use Pierstoval\Bundle\CharacterManagerBundle\SheetsManagers\SheetGeneratorInterface;
@@ -45,10 +45,10 @@ class PdfManager implements SheetGeneratorInterface
      */
     public function generateSheet(CharacterInterface $character, bool $printer_friendly = false): ?string
     {
-        if (!($character instanceof Characters)) {
+        if (!($character instanceof Character)) {
             throw new \InvalidArgumentException(\sprintf(
                 'To generate sheet, character must be an instance of "%s". "%s" given.',
-                Characters::class, \get_class($character)
+                Character::class, \get_class($character)
             ));
         }
 
@@ -62,7 +62,7 @@ class PdfManager implements SheetGeneratorInterface
      *
      * @throws \CorahnRin\Exception\CharactersException
      */
-    private function originalSheet(Characters $character, $printer_friendly = false)
+    private function originalSheet(Character $character, $printer_friendly = false)
     {
         $general_width = 893;
         $general_height = 1263;

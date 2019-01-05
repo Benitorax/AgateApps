@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Entity\CharacterProperties;
 
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use CorahnRin\Entity\Flux;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,10 +25,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CharFlux
 {
     /**
-     * @var Characters
+     * @var Character
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Characters", inversedBy="flux")
+     * @ORM\ManyToOne(targetEntity="Character", inversedBy="flux")
      * @Assert\NotNull
      */
     protected $character;
@@ -116,7 +116,7 @@ class CharFlux
      *
      * @codeCoverageIgnore
      */
-    public function setCharacter(Characters $character)
+    public function setCharacter(Character $character)
     {
         $this->character = $character;
 
@@ -126,7 +126,7 @@ class CharFlux
     /**
      * Get character.
      *
-     * @return Characters
+     * @return Character
      *
      * @codeCoverageIgnore
      */

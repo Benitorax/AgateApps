@@ -25,7 +25,7 @@ use CorahnRin\Entity\CharacterProperties\CharSetbacks;
 use CorahnRin\Entity\CharacterProperties\HealthCondition;
 use CorahnRin\Entity\CharacterProperties\Money;
 use CorahnRin\Entity\CharacterProperties\Ways;
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use CorahnRin\Entity\CombatArt;
 use CorahnRin\Entity\Discipline;
 use CorahnRin\Entity\MentalDisorder;
@@ -85,7 +85,7 @@ final class SessionToCharacter
     /**
      * @throws CharactersException
      */
-    public function createCharacterFromGeneratorValues(array $values): Characters
+    public function createCharacterFromGeneratorValues(array $values): Character
     {
         $steps = $this->resolver->getManagerSteps($this->corahnRinManagerName);
 
@@ -101,7 +101,7 @@ final class SessionToCharacter
             throw new CharactersException('Generator seems not to be fully finished');
         }
 
-        $character = new Characters();
+        $character = new Character();
 
         $character->setCreated(new \DateTime());
         $this->setPeople($character, $values);
@@ -154,27 +154,27 @@ final class SessionToCharacter
         $this->advantages = $this->getRepository(Advantage::class)->findAll('_primary');
     }
 
-    private function setPeople(Characters $character, array $values): void
+    private function setPeople(Character $character, array $values): void
     {
         $character->setPeople($this->getRepository(People::class)->find($values['01_people']));
     }
 
-    private function setJob(Characters $character, array $values): void
+    private function setJob(Character $character, array $values): void
     {
         $character->setJob($this->getRepository(Job::class)->find($values['02_job']));
     }
 
-    private function setBirthPlace(Characters $character, array $values): void
+    private function setBirthPlace(Character $character, array $values): void
     {
         $character->setBirthPlace($this->getRepository(Zone::class)->find($values['03_birthplace']));
     }
 
-    private function setGeoLiving(Characters $character, array $values): void
+    private function setGeoLiving(Character $character, array $values): void
     {
         $character->setGeoLiving($this->getRepository(GeoEnvironment::class)->find($values['04_geo']));
     }
 
-    private function setSocialClass(Characters $character, array $values): void
+    private function setSocialClass(Character $character, array $values): void
     {
         $character->setSocialClass($this->getRepository(SocialClass::class)->find($values['05_social_class']['id']));
 
@@ -183,12 +183,12 @@ final class SessionToCharacter
         $character->setSocialClassDomain2($domains[1]);
     }
 
-    private function setAge(Characters $character, array $values): void
+    private function setAge(Character $character, array $values): void
     {
         $character->setAge($values['06_age']);
     }
 
-    private function setSetbacks(Characters $character, array $values): void
+    private function setSetbacks(Character $character, array $values): void
     {
         foreach ($values['07_setbacks'] as $id => $details) {
             $charSetback = new CharSetbacks();
@@ -199,7 +199,7 @@ final class SessionToCharacter
         }
     }
 
-    private function setWays(Characters $character, array $values): void
+    private function setWays(Character $character, array $values): void
     {
         $character->setWay(new Ways(
             $values['08_ways'][WaysData::COMBATIVENESS],
@@ -210,18 +210,18 @@ final class SessionToCharacter
         ));
     }
 
-    private function setTraits(Characters $character, array $values): void
+    private function setTraits(Character $character, array $values): void
     {
         $character->setQuality($this->getRepository(PersonalityTrait::class)->find($values['09_traits']['quality']));
         $character->setFlaw($this->getRepository(PersonalityTrait::class)->find($values['09_traits']['flaw']));
     }
 
-    private function setOrientation(Characters $character, array $values): void
+    private function setOrientation(Character $character, array $values): void
     {
         $character->setOrientation($values['10_orientation']);
     }
 
-    private function setAdvantages(Characters $character, array $values): void
+    private function setAdvantages(Character $character, array $values): void
     {
         foreach ($values['11_advantages']['advantages'] as $id => $value) {
             if (!$value) {
@@ -250,12 +250,12 @@ final class SessionToCharacter
         }
     }
 
-    private function setMentalDisorder(Characters $character, array $values): void
+    private function setMentalDisorder(Character $character, array $values): void
     {
         $character->setMentalDisorder($this->getRepository(MentalDisorder::class)->find($values['12_mental_disorder']));
     }
 
-    private function setDisciplines(Characters $character, array $values): void
+    private function setDisciplines(Character $character, array $values): void
     {
         foreach ($values['16_disciplines']['disciplines'] as $domainId => $disciplines) {
             foreach ($disciplines as $id => $v) {
@@ -269,14 +269,14 @@ final class SessionToCharacter
         }
     }
 
-    private function setCombatArts(Characters $character, array $values): void
+    private function setCombatArts(Character $character, array $values): void
     {
         foreach ($values['17_combat_arts']['combatArts'] as $id => $v) {
             $character->addCombatArt($this->getRepository(CombatArt::class)->find($id));
         }
     }
 
-    private function setEquipment(Characters $character, array $values): void
+    private function setEquipment(Character $character, array $values): void
     {
         $character->setInventory($values['18_equipment']['equipment']);
 
@@ -288,7 +288,7 @@ final class SessionToCharacter
         }
     }
 
-    private function setDescription(Characters $character, array $values): void
+    private function setDescription(Character $character, array $values): void
     {
         $details = $values['19_description'];
         $character->setName($details['name']);
@@ -299,7 +299,7 @@ final class SessionToCharacter
         $character->setFacts($details['facts']);
 
         // Make sure slug is unique by just adding a number to it
-        $charRepo = $this->getRepository(Characters::class);
+        $charRepo = $this->getRepository(Character::class);
 
         $i = 0;
         do {
@@ -309,13 +309,13 @@ final class SessionToCharacter
         $character->setNameSlug($slug);
     }
 
-    private function setExp(Characters $character, array $values): void
+    private function setExp(Character $character, array $values): void
     {
         $character->setExperienceActual((int) $values['17_combat_arts']['remainingExp']);
         $character->setExperienceSpent(0);
     }
 
-    private function setMoney(Characters $character): void
+    private function setMoney(Character $character): void
     {
         $money = new Money();
 
@@ -340,7 +340,7 @@ final class SessionToCharacter
         $character->setMoney($money);
     }
 
-    private function setDomains(Characters $character, array $values): void
+    private function setDomains(Character $character, array $values): void
     {
         $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
             $this->domains,
@@ -371,7 +371,7 @@ final class SessionToCharacter
         $character->setDomains($charDomain);
     }
 
-    private function setHealthCondition(Characters $character): void
+    private function setHealthCondition(Character $character): void
     {
         $health = new HealthCondition();
         $good = $health->getGood();
@@ -450,7 +450,7 @@ final class SessionToCharacter
         $character->setMaxHealth(clone $health);
     }
 
-    private function setPrecalculatedValues(Characters $character): void
+    private function setPrecalculatedValues(Character $character): void
     {
         // Rindath
         $rindathMax =

@@ -31,12 +31,10 @@ use Pierstoval\Bundle\CharacterManagerBundle\Entity\Character as BaseCharacter;
 use User\Entity\User;
 
 /**
- * Characters.
- *
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\CharactersRepository")
  * @ORM\Table(name="characters", uniqueConstraints={@ORM\UniqueConstraint(name="idcUnique", columns={"name_slug", "user_id"})})
  */
-class Characters extends BaseCharacter
+class Character extends BaseCharacter
 {
     public const FEMALE = 'character.sex.female';
     public const MALE = 'character.sex.male';
