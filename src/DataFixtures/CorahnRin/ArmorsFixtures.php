@@ -12,7 +12,7 @@
 namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Entity\Armors;
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -44,7 +44,7 @@ class ArmorsFixtures extends AbstractFixture implements OrderedFixtureInterface,
 
         $repo = $this->manager->getRepository(\CorahnRin\Entity\Armors::class);
 
-        /** @var Books $book */
+        /** @var Book $book */
         $book = $this->getReference('corahnrin-book-2');
         $this->fixtureObject($repo, 1, 'Bouclier rond', 'bois renforcé de métal', 1, 20, 'FR', $book);
         $this->fixtureObject($repo, 2, 'Bouclier Osag', 'bois et renforts de métal, rectangulaire', 1, 20, 'CO', $book);

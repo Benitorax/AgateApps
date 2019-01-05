@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Entity;
 
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -66,9 +66,9 @@ class Faction
     protected $markers;
 
     /**
-     * @var Books
+     * @var Book
      *
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Books")
+     * @ORM\ManyToOne(targetEntity="Book")
      * @ORM\JoinColumn(name="book_id", nullable=false)
      */
     protected $book;
@@ -272,13 +272,13 @@ class Faction
     /**
      * Set book.
      *
-     * @param Books $book
+     * @param Book $book
      *
      * @return Faction
      *
      * @codeCoverageIgnore
      */
-    public function setBook(Books $book = null)
+    public function setBook(Book $book = null)
     {
         $this->book = $book;
 
@@ -288,7 +288,7 @@ class Faction
     /**
      * Get book.
      *
-     * @return Books
+     * @return Book
      *
      * @codeCoverageIgnore
      */

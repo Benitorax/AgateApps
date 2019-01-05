@@ -11,7 +11,7 @@
 
 namespace DataFixtures\CorahnRin;
 
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use CorahnRin\Entity\People;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -44,7 +44,7 @@ class PeoplesFixtures extends AbstractFixture implements OrderedFixtureInterface
 
         $repo = $this->manager->getRepository(\CorahnRin\Entity\People::class);
 
-        /** @var Books $book */
+        /** @var Book $book */
         $book = $this->getReference('corahnrin-book-2');
 
         $this->fixtureObject($repo, 1, 'Tri-Kazel', 'Les Tri-Kazeliens constituent la très grande majorité de la population de la péninsule. La plupart d\'entre eux conservent une stature assez robuste héritée des Osags mais peuvent aussi avoir des traits d\'autres peuples. Les Tri-Kazeliens sont issus de siècles de mélanges entre toutes les cultures ayant un jour ou l\'autre foulé le sol de la péninsule.<br /><br />De par cette origine, le PJ connaît un dialecte local ; il faut donc préciser de quel pays et région il est originaire.', $book);

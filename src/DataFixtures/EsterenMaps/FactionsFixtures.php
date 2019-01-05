@@ -11,7 +11,7 @@
 
 namespace DataFixtures\EsterenMaps;
 
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use EsterenMaps\Entity\Faction;
@@ -50,7 +50,7 @@ class FactionsFixtures extends AbstractFixture implements ORMFixtureInterface
      */
     public function getObjects()
     {
-        /** @var Books $book2 */
+        /** @var Book $book2 */
         $book2 = $this->getReference('corahnrin-book-2');
 
         return [

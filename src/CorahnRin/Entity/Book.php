@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="books")
  * @ORM\Entity
  */
-class Books
+class Book
 {
     /**
      * @var int
@@ -80,7 +80,7 @@ class Books
      *
      * @param string $name
      *
-     * @return Books
+     * @return Book
      *
      * @codeCoverageIgnore
      */
@@ -108,7 +108,7 @@ class Books
      *
      * @param string $description
      *
-     * @return Books
+     * @return Book
      *
      * @codeCoverageIgnore
      */

@@ -12,7 +12,7 @@
 namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use CorahnRin\Entity\Discipline;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -45,7 +45,7 @@ class DisciplinesFixtures extends AbstractFixture implements OrderedFixtureInter
 
         $repo = $this->manager->getRepository(\CorahnRin\Entity\Discipline::class);
 
-        /** @var Books $book */
+        /** @var Book $book */
         $book = $this->getReference('corahnrin-book-2');
 
         $this->fixtureObject($repo, 1, 'Acrobaties', '', Discipline::RANK_PROFESSIONAL, [DomainsData::FEATS['title']], $book);
@@ -161,7 +161,7 @@ class DisciplinesFixtures extends AbstractFixture implements OrderedFixtureInter
         $this->manager->flush();
     }
 
-    public function fixtureObject(EntityRepository $repo, ?int $id, string $name, string $description, string $rank, array $domains, Books $book)
+    public function fixtureObject(EntityRepository $repo, ?int $id, string $name, string $description, string $rank, array $domains, Book $book)
     {
         $obj = null;
         $newObject = false;

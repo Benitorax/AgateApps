@@ -11,7 +11,7 @@
 
 namespace DataFixtures\CorahnRin;
 
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use CorahnRin\Entity\CombatArt;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -44,7 +44,7 @@ class CombatArtsFixtures extends AbstractFixture implements OrderedFixtureInterf
 
         $repo = $this->manager->getRepository(CombatArt::class);
 
-        /** @var Books $book */
+        /** @var Book $book */
         $book = $this->getReference('corahnrin-book-2');
 
         $this->fixtureObject($repo, 1, 1, 0, 'Attaque sournoise', 'Si le personnage tient un ennemi en embuscade et qu\'il touche sa cible, il inflige +5 dégâts. Il ne doit utiliser qu\'une arme courte (dague, épée courte, couteau...)', $book);

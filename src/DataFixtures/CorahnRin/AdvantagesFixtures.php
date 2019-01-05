@@ -13,7 +13,7 @@ namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Entity\Avantages;
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -45,7 +45,7 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
 
         $repo = $this->manager->getRepository(Avantages::class);
 
-        /** @var Books $book */
+        /** @var Book $book */
         $book = $this->getReference('corahnrin-book-2');
 
         $this->fixtureObject($repo, 1, 'advantages.group.ally', 'Allié isolé', 'Allié isolé', 20, 'Un allié dans un village, prévôt, marchand, artisan...', 0, [], 0, 0, $book, 'advantages.indication.ally_isolated');
