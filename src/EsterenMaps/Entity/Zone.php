@@ -17,12 +17,10 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Zones.
- *
  * @ORM\Table(name="maps_zones")
  * @ORM\Entity(repositoryClass="EsterenMaps\Repository\ZonesRepository")
  */
-class Zones implements EntityToClearInterface, \JsonSerializable
+class Zone implements EntityToClearInterface, \JsonSerializable
 {
     use TimestampableEntity;
 

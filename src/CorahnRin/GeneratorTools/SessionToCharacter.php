@@ -40,7 +40,7 @@ use CorahnRin\Exception\CharactersException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityRepository;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Entity\Zone;
 use Pierstoval\Bundle\CharacterManagerBundle\Resolver\StepResolverInterface;
 
 final class SessionToCharacter
@@ -166,7 +166,7 @@ final class SessionToCharacter
 
     private function setBirthPlace(Characters $character, array $values): void
     {
-        $character->setBirthPlace($this->getRepository(Zones::class)->find($values['03_birthplace']));
+        $character->setBirthPlace($this->getRepository(Zone::class)->find($values['03_birthplace']));
     }
 
     private function setGeoLiving(Characters $character, array $values): void

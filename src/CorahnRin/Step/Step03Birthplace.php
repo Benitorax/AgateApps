@@ -12,7 +12,7 @@
 namespace CorahnRin\Step;
 
 use EsterenMaps\Entity\Map;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Entity\Zone;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step03Birthplace extends AbstractStepAction
@@ -32,7 +32,7 @@ class Step03Birthplace extends AbstractStepAction
      */
     public function execute(): Response
     {
-        $regions = $this->em->getRepository(Zones::class)->findAll(true);
+        $regions = $this->em->getRepository(Zone::class)->findAll(true);
 
         // Hardcoded here, it's base esteren map.
         $map = $this->em->getRepository(Map::class)->find(1);

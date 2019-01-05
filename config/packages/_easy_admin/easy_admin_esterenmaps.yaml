@@ -164,7 +164,7 @@ easy_admin:
 
         Zones:
             label: admin.maps.zones
-            class: EsterenMaps\Entity\Zones
+            class: EsterenMaps\Entity\Zone
             controller: Admin\CustomController\BaseMapAdminController
             list:
                 actions:

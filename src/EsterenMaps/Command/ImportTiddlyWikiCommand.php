@@ -23,7 +23,7 @@ use EsterenMaps\Entity\Marker;
 use EsterenMaps\Entity\MarkerType;
 use EsterenMaps\Entity\Route;
 use EsterenMaps\Entity\RouteType;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Entity\Zone;
 use EsterenMaps\Entity\ZoneType;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Symfony\Component\Console\Command\Command;
@@ -94,7 +94,7 @@ class ImportTiddlyWikiCommand extends Command
     private $routes = [];
 
     /**
-     * @var Zones[][]
+     * @var Zone[][]
      */
     private $zones = [];
 
@@ -195,7 +195,7 @@ class ImportTiddlyWikiCommand extends Command
         $this->routesTypes = $this->getReferenceObjects('routetype', RouteType::class);
 
         $this->markers = $this->processObjects('marqueurs', Marker::class);
-        $this->zones = $this->processObjects('zones', Zones::class);
+        $this->zones = $this->processObjects('zones', Zone::class);
         $this->routes = $this->processObjects('routes', Route::class);
 
         $allData = \array_merge(
@@ -314,7 +314,7 @@ class ImportTiddlyWikiCommand extends Command
         $new = [];
         $existing = [];
 
-        /** @var Marker[]|Zones[]|Route[] $objects */
+        /** @var Marker[]|Zone[]|Route[] $objects */
         $objects = $repo->findAllRoot('id');
 
         foreach ($data as $datum) {
@@ -367,7 +367,7 @@ class ImportTiddlyWikiCommand extends Command
         $new = [];
         $existing = [];
 
-        /** @var Marker[]|Zones[]|Route[] $objects */
+        /** @var Marker[]|Zone[]|Route[] $objects */
         $objects = $repo->findAllRoot(true);
 
         foreach ($data as $datum) {
@@ -420,7 +420,7 @@ class ImportTiddlyWikiCommand extends Command
     }
 
     /**
-     * @param Marker|Zones|Route $object
+     * @param Marker|Zone|Route $object
      * @param array              $data
      */
     private function updateOneObject($object, $data)
@@ -460,7 +460,7 @@ class ImportTiddlyWikiCommand extends Command
                 ]));
             }
             $object->refresh();
-        } elseif ($object instanceof Zones) {
+        } elseif ($object instanceof Zone) {
             $object
                 ->setZoneType($this->getOneReferencedObject('zonesTypes', $data['zonetype_id']))
             ;

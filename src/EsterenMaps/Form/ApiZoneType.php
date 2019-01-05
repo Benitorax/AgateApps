@@ -12,7 +12,7 @@
 namespace EsterenMaps\Form;
 
 use EsterenMaps\Entity\Faction;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Entity\Zone;
 use EsterenMaps\Entity\ZoneType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -43,7 +43,7 @@ class ApiZoneType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefault('data_class', Zones::class)
+            ->setDefault('data_class', Zone::class)
         ;
     }
 }

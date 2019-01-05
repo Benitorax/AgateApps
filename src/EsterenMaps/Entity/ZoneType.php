@@ -63,8 +63,8 @@ class ZoneType implements EntityToClearInterface
     protected $parent;
 
     /**
-     * @var Zones[]
-     * @ORM\OneToMany(targetEntity="Zones", mappedBy="zoneType")
+     * @var Zone[]
+     * @ORM\OneToMany(targetEntity="Zone", mappedBy="zoneType")
      */
     protected $zones;
 
@@ -143,7 +143,7 @@ class ZoneType implements EntityToClearInterface
      *
      * @return ZoneType
      */
-    public function addZone(Zones $zones)
+    public function addZone(Zone $zones)
     {
         $this->zones[] = $zones;
 
@@ -153,7 +153,7 @@ class ZoneType implements EntityToClearInterface
     /**
      * Remove zones.
      */
-    public function removeZone(Zones $zones)
+    public function removeZone(Zone $zones)
     {
         $this->zones->removeElement($zones);
     }
@@ -161,7 +161,7 @@ class ZoneType implements EntityToClearInterface
     /**
      * Get zones.
      *
-     * @return Zones[]
+     * @return Zone[]
      *
      * @codeCoverageIgnore
      */

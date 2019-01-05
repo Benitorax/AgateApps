@@ -48,8 +48,8 @@ class Faction
     protected $description;
 
     /**
-     * @var Zones[]
-     * @ORM\OneToMany(targetEntity="Zones", mappedBy="faction")
+     * @var Zone[]
+     * @ORM\OneToMany(targetEntity="Zone", mappedBy="faction")
      */
     protected $zones;
 
@@ -148,7 +148,7 @@ class Faction
      *
      * @return Faction
      */
-    public function addZone(Zones $zones)
+    public function addZone(Zone $zones)
     {
         $this->zones[] = $zones;
 
@@ -158,7 +158,7 @@ class Faction
     /**
      * Remove zones.
      */
-    public function removeZone(Zones $zones)
+    public function removeZone(Zone $zones)
     {
         $this->zones->removeElement($zones);
     }
@@ -166,7 +166,7 @@ class Faction
     /**
      * Get zones.
      *
-     * @return Zones[]
+     * @return Zone[]
      *
      * @codeCoverageIgnore
      */

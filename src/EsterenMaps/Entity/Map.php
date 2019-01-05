@@ -133,10 +133,10 @@ class Map implements EntityToClearInterface
     protected $markers;
 
     /**
-     * @var Zones[]|ArrayCollection
+     * @var Zone[]|ArrayCollection
      *
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Zones", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="Zone", mappedBy="map")
      */
     protected $zones;
 
@@ -399,7 +399,7 @@ class Map implements EntityToClearInterface
      * Get zone.
      *
      *
-     * @return Zones|null
+     * @return Zone|null
      */
     public function getMarker(Marker $marker)
     {
@@ -438,7 +438,7 @@ class Map implements EntityToClearInterface
      *
      * @return Map
      */
-    public function addZone(Zones $zones)
+    public function addZone(Zone $zones)
     {
         $this->zones[] = $zones;
 
@@ -448,7 +448,7 @@ class Map implements EntityToClearInterface
     /**
      * Remove zones.
      */
-    public function removeZone(Zones $zones)
+    public function removeZone(Zone $zones)
     {
         $this->zones->removeElement($zones);
     }
@@ -457,9 +457,9 @@ class Map implements EntityToClearInterface
      * Get zone.
      *
      *
-     * @return Zones|null
+     * @return Zone|null
      */
-    public function getZone(Zones $zone)
+    public function getZone(Zone $zone)
     {
         foreach ($this->zones as $mapZone) {
             if ($mapZone->getId() === $zone->getId() ||
@@ -473,7 +473,7 @@ class Map implements EntityToClearInterface
     /**
      * @return $this
      */
-    public function setZone(Zones $zone)
+    public function setZone(Zone $zone)
     {
         $exists = $this->getZone($zone);
         if (!$exists) {
@@ -489,7 +489,7 @@ class Map implements EntityToClearInterface
     /**
      * Get zones.
      *
-     * @return Zones[]|ArrayCollection
+     * @return Zone[]|ArrayCollection
      *
      * @codeCoverageIgnore
      */

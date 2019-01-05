@@ -25,7 +25,7 @@ use CorahnRin\Entity\CharacterProperties\Ways;
 use CorahnRin\Exception\CharactersException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Entity\Zone;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Pierstoval\Bundle\CharacterManagerBundle\Entity\Character as BaseCharacter;
 use User\Entity\User;
@@ -381,9 +381,9 @@ class Characters extends BaseCharacter
     protected $job;
 
     /**
-     * @var Zones
+     * @var Zone
      *
-     * @ORM\ManyToOne(targetEntity="EsterenMaps\Entity\Zones")
+     * @ORM\ManyToOne(targetEntity="Zone")
      */
     protected $birthPlace;
 
@@ -1195,14 +1195,14 @@ class Characters extends BaseCharacter
         return $this->job;
     }
 
-    public function setBirthPlace(Zones $birthPlace = null): self
+    public function setBirthPlace(Zone $birthPlace = null): self
     {
         $this->birthPlace = $birthPlace;
 
         return $this;
     }
 
-    public function getBirthPlace(): Zones
+    public function getBirthPlace(): Zone
     {
         return $this->birthPlace;
     }
