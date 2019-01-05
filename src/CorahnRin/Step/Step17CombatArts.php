@@ -12,7 +12,7 @@
 namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\CombatArts;
+use CorahnRin\Entity\CombatArt;
 use CorahnRin\GeneratorTools\DomainsCalculator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,7 +24,7 @@ class Step17CombatArts extends AbstractStepAction
     private $domainsCalculator;
 
     /**
-     * @var CombatArts[]
+     * @var CombatArt[]
      */
     private $combatArts;
 
@@ -44,7 +44,7 @@ class Step17CombatArts extends AbstractStepAction
     public function execute(): Response
     {
         $allDomains = DomainsData::allAsObjects();
-        $this->combatArts = $this->em->getRepository(CombatArts::class)->findAllSortedByName();
+        $this->combatArts = $this->em->getRepository(CombatArt::class)->findAllSortedByName();
 
         $socialClassValues = $this->getCharacterProperty('05_social_class')['domains'];
         $primaryDomains = $this->getCharacterProperty('13_primary_domains');

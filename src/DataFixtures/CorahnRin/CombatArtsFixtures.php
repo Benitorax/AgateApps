@@ -12,7 +12,7 @@
 namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Entity\Books;
-use CorahnRin\Entity\CombatArts;
+use CorahnRin\Entity\CombatArt;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -42,7 +42,7 @@ class CombatArtsFixtures extends AbstractFixture implements OrderedFixtureInterf
     {
         $this->manager = $manager;
 
-        $repo = $this->manager->getRepository(CombatArts::class);
+        $repo = $this->manager->getRepository(CombatArt::class);
 
         /** @var Books $book */
         $book = $this->getReference('corahnrin-book-2');
@@ -72,7 +72,7 @@ class CombatArtsFixtures extends AbstractFixture implements OrderedFixtureInterf
             $newObject = true;
         }
         if (true === $newObject) {
-            $obj = new CombatArts();
+            $obj = new CombatArt();
             $obj->setId($id)
                 ->setName($name)
                 ->setMelee($melee)

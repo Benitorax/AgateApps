@@ -15,12 +15,10 @@ use CorahnRin\Entity\Traits\HasBook;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CombatArts.
- *
  * @ORM\Table(name="combat_arts")
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\CombatArtsRepository")
  */
-class CombatArts
+class CombatArt
 {
     use HasBook;
 
@@ -92,7 +90,7 @@ class CombatArts
      *
      * @param string $name
      *
-     * @return CombatArts
+     * @return CombatArt
      *
      * @codeCoverageIgnore
      */
@@ -120,7 +118,7 @@ class CombatArts
      *
      * @param string $description
      *
-     * @return CombatArts
+     * @return CombatArt
      *
      * @codeCoverageIgnore
      */
@@ -148,7 +146,7 @@ class CombatArts
      *
      * @param bool $ranged
      *
-     * @return CombatArts
+     * @return CombatArt
      *
      * @codeCoverageIgnore
      */
@@ -176,7 +174,7 @@ class CombatArts
      *
      * @param bool $melee
      *
-     * @return CombatArts
+     * @return CombatArt
      *
      * @codeCoverageIgnore
      */

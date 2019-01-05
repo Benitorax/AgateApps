@@ -26,7 +26,7 @@ use CorahnRin\Entity\CharacterProperties\HealthCondition;
 use CorahnRin\Entity\CharacterProperties\Money;
 use CorahnRin\Entity\CharacterProperties\Ways;
 use CorahnRin\Entity\Characters;
-use CorahnRin\Entity\CombatArts;
+use CorahnRin\Entity\CombatArt;
 use CorahnRin\Entity\Discipline;
 use CorahnRin\Entity\MentalDisorder;
 use CorahnRin\Entity\GeoEnvironment;
@@ -272,7 +272,7 @@ final class SessionToCharacter
     private function setCombatArts(Characters $character, array $values): void
     {
         foreach ($values['17_combat_arts']['combatArts'] as $id => $v) {
-            $character->addCombatArt($this->getRepository(CombatArts::class)->find($id));
+            $character->addCombatArt($this->getRepository(CombatArt::class)->find($id));
         }
     }
 

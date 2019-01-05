@@ -339,9 +339,9 @@ class Characters extends BaseCharacter
     protected $weapons;
 
     /**
-     * @var CombatArts[]|ArrayCollection
+     * @var CombatArt[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\CombatArts")
+     * @ORM\ManyToMany(targetEntity="CombatArt")
      */
     protected $combatArts;
 
@@ -1113,14 +1113,14 @@ class Characters extends BaseCharacter
         return $this->weapons;
     }
 
-    public function addCombatArt(CombatArts $combatArt): self
+    public function addCombatArt(CombatArt $combatArt): self
     {
         $this->combatArts[] = $combatArt;
 
         return $this;
     }
 
-    public function removeCombatArt(CombatArts $combatArt): self
+    public function removeCombatArt(CombatArt $combatArt): self
     {
         $this->combatArts->removeElement($combatArt);
 
@@ -1128,7 +1128,7 @@ class Characters extends BaseCharacter
     }
 
     /**
-     * @return CombatArts[]|iterable
+     * @return CombatArt[]|iterable
      */
     public function getCombatArts(): iterable
     {
