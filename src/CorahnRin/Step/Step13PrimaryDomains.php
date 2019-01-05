@@ -12,7 +12,7 @@
 namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\Avantages;
+use CorahnRin\Entity\CharacterAlteration;
 use CorahnRin\Entity\Job;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,12 +23,12 @@ class Step13PrimaryDomains extends AbstractStepAction
      */
     private $allDomains;
     /**
-     * @var Avantages[]
+     * @var CharacterAlteration[]
      */
     protected $advantages;
 
     /**
-     * @var Avantages[]
+     * @var CharacterAlteration[]
      */
     protected $disadvantages;
 
@@ -67,8 +67,8 @@ class Step13PrimaryDomains extends AbstractStepAction
         $advantages = $this->step11AdvantagesData['advantages'];
         $disadvantages = $this->step11AdvantagesData['disadvantages'];
 
-        $this->advantages = $this->em->getRepository(Avantages::class)->findBy(['id' => \array_keys($advantages)]);
-        $this->disadvantages = $this->em->getRepository(Avantages::class)->findBy(['id' => \array_keys($disadvantages)]);
+        $this->advantages = $this->em->getRepository(CharacterAlteration::class)->findBy(['id' => \array_keys($advantages)]);
+        $this->disadvantages = $this->em->getRepository(CharacterAlteration::class)->findBy(['id' => \array_keys($disadvantages)]);
 
         // This makes sure that session is not polluted with wrong data.
         $this->resetStep();

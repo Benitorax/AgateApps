@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Step;
 
-use CorahnRin\Entity\Avantages;
+use CorahnRin\Entity\CharacterAlteration;
 use CorahnRin\Entity\Setbacks;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,16 +19,16 @@ class Step11Advantages extends AbstractStepAction
 {
     private $hasError = false;
     /**
-     * @var Avantages[][]
+     * @var CharacterAlteration[][]
      */
     private $globalList;
     /**
-     * @var Avantages[]
+     * @var CharacterAlteration[]
      */
     private $advantages;
 
     /**
-     * @var Avantages[]
+     * @var CharacterAlteration[]
      */
     private $disadvantages;
 
@@ -48,7 +48,7 @@ class Step11Advantages extends AbstractStepAction
     private $setbacks = [];
 
     /**
-     * @var Avantages[]
+     * @var CharacterAlteration[]
      */
     private $advantagesDisabledBySetbacks = [];
 
@@ -57,7 +57,7 @@ class Step11Advantages extends AbstractStepAction
      */
     public function execute(): Response
     {
-        $this->globalList = $this->em->getRepository(Avantages::class)->findAllDifferenciated();
+        $this->globalList = $this->em->getRepository(CharacterAlteration::class)->findAllDifferenciated();
 
         $currentStepValue = $this->getCharacterProperty();
         $this->advantages = $currentStepValue['advantages'] ?? [];
@@ -100,8 +100,8 @@ class Step11Advantages extends AbstractStepAction
 
         return $this->renderCurrentStep([
             'experience' => $this->experience,
-            'indication_type_single_choice' => Avantages::INDICATION_TYPE_SINGLE_CHOICE,
-            'indication_type_single_value' => Avantages::INDICATION_TYPE_SINGLE_VALUE,
+            'indication_type_single_choice' => CharacterAlteration::INDICATION_TYPE_SINGLE_CHOICE,
+            'indication_type_single_value' => CharacterAlteration::INDICATION_TYPE_SINGLE_VALUE,
             'character_indications' => $this->indications,
             'advantages' => $this->advantages,
             'disadvantages' => $this->disadvantages,
@@ -115,7 +115,7 @@ class Step11Advantages extends AbstractStepAction
         $this->experience = $experience = 100;
 
         foreach ($this->disadvantages as $id => $value) {
-            /** @var Avantages $disadvantage */
+            /** @var CharacterAlteration $disadvantage */
             $disadvantage = $this->globalList['disadvantages'][$id];
             if (1 === $value) {
                 $experience += $disadvantage->getXp();
@@ -138,7 +138,7 @@ class Step11Advantages extends AbstractStepAction
         }
 
         foreach ($this->advantages as $id => $value) {
-            /** @var Avantages $advantage */
+            /** @var CharacterAlteration $advantage */
             $advantage = $this->globalList['advantages'][$id];
             if (1 === $value) {
                 $experience -= $advantage->getXp();
@@ -224,7 +224,7 @@ class Step11Advantages extends AbstractStepAction
                     $this->flashMessage('L\'avantage "%advtg%" nécessite une indication supplémentaire.', 'error', ['%advtg%' => $advantage->getName()]);
                     break;
                 }
-                if (Avantages::INDICATION_TYPE_SINGLE_CHOICE === $advantage->getIndicationType()) {
+                if (CharacterAlteration::INDICATION_TYPE_SINGLE_CHOICE === $advantage->getIndicationType()) {
                     $choices = $advantage->getBonusesFor();
                     if (!\in_array($indication, $choices, true)) {
                         $this->hasError = true;
@@ -283,7 +283,7 @@ class Step11Advantages extends AbstractStepAction
                     $this->flashMessage('Le désavantage "%advtg%" nécessite une indication supplémentaire.', 'error', ['%advtg%' => $disadvantage->getName()]);
                     break;
                 }
-                if (Avantages::INDICATION_TYPE_SINGLE_CHOICE === $disadvantage->getIndicationType()) {
+                if (CharacterAlteration::INDICATION_TYPE_SINGLE_CHOICE === $disadvantage->getIndicationType()) {
                     $choices = $disadvantage->getBonusesFor();
                     if (!\in_array($indication, $choices, true)) {
                         $this->hasError = true;
@@ -316,7 +316,7 @@ class Step11Advantages extends AbstractStepAction
         }
 
         foreach ($advantagesByGroup as $groupId => $groupedAdvantages) {
-            /** @var Avantages[] $groupedAdvantages */
+            /** @var CharacterAlteration[] $groupedAdvantages */
             $numberForGroup = 0;
             foreach ($groupedAdvantages as $advantage) {
                 $id = $advantage->getId();

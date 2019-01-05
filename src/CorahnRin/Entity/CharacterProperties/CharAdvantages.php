@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Entity\CharacterProperties;
 
-use CorahnRin\Entity\Avantages;
+use CorahnRin\Entity\CharacterAlteration;
 use CorahnRin\Entity\Characters;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,10 +32,10 @@ class CharAdvantages
     protected $character;
 
     /**
-     * @var Avantages
+     * @var CharacterAlteration
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Avantages")
+     * @ORM\ManyToOne(targetEntity="CharacterAlteration")
      */
     protected $advantage;
 
@@ -55,7 +55,7 @@ class CharAdvantages
 
     public static function create(
         Characters $character,
-        Avantages $advantage,
+        CharacterAlteration $advantage,
         int $score,
         string $indication
     ): self {
@@ -74,7 +74,7 @@ class CharAdvantages
         return $this->character;
     }
 
-    public function getAdvantage(): Avantages
+    public function getAdvantage(): CharacterAlteration
     {
         return $this->advantage;
     }

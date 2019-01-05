@@ -18,9 +18,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="avantages")
- * @ORM\Entity(repositoryClass="CorahnRin\Repository\AvantagesRepository")
+ * @ORM\Entity(repositoryClass="CharacterAlterationRepository")
  */
-class Avantages
+class CharacterAlteration
 {
     public const INDICATION_TYPE_SINGLE_VALUE = 'single_value';
     public const INDICATION_TYPE_SINGLE_CHOICE = 'single_choice';
@@ -137,7 +137,7 @@ class Avantages
      *
      * @ORM\Column(type="boolean")
      */
-    protected $isDesv;
+    protected $isDisadvantage;
 
     /**
      * @var bool
@@ -180,7 +180,7 @@ class Avantages
      *
      * @param string $name
      *
-     * @return Avantages
+     * @return CharacterAlteration
      */
     public function setName($name)
     {
@@ -204,7 +204,7 @@ class Avantages
      *
      * @param string $nameFemale
      *
-     * @return Avantages
+     * @return CharacterAlteration
      */
     public function setNameFemale($nameFemale)
     {
@@ -228,7 +228,7 @@ class Avantages
      *
      * @param int $xp
      *
-     * @return Avantages
+     * @return CharacterAlteration
      */
     public function setXp($xp)
     {
@@ -252,7 +252,7 @@ class Avantages
      *
      * @param string $description
      *
-     * @return Avantages
+     * @return CharacterAlteration
      */
     public function setDescription($description)
     {
@@ -318,28 +318,19 @@ class Avantages
         $this->indicationType = $indicationType;
     }
 
-    /**
-     * Set isDesv.
-     *
-     * @param bool $isDesv
-     *
-     * @return Avantages
-     */
-    public function setDesv($isDesv)
+    public function setDisadvantage(?bool $isDisadvantage): self
     {
-        $this->isDesv = $isDesv;
+        $this->isDisadvantage = (bool) $isDisadvantage;
 
         return $this;
     }
 
     /**
-     * Get isDesv.
-     *
      * @return bool
      */
-    public function isDesv()
+    public function isDisadvantage()
     {
-        return $this->isDesv;
+        return $this->isDisadvantage;
     }
 
     /**
@@ -347,7 +338,7 @@ class Avantages
      *
      * @param bool $isCombatArt
      *
-     * @return Avantages
+     * @return CharacterAlteration
      */
     public function setCombatArt($isCombatArt)
     {

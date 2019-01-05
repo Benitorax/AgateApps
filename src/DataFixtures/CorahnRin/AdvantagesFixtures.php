@@ -12,7 +12,7 @@
 namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\Avantages;
+use CorahnRin\Entity\CharacterAlteration;
 use CorahnRin\Entity\Book;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -43,7 +43,7 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
     {
         $this->manager = $manager;
 
-        $repo = $this->manager->getRepository(Avantages::class);
+        $repo = $this->manager->getRepository(CharacterAlteration::class);
 
         /** @var Book $book */
         $book = $this->getReference('corahnrin-book-2');
@@ -70,7 +70,7 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
         $this->fixtureObject($repo, 20, null, 'Vif d\'esprit', 'Vive d\'esprit', 40, '+1 aux jets de Science, Magience et Occultisme', 1, [DomainsData::MAGIENCE['title'], DomainsData::OCCULTISM['title'], DomainsData::SCIENCE['title']], 0, 0, $book);
         $this->fixtureObject($repo, 21, null, 'Chanceux', 'Chanceuse', 30, '+1 aux jets de Chance', 1, ['luck'], 0, 0, $book);
         $this->fixtureObject($repo, 22, null, 'Instinct de survie', 'Instinct de survie', 30, '+1 point de Survie', 1, ['survival'], 0, 0, $book);
-        $this->fixtureObject($repo, 23, null, 'Lettré', 'Lettrée', 20, 'Le personnage sait lire et écrire, et choisit un bonus de +1 au choix : Erudition, Magience, Science ou Occultisme', 0, [DomainsData::ERUDITION['title'], DomainsData::SCIENCE['title'], DomainsData::MAGIENCE['title'], DomainsData::OCCULTISM['title']], 0, 0, $book, 'advantages.indication.scholar', Avantages::INDICATION_TYPE_SINGLE_CHOICE);
+        $this->fixtureObject($repo, 23, null, 'Lettré', 'Lettrée', 20, 'Le personnage sait lire et écrire, et choisit un bonus de +1 au choix : Erudition, Magience, Science ou Occultisme', 0, [DomainsData::ERUDITION['title'], DomainsData::SCIENCE['title'], DomainsData::MAGIENCE['title'], DomainsData::OCCULTISM['title']], 0, 0, $book, 'advantages.indication.scholar', CharacterAlteration::INDICATION_TYPE_SINGLE_CHOICE);
         $this->fixtureObject($repo, 29, null, 'Nez fin', 'Nez fin', 10, '+1 aux jets de Perception concernant l\'odorat', 1, [DomainsData::PERCEPTION['title']], 0, 0, $book);
         $this->fixtureObject($repo, 30, null, 'Palais fin', 'Palais fin', 10, '+1 aux jets de Perception concernant le goût', 1, [DomainsData::PERCEPTION['title']], 0, 0, $book);
         $this->fixtureObject($repo, 31, null, 'Boiteux', 'Boiteuse', 30, '-1 en Rapidité et en Défense', 0, ['defense', 'speed'], 1, 0, $book);
@@ -109,11 +109,11 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
         $description,
         $augmentation,
         array $bonusesFor,
-        $isDesv,
+        $isDisadvantage,
         $isCombatArt,
         $book,
         ?string $requiresIndication = null,
-        string $indicationType = Avantages::INDICATION_TYPE_SINGLE_VALUE
+        string $indicationType = CharacterAlteration::INDICATION_TYPE_SINGLE_VALUE
     ) {
         $obj = null;
         $newObject = false;
@@ -129,7 +129,7 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
             $newObject = true;
         }
         if (true === $newObject) {
-            $obj = new Avantages();
+            $obj = new CharacterAlteration();
             $obj->setId($id);
             $obj->setGroup($group);
             $obj->setName($name);
@@ -137,7 +137,7 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
             $obj->setNameFemale($nameFemale);
             $obj->setDescription($description);
             $obj->setAugmentationCount($augmentation);
-            $obj->setDesv($isDesv);
+            $obj->setDisadvantage($isDisadvantage);
             $obj->setCombatArt($isCombatArt);
             $obj->setBook($book);
             $obj->setBonusesFor($bonusesFor);

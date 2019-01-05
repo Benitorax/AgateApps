@@ -159,7 +159,7 @@ class PdfManager implements SheetGeneratorInterface
         // Advantages and disadvantages
         $av = [];
         foreach ($character->getAdvantages() as $v) {
-            if (!$v->getAdvantage()->isDesv()) {
+            if (!$v->getAdvantage()->isDisadvantage()) {
                 $av[] = $translator->trans($v->getAdvantage()->getName()).($v->getScore() > 1 ? '    x'.$v->getScore() : '');
             }
         }
@@ -177,7 +177,7 @@ class PdfManager implements SheetGeneratorInterface
         }
         $dv = [];
         foreach ($character->getAdvantages() as $v) {
-            if ($v->getAdvantage()->isDesv()) {
+            if ($v->getAdvantage()->isDisadvantage()) {
                 $dv[] = $translator->trans($v->getAdvantage()->getName()).($v->getScore() > 1 ? '    x'.$v->getScore() : '');
             }
         }

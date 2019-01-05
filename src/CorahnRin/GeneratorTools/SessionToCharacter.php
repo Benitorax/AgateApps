@@ -16,7 +16,7 @@ use CorahnRin\Data\DomainItem;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Ways as WaysData;
 use CorahnRin\Entity\Armors;
-use CorahnRin\Entity\Avantages;
+use CorahnRin\Entity\CharacterAlteration;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
 use CorahnRin\Entity\CharacterProperties\CharacterDomains;
 use CorahnRin\Entity\CharacterProperties\CharAdvantages;
@@ -61,7 +61,7 @@ final class SessionToCharacter
     private $setbacks;
 
     /**
-     * @var Avantages[]
+     * @var CharacterAlteration[]
      */
     private $advantages;
 
@@ -151,7 +151,7 @@ final class SessionToCharacter
     {
         $this->setbacks = $this->getRepository(Setbacks::class)->findAll('_primary');
         $this->domains = DomainsData::allAsObjects();
-        $this->advantages = $this->getRepository(Avantages::class)->findAll('_primary');
+        $this->advantages = $this->getRepository(CharacterAlteration::class)->findAll('_primary');
     }
 
     private function setPeople(Characters $character, array $values): void
@@ -387,7 +387,7 @@ final class SessionToCharacter
                     continue;
                 }
 
-                $disadvantageRatio = $adv->isDesv() ? -1 : 1;
+                $disadvantageRatio = $adv->isDisadvantage() ? -1 : 1;
                 switch ($bonus) {
                     case Bonuses::MENTAL_RESISTANCE:
                         $character->setMentalResistanceBonus($character->getMentalResistanceBonus() + ($charAdvantage->getScore() * $disadvantageRatio));

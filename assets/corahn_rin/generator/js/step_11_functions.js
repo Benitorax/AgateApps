@@ -22,12 +22,12 @@ function getAdvantageFromInput(input, label){
     }
 
     // Determine whether it's an advantage or a disadvantage.
-    if (label.classList.contains('change_desv')) {
+    if (label.classList.contains('change_disadvtg')) {
         isAdvantage = false;
     } else if (label.classList.contains('change_avtg')) {
         isAdvantage = true;
     } else {
-        throw 'Wrong element class, missing change_avtg or change_desv.';
+        throw 'Wrong element class, missing change_avtg or change_disadvtg.';
     }
 
     return Advantage.new({

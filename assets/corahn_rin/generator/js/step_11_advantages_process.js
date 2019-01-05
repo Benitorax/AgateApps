@@ -6,7 +6,7 @@
     if (d.getElementById('generator_11_advantages')) {
 
         // Vars
-        var $labelsCollection = $('.change_avdesv');
+        var $labelsCollection = $('.change_char_alteration');
         var xpElement = d.getElementById('xp');
         var advantagesList = {};
         var disadvantagesList = {};

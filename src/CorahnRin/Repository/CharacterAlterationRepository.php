@@ -11,32 +11,32 @@
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\Avantages;
+use CorahnRin\Entity\CharacterAlteration;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class AvantagesRepository extends ServiceEntityRepository
+class CharacterAlterationRepository extends ServiceEntityRepository
 {
     use EntityRepositoryHelperTrait;
 
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Avantages::class);
+        parent::__construct($registry, CharacterAlteration::class);
     }
 
     /**
-     * @return Avantages[][]
+     * @return CharacterAlteration[][]
      */
     public function findAllDifferenciated()
     {
-        /** @var Avantages[] $list */
+        /** @var CharacterAlteration[] $list */
         $list = $this->findAll();
         $advantages = $disadvantages = [];
 
         foreach ($list as $element) {
             $id = $element->getId();
-            if ($element->isDesv()) {
+            if ($element->isDisadvantage()) {
                 $disadvantages[$id] = $element;
             } else {
                 $advantages[$id] = $element;

@@ -61,7 +61,7 @@ class Setbacks
      *
      * @var string[]
      *
-     * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Avantages")
+     * @ORM\ManyToMany(targetEntity="CharacterAlteration")
      * @ORM\JoinTable(
      *     name="setbacks_advantages",
      *     joinColumns={@ORM\JoinColumn(name="setback_id", referencedColumnName="id")},
@@ -190,7 +190,7 @@ class Setbacks
     }
 
     /**
-     * @return Avantages[]|ArrayCollection
+     * @return CharacterAlteration[]|ArrayCollection
      */
     public function getDisabledAdvantages()
     {
@@ -204,14 +204,14 @@ class Setbacks
         }
     }
 
-    public function addDisabledAdvantage(Avantages $disabledAdvantage): void
+    public function addDisabledAdvantage(CharacterAlteration $disabledAdvantage): void
     {
         if (!$this->disabledAdvantages->contains($disabledAdvantage)) {
             $this->disabledAdvantages[] = $disabledAdvantage;
         }
     }
 
-    public function removeDisabledAdvantage(Avantages $disabledAdvantage): void
+    public function removeDisabledAdvantage(CharacterAlteration $disabledAdvantage): void
     {
         $this->disabledAdvantages->removeElement($disabledAdvantage);
     }
