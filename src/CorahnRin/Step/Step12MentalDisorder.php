@@ -11,14 +11,14 @@
 
 namespace CorahnRin\Step;
 
-use CorahnRin\Repository\DisordersRepository;
+use CorahnRin\Repository\MentalDisorderRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step12MentalDisorder extends AbstractStepAction
 {
     private $disordersRepository;
 
-    public function __construct(DisordersRepository $disordersRepository)
+    public function __construct(MentalDisorderRepository $disordersRepository)
     {
         $this->disordersRepository = $disordersRepository;
     }

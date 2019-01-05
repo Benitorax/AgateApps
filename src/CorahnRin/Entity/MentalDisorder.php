@@ -16,12 +16,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Disorders.
- *
  * @ORM\Table(name="disorders")
- * @ORM\Entity(repositoryClass="CorahnRin\Repository\DisordersRepository")
+ * @ORM\Entity(repositoryClass="MentalDisorderRepository")
  */
-class Disorders
+class MentalDisorder
 {
     use HasBook;
 

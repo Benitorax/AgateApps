@@ -21,10 +21,10 @@ use Doctrine\ORM\Mapping as ORM;
 class DisorderWay
 {
     /**
-     * @var Disorders
+     * @var MentalDisorder
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Disorders", inversedBy="ways")
+     * @ORM\ManyToOne(targetEntity="MentalDisorder", inversedBy="ways")
      */
     protected $disorder;
 
@@ -48,7 +48,7 @@ class DisorderWay
         return $this->disorder->getName().' - '.$this->way;
     }
 
-    public function setDisorder(Disorders $disorder)
+    public function setDisorder(MentalDisorder $disorder)
     {
         $this->disorder = $disorder;
 

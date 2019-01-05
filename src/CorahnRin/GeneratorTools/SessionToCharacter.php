@@ -28,7 +28,7 @@ use CorahnRin\Entity\CharacterProperties\Ways;
 use CorahnRin\Entity\Characters;
 use CorahnRin\Entity\CombatArts;
 use CorahnRin\Entity\Disciplines;
-use CorahnRin\Entity\Disorders;
+use CorahnRin\Entity\MentalDisorder;
 use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\Entity\Job;
 use CorahnRin\Entity\People;
@@ -252,7 +252,7 @@ final class SessionToCharacter
 
     private function setMentalDisorder(Characters $character, array $values): void
     {
-        $character->setMentalDisorder($this->getRepository(Disorders::class)->find($values['12_mental_disorder']));
+        $character->setMentalDisorder($this->getRepository(MentalDisorder::class)->find($values['12_mental_disorder']));
     }
 
     private function setDisciplines(Characters $character, array $values): void

@@ -11,19 +11,19 @@
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\Disorders;
+use CorahnRin\Entity\MentalDisorder;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class DisordersRepository extends ServiceEntityRepository
+class MentalDisorderRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Disorders::class);
+        parent::__construct($registry, MentalDisorder::class);
     }
 
     /**
-     * @return Disorders[]
+     * @return MentalDisorder[]
      */
     public function findWithWays()
     {

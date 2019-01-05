@@ -367,9 +367,9 @@ class Characters extends BaseCharacter
     protected $socialClassDomain2;
 
     /**
-     * @var Disorders
+     * @var MentalDisorder
      *
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Disorders")
+     * @ORM\ManyToOne(targetEntity="MentalDisorder")
      */
     protected $mentalDisorder;
 
@@ -1171,14 +1171,14 @@ class Characters extends BaseCharacter
         return $this->socialClassDomain2;
     }
 
-    public function setMentalDisorder(Disorders $mentalDisorder = null): self
+    public function setMentalDisorder(MentalDisorder $mentalDisorder = null): self
     {
         $this->mentalDisorder = $mentalDisorder;
 
         return $this;
     }
 
-    public function getMentalDisorder(): Disorders
+    public function getMentalDisorder(): MentalDisorder
     {
         return $this->mentalDisorder;
     }
