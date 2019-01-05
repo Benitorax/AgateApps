@@ -16,12 +16,10 @@ use CorahnRin\Entity\Traits\HasBook;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Traits.
- *
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\TraitsRepository")
  * @ORM\Table(name="traits")
  */
-class Traits
+class PersonalityTrait
 {
     use HasBook;
 

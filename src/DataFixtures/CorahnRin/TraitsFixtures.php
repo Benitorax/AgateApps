@@ -13,7 +13,7 @@ namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Data\Ways;
 use CorahnRin\Entity\Books;
-use CorahnRin\Entity\Traits;
+use CorahnRin\Entity\PersonalityTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -43,7 +43,7 @@ class TraitsFixtures extends AbstractFixture implements OrderedFixtureInterface,
     {
         $this->manager = $manager;
 
-        $repo = $this->manager->getRepository(Traits::class);
+        $repo = $this->manager->getRepository(PersonalityTrait::class);
 
         /** @var Books $book */
         $book = $this->getReference('corahnrin-book-2');
@@ -168,7 +168,7 @@ class TraitsFixtures extends AbstractFixture implements OrderedFixtureInterface,
             $newObject = true;
         }
         if (true === $newObject) {
-            $obj = new Traits();
+            $obj = new PersonalityTrait();
             $obj->setId($id)
                 ->setName($name)
                 ->setNameFemale($nameFemale)

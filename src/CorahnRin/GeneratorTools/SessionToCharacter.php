@@ -34,7 +34,7 @@ use CorahnRin\Entity\Jobs;
 use CorahnRin\Entity\Peoples;
 use CorahnRin\Entity\Setbacks;
 use CorahnRin\Entity\SocialClass;
-use CorahnRin\Entity\Traits;
+use CorahnRin\Entity\PersonalityTrait;
 use CorahnRin\Entity\Weapon;
 use CorahnRin\Exception\CharactersException;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -212,8 +212,8 @@ final class SessionToCharacter
 
     private function setTraits(Characters $character, array $values): void
     {
-        $character->setQuality($this->getRepository(Traits::class)->find($values['09_traits']['quality']));
-        $character->setFlaw($this->getRepository(Traits::class)->find($values['09_traits']['flaw']));
+        $character->setQuality($this->getRepository(PersonalityTrait::class)->find($values['09_traits']['quality']));
+        $character->setFlaw($this->getRepository(PersonalityTrait::class)->find($values['09_traits']['flaw']));
     }
 
     private function setOrientation(Characters $character, array $values): void

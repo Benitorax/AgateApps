@@ -388,15 +388,15 @@ class Characters extends BaseCharacter
     protected $birthPlace;
 
     /**
-     * @var Traits
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Traits")
+     * @var PersonalityTrait
+     * @ORM\ManyToOne(targetEntity="PersonalityTrait")
      * @ORM\JoinColumn(name="trait_flaw_id")
      */
     protected $flaw;
 
     /**
-     * @var Traits
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Traits")
+     * @var PersonalityTrait
+     * @ORM\ManyToOne(targetEntity="PersonalityTrait")
      * @ORM\JoinColumn(name="trait_quality_id")
      */
     protected $quality;
@@ -1207,26 +1207,26 @@ class Characters extends BaseCharacter
         return $this->birthPlace;
     }
 
-    public function setFlaw(Traits $flaw = null): self
+    public function setFlaw(PersonalityTrait $flaw = null): self
     {
         $this->flaw = $flaw;
 
         return $this;
     }
 
-    public function getFlaw(): Traits
+    public function getFlaw(): PersonalityTrait
     {
         return $this->flaw;
     }
 
-    public function setQuality(Traits $quality = null): self
+    public function setQuality(PersonalityTrait $quality = null): self
     {
         $this->quality = $quality;
 
         return $this;
     }
 
-    public function getQuality(): Traits
+    public function getQuality(): PersonalityTrait
     {
         return $this->quality;
     }

@@ -12,7 +12,7 @@
 namespace CorahnRin\Repository;
 
 use CorahnRin\Data\Ways;
-use CorahnRin\Entity\Traits;
+use CorahnRin\Entity\PersonalityTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -23,18 +23,18 @@ class TraitsRepository extends ServiceEntityRepository
 
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Traits::class);
+        parent::__construct($registry, PersonalityTrait::class);
     }
 
     /**
-     * @return Traits[][]
+     * @return PersonalityTrait[][]
      */
     public function findAllDifferenciated()
     {
         $list = $this->findBy([], ['name' => 'asc'], null, null, true);
         $qualities = $flaws = [];
         foreach ($list as $id => $element) {
-            if ($element instanceof Traits) {
+            if ($element instanceof PersonalityTrait) {
                 if (!$element->isQuality()) {
                     $flaws[$id] = $element;
                 } else {
@@ -50,7 +50,7 @@ class TraitsRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Traits[] $traits
+     * @param PersonalityTrait[] $traits
      *
      * @return array
      */
