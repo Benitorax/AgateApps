@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="disorders_ways")
  * @ORM\Entity
  */
-class DisorderWay
+class MentalDisorderWay
 {
     /**
      * @var MentalDisorder

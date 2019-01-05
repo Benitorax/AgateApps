@@ -47,9 +47,9 @@ class MentalDisorder
     protected $description;
 
     /**
-     * @var DisorderWay[]
+     * @var MentalDisorderWay[]
      *
-     * @ORM\OneToMany(targetEntity="DisorderWay", mappedBy="disorder")
+     * @ORM\OneToMany(targetEntity="MentalDisorderWay", mappedBy="disorder")
      */
     protected $ways;
 
@@ -82,14 +82,14 @@ class MentalDisorder
         return (string) $this->name;
     }
 
-    public function addWay(DisorderWay $ways): self
+    public function addWay(MentalDisorderWay $ways): self
     {
         $this->ways[] = $ways;
 
         return $this;
     }
 
-    public function removeWay(DisorderWay $ways): self
+    public function removeWay(MentalDisorderWay $ways): self
     {
         $this->ways->removeElement($ways);
 
@@ -97,7 +97,7 @@ class MentalDisorder
     }
 
     /**
-     * @return DisorderWay[]|ArrayCollection
+     * @return MentalDisorderWay[]|ArrayCollection
      */
     public function getWays(): iterable
     {
