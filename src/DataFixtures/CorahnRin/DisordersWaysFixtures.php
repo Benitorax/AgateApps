@@ -12,7 +12,7 @@
 namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Data\Ways;
-use CorahnRin\Entity\DisordersWays;
+use CorahnRin\Entity\DisorderWay;
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
@@ -34,7 +34,7 @@ class DisordersWaysFixtures extends AbstractFixture implements ORMFixtureInterfa
      */
     protected function getEntityClass(): string
     {
-        return DisordersWays::class;
+        return DisorderWay::class;
     }
 
     protected function getReferencePrefix(): ?string

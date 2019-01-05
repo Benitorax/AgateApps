@@ -15,12 +15,10 @@ use CorahnRin\Data\Ways;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DisordersWays.
- *
  * @ORM\Table(name="disorders_ways")
  * @ORM\Entity
  */
-class DisordersWays
+class DisorderWay
 {
     /**
      * @var Disorders
