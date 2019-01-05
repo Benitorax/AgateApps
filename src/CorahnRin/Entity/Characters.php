@@ -374,9 +374,9 @@ class Characters extends BaseCharacter
     protected $mentalDisorder;
 
     /**
-     * @var Jobs
+     * @var Job
      *
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Jobs")
+     * @ORM\ManyToOne(targetEntity="Job")
      */
     protected $job;
 
@@ -1183,14 +1183,14 @@ class Characters extends BaseCharacter
         return $this->mentalDisorder;
     }
 
-    public function setJob(Jobs $job = null): self
+    public function setJob(Job $job = null): self
     {
         $this->job = $job;
 
         return $this;
     }
 
-    public function getJob(): Jobs
+    public function getJob(): Job
     {
         return $this->job;
     }

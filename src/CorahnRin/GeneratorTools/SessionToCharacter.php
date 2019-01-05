@@ -30,7 +30,7 @@ use CorahnRin\Entity\CombatArts;
 use CorahnRin\Entity\Disciplines;
 use CorahnRin\Entity\Disorders;
 use CorahnRin\Entity\GeoEnvironments;
-use CorahnRin\Entity\Jobs;
+use CorahnRin\Entity\Job;
 use CorahnRin\Entity\People;
 use CorahnRin\Entity\PersonalityTrait;
 use CorahnRin\Entity\Setbacks;
@@ -161,7 +161,7 @@ final class SessionToCharacter
 
     private function setJob(Characters $character, array $values): void
     {
-        $character->setJob($this->getRepository(Jobs::class)->find($values['02_job']));
+        $character->setJob($this->getRepository(Job::class)->find($values['02_job']));
     }
 
     private function setBirthPlace(Characters $character, array $values): void

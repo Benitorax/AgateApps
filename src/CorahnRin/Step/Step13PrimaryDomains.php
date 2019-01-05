@@ -13,7 +13,7 @@ namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Entity\Avantages;
-use CorahnRin\Entity\Jobs;
+use CorahnRin\Entity\Job;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step13PrimaryDomains extends AbstractStepAction
@@ -33,7 +33,7 @@ class Step13PrimaryDomains extends AbstractStepAction
     protected $disadvantages;
 
     /**
-     * @var Jobs
+     * @var Job
      */
     private $job;
 
@@ -62,7 +62,7 @@ class Step13PrimaryDomains extends AbstractStepAction
     public function execute(): Response
     {
         $this->allDomains = DomainsData::allAsObjects();
-        $this->job = $this->em->getRepository(Jobs::class)->find($this->getCharacterProperty('02_job'));
+        $this->job = $this->em->getRepository(Job::class)->find($this->getCharacterProperty('02_job'));
         $this->step11AdvantagesData = $this->getCharacterProperty('11_advantages');
         $advantages = $this->step11AdvantagesData['advantages'];
         $disadvantages = $this->step11AdvantagesData['disadvantages'];
