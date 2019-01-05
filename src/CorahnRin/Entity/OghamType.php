@@ -14,12 +14,10 @@ namespace CorahnRin\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OghamTypes.
- *
  * @ORM\Table(name="ogham_types")
  * @ORM\Entity
  */
-class OghamTypes
+class OghamType
 {
     /**
      * @var int
@@ -75,7 +73,7 @@ class OghamTypes
      *
      * @param string $name
      *
-     * @return OghamTypes
+     * @return OghamType
      *
      * @codeCoverageIgnore
      */
@@ -103,7 +101,7 @@ class OghamTypes
      *
      * @param string $description
      *
-     * @return OghamTypes
+     * @return OghamType
      *
      * @codeCoverageIgnore
      */
