@@ -9,10 +9,10 @@ use Doctrine\Migrations\AbstractMigration;
 
 final class Version20190105205142 extends AbstractMigration
 {
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE events_foes DROP FOREIGN KEY FK_C15440C09D6A1065');
         $this->addSql('ALTER TABLE events_markers DROP FOREIGN KEY FK_17E8A62A9D6A1065');
@@ -88,7 +88,7 @@ final class Version20190105205142 extends AbstractMigration
         $this->addSql('ALTER TABLE characters_combat_arts ADD CONSTRAINT FK_4423FA34C70F0E28 FOREIGN KEY (characters_id) REFERENCES characters (id)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
     }
 }

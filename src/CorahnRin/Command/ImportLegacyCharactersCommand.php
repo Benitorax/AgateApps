@@ -11,8 +11,8 @@
 
 namespace CorahnRin\Command;
 
-use CorahnRin\Entity\CharacterProperties\Ways as CharWays;
 use CorahnRin\Entity\Character;
+use CorahnRin\Entity\CharacterProperties\Ways as CharWays;
 use CorahnRin\Entity\Game;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;

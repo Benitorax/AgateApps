@@ -14,8 +14,8 @@ namespace CorahnRin\Entity;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Orientation;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
-use CorahnRin\Entity\CharacterProperties\CharacterDomains;
 use CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem;
+use CorahnRin\Entity\CharacterProperties\CharacterDomains;
 use CorahnRin\Entity\CharacterProperties\CharDisciplines;
 use CorahnRin\Entity\CharacterProperties\CharFlux;
 use CorahnRin\Entity\CharacterProperties\CharSetbacks;
@@ -306,8 +306,8 @@ class Character extends BaseCharacter
      *
      * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Armor")
      * @ORM\JoinTable(name="characters_armors",
-     *      joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="armors_id", referencedColumnName="id", unique=true)}
+     *     joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="armors_id", referencedColumnName="id", unique=true)}
      * )
      */
     protected $armors;
@@ -317,8 +317,8 @@ class Character extends BaseCharacter
      *
      * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\MagienceArtifact")
      * @ORM\JoinTable(name="characters_artifacts",
-     *      joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="artifacts_id", referencedColumnName="id", unique=true)}
+     *     joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="artifacts_id", referencedColumnName="id", unique=true)}
      * )
      */
     protected $artifacts;
@@ -328,8 +328,8 @@ class Character extends BaseCharacter
      *
      * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Miracle")
      * @ORM\JoinTable(name="characters_miracles",
-     *      joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="miracles_id", referencedColumnName="id", unique=true)}
+     *     joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="miracles_id", referencedColumnName="id", unique=true)}
      * )
      */
     protected $miracles;
@@ -339,8 +339,8 @@ class Character extends BaseCharacter
      *
      * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Ogham")
      * @ORM\JoinTable(name="characters_ogham",
-     *      joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="ogham_id", referencedColumnName="id", unique=true)}
+     *     joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="ogham_id", referencedColumnName="id", unique=true)}
      * )
      */
     protected $ogham;
@@ -350,8 +350,8 @@ class Character extends BaseCharacter
      *
      * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Weapon")
      * @ORM\JoinTable(name="characters_weapons",
-     *      joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="weapons_id", referencedColumnName="id", unique=true)}
+     *     joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="weapons_id", referencedColumnName="id", unique=true)}
      * )
      */
     protected $weapons;
@@ -361,8 +361,8 @@ class Character extends BaseCharacter
      *
      * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\CombatArt")
      * @ORM\JoinTable(name="characters_combat_arts",
-     *      joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="combat_arts_id", referencedColumnName="id", unique=true)}
+     *     joinColumns={@ORM\JoinColumn(name="characters_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="combat_arts_id", referencedColumnName="id", unique=true)}
      * )
      */
     protected $combatArts;
