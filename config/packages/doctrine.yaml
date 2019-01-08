@@ -11,6 +11,7 @@ doctrine:
         connections:
             default:
                 driver: pdo_mysql
+                server_version: 5.7
                 url: '%database_url%'
                 charset: utf8
                 default_table_options:
@@ -18,6 +19,7 @@ doctrine:
                     collate: utf8_unicode_ci
             legacy:
                 driver: pdo_mysql
+                server_version: 5.7
                 url: '%database_url_legacy%'
                 charset: utf8
                 logging: false
