@@ -11,7 +11,7 @@
 
 namespace DataFixtures\CorahnRin;
 
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
 use CorahnRin\Entity\Setbacks;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
@@ -45,7 +45,7 @@ class SetbacksFixtures extends AbstractFixture implements OrderedFixtureInterfac
 
         $repo = $this->manager->getRepository(Setbacks::class);
 
-        /** @var Books $book */
+        /** @var Book $book */
         $book = $this->getReference('corahnrin-book-2');
 
         $this->fixtureObject($repo, 1, 'Poisse', 'Tirer une deuxième fois, ignorer les 1 supplémentaires', '', $book);

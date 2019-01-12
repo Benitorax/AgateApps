@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Services;
 
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use EsterenMaps\ImageManagement\ImageIdentification;
 use Orbitale\Component\ImageMagick\Command;
 use Orbitale\Component\ImageMagick\ReferenceClasses\Geometry;
@@ -26,7 +26,7 @@ class MapsTilesManager
     private $magickPath;
     private $debug;
 
-    /** @var Maps */
+    /** @var Map */
     private $map;
 
     /** @var int */
@@ -61,7 +61,7 @@ class MapsTilesManager
         return $this->outputDirectory;
     }
 
-    public function setMap(Maps $map): self
+    public function setMap(Map $map): self
     {
         $this->map = $map;
         $path = null;
@@ -129,7 +129,7 @@ class MapsTilesManager
         return $this->identifications[$zoom];
     }
 
-    public function generateTiles(int $zoom, bool $debug = false, Maps $map = null): void
+    public function generateTiles(int $zoom, bool $debug = false, Map $map = null): void
     {
         if (!$this->map && $map) {
             $this->setMap($map);

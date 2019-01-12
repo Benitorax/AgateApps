@@ -2,7 +2,7 @@
 
 namespace Tests\CorahnRin\GeneratorTools;
 
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use CorahnRin\GeneratorTools\SessionToCharacter;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Finder\Finder;
@@ -58,7 +58,7 @@ class SessionToCharacterTest extends KernelTestCase
         }
     }
 
-    public static function getCharacterFromValues(array $values): Characters
+    public static function getCharacterFromValues(array $values): Character
     {
         $sut = static::createInstance();
 

@@ -12,15 +12,15 @@
 namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\Disciplines;
-use CorahnRin\Entity\GeoEnvironments;
+use CorahnRin\Entity\Discipline;
+use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\GeneratorTools\DomainsCalculator;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step16Disciplines extends AbstractStepAction
 {
     /**
-     * @var Disciplines[]
+     * @var Discipline[]
      */
     private $availableDisciplines;
 
@@ -76,7 +76,7 @@ class Step16Disciplines extends AbstractStepAction
         if ($canHaveDisciplines) {
             $socialClassValues = $this->getCharacterProperty('05_social_class')['domains'];
             $domainBonuses = $this->getCharacterProperty('14_use_domain_bonuses');
-            $geoEnvironment = $this->em->find(GeoEnvironments::class, $this->getCharacterProperty('04_geo'));
+            $geoEnvironment = $this->em->find(GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
 
             // Calculate final values from previous steps
             $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
@@ -104,7 +104,7 @@ class Step16Disciplines extends AbstractStepAction
                 }, ARRAY_FILTER_USE_BOTH)
             );
 
-            $this->availableDisciplines = $this->em->getRepository(Disciplines::class)->findAllByDomains($availableDomainsForDisciplines);
+            $this->availableDisciplines = $this->em->getRepository(Discipline::class)->findAllByDomains($availableDomainsForDisciplines);
         }
 
         /* @var int[] $currentDisciplinesSpentWithExp */

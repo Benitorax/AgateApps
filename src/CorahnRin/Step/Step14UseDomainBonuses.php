@@ -12,7 +12,7 @@
 namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\GeoEnvironments;
+use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\GeneratorTools\DomainsCalculator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -60,7 +60,7 @@ class Step14UseDomainBonuses extends AbstractStepAction
 
         $step13Domains = $this->getCharacterProperty('13_primary_domains');
         $socialClassValues = $this->getCharacterProperty('05_social_class')['domains'];
-        $geoEnvironment = $this->em->find(GeoEnvironments::class, $this->getCharacterProperty('04_geo'));
+        $geoEnvironment = $this->em->find(GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
 
         $this->domainsCalculatedValues = $this->domainsCalculator->calculateFromGeneratorData(
             $this->allDomains,

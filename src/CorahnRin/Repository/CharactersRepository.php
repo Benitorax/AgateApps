@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -20,10 +20,10 @@ class CharactersRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Characters::class);
+        parent::__construct($registry, Character::class);
     }
 
-    public function findFetched(int $id): ?Characters
+    public function findFetched(int $id): ?Character
     {
         return $this->_em
             ->createQueryBuilder()
@@ -96,7 +96,7 @@ class CharactersRepository extends ServiceEntityRepository
      * @param int    $limit
      * @param int    $offset
      *
-     * @return Characters[]
+     * @return Character[]
      */
     public function findSearch($searchField = 'id', $order = 'asc', $limit = 20, $offset = 0)
     {

@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\Jobs;
+use CorahnRin\Entity\Job;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,17 +19,17 @@ class JobsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Jobs::class);
+        parent::__construct($registry, Job::class);
     }
 
     /**
      * Renvoie la liste des métiers triés par livre associé.
      *
-     * @return Jobs[][]
+     * @return Job[][]
      */
     public function findAllPerBook()
     {
-        /** @var Jobs[] $jobs */
+        /** @var Job[] $jobs */
         $jobs = $this->findAll();
 
         $books = [];

@@ -14,7 +14,7 @@ namespace EsterenMaps\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 
 class MapsRepository extends ServiceEntityRepository
@@ -23,11 +23,11 @@ class MapsRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Maps::class);
+        parent::__construct($registry, Map::class);
     }
 
     /**
-     * @return Maps[]
+     * @return Map[]
      */
     public function findAllWithRoutes()
     {

@@ -11,7 +11,7 @@
 
 namespace EsterenMaps\Services;
 
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 
 class MapImageManager
 {
@@ -27,7 +27,7 @@ class MapImageManager
      *
      * @throws \RuntimeException
      */
-    public function getImagePath(Maps $map)
+    public function getImagePath(Map $map)
     {
         $ext = \pathinfo($map->getImage(), PATHINFO_EXTENSION);
 
@@ -43,7 +43,7 @@ class MapImageManager
     /**
      * @throws \RuntimeException
      */
-    public function generateImage(Maps $map)
+    public function generateImage(Map $map)
     {
         // TODO
         throw new \RuntimeException('Not implemented yet');

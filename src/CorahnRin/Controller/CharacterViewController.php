@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Controller;
 
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use CorahnRin\Repository\CharactersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -44,7 +44,7 @@ class CharacterViewController extends AbstractController
         }
 
         /** @var CharactersRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Characters::class);
+        $repo = $this->getDoctrine()->getManager()->getRepository(Character::class);
         $countChars = $repo->countSearch($searchField, $order);
         $characters = $repo->findSearch($searchField, $order, $limit, ($page - 1) * $limit);
         $pages = \ceil($countChars / $limit);
@@ -69,7 +69,7 @@ class CharacterViewController extends AbstractController
      *
      * @return Response
      */
-    public function viewAction(Characters $character)
+    public function viewAction(Character $character)
     {
         return $this->render('corahn_rin/CharacterView/view.html.twig', ['character' => $character]);
     }

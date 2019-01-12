@@ -11,9 +11,9 @@
 
 namespace CorahnRin\Command;
 
+use CorahnRin\Entity\Character;
 use CorahnRin\Entity\CharacterProperties\Ways as CharWays;
-use CorahnRin\Entity\Characters;
-use CorahnRin\Entity\Games;
+use CorahnRin\Entity\Game;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
@@ -51,7 +51,7 @@ class ImportLegacyCharactersCommand extends Command
     /** @var EntityRepository[] */
     private $repositories = [];
 
-    /** @var Games[] */
+    /** @var Game[] */
     private $games = [];
 
     public function __construct(
@@ -150,11 +150,11 @@ SQL;
         $characters = $this->legacyConnection->query($sql)->fetchAll();
 
         foreach ($characters as $arrayCharacter) {
-            $character = new Characters();
+            $character = new Character();
             $jsonCharacter = \json_decode($arrayCharacter['char_content'], true);
 
             $character
-                ->setSex('Femme' === $arrayCharacter['sexe'] ? Characters::FEMALE : Characters::MALE)
+                ->setSex('Femme' === $arrayCharacter['sexe'] ? Character::FEMALE : Character::MALE)
                 ->setDescription($arrayCharacter['details']['description'])
                 ->setOrientation($arrayCharacter['orientation']['name'])
                 ->setAge($arrayCharacter['age'])
@@ -242,7 +242,7 @@ SQL;
         return $this->repositories[$repoName] = $this->em->getRepository($repoName);
     }
 
-    private function processUser(Characters $character, array $arrayCharacter): self
+    private function processUser(Character $character, array $arrayCharacter): self
     {
         $user = null;
         $legacyUserEmail = $arrayCharacter['user_email'];
@@ -268,7 +268,7 @@ SQL;
      *
      * @return $this
      */
-    private function processGame(Characters $character, array $arrayCharacter): self
+    private function processGame(Character $character, array $arrayCharacter): self
     {
         $game = null;
         $legacyGameId = $arrayCharacter['game_id'];
@@ -278,10 +278,10 @@ SQL;
         }
 
         if (null === $game && $arrayCharacter['game_id']) {
-            $game = $this->getRepository(Games::class)->find($arrayCharacter['game_id']);
+            $game = $this->getRepository(Game::class)->find($arrayCharacter['game_id']);
 
             if (!$game) {
-                $game = new Games();
+                $game = new Game();
 
                 $user = $this->getUser($arrayCharacter['gm_user_email'], $arrayCharacter['gm_user_name']);
 
@@ -307,7 +307,7 @@ SQL;
         return $this;
     }
 
-    private function processWays(Characters $character, array $jsonCharacter): self
+    private function processWays(Character $character, array $jsonCharacter): self
     {
         $waysObject = new CharWays(
             $jsonCharacter['voies'][1]['val'],
@@ -322,7 +322,7 @@ SQL;
         return $this;
     }
 
-    private function processJob(Characters $character, array $jsonCharacter): self
+    private function processJob(Character $character, array $jsonCharacter): self
     {
         // TODO
         $this->io->block('To do '.__METHOD__, null, 'info');
@@ -330,7 +330,7 @@ SQL;
         return $this;
     }
 
-    private function processDomains(Characters $character, array $jsonCharacter): self
+    private function processDomains(Character $character, array $jsonCharacter): self
     {
         // TODO
         $this->io->block('To do '.__METHOD__, null, 'info');
@@ -338,7 +338,7 @@ SQL;
         return $this;
     }
 
-    private function processBirthplace(Characters $character, array $jsonCharacter): self
+    private function processBirthplace(Character $character, array $jsonCharacter): self
     {
         // TODO
         $this->io->block('To do '.__METHOD__, null, 'info');
@@ -346,7 +346,7 @@ SQL;
         return $this;
     }
 
-    private function processTraits(Characters $character, array $jsonCharacter): self
+    private function processTraits(Character $character, array $jsonCharacter): self
     {
         // TODO
         $this->io->block('To do '.__METHOD__, null, 'info');
@@ -354,7 +354,7 @@ SQL;
         return $this;
     }
 
-    private function processSetbacks(Characters $character, array $jsonCharacter): self
+    private function processSetbacks(Character $character, array $jsonCharacter): self
     {
         // TODO
         $this->io->block('To do '.__METHOD__, null, 'info');
@@ -362,7 +362,7 @@ SQL;
         return $this;
     }
 
-    private function processAdvantages(Characters $character, array $jsonCharacter): self
+    private function processAdvantages(Character $character, array $jsonCharacter): self
     {
         // TODO
         $this->io->block('To do '.__METHOD__, null, 'info');
@@ -370,7 +370,7 @@ SQL;
         return $this;
     }
 
-    private function processMentalData(Characters $character, array $jsonCharacter): self
+    private function processMentalData(Character $character, array $jsonCharacter): self
     {
         // TODO
         $this->io->block('To do '.__METHOD__, null, 'info');

@@ -13,7 +13,7 @@ namespace DataFixtures\EsterenMaps;
 
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
-use EsterenMaps\Entity\Routes;
+use EsterenMaps\Entity\Route;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
 
 class RoutesFixtures extends AbstractFixture implements ORMFixtureInterface
@@ -38,7 +38,7 @@ class RoutesFixtures extends AbstractFixture implements ORMFixtureInterface
      */
     protected function getEntityClass(): string
     {
-        return Routes::class;
+        return Route::class;
     }
 
     /**

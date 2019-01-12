@@ -4,7 +4,7 @@
 
 {% macro avantage_display(avtg, list_to_check, character_indications, indication_type_single_choice, indication_type_single_value) %}
 
-    {% set prefix = avtg.isDesv() ? 'desv' : 'avtg' %}
+    {% set prefix = avtg.isDisadvantage() ? 'disadvtg' : 'avtg' %}
 
     <div class="col m6">
         {% set class_more = '' %}
@@ -16,7 +16,7 @@
         {% set tooltip_text %}
             {{ avtg.description | escape('html_attr') }}
             <br>
-            {% if avtg.isDesv() %}
+            {% if avtg.isDisadvantage() %}
                 ({{ 'disadvantages.xp_gain' | trans | escape('html_attr') }} : {{ avtg.xp }})
             {% else %}
                 ({{ 'advantages.xp_cost' | trans | escape('html_attr') }} : {{ avtg.xp }})
@@ -24,23 +24,23 @@
         {% endset %}
 
         <label
-                id="label-avdesv-{{ avtg.id }}"
+                id="label-char_advantage-{{ avtg.id }}"
                 for="{{ prefix }}-{{ avtg.id }}"
                 data-tooltip="{{ tooltip_text|raw }}"
                 data-position="top"
                 data-delay="50"
                 data-html="true"
-                class="change_avdesv change_{{ prefix }} btn btn-medium bl tooltipped {{ class_more }}">
-            <input data-augmentation="{{ avtg.augmentationCount }}"
+                class="change_char_advantage change_{{ prefix }} btn btn-medium bl tooltipped {{ class_more }}">
+            <input data-bonus="{{ avtg.bonusCount }}"
                    type="hidden"
-                   name="{{ avtg.isDesv() ? 'dis' }}advantages[{{ avtg.id }}]"
+                   name="{{ avtg.isDisadvantage() ? 'dis' }}advantages[{{ avtg.id }}]"
                    value="{{ list_to_check[avtg.id] is defined and list_to_check[avtg.id] ? list_to_check[avtg.id] : '0' }}"
                    id="{{ prefix }}-{{ avtg.id }}"
                    data-element-id="{{ avtg.id }}"
                    data-element-cost="{{ avtg.xp }}"
                    class="_hidden input_{{ prefix }}" />
             <span>
-                {%- if avtg.augmentationCount > 0 -%}
+                {%- if avtg.bonusCount > 0 -%}
                     <span class="text-red">*</span>&nbsp;
                 {%- endif -%}
                 {{- avtg.name }} <small>(XP&nbsp;:&nbsp;{{ avtg.xp }})</small>
@@ -104,8 +104,8 @@
             <h6>{{ 'disadvantages.details'|trans }}</h6>
             {% for list in disadvantages_list|batch(2) %}
                 <div class="row mb5">
-                    {% for desv in list %}
-                        {{ macros.avantage_display(desv, disadvantages, character_indications, indication_type_single_choice, indication_type_single_value) }}
+                    {% for disadvtg in list %}
+                        {{ macros.avantage_display(disadvtg, disadvantages, character_indications, indication_type_single_choice, indication_type_single_value) }}
 
                     {% endfor %}
                 </div><!-- /.row -->

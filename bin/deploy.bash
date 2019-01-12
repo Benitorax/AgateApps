@@ -31,7 +31,7 @@ CHANGELOG_FILE=${DIR}/../_tmp_changelog.txt
 
 echo "[DEPLOY] > Update repository branch"
 
-git fetch origin
+git fetch --all --prune
 
 CHANGELOG=$(git changelog HEAD...origin/master | sed 1d)
 CHANGELOG_SIZE=$(echo "${CHANGELOG}" | wc -l)
@@ -46,7 +46,7 @@ else
 fi
 
 # Just a safety because cross-platform isn't something in NodeJS...
-git co package-lock.json
+git checkout package-lock.json
 
 echo "[DEPLOY] > Applying these commits..."
 git merge origin/master

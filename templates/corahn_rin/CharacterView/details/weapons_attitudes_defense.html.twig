@@ -23,7 +23,7 @@
 
         <p><i class="fa fa-hand-o-right blue-text"></i> {{ 'character.combat_attitude.sheet_explanation'|trans }}</p>
 
-        {% for attitude in constant('CorahnRin\\Entity\\Characters::COMBAT_ATTITUDES') %}
+        {% for attitude in constant('CorahnRin\\Entity\\Character::COMBAT_ATTITUDES') %}
             <h3>{{ attitude|trans }}</h3>
 
             <div class="row text-l">

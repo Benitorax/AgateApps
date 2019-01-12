@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\GeoEnvironments;
+use CorahnRin\Entity\GeoEnvironment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -22,6 +22,6 @@ class GeoEnvironmentsRepository extends ServiceEntityRepository
 
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, GeoEnvironments::class);
+        parent::__construct($registry, GeoEnvironment::class);
     }
 }

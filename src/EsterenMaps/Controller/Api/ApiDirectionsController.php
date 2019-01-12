@@ -11,8 +11,8 @@
 
 namespace EsterenMaps\Controller\Api;
 
-use EsterenMaps\Entity\Maps;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Map;
+use EsterenMaps\Entity\Marker;
 use EsterenMaps\Repository\TransportTypesRepository;
 use EsterenMaps\Services\DirectionsManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -51,10 +51,10 @@ class ApiDirectionsController extends AbstractController
      *     requirements={"id" = "\d+", "from" = "\d+", "to" = "\d+"},
      *     methods={"GET"}
      * )
-     * @ParamConverter(name="from", class="EsterenMaps\Entity\Markers", options={"id" = "from"})
-     * @ParamConverter(name="to", class="EsterenMaps\Entity\Markers", options={"id" = "to"})
+     * @ParamConverter(name="from", class="EsterenMaps\Entity\Marker", options={"id" = "from"})
+     * @ParamConverter(name="to", class="EsterenMaps\Entity\Marker", options={"id" = "to"})
      */
-    public function __invoke(Maps $map, Markers $from, Markers $to, Request $request): JsonResponse
+    public function __invoke(Map $map, Marker $from, Marker $to, Request $request): JsonResponse
     {
         if (!\in_array($request->getHost(), $this->mapsAcceptableHosts, true)) {
             throw new NotFoundHttpException();
@@ -85,10 +85,12 @@ class ApiDirectionsController extends AbstractController
             }
         }
 
-        return $response->setData($output);
+        $response->setData($output);
+
+        return $response;
     }
 
-    private function getError(Markers $from, Markers $to, int $transportId = null, string $message = 'No path found for this query.'): array
+    private function getError(Marker $from, Marker $to, int $transportId = null, string $message = 'No path found for this query.'): array
     {
         return [
             'error' => true,

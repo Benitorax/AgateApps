@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\CombatArts;
+use CorahnRin\Entity\CombatArt;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,11 +19,11 @@ final class CombatArtsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, CombatArts::class);
+        parent::__construct($registry, CombatArt::class);
     }
 
     /**
-     * @return CombatArts[]
+     * @return CombatArt[]
      */
     public function findAllSortedByName()
     {

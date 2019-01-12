@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\Armors;
+use CorahnRin\Entity\Armor;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,11 +19,11 @@ class ArmorsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Armors::class);
+        parent::__construct($registry, Armor::class);
     }
 
     /**
-     * @return Armors[]
+     * @return Armor[]
      */
     public function findAllSortedByName()
     {

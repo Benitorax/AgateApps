@@ -12,7 +12,7 @@
 namespace EsterenMaps\Command;
 
 use Doctrine\ORM\EntityManager;
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -61,10 +61,10 @@ class RefreshDataCommand extends ContainerAwareCommand
 
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $maps = $em->getRepository(Maps::class)->findAllWithRoutes();
+        $maps = $em->getRepository(Map::class)->findAllWithRoutes();
 
         // Calculate the number of objects.
-        $numberTotal = \array_reduce($maps, function ($carry, Maps $map) {
+        $numberTotal = \array_reduce($maps, function ($carry, Map $map) {
             return $carry + $map->getRoutes()->count();
         }, 0);
         $numberModified = 0;

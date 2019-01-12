@@ -13,7 +13,7 @@ namespace DataFixtures\EsterenMaps;
 
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
-use EsterenMaps\Entity\TransportTypes;
+use EsterenMaps\Entity\TransportType;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
 
 class TransportTypesFixtures extends AbstractFixture implements ORMFixtureInterface
@@ -25,7 +25,7 @@ class TransportTypesFixtures extends AbstractFixture implements ORMFixtureInterf
      */
     protected function getEntityClass(): string
     {
-        return TransportTypes::class;
+        return TransportType::class;
     }
 
     /**

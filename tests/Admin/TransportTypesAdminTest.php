@@ -11,7 +11,7 @@
 
 namespace Tests\Admin;
 
-use EsterenMaps\Entity\TransportTypes;
+use EsterenMaps\Entity\TransportType;
 
 class TransportTypesAdminTest extends AbstractEasyAdminTest
 {
@@ -28,7 +28,7 @@ class TransportTypesAdminTest extends AbstractEasyAdminTest
      */
     public function getEntityClass()
     {
-        return TransportTypes::class;
+        return TransportType::class;
     }
 
     /**

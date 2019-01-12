@@ -11,7 +11,7 @@
 
 namespace Tests\Admin;
 
-use EsterenMaps\Entity\ZonesTypes;
+use EsterenMaps\Entity\ZoneType;
 
 class ZonesTypesAdminTest extends AbstractEasyAdminTest
 {
@@ -28,7 +28,7 @@ class ZonesTypesAdminTest extends AbstractEasyAdminTest
      */
     public function getEntityClass()
     {
-        return ZonesTypes::class;
+        return ZoneType::class;
     }
 
     /**

@@ -13,7 +13,7 @@ namespace CorahnRin\Entity\CharacterProperties;
 
 use CorahnRin\Data\Character\DomainScore;
 use CorahnRin\Data\DomainsData as DomainsData;
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -290,7 +290,7 @@ class CharacterDomains
      *
      * @return DomainScore[]
      */
-    public function toArray(Characters $character): array
+    public function toArray(Character $character): array
     {
         $data = [];
 

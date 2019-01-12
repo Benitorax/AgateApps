@@ -13,7 +13,7 @@ namespace DataFixtures\EsterenMaps;
 
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Entity\Zone;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
 
 class ZonesFixtures extends AbstractFixture implements ORMFixtureInterface
@@ -33,7 +33,7 @@ class ZonesFixtures extends AbstractFixture implements ORMFixtureInterface
      */
     protected function getEntityClass(): string
     {
-        return Zones::class;
+        return Zone::class;
     }
 
     /**

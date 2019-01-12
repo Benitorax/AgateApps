@@ -13,7 +13,7 @@ namespace DataFixtures\EsterenMaps;
 
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
 
 class MapsFixtures extends AbstractFixture implements ORMFixtureInterface
@@ -25,7 +25,7 @@ class MapsFixtures extends AbstractFixture implements ORMFixtureInterface
      */
     protected function getEntityClass(): string
     {
-        return Maps::class;
+        return Map::class;
     }
 
     protected function getReferencePrefix(): ?string

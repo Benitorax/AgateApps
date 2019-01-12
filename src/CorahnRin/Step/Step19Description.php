@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Step;
 
-use CorahnRin\Entity\Characters;
+use CorahnRin\Entity\Character;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step19Description extends AbstractStepAction
@@ -24,7 +24,7 @@ class Step19Description extends AbstractStepAction
         $details = \array_merge([
             'name' => '',
             'player_name' => '',
-            'sex' => Characters::FEMALE,
+            'sex' => Character::FEMALE,
             'description' => '',
             'story' => '',
             'facts' => '',
@@ -52,8 +52,8 @@ class Step19Description extends AbstractStepAction
 
             if (false === $errors) {
                 if (!\in_array($newDetails['sex'], [
-                    Characters::MALE,
-                    Characters::FEMALE,
+                    Character::MALE,
+                    Character::FEMALE,
                 ], true)) {
                     $errors = true;
                     $this->flashMessage('errors.incorrect_values');

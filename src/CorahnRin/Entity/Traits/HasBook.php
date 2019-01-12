@@ -11,26 +11,26 @@
 
 namespace CorahnRin\Entity\Traits;
 
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use Doctrine\ORM\Mapping as ORM;
 
 trait HasBook
 {
     /**
-     * @var Books
-     * @ORM\ManyToOne(targetEntity="Books")
+     * @var Book
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Book")
      * @ORM\JoinColumn(name="book_id", nullable=true)
      */
     protected $book;
 
-    public function setBook(Books $book = null): self
+    public function setBook(Book $book = null): self
     {
         $this->book = $book;
 
         return $this;
     }
 
-    public function getBook(): ?Books
+    public function getBook(): ?Book
     {
         return $this->book;
     }

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace EsterenMaps\Controller\Admin;
 
-use EsterenMaps\Entity\Maps;
+use EsterenMaps\Entity\Map;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +34,7 @@ class EditMapInteractiveController extends AbstractController
     /**
      * @Route("/maps/edit-interactive/{id}", name="admin_esterenmaps_maps_maps_editInteractive", methods={"GET"})
      */
-    public function __invoke(Request $request, Maps $map): Response
+    public function __invoke(Request $request, Map $map): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 

@@ -14,13 +14,13 @@ namespace EsterenMaps\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
-use EsterenMaps\Entity\ZonesTypes;
+use EsterenMaps\Entity\ZoneType;
 
 class ZonesTypesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ZonesTypes::class);
+        parent::__construct($registry, ZoneType::class);
     }
 
     public function findForApi()

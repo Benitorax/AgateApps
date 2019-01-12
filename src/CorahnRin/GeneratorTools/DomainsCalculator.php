@@ -13,7 +13,7 @@ namespace CorahnRin\GeneratorTools;
 
 use CorahnRin\Data\DomainItem;
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\GeoEnvironments;
+use CorahnRin\Entity\GeoEnvironment;
 
 final class DomainsCalculator
 {
@@ -51,7 +51,7 @@ final class DomainsCalculator
         $allDomains,
         array $socialClasses,
         string $ost,
-        GeoEnvironments $geoEnv,
+        GeoEnvironment $geoEnv,
         array $primaryDomains,
         array $domainsBonuses = null
     ): array {

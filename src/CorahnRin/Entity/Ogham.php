@@ -48,8 +48,8 @@ class Ogham
     protected $description;
 
     /**
-     * @var OghamTypes
-     * @ORM\ManyToOne(targetEntity="OghamTypes")
+     * @var OghamType
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\OghamType")
      */
     protected $oghamType;
 
@@ -138,13 +138,13 @@ class Ogham
     /**
      * Set oghamType.
      *
-     * @param OghamTypes $oghamType
+     * @param OghamType $oghamType
      *
      * @return Ogham
      *
      * @codeCoverageIgnore
      */
-    public function setOghamType(OghamTypes $oghamType = null)
+    public function setOghamType(OghamType $oghamType = null)
     {
         $this->oghamType = $oghamType;
 
@@ -154,7 +154,7 @@ class Ogham
     /**
      * Get oghamType.
      *
-     * @return OghamTypes
+     * @return OghamType
      *
      * @codeCoverageIgnore
      */

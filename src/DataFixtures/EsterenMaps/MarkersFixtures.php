@@ -13,7 +13,7 @@ namespace DataFixtures\EsterenMaps;
 
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
-use EsterenMaps\Entity\Markers;
+use EsterenMaps\Entity\Marker;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
 
 class MarkersFixtures extends AbstractFixture implements ORMFixtureInterface
@@ -37,7 +37,7 @@ class MarkersFixtures extends AbstractFixture implements ORMFixtureInterface
      */
     protected function getEntityClass(): string
     {
-        return Markers::class;
+        return Marker::class;
     }
 
     /**

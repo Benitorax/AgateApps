@@ -11,23 +11,23 @@ function getAdvantageFromInput(input, label){
     var id = parseInt(input.getAttribute('data-element-id'));
     var xp = parseInt(input.getAttribute('data-element-cost'));
     var currentValue = parseInt(input.value);
-    var augmentation = parseInt(input.getAttribute('data-augmentation'));
+    var bonus = parseInt(input.getAttribute('data-bonus'));
     var isAdvantage = null;
     var indicationInput = document.getElementById('advantages_indications_'+id);
 
     // If these elements are not numbers,
     // it means someone attempted to override DOM values.
-    if (isNaN(xp) || isNaN(currentValue) || isNaN(augmentation) || isNaN(id)) {
+    if (isNaN(xp) || isNaN(currentValue) || isNaN(bonus) || isNaN(id)) {
         throw 'Wrong values';
     }
 
     // Determine whether it's an advantage or a disadvantage.
-    if (label.classList.contains('change_desv')) {
+    if (label.classList.contains('change_disadvtg')) {
         isAdvantage = false;
     } else if (label.classList.contains('change_avtg')) {
         isAdvantage = true;
     } else {
-        throw 'Wrong element class, missing change_avtg or change_desv.';
+        throw 'Wrong element class, missing change_avtg or change_disadvtg.';
     }
 
     return Advantage.new({
@@ -35,7 +35,7 @@ function getAdvantageFromInput(input, label){
         'xp': xp,
         'baseValue': currentValue,
         'currentValue': currentValue,
-        'augmentation': augmentation,
+        'bonus': bonus,
         'isAdvantage': isAdvantage,
         'input': input,
         'label': label,
@@ -84,7 +84,7 @@ function calculateXpFromAdvantage(advantage, virtualValue) {
         return 0;
     } else if (value === 1) {
         xp = advantage.xp;
-    } else if (value === 2 && advantage.augmentation > 0) {
+    } else if (value === 2 && advantage.bonus > 0) {
         xp = Math.floor(advantage.xp * 1.5);
     } else if (value > 2) {
         throw 'Incorrect value for advantage / disadvantage';
@@ -127,7 +127,7 @@ function updateAdvantageValue(advantage, forceValue) {
     if (
         (advantage.id === 50 && value > 3)
         || (advantage.id !== 50 && value > 2)
-        || (advantage.augmentation === 0 && value >= 2)
+        || (advantage.bonus === 0 && value >= 2)
     ) {
         value = 0;
     }

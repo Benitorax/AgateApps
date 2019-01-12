@@ -14,13 +14,13 @@ namespace EsterenMaps\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
-use EsterenMaps\Entity\MarkersTypes;
+use EsterenMaps\Entity\MarkerType;
 
 class MarkersTypesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MarkersTypes::class);
+        parent::__construct($registry, MarkerType::class);
     }
 
     public function findForApi()

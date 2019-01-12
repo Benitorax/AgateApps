@@ -14,16 +14,16 @@ namespace EsterenMaps\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
-use EsterenMaps\Entity\TransportTypes;
+use EsterenMaps\Entity\TransportType;
 
 /**
- * @method TransportTypes|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TransportType|null findOneBy(array $criteria, array $orderBy = null)
  */
 class TransportTypesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TransportTypes::class);
+        parent::__construct($registry, TransportType::class);
     }
 
     public function findForApi()

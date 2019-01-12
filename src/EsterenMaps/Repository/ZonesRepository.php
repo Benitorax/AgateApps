@@ -14,7 +14,7 @@ namespace EsterenMaps\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Entity\Zone;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 
 class ZonesRepository extends ServiceEntityRepository
@@ -23,7 +23,7 @@ class ZonesRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Zones::class);
+        parent::__construct($registry, Zone::class);
     }
 
     public function findForApiByMap($mapId)

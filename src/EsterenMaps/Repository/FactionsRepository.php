@@ -14,13 +14,13 @@ namespace EsterenMaps\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
-use EsterenMaps\Entity\Factions;
+use EsterenMaps\Entity\Faction;
 
 class FactionsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Factions::class);
+        parent::__construct($registry, Faction::class);
     }
 
     public function findForApi()

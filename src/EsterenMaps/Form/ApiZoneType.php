@@ -11,9 +11,9 @@
 
 namespace EsterenMaps\Form;
 
-use EsterenMaps\Entity\Factions;
-use EsterenMaps\Entity\Zones;
-use EsterenMaps\Entity\ZonesTypes;
+use EsterenMaps\Entity\Faction;
+use EsterenMaps\Entity\Zone;
+use EsterenMaps\Entity\ZoneType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,10 +32,10 @@ class ApiZoneType extends AbstractType
                 ],
             ])
             ->add('zoneType', EntityType::class, [
-                'class' => ZonesTypes::class,
+                'class' => ZoneType::class,
             ])
             ->add('faction', EntityType::class, [
-                'class' => Factions::class,
+                'class' => Faction::class,
             ])
         ;
     }
@@ -43,7 +43,7 @@ class ApiZoneType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefault('data_class', Zones::class)
+            ->setDefault('data_class', Zone::class)
         ;
     }
 }

@@ -13,9 +13,9 @@ namespace Tests\EsterenMaps\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Controller\Api\ApiDirectionsController;
-use EsterenMaps\Entity\Maps;
-use EsterenMaps\Entity\Markers;
-use EsterenMaps\Entity\TransportTypes;
+use EsterenMaps\Entity\Map;
+use EsterenMaps\Entity\Marker;
+use EsterenMaps\Entity\TransportType;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tests\WebTestCase as PiersTestCase;
 
@@ -44,27 +44,28 @@ class DirectionsManagerTest extends WebTestCase
         /** @var ApiDirectionsController $directionsController */
         $directionsController = $container->get(ApiDirectionsController::class);
 
-        /** @var Maps $map */
-        $map = $em->getRepository(Maps::class)->findOneBy(['nameSlug' => $map]);
+        /** @var Map $map */
+        $map = $em->getRepository(Map::class)->findOneBy(['nameSlug' => $map]);
 
-        $markersRepo = $em->getRepository(Markers::class);
+        $markersRepo = $em->getRepository(Marker::class);
 
-        /** @var Markers $from */
+        /** @var Marker $from */
         $from = $markersRepo->find($from);
 
-        /** @var Markers $to */
+        /** @var Marker $to */
         $to = $markersRepo->find($to);
 
         $queryString = 'hours_per_day=7';
 
         if ($transport) {
-            $transport = $em->getRepository(TransportTypes::class)->findOneBy(['slug' => $transport]);
+            $transport = $em->getRepository(TransportType::class)->findOneBy(['slug' => $transport]);
             $queryString .= '&transport='.$transport->getId();
         }
 
         $client->request('GET', \sprintf('/fr/api/maps/directions/%d/%d/%d?%s', $map->getId(), $from->getId(), $to->getId(), $queryString));
 
         $dirs = \json_decode($client->getResponse()->getContent(), true);
+        static::assertInternalType('array', $dirs);
 
         foreach ($expectedData as $key => $expectedValue) {
             static::assertArrayHasKey($key, $dirs);

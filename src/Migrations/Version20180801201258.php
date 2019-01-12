@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace DoctrineMigrations;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\Avantages;
+use CorahnRin\Entity\Advantage;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\Migrations\AbstractMigration;
@@ -47,7 +47,7 @@ final class Version20180801201258 extends AbstractMigration
             ALTER TABLE avantages
             ADD bonuses_for LONGTEXT DEFAULT NULL COMMENT "(DC2Type:simple_array)",
             ADD requires_indication VARCHAR(255) DEFAULT NULL,
-            ADD indication_type VARCHAR(20) NOT NULL DEFAULT "'.Avantages::INDICATION_TYPE_SINGLE_VALUE.'",
+            ADD indication_type VARCHAR(20) NOT NULL DEFAULT "'.Advantage::INDICATION_TYPE_SINGLE_VALUE.'",
             CHANGE augmentation augmentation_count SMALLINT(6) NOT NULL DEFAULT \'0\',
             CHANGE avtg_group avtg_group VARCHAR(255) DEFAULT NULL
         ');
@@ -323,7 +323,7 @@ final class Version20180801201258 extends AbstractMigration
             WHERE id = :id',
             [
                 ':indication' => 'advantages.indication.scholar',
-                ':indication_type' => Avantages::INDICATION_TYPE_SINGLE_CHOICE,
+                ':indication_type' => Advantage::INDICATION_TYPE_SINGLE_CHOICE,
                 ':bonuses_for' => $simpleArray->convertToDatabaseValue([
                     DomainsData::ERUDITION['title'],
                     DomainsData::SCIENCE['title'],

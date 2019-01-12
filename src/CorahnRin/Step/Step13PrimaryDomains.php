@@ -12,8 +12,8 @@
 namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\Avantages;
-use CorahnRin\Entity\Jobs;
+use CorahnRin\Entity\Advantage;
+use CorahnRin\Entity\Job;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step13PrimaryDomains extends AbstractStepAction
@@ -23,17 +23,17 @@ class Step13PrimaryDomains extends AbstractStepAction
      */
     private $allDomains;
     /**
-     * @var Avantages[]
+     * @var Advantage[]
      */
     protected $advantages;
 
     /**
-     * @var Avantages[]
+     * @var Advantage[]
      */
     protected $disadvantages;
 
     /**
-     * @var Jobs
+     * @var Job
      */
     private $job;
 
@@ -62,13 +62,13 @@ class Step13PrimaryDomains extends AbstractStepAction
     public function execute(): Response
     {
         $this->allDomains = DomainsData::allAsObjects();
-        $this->job = $this->em->getRepository(Jobs::class)->find($this->getCharacterProperty('02_job'));
+        $this->job = $this->em->getRepository(Job::class)->find($this->getCharacterProperty('02_job'));
         $this->step11AdvantagesData = $this->getCharacterProperty('11_advantages');
         $advantages = $this->step11AdvantagesData['advantages'];
         $disadvantages = $this->step11AdvantagesData['disadvantages'];
 
-        $this->advantages = $this->em->getRepository(Avantages::class)->findBy(['id' => \array_keys($advantages)]);
-        $this->disadvantages = $this->em->getRepository(Avantages::class)->findBy(['id' => \array_keys($disadvantages)]);
+        $this->advantages = $this->em->getRepository(Advantage::class)->findBy(['id' => \array_keys($advantages)]);
+        $this->disadvantages = $this->em->getRepository(Advantage::class)->findBy(['id' => \array_keys($disadvantages)]);
 
         // This makes sure that session is not polluted with wrong data.
         $this->resetStep();

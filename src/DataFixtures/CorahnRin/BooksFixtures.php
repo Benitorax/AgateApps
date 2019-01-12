@@ -11,7 +11,7 @@
 
 namespace DataFixtures\CorahnRin;
 
-use CorahnRin\Entity\Books;
+use CorahnRin\Entity\Book;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -42,7 +42,7 @@ class BooksFixtures extends AbstractFixture implements OrderedFixtureInterface, 
         $this->manager = $manager;
 
         /** @var EntityRepository $repo */
-        $repo = $this->manager->getRepository(\CorahnRin\Entity\Books::class);
+        $repo = $this->manager->getRepository(\CorahnRin\Entity\Book::class);
 
         $this->fixtureObject($repo, 1, 'Livre 0 - Prologue', '');
         $this->fixtureObject($repo, 2, 'Livre 1 - Univers', '');
@@ -77,7 +77,7 @@ class BooksFixtures extends AbstractFixture implements OrderedFixtureInterface, 
             $newObject = true;
         }
         if (true === $newObject) {
-            $obj = new Books();
+            $obj = new Book();
             $obj->setId($id)
                 ->setName($name)
                 ->setDescription($description)

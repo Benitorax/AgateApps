@@ -6,7 +6,7 @@
     if (d.getElementById('generator_11_advantages')) {
 
         // Vars
-        var $labelsCollection = $('.change_avdesv');
+        var $labelsCollection = $('.change_char_advantage');
         var xpElement = d.getElementById('xp');
         var advantagesList = {};
         var disadvantagesList = {};
@@ -77,7 +77,7 @@
             if (
                 (currentAdvantageId === 50 && virtualValueToTest > 3)
                 || (currentAdvantageId !== 50 && virtualValueToTest > 2)
-                || (currentAdvantage.augmentation === 0 && virtualValueToTest >= 2)
+                || (currentAdvantage.bonus === 0 && virtualValueToTest >= 2)
             ) {
                 virtualValueToTest = 0;
             }

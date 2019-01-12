@@ -13,7 +13,7 @@ namespace EsterenMaps\Controller\Admin\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Api\ZoneApi;
-use EsterenMaps\Entity\Zones;
+use EsterenMaps\Entity\Zone;
 use Main\DependencyInjection\PublicService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +58,7 @@ class ApiZonesController implements PublicService
         }
 
         try {
-            $zone = Zones::fromApi($this->zoneApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
+            $zone = Zone::fromApi($this->zoneApi->sanitizeRequestData(\json_decode($request->getContent(), true)));
 
             return $this->handleResponse($this->validate($zone), $zone);
         } catch (HttpException $e) {
@@ -75,7 +75,7 @@ class ApiZonesController implements PublicService
      *     host="%esteren_domains.backoffice%"
      * )
      */
-    public function update(Zones $zone, Request $request): Response
+    public function update(Zone $zone, Request $request): Response
     {
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -90,7 +90,7 @@ class ApiZonesController implements PublicService
         }
     }
 
-    private function handleResponse(array $messages, Zones $zone): Response
+    private function handleResponse(array $messages, Zone $zone): Response
     {
         if (\count($messages) > 0) {
             throw new BadRequestHttpException(\json_encode($messages, JSON_PRETTY_PRINT));

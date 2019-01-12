@@ -12,7 +12,7 @@
 namespace DataFixtures\CorahnRin;
 
 use CorahnRin\Data\ItemAvailability;
-use CorahnRin\Entity\Weapons;
+use CorahnRin\Entity\Weapon;
 use DataFixtures\FixtureMetadataIdGeneratorTrait;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Orbitale\Component\DoctrineTools\AbstractFixture;
@@ -34,7 +34,7 @@ class WeaponsFixtures extends AbstractFixture implements ORMFixtureInterface
      */
     protected function getEntityClass(): string
     {
-        return Weapons::class;
+        return Weapon::class;
     }
 
     /**

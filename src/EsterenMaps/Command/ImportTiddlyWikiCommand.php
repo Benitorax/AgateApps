@@ -17,14 +17,14 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\UnitOfWork;
-use EsterenMaps\Entity\Factions;
-use EsterenMaps\Entity\Maps;
-use EsterenMaps\Entity\Markers;
-use EsterenMaps\Entity\MarkersTypes;
-use EsterenMaps\Entity\Routes;
-use EsterenMaps\Entity\RoutesTypes;
-use EsterenMaps\Entity\Zones;
-use EsterenMaps\Entity\ZonesTypes;
+use EsterenMaps\Entity\Faction;
+use EsterenMaps\Entity\Map;
+use EsterenMaps\Entity\Marker;
+use EsterenMaps\Entity\MarkerType;
+use EsterenMaps\Entity\Route;
+use EsterenMaps\Entity\RouteType;
+use EsterenMaps\Entity\Zone;
+use EsterenMaps\Entity\ZoneType;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -64,42 +64,42 @@ class ImportTiddlyWikiCommand extends Command
     private $dryRun = true;
 
     /**
-     * @var Maps[]
+     * @var Map[]
      */
     private $maps = [];
 
     /**
-     * @var Factions[][]
+     * @var Faction[][]
      */
     private $factions = [];
 
     /**
-     * @var MarkersTypes[][]
+     * @var MarkerType[][]
      */
     private $markersTypes = [];
 
     /**
-     * @var ZonesTypes[][]
+     * @var ZoneType[][]
      */
     private $zonesTypes = [];
 
     /**
-     * @var RoutesTypes[][]
+     * @var RouteType[][]
      */
     private $routesTypes = [];
 
     /**
-     * @var Routes[][]
+     * @var Route[][]
      */
     private $routes = [];
 
     /**
-     * @var Zones[][]
+     * @var Zone[][]
      */
     private $zones = [];
 
     /**
-     * @var Markers[][]
+     * @var Marker[][]
      */
     private $markers = [];
 
@@ -187,16 +187,16 @@ class ImportTiddlyWikiCommand extends Command
         $table->setRows($tags);
         $table->render();
 
-        $this->maps = $this->getRepository(Maps::class)->findAllRoot(true);
+        $this->maps = $this->getRepository(Map::class)->findAllRoot(true);
 
-        $this->factions = $this->getReferenceObjects('factions', Factions::class);
-        $this->markersTypes = $this->getReferenceObjects('markertype', MarkersTypes::class);
-        $this->zonesTypes = $this->getReferenceObjects('zonetype', ZonesTypes::class);
-        $this->routesTypes = $this->getReferenceObjects('routetype', RoutesTypes::class);
+        $this->factions = $this->getReferenceObjects('factions', Faction::class);
+        $this->markersTypes = $this->getReferenceObjects('markertype', MarkerType::class);
+        $this->zonesTypes = $this->getReferenceObjects('zonetype', ZoneType::class);
+        $this->routesTypes = $this->getReferenceObjects('routetype', RouteType::class);
 
-        $this->markers = $this->processObjects('marqueurs', Markers::class);
-        $this->zones = $this->processObjects('zones', Zones::class);
-        $this->routes = $this->processObjects('routes', Routes::class);
+        $this->markers = $this->processObjects('marqueurs', Marker::class);
+        $this->zones = $this->processObjects('zones', Zone::class);
+        $this->routes = $this->processObjects('routes', Route::class);
 
         $allData = \array_merge(
             $this->factions['new'],
@@ -314,7 +314,7 @@ class ImportTiddlyWikiCommand extends Command
         $new = [];
         $existing = [];
 
-        /** @var Markers[]|Zones[]|Routes[] $objects */
+        /** @var Marker[]|Zone[]|Route[] $objects */
         $objects = $repo->findAllRoot('id');
 
         foreach ($data as $datum) {
@@ -367,7 +367,7 @@ class ImportTiddlyWikiCommand extends Command
         $new = [];
         $existing = [];
 
-        /** @var Markers[]|Zones[]|Routes[] $objects */
+        /** @var Marker[]|Zone[]|Route[] $objects */
         $objects = $repo->findAllRoot(true);
 
         foreach ($data as $datum) {
@@ -420,8 +420,8 @@ class ImportTiddlyWikiCommand extends Command
     }
 
     /**
-     * @param Markers|Zones|Routes $object
-     * @param array                $data
+     * @param Marker|Zone|Route $object
+     * @param array             $data
      */
     private function updateOneObject($object, $data)
     {
@@ -440,14 +440,14 @@ class ImportTiddlyWikiCommand extends Command
             $object->setUpdatedAt(new DateTime());
         }
 
-        if ($object instanceof Markers) {
+        if ($object instanceof Marker) {
             $object
                 ->setMarkerType($this->getOneReferencedObject('markersTypes', $data['markertype_id']))
             ;
             if (!$object->isLocalized()) {
                 $object->setLatitude(0)->setLongitude(0);
             }
-        } elseif ($object instanceof Routes) {
+        } elseif ($object instanceof Route) {
             $object
                 ->setRouteType($this->getOneReferencedObject('routesTypes', $data['routetype_id']))
                 ->setMarkerStart($this->getOneReferencedObject('markers', $data['markerstart_id']))
@@ -460,7 +460,7 @@ class ImportTiddlyWikiCommand extends Command
                 ]));
             }
             $object->refresh();
-        } elseif ($object instanceof Zones) {
+        } elseif ($object instanceof Zone) {
             $object
                 ->setZoneType($this->getOneReferencedObject('zonesTypes', $data['zonetype_id']))
             ;

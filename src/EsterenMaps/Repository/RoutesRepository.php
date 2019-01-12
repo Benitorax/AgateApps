@@ -14,7 +14,7 @@ namespace EsterenMaps\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use EsterenMaps\Cache\CacheManager;
-use EsterenMaps\Entity\Routes;
+use EsterenMaps\Entity\Route;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 
 class RoutesRepository extends ServiceEntityRepository
@@ -23,7 +23,7 @@ class RoutesRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Routes::class);
+        parent::__construct($registry, Route::class);
     }
 
     public function findForApiByMap($mapId)
