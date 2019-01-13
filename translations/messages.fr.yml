@@ -94,9 +94,10 @@ admin:
             subtitle: 'Sous-titre'
             title: 'Titre'
             image_help: |
-                Une largeur de plus de 1000px est recommandée pour éviter la pixellisation.
-                Un ratio largeur/hauteur d'image supérieur à 1.3 est nécessaire pour conserver le mouvement de la parallaxe.
-                Si vous ne modifiez pas ce champ, la précédente image sera conservée.
+                Une largeur de plus de 1000px est recommandée pour éviter la pixellisation.<br>
+                Un ratio largeur/hauteur d'image supérieur à 1.3 est nécessaire pour conserver le mouvement de la parallaxe.<br>
+                Si vous ne modifiez pas ce champ, la précédente image sera conservée.<br>
+                Tout changement d'image va supprimer la précédente image!
 
         factions:
             maxZoom: 'Zoom maximum'

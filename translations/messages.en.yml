@@ -93,6 +93,8 @@ admin:
                 A width of more than 1000px is recommended to avoid pixellisation.
                 An image width/height ratio of more than 1.3 is also recommended to keep the correct parallax movement.
                 If you do not update this field, the previous image will be kept.
+                Any image change will remove the previous image!
+
 
         factions:
             maxZoom: 'Maximum zoom'
