@@ -14,19 +14,15 @@ namespace Admin\CustomController;
 use Admin\Controller\AdminController;
 use Agate\Entity\PortalElement;
 use Behat\Transliterator\Transliterator;
-use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PortalElementController extends AdminController
 {
-    /**
-     * @var FilesystemInterface
-     */
-    private $filesystem;
+    private $uploadPath;
 
-    public function __construct(FilesystemInterface $oneupFlysystem)
+    public function __construct(string $publicDir, string $portalElementUploadPath)
     {
-        $this->filesystem = $oneupFlysystem;
+        $this->uploadPath = $publicDir.'/'.$portalElementUploadPath;
     }
 
     protected function updateEntity($portalElement)
@@ -57,12 +53,10 @@ class PortalElementController extends AdminController
                 .'.'.$image->guessExtension()
             ;
 
-            $stream = \fopen($image->getRealPath(), 'rb');
+            $image->move($this->uploadPath, $newname);
 
-            $uploadResult = $this->filesystem->writeStream($newname, $stream, ['mimetype' => $image->getMimeType()]);
-
-            if (false === $uploadResult) {
-                throw new \RuntimeException('An error occured when uploading the file.');
+            if (\file_exists($oldFile = $this->uploadPath.'/'.$portalElement->getImageUrl())) {
+                \unlink($oldFile);
             }
 
             $portalElement->setImageUrl($newname);

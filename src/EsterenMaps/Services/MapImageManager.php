@@ -15,11 +15,11 @@ use EsterenMaps\Entity\Map;
 
 class MapImageManager
 {
-    private $webDir;
+    private $publicDir;
 
     public function __construct(string $publicDir)
     {
-        $this->webDir = $publicDir;
+        $this->publicDir = $publicDir;
     }
 
     /**
@@ -37,7 +37,7 @@ class MapImageManager
 
         $path = \preg_replace('~\.'.$ext.'$~i', '_IM.'.$ext, $map->getImage());
 
-        return $this->webDir.'/'.$path;
+        return $this->publicDir.'/'.$path;
     }
 
     /**

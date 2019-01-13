@@ -16,13 +16,11 @@ use Twig\TwigFunction;
 
 class UploadedAssetsUrlExtension extends AbstractExtension
 {
-    private $awsRegion;
-    private $awsBucket;
+    private $portalElementUploadPath;
 
-    public function __construct(string $awsRegion, string $awsBucket)
+    public function __construct(string $portalElementUploadPath)
     {
-        $this->awsRegion = $awsRegion;
-        $this->awsBucket = $awsBucket;
+        $this->portalElementUploadPath = $portalElementUploadPath;
     }
 
     public function getFunctions()
@@ -34,10 +32,6 @@ class UploadedAssetsUrlExtension extends AbstractExtension
 
     public function assetUrl(string $assetName)
     {
-        if ($this->awsBucket && $this->awsRegion) {
-            return "https://s3-{$this->awsRegion}.amazonaws.com/{$this->awsBucket}/assets/$assetName";
-        }
-
-        return '/uploads/'.$assetName;
+        return $this->portalElementUploadPath.'/'.$assetName;
     }
 }
