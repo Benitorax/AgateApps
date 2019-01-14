@@ -12,13 +12,14 @@
 namespace Tests\Admin;
 
 use Agate\Entity\PortalElement;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PortalElementAdminTest extends AbstractEasyAdminTest
 {
     private const TEMPFILE_REGEX = '~^portal_element_[a-z0-9_-]+_pe_[a-z0-9]+\.[0-9]+\.jpeg$~isUu';
 
-    private $file;
+    private $files = [];
 
     /**
      * {@inheritdoc}
@@ -40,8 +41,10 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
     {
         parent::tearDown();
 
-        if (null !== $this->file && \file_exists($this->file)) {
-            \unlink($this->file);
+        foreach ($this->files as $file) {
+            if (null !== $file && \file_exists($file)) {
+                \unlink($file);
+            }
         }
     }
 
@@ -52,16 +55,16 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         static::resetDatabase();
     }
 
-    public function testNewValidFileUpload()
+    public function test new valid file upload()
     {
         static::resetDatabase();
 
-        $this->createImage();
+        $file = $this->createImage();
 
         $submitted = [
             'portal' => 'agate',
             'locale' => 'en',
-            'image' => new UploadedFile($this->file, 'uploaded_file.jpg'),
+            'image' => new UploadedFile($file, 'uploaded_file.jpg'),
             'title' => 'Portail Esteren',
             'subtitle' => 'sub',
             'buttonText' => 'button',
@@ -87,21 +90,19 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
 
         static::assertRegExp(self::TEMPFILE_REGEX, $entity->getImageUrl(), $entity->getImageUrl());
 
-        $filePath = static::$kernel->getContainer()->getParameter('kernel.project_dir').'/public/uploads/'.$entity->getImageUrl();
+        $filePath = static::$kernel->getContainer()->getParameter('kernel.project_dir').'/public/uploads/portal/'.$entity->getImageUrl();
 
         static::assertFileExists($filePath);
 
         \unlink($filePath);
     }
 
-    public function testEditValidFileUpload()
+    public function test edit valid portal element and old image is removed()
     {
         static::resetDatabase();
 
-        $this->createImage();
-
         $submitted = [
-            'image' => new UploadedFile($this->file, 'uploaded_file.jpg'),
+            'image' => new UploadedFile($this->createImage(), 'uploaded_file.jpg'),
             'title' => 'Portail Esteren',
             'subtitle' => 'sub',
             'buttonText' => 'button',
@@ -123,14 +124,41 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
             'locale' => 'fr',
         ];
 
-        /** @var PortalElement $entity */
+        static::bootKernel();
+
+        $uploadDir = static::$container->getParameter('kernel.project_dir').'/public/uploads/portal/';
+
+        $fileToOverride = $this->createImage(10, 10, $uploadDir);
+        static::assertFileExists($fileToOverride);
+        $baseNameToOverride = \basename($fileToOverride);
+
+        /** @var EntityManagerInterface $em */
+        $em = static::$container->get('doctrine')->getManager();
+        $metadata = $em->getClassMetadata(PortalElement::class);
+        $tableName = $metadata->getTableName();
+        $qb = $em->getConnection()->createQueryBuilder();
+        $qb
+            ->update($tableName)
+            ->set($metadata->getColumnName('imageUrl'), $qb->createNamedParameter($baseNameToOverride))
+            ->where($metadata->getColumnName('portal').' = '.$qb->createNamedParameter($search['portal']))
+            ->andWhere($metadata->getColumnName('locale').' = '.$qb->createNamedParameter($search['locale']))
+            ->execute()
+        ;
+
+        $entity = $em->getRepository(PortalElement::class)->findOneBy($search);
+
+        static::assertInstanceOf(PortalElement::class, $entity);
+        static::assertSame($entity->getImageUrl(), $baseNameToOverride);
+
+        // Actual admin action
         $entity = $this->submitData($submitted, $expected, $search, 'edit');
 
         static::assertRegExp(self::TEMPFILE_REGEX, $entity->getImageUrl(), $entity->getImageUrl());
 
-        $filePath = static::$kernel->getContainer()->getParameter('kernel.project_dir').'/public/uploads/'.$entity->getImageUrl();
+        $filePath = $uploadDir.$entity->getImageUrl();
 
         static::assertFileExists($filePath);
+        static::assertFileNotExists($fileToOverride);
 
         \unlink($filePath);
     }
@@ -167,11 +195,25 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         return false;
     }
 
-    private function createImage(int $width = 1900, $height = 900)
+    private function createImage(int $width = 1900, $height = 900, $dir = null)
     {
-        $this->file = \tempnam(\sys_get_temp_dir(), 'portal_test').'.jpg';
+        $file = \tempnam($dir ?: \sys_get_temp_dir(), 'portal_test');
 
-        \imagejpeg(\imagecreate($width, $height), $this->file);
+        static::assertFileExists($file);
+
+        \rename($file, $file.'.jpg');
+
+        $file .= '.jpg';
+
+        static::assertFileExists($file);
+
+        $result = \imagejpeg(\imagecreate($width, $height), $file);
+
+        static::assertTrue($result, \sprintf('"imagejpeg()" returned an error when creating file "%s".', $file));
+
+        $this->files[] = $file;
+
+        return $file;
     }
 
     protected static function resetDatabase()
@@ -182,7 +224,7 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
 
         $class = PortalElement::class;
 
-        static::$container->get('doctrine.orm.entity_manager')
+        static::$container->get('doctrine')->getManager()
             ->createQuery(<<<DQL
                 DELETE FROM {$class} element 
                 WHERE element.portal = :portal 

@@ -22,7 +22,7 @@ class PortalElementController extends AdminController
 
     public function __construct(string $publicDir, string $portalElementUploadPath)
     {
-        $this->uploadPath = $publicDir.'/'.$portalElementUploadPath;
+        $this->uploadPath = rtrim($publicDir, '\\/').'/'.ltrim($portalElementUploadPath, '\\/');
     }
 
     protected function updateEntity($portalElement)
@@ -55,7 +55,7 @@ class PortalElementController extends AdminController
 
             $image->move($this->uploadPath, $newname);
 
-            if (\file_exists($oldFile = $this->uploadPath.'/'.$portalElement->getImageUrl())) {
+            if ($portalElement->getImageUrl() && \is_file($oldFile = ($this->uploadPath.'/'.$portalElement->getImageUrl()))) {
                 \unlink($oldFile);
             }
 
