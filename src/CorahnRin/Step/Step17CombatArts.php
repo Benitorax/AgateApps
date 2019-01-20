@@ -53,7 +53,6 @@ class Step17CombatArts extends AbstractStepAction
 
         // Calculate final values from previous steps
         $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
-            $allDomains,
             $socialClassValues,
             $primaryDomains['ost'],
             $geoEnvironment,

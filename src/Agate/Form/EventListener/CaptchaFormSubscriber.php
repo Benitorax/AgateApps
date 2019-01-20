@@ -27,13 +27,15 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CaptchaFormSubscriber implements EventSubscriberInterface
 {
+    private $enableCaptcha;
     private $reCaptcha;
     private $request;
 
-    public function __construct(ReCaptcha $reCaptcha, Request $request)
+    public function __construct(bool $enableCaptcha, ReCaptcha $reCaptcha, Request $request)
     {
         $this->reCaptcha = $reCaptcha;
         $this->request = $request;
+        $this->enableCaptcha = $enableCaptcha;
     }
 
     public function setRequest(Request $request): void
@@ -50,6 +52,10 @@ class CaptchaFormSubscriber implements EventSubscriberInterface
 
     public function onFormSubmit(FormEvent $event): void
     {
+        if (!$this->enableCaptcha) {
+            return;
+        }
+
         $captcha = $this->request->request->get('g-recaptcha-response');
 
         if (

@@ -36,7 +36,7 @@ use CorahnRin\Entity\PersonalityTrait;
 use CorahnRin\Entity\Setbacks;
 use CorahnRin\Entity\SocialClass;
 use CorahnRin\Entity\Weapon;
-use CorahnRin\Exception\CharactersException;
+use CorahnRin\Exception\CharacterException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityRepository;
@@ -83,7 +83,7 @@ final class SessionToCharacter
     }
 
     /**
-     * @throws CharactersException
+     * @throws CharacterException
      */
     public function createCharacterFromGeneratorValues(array $values): Character
     {
@@ -98,7 +98,7 @@ final class SessionToCharacter
         \sort($stepsKeys);
 
         if ($generatorKeys !== $stepsKeys) {
-            throw new CharactersException('Generator seems not to be fully finished');
+            throw new CharacterException('Generator seems not to be fully finished');
         }
 
         $character = new Character();
@@ -343,7 +343,6 @@ final class SessionToCharacter
     private function setDomains(Character $character, array $values): void
     {
         $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
-            $this->domains,
             $values['05_social_class']['domains'],
             $values['13_primary_domains']['ost'],
             $character->getGeoLiving(),

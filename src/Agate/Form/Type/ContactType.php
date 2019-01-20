@@ -76,9 +76,7 @@ class ContactType extends AbstractType
             ])
         ;
 
-        if ($this->enableCaptcha) {
-            $builder->addEventSubscriber(new CaptchaFormSubscriber($this->reCaptcha, $options['request']));
-        }
+        $builder->addEventSubscriber(new CaptchaFormSubscriber($this->enableCaptcha, $this->reCaptcha, $options['request']));
     }
 
     public function configureOptions(OptionsResolver $resolver)

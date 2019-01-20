@@ -3,6 +3,7 @@
 namespace Tests\CorahnRin\GeneratorTools;
 
 use CorahnRin\Entity\Character;
+use CorahnRin\Exception\CharacterException;
 use CorahnRin\GeneratorTools\SessionToCharacter;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Finder\Finder;
@@ -25,6 +26,14 @@ class SessionToCharacterTest extends KernelTestCase
     {
         static::ensureKernelShutdown();
         static::$propertyAccessor = null;
+    }
+
+    public function test unfinished character generation()
+    {
+        $this->expectException(CharacterException::class);
+        $this->expectExceptionMessage('Character error: Generator seems not to be fully finished');
+
+        static::getCharacterFromValues([]);
     }
 
     /**
@@ -50,7 +59,7 @@ class SessionToCharacterTest extends KernelTestCase
     public function provideCharacterFiles()
     {
         /** @var Finder|SplFileInfo[] $files */
-        $files = (new Finder())->name('*.php')->in(__DIR__.'/test_files/');
+        $files = (new Finder())->name('*.php')->in(__DIR__.'/session_to_character_tests/');
 
         foreach ($files as $file) {
             $fileData = require $file;
@@ -60,19 +69,13 @@ class SessionToCharacterTest extends KernelTestCase
 
     public static function getCharacterFromValues(array $values): Character
     {
-        $sut = static::createInstance();
-
-        return $sut->createCharacterFromGeneratorValues($values);
+        return self::createInstance()->createCharacterFromGeneratorValues($values);
     }
 
-    public static function createInstance(): SessionToCharacter
+    private static function createInstance(): SessionToCharacter
     {
-        if (!static::$kernel) {
-            static::bootKernel();
-        }
+        static::bootKernel();
 
-        return static::$container
-            ->get(SessionToCharacter::class)
-        ;
+        return static::$container->get(SessionToCharacter::class);
     }
 }

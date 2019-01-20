@@ -42,35 +42,26 @@ final class DomainsCalculator
      *
      * If $domainsBonuses IS provided, then it will add the correct bonuses if some domains exceed 5 points.
      *
-     * @param DomainItem[] $allDomains
-     * @param array        $domainsBonuses
-     *
      * @return int[]
      */
     public function calculateFromGeneratorData(
-        $allDomains,
-        array $socialClasses,
-        string $ost,
+        array $characterSocialClassStepData,
+        string $ostServiceDomain,
         GeoEnvironment $geoEnv,
-        array $primaryDomains,
-        array $domainsBonuses = null
+        array $step13PrimaryDomains,
+        array $step14DomainsBonuses = null
     ): array {
         $this->bonus = 0;
         $this->finalCalculatedDomains = [];
+
+        $allDomains = DomainsData::allAsObjects();
 
         /*
          * Step 13 primary domains and step 14 bonuses
          */
         foreach ($allDomains as $id => $domain) {
             // First, validate arguments.
-            if (!($domain instanceof DomainItem)) {
-                throw new \InvalidArgumentException(\sprintf(
-                    'Invalid %s argument sent. It must be an array of %s instances, %s given.',
-                    '$allDomains', DomainItem::class, \is_object($domain) ? \get_class($domain) : \gettype($domain)
-                ));
-            }
-
-            if (!isset($primaryDomains[$id])) {
+            if (!isset($step13PrimaryDomains[$id])) {
                 throw new \InvalidArgumentException(\sprintf(
                     'Invalid %s argument sent. It must be an array of %s, and the array key must correspond to the "%s" property.',
                     '$primaryDomains', 'integers', 'domain id'
@@ -80,32 +71,32 @@ final class DomainsCalculator
             /*
              * Step 13 primary domains
              */
-            $this->finalCalculatedDomains[$id] = $primaryDomains[$id];
+            $this->finalCalculatedDomains[$id] = $step13PrimaryDomains[$id];
 
             /*
              * Step 14 domain bonuses (if set)
              */
-            if (null !== $domainsBonuses) {
-                if (!\array_key_exists($id, $domainsBonuses)) {
+            if (null !== $step14DomainsBonuses) {
+                if (!\array_key_exists($id, $step14DomainsBonuses)) {
                     throw new \InvalidArgumentException(\sprintf(
                         'Invalid %s argument sent. It must be an array of %s, and the array key must correspond to the "%s" property.',
                         '$domainsBonuses', 'integers', 'domain id'
                     ));
                 }
-                $this->addValueToDomain($id, $domainsBonuses[$id]);
+                $this->addValueToDomain($id, $step14DomainsBonuses[$id]);
             }
         }
 
         /*
          * Ost service
          */
-        if (!\array_key_exists($ost, $allDomains)) {
+        if (!\array_key_exists($ostServiceDomain, $allDomains)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Invalid %s argument sent. It must be a valid %s.',
                 '$ost', 'domain id'
             ));
         }
-        $this->addValueToDomain($ost);
+        $this->addValueToDomain($ostServiceDomain);
 
         /*
          * Geo environment
@@ -115,7 +106,7 @@ final class DomainsCalculator
         /*
          * Social classes
          */
-        foreach ($socialClasses as $id) {
+        foreach ($characterSocialClassStepData as $id) {
             if (!\array_key_exists($id, $allDomains)) {
                 throw new \InvalidArgumentException(\sprintf(
                     'Invalid %s argument sent. It must be an array of %s, and the array values must correspond to the "%s" property.',
@@ -126,7 +117,7 @@ final class DomainsCalculator
             $this->addValueToDomain($id);
         }
 
-        if (null !== $domainsBonuses) {
+        if (null !== $step14DomainsBonuses) {
             foreach ($this->finalCalculatedDomains as $id => $value) {
                 if ($value > 5) {
                     $this->finalCalculatedDomains[$id] = 5;

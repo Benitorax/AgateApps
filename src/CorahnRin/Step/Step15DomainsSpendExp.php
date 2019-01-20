@@ -58,7 +58,6 @@ class Step15DomainsSpendExp extends AbstractStepAction
         $geoEnvironment = $this->em->find(GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
 
         $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
-            $this->allDomains,
             $socialClassValues,
             $primaryDomains['ost'],
             $geoEnvironment,

@@ -11,15 +11,7 @@
 
 namespace CorahnRin\Exception;
 
-/**
- * Class CharactersException
- * Project corahn_rin.
- *
- * @author Pierstoval
- *
- * @version 1.0 20/02/2014
- */
-class CharactersException extends \Exception
+class CharacterException extends \RuntimeException
 {
     public function __construct($message = '', $code = 0, $previous = null)
     {

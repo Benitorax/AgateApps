@@ -63,7 +63,6 @@ class Step14UseDomainBonuses extends AbstractStepAction
         $geoEnvironment = $this->em->find(GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
 
         $this->domainsCalculatedValues = $this->domainsCalculator->calculateFromGeneratorData(
-            $this->allDomains,
             $socialClassValues,
             $step13Domains['ost'],
             $geoEnvironment,

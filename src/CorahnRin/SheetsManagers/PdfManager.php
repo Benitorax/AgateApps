@@ -60,7 +60,7 @@ class PdfManager implements SheetGeneratorInterface
      *
      * @return PDF
      *
-     * @throws \CorahnRin\Exception\CharactersException
+     * @throws \CorahnRin\Exception\CharacterException
      */
     private function originalSheet(Character $character, $printer_friendly = false)
     {

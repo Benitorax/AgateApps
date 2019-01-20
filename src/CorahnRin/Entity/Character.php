@@ -22,7 +22,7 @@ use CorahnRin\Entity\CharacterProperties\CharSetbacks;
 use CorahnRin\Entity\CharacterProperties\HealthCondition;
 use CorahnRin\Entity\CharacterProperties\Money;
 use CorahnRin\Entity\CharacterProperties\Ways;
-use CorahnRin\Exception\CharactersException;
+use CorahnRin\Exception\CharacterException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use EsterenMaps\Entity\Zone;
@@ -1554,7 +1554,7 @@ class Character extends BaseCharacter
                 return 3;
                 break;
             default:
-                throw new CharactersException('Wrong creativity value to calculate potential');
+                throw new CharacterException('Wrong creativity value to calculate potential');
         }
     }
 
@@ -1578,7 +1578,7 @@ class Character extends BaseCharacter
         } elseif ('ranged' === $type) {
             $domain_id = DomainsData::SHOOTING_AND_THROWING['title'];
         } else {
-            throw new CharactersException('Attack can only be "melee" or "ranged".');
+            throw new CharacterException('Attack can only be "melee" or "ranged".');
         }
 
         // Récupération du score du domaine

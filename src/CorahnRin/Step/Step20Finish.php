@@ -11,7 +11,7 @@
 
 namespace CorahnRin\Step;
 
-use CorahnRin\Exception\CharactersException;
+use CorahnRin\Exception\CharacterException;
 use CorahnRin\GeneratorTools\SessionToCharacter;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,7 +35,7 @@ class Step20Finish extends AbstractStepAction
 
         try {
             $character = $this->sessionToCharacter->createCharacterFromGeneratorValues($this->getCurrentCharacter());
-        } catch (CharactersException $e) {
+        } catch (CharacterException $e) {
             $this->flashMessage('errors.character_not_complete');
             $this->goToStep(1);
         }

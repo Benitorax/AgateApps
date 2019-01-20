@@ -80,7 +80,6 @@ class Step16Disciplines extends AbstractStepAction
 
             // Calculate final values from previous steps
             $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
-                $this->allDomains,
                 $socialClassValues,
                 $primaryDomains['ost'],
                 $geoEnvironment,
