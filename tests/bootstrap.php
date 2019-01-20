@@ -9,6 +9,16 @@ $time = microtime(true);
 
 echo "\nBootstraping test suite...";
 
+if (\function_exists('xdebug_set_filter')) {
+    \xdebug_set_filter(
+        \XDEBUG_FILTER_CODE_COVERAGE,
+        \XDEBUG_PATH_WHITELIST,
+        [
+            'E:\dev\www\corahn_rin\src/',
+        ]
+    );
+}
+
 $getenv = function (string $name, $default = null) {
     if (isset($_ENV[$name])) {
         return $_ENV[$name];
