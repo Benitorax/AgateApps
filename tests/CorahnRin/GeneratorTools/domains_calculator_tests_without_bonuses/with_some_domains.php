@@ -1,7 +1,7 @@
 <?php
 
 use CorahnRin\Data\DomainsData;
-use Tests\CorahnRin\GeneratorTools\GeoEnvironmentStub as GeoEnv;
+use Tests\CorahnRin\GeneratorTools\GeoEnvironmentStubFactory as GeoEnv;
 
 return [
     'calculator_arguments' => [
