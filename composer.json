@@ -82,7 +82,6 @@
         "symfony/debug": "^4.2",
         "symfony/debug-bundle": "^4.2",
         "symfony/dom-crawler": "^4.2",
-        "symfony/panther": "^1.0@dev",
         "symfony/phpunit-bridge": "^4.2",
         "symfony/stopwatch": "^4.2",
         "symfony/var-dumper": "^4.2",
