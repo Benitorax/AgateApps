@@ -5,17 +5,18 @@ includes:
 parameters:
     level: 1
     paths:
-        - %rootDir%/../../../src/
-        - %rootDir%/../../../tests/
+        - %currentWorkingDirectory%/src/
+        - %currentWorkingDirectory%/tests/
     autoload_files:
         - vendor/autoload.php
         - bin/.phpunit/phpunit-7.5/vendor/autoload.php
     excludes_analyse:
-        - %rootDir%/../../../src/Migrations
-        - %rootDir%/../../../src/DataFixtures/Internal
-        - %rootDir%/../../../src/CorahnRin/PDF
+        - %currentWorkingDirectory%/src/Migrations
+        - %currentWorkingDirectory%/src/DataFixtures/Internal
+        - %currentWorkingDirectory%/src/CorahnRin/PDF
+        - %currentWorkingDirectory%/tests/bootstrap.php
     symfony:
-        container_xml_path: %rootDir%/../../../var/cache/dev/srcKernelDevDebugContainer.xml
+        container_xml_path: %currentWorkingDirectory%/var/cache/dev/srcKernelDevDebugContainer.xml
     ignoreErrors:
         - message: '#^Service "[^"]+" is private.$#'
-          path: %rootDir%/../../../tests/
+          path: %currentWorkingDirectory%/tests/
