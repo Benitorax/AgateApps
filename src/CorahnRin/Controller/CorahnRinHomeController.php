@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CorahnRinHomeController extends AbstractController
 {
     /**
-     * @Route("/", name="corahn_rin_home")
+     * @Route("/", name="corahn_rin_home", methods={"GET"})
      */
     public function indexAction(): Response
     {

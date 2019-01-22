@@ -59,7 +59,7 @@ class RedeemVoucherController implements PublicService
     }
 
     /**
-     * @Route("/voucher", name="redeem_voucher")
+     * @Route("/voucher", name="redeem_voucher", methods={"GET", "POST"})
      */
     public function redeem(Request $request, Session $session)
     {
