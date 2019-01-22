@@ -17,9 +17,6 @@ use Twig\TwigFunction;
 
 class MapsExtension extends AbstractExtension
 {
-    /**
-     * @var MapsRepository
-     */
     private $repository;
 
     public function __construct(MapsRepository $repository)
@@ -30,21 +27,7 @@ class MapsExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('get_menu_maps', [$this, 'getMaps']),
+            new TwigFunction('get_menu_maps', [$this->repository, 'findForMenu']),
         ];
-    }
-
-    public function getMaps()
-    {
-        // Add all maps to the Maps dropdown menu entry.
-        return $this->repository->findForMenu();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'esterenmaps';
     }
 }
