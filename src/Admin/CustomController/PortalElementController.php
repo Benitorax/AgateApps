@@ -22,7 +22,7 @@ class PortalElementController extends AdminController
 
     public function __construct(string $publicDir, string $portalElementUploadPath)
     {
-        $this->uploadPath = rtrim($publicDir, '\\/').'/'.ltrim($portalElementUploadPath, '\\/');
+        $this->uploadPath = \rtrim($publicDir, '\\/').'/'.\ltrim($portalElementUploadPath, '\\/');
     }
 
     protected function updateEntity($portalElement)

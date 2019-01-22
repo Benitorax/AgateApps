@@ -17,4 +17,3 @@ class GeoEnvironmentStubFactory
         return new GeoEnvironment(0, '', '', DomainsData::RELATION['title']);
     }
 }
-
