@@ -20,11 +20,14 @@
 
     <filter>
         <whitelist>
-            <directory>src</directory>
+            <directory>./src/</directory>
             <exclude>
                 <directory>./src/CorahnRin/PDF</directory><!-- External library cannot be tested -->
-                <directory>./src/*/DataFixtures</directory>
-                <directory>./vendor</directory>
+                <directory>./src/DataFixtures</directory>
+                <directory>./src/Migrations</directory>
+                <directory>./src/Kernel.php</directory>
+                <directory>./tests/</directory>
+                <directory>./vendor/</directory>
             </exclude>
         </whitelist>
     </filter>
