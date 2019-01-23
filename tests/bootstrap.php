@@ -11,10 +11,10 @@ echo "\nBootstraping test suite...";
 
 if (\function_exists('xdebug_set_filter')) {
     \xdebug_set_filter(
-        \XDEBUG_FILTER_CODE_COVERAGE,
-        \XDEBUG_PATH_WHITELIST,
+        \constant('XDEBUG_FILTER_CODE_COVERAGE'),
+        \constant('XDEBUG_PATH_WHITELIST'),
         [
-            'E:\dev\www\corahn_rin\src/',
+            \dirname(__DIR__).'/src/',
         ]
     );
 }
