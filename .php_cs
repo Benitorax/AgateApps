@@ -1,16 +1,32 @@
 <?php
 
-return PhpCsFixer\Config::create()
-    ->setRules([
-        'header_comment' => [
-            'header' => <<<HEADER
+$header = '
 This file is part of the Agate Apps package.
 
 (c) Alexandre Rock Ancelet <pierstoval@gmail.com> and Studio Agate.
 
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
-HEADER,
+';
+
+$finder = PhpCsFixer\Finder::create()
+    ->exclude([
+        'vendor',
+    ])
+    ->notName('FPDF.php')
+    ->notName('PDF.php')
+    ->notName('PdfManager.php')
+    ->notName('bootstrap.php')
+    ->in([
+        __DIR__.'/src/',
+        __DIR__.'/tests/',
+    ])
+;
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        'header_comment' => [
+            'header' => $header,
         ],
         // Enabled rules
         '@DoctrineAnnotation'             => true,
@@ -56,17 +72,5 @@ HEADER,
     ->setIndent('    ')
     ->setLineEnding("\n")
     ->setUsingCache(true)
-    ->setFinder(PhpCsFixer\Finder::create()
-        ->exclude([
-            'vendor',
-        ])
-        ->notName('FPDF.php')
-        ->notName('PDF.php')
-        ->notName('PdfManager.php')
-        ->notName('bootstrap.php')
-        ->in([
-            __DIR__.'/src/',
-            __DIR__.'/tests/'
-        ])
-    )
+    ->setFinder($finder)
 ;
