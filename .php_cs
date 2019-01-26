@@ -1,19 +1,5 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->exclude([
-        'vendor',
-    ])
-    ->notName('FPDF.php')
-    ->notName('PDF.php')
-    ->notName('PdfManager.php')
-    ->notName('bootstrap.php')
-    ->in([
-        __DIR__.'/src/',
-        __DIR__.'/tests/'
-    ])
-;
-
 return PhpCsFixer\Config::create()
     ->setRules(
         [
@@ -59,5 +45,18 @@ return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setIndent('    ')
     ->setLineEnding("\n")
-    ->setFinder($finder)
+    ->setUsingCache(true)
+    ->setFinder(PhpCsFixer\Finder::create()
+        ->exclude([
+            'vendor',
+        ])
+        ->notName('FPDF.php')
+        ->notName('PDF.php')
+        ->notName('PdfManager.php')
+        ->notName('bootstrap.php')
+        ->in([
+            __DIR__.'/src/',
+            __DIR__.'/tests/'
+        ])
+    )
 ;
