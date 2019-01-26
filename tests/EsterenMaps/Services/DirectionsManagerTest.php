@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -23,7 +25,7 @@ class DirectionsManagerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
         static::resetDatabase();
@@ -32,7 +34,7 @@ class DirectionsManagerTest extends WebTestCase
     /**
      * @dataProvider provideWorkingDirections
      */
-    public function testWorkingDirections(array $expectedData, string $map, int $from, int $to, string $transport = null)
+    public function testWorkingDirections(array $expectedData, string $map, int $from, int $to, string $transport = null): void
     {
         static::resetDatabase();
 

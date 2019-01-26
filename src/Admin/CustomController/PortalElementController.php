@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -25,13 +27,13 @@ class PortalElementController extends AdminController
         $this->uploadPath = \rtrim($publicDir, '\\/').'/'.\ltrim($portalElementUploadPath, '\\/');
     }
 
-    protected function updateEntity($portalElement)
+    protected function updateEntity($portalElement): void
     {
         $this->uploadImageFile($portalElement, false);
         parent::updateEntity($portalElement);
     }
 
-    protected function persistEntity($portalElement)
+    protected function persistEntity($portalElement): void
     {
         $this->uploadImageFile($portalElement, true);
         parent::persistEntity($portalElement);

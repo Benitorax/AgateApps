@@ -31,14 +31,14 @@ class RedeemerTest extends KernelTestCase
      * @expectedException \Voucher\Exception\RedeemExceptionInterface
      * @expectedExceptionMessage voucher.redeem.error.no_handler
      */
-    public function test redeem with no handlers throws exception()
+    public function test redeem with no handlers throws exception(): void
     {
         $redeemer = $this->createRedeemer([]);
 
         $redeemer->redeem($this->createVoucher(), $this->createUser());
     }
 
-    public function test redeem with handler stopping propagation()
+    public function test redeem with handler stopping propagation(): void
     {
         $handler = $this->createMock(VoucherHandlerInterface::class);
 
@@ -60,7 +60,7 @@ class RedeemerTest extends KernelTestCase
         static::assertSame(1, $return);
     }
 
-    public function test redeem impossible if voucher already used()
+    public function test redeem impossible if voucher already used(): void
     {
         static::resetDatabase();
 

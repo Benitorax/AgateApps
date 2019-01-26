@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -77,7 +79,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
         return false;
     }
 
-    public function testListingFields()
+    public function testListingFields(): void
     {
         $client = $this->getClient();
 
@@ -111,7 +113,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
         }
     }
 
-    public function testListingContentsIsNotEmpty()
+    public function testListingContentsIsNotEmpty(): void
     {
         $client = $this->getClient();
 
@@ -128,7 +130,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
         }
     }
 
-    public function testNewAction()
+    public function testNewAction(): void
     {
         $data = $this->provideNewFormData();
 
@@ -146,7 +148,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
     /**
      * @depends testNewAction
      */
-    public function testEditAction()
+    public function testEditAction(): void
     {
         $data = $this->provideEditFormData();
 
@@ -164,7 +166,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
     /**
      * @depends testNewAction
      */
-    public function testDeleteAction()
+    public function testDeleteAction(): void
     {
         $id = $this->provideIdToDelete();
 

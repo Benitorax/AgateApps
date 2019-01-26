@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -19,7 +21,7 @@ class ContactControllerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function testValidContactForm()
+    public function testValidContactForm(): void
     {
         $client = $this->getClient('www.studio-agate.docker', ['debug' => true]);
 

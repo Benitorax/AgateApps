@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -22,7 +24,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UniqueSubscriptionValidatorTest extends TestCase
 {
-    public function test constraint must be UniqueSubscription instance()
+    public function test constraint must be UniqueSubscription instance(): void
     {
         $this->expectException(UnexpectedTypeException::class);
         $this->expectExceptionMessageRegExp('~^Expected argument of type "Subscription\\\Validator\\\UniqueSubscription", "Mock_Constraint_[^"]+" given$~');
@@ -30,7 +32,7 @@ class UniqueSubscriptionValidatorTest extends TestCase
         $this->getValidator()->validate($this->createMock(Subscription::class), $this->createMock(Constraint::class));
     }
 
-    public function test subject must be Subscription instance()
+    public function test subject must be Subscription instance(): void
     {
         $this->expectException(UnexpectedTypeException::class);
         $this->expectExceptionMessage('Expected argument of type "Subscription\Entity\Subscription", "stdClass" given');
@@ -38,7 +40,7 @@ class UniqueSubscriptionValidatorTest extends TestCase
         $this->getValidator()->validate(new \stdClass(), new UniqueSubscription());
     }
 
-    public function test existing subscription returns violation()
+    public function test existing subscription returns violation(): void
     {
         $subscription = $this->createMock(Subscription::class);
 

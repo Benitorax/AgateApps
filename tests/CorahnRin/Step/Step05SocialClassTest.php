@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step05SocialClassTest extends AbstractStepTest
 {
-    public function testValidSocialClass()
+    public function testValidSocialClass(): void
     {
         $result = $this->submitAction([], [
             'gen-div-choice' => 1,
@@ -28,7 +30,7 @@ class Step05SocialClassTest extends AbstractStepTest
         ]], $result->getSession()->get('character.corahn_rin'));
     }
 
-    public function testInvalidSocialClass()
+    public function testInvalidSocialClass(): void
     {
         $result = $this->submitAction([], [
             'gen-div-choice' => 0,
@@ -41,7 +43,7 @@ class Step05SocialClassTest extends AbstractStepTest
         static::assertEquals('Veuillez sélectionner une classe sociale valide.', \trim($crawler->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testValidSocialClassButNotAssociatedDomains()
+    public function testValidSocialClassButNotAssociatedDomains(): void
     {
         $result = $this->submitAction([], [
             'gen-div-choice' => 1,
@@ -55,7 +57,7 @@ class Step05SocialClassTest extends AbstractStepTest
         static::assertEquals('Les domaines choisis ne sont pas associés à la classe sociale sélectionnée.', \trim($crawler->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testValidSocialClassButNotEnoughDomains()
+    public function testValidSocialClassButNotEnoughDomains(): void
     {
         $result = $this->submitAction([], [
             'gen-div-choice' => 1,

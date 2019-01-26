@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -15,7 +17,7 @@ class Step15DomainsSpendExpTest extends AbstractStepTest
 {
     use StepsWithDomainsTrait;
 
-    public function testStepDependency()
+    public function testStepDependency(): void
     {
         $client = $this->getClient();
 
@@ -31,7 +33,7 @@ class Step15DomainsSpendExpTest extends AbstractStepTest
         static::assertTrue($client->getResponse()->isRedirect('/fr/character/generate'));
     }
 
-    public function testStep()
+    public function testStep(): void
     {
         static::markTestIncomplete();
     }

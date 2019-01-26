@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -63,7 +65,7 @@ class MapsAdminTest extends AbstractEasyAdminTest
         return false;
     }
 
-    public function test edit interactive route returns 200()
+    public function test edit interactive route returns 200(): void
     {
         $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 

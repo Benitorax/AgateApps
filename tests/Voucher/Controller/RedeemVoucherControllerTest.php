@@ -32,7 +32,7 @@ class RedeemVoucherControllerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function test redeem impossible if not logged in()
+    public function test redeem impossible if not logged in(): void
     {
         $client = $this->getClient('www.studio-agate.docker');
 
@@ -41,7 +41,7 @@ class RedeemVoucherControllerTest extends WebTestCase
         static::assertSame(401, $client->getResponse()->getStatusCode());
     }
 
-    public function test redeem with correct voucher()
+    public function test redeem with correct voucher(): void
     {
         static::resetDatabase();
 
@@ -85,7 +85,7 @@ Un e-mail de notification vous a été envoyé pour vous en informer.
 Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($flashMessages)));
     }
 
-    public function test redeem impossible if voucher too much used()
+    public function test redeem impossible if voucher too much used(): void
     {
         static::resetDatabase();
 
@@ -104,7 +104,7 @@ Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($
         $redeemer->redeem($voucher, static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user'));
     }
 
-    public function test redeem impossible if voucher not yet available()
+    public function test redeem impossible if voucher not yet available(): void
     {
         static::resetDatabase();
 
@@ -121,7 +121,7 @@ Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($
         $redeemer->redeem($voucher, static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user'));
     }
 
-    public function test redeem impossible if voucher not available anymore()
+    public function test redeem impossible if voucher not available anymore(): void
     {
         static::resetDatabase();
 
@@ -138,7 +138,7 @@ Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($
         $redeemer->redeem($voucher, static::$container->get(UserRepository::class)->findByUsernameOrEmail('lambda-user'));
     }
 
-    public function test valid redeem for esteren maps voucher()
+    public function test valid redeem for esteren maps voucher(): void
     {
         static::resetDatabase();
 

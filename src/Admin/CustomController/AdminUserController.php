@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -51,7 +53,7 @@ class AdminUserController extends AdminController
         $builder = parent::createEntityFormBuilder($entity, $view);
 
         $builder
-            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($canonicalizer) {
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($canonicalizer): void {
                 /** @var User $user */
                 $user = $event->getForm()->getData();
                 $user->setUsernameCanonical($canonicalizer((string) $user->getUsername()));
@@ -62,7 +64,7 @@ class AdminUserController extends AdminController
         return $builder;
     }
 
-    protected function persistEntity($user)
+    protected function persistEntity($user): void
     {
         if (!$user instanceof User) {
             throw new \InvalidArgumentException(\sprintf(

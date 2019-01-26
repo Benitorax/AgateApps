@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step02JobTest extends AbstractStepTest
 {
-    public function testValidJob()
+    public function testValidJob(): void
     {
         $result = $this->submitAction([], [
             'job_value' => 1,
@@ -24,7 +26,7 @@ class Step02JobTest extends AbstractStepTest
         static::assertSame([$this->getStepName() => 1], $result->getSession()->get('character.corahn_rin'));
     }
 
-    public function testInvalidJob()
+    public function testInvalidJob(): void
     {
         $result = $this->submitAction([], [
             'job_value' => 0,

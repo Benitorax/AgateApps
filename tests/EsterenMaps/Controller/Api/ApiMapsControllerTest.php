@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -19,7 +21,7 @@ class ApiMapsControllerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function test getting map api without role needs authentication()
+    public function test getting map api without role needs authentication(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -29,7 +31,7 @@ class ApiMapsControllerTest extends WebTestCase
         static::assertSame(401, $response->getStatusCode());
     }
 
-    public function test getting map api edit mode without being admin throws 403()
+    public function test getting map api edit mode without being admin throws 403(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -41,7 +43,7 @@ class ApiMapsControllerTest extends WebTestCase
         static::assertSame(403, $response->getStatusCode());
     }
 
-    public function test getting map api edit mode as admin data()
+    public function test getting map api edit mode as admin data(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -91,7 +93,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapInfo(string $role)
+    public function testMapInfo(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -122,7 +124,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapMarkers(string $role)
+    public function testMapMarkers(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -141,7 +143,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapRoutes(string $role)
+    public function testMapRoutes(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -171,7 +173,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapZones(string $role)
+    public function testMapZones(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -197,7 +199,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapTemplates(string $role)
+    public function testMapTemplates(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -209,7 +211,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapMarkersTypes(string $role)
+    public function testMapMarkersTypes(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -226,7 +228,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapRoutesTypes(string $role)
+    public function testMapRoutesTypes(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -242,7 +244,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapZonesTypes(string $role)
+    public function testMapZonesTypes(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -259,7 +261,7 @@ class ApiMapsControllerTest extends WebTestCase
     /**
      * @dataProvider provideRolesToFetchMap
      */
-    public function testMapFactions(string $role)
+    public function testMapFactions(string $role): void
     {
         $data = $this->getMapData($role);
 
@@ -271,7 +273,7 @@ class ApiMapsControllerTest extends WebTestCase
         }
     }
 
-    public function testCorahnRinMap()
+    public function testCorahnRinMap(): void
     {
         $client = $this->getClient('corahnrin.esteren.docker');
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -27,7 +29,7 @@ class RegistrationFormType extends AbstractType
 {
     use CanonicalizerTrait;
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $canonicalizer = \Closure::fromCallable([$this, 'canonicalize']);
 
@@ -56,7 +58,7 @@ class RegistrationFormType extends AbstractType
                     new Constraints\IsTrue(),
                 ],
             ])
-            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($canonicalizer) {
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($canonicalizer): void {
                 /** @var User $user */
                 $user = $event->getForm()->getData();
                 $user->setUsernameCanonical($canonicalizer($user->getUsername()));
@@ -65,7 +67,7 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,

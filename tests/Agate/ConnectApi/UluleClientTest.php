@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -24,7 +26,7 @@ class UluleClientTest extends WebTestCase
 
     protected static $clientResults;
 
-    public function testUluleClientProjects()
+    public function testUluleClientProjects(): void
     {
         $user = new User();
         $user->setUluleId(1);
@@ -38,7 +40,7 @@ class UluleClientTest extends WebTestCase
         static::assertSame(static::$clientResults['projects'], $ululeProjects);
     }
 
-    private static function initClientResults()
+    private static function initClientResults(): void
     {
         if (static::$clientResults['getUserProjects']) {
             return;

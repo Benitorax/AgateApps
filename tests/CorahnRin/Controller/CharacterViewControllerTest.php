@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -25,7 +27,7 @@ class CharacterViewControllerTest extends WebTestCase
     /**
      * @see CharacterViewController::listAction
      */
-    public function testList()
+    public function testList(): void
     {
         $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 
@@ -35,7 +37,7 @@ class CharacterViewControllerTest extends WebTestCase
         static::assertSame(1, $crawler->filter('table.table.table-condensed')->count());
     }
 
-    public function test list with invalid query must return 400()
+    public function test list with invalid query must return 400(): void
     {
         $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 
@@ -47,7 +49,7 @@ class CharacterViewControllerTest extends WebTestCase
     /**
      * @see CharacterViewController::viewAction
      */
-    public function testView404()
+    public function testView404(): void
     {
         $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 
@@ -59,7 +61,7 @@ class CharacterViewControllerTest extends WebTestCase
     /**
      * @see CharacterViewController::viewAction
      */
-    public function testView()
+    public function testView(): void
     {
         $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 

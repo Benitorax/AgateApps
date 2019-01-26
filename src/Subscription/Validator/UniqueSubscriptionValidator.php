@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -27,7 +29,7 @@ class UniqueSubscriptionValidator extends ConstraintValidator
         $this->repository = $repository;
     }
 
-    public function validate($subscription, Constraint $constraint)
+    public function validate($subscription, Constraint $constraint): void
     {
         if (!$constraint instanceof UniqueSubscription) {
             throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\UniqueSubscription');

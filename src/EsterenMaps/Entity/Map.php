@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -309,7 +311,7 @@ class Map implements EntityToClearInterface
     /**
      * Remove routes.
      */
-    public function removeRoute(Route $routes)
+    public function removeRoute(Route $routes): void
     {
         $this->routes->removeElement($routes);
     }
@@ -378,7 +380,7 @@ class Map implements EntityToClearInterface
     /**
      * Remove markers.
      */
-    public function removeMarker(Marker $markers)
+    public function removeMarker(Marker $markers): void
     {
         $this->markers->removeElement($markers);
     }
@@ -448,7 +450,7 @@ class Map implements EntityToClearInterface
     /**
      * Remove zones.
      */
-    public function removeZone(Zone $zones)
+    public function removeZone(Zone $zones): void
     {
         $this->zones->removeElement($zones);
     }

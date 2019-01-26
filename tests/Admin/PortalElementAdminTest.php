@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -37,7 +39,7 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         return PortalElement::class;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 
@@ -48,14 +50,14 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         }
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
 
         static::resetDatabase();
     }
 
-    public function test new valid file upload()
+    public function test new valid file upload(): void
     {
         static::resetDatabase();
 
@@ -97,7 +99,7 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         \unlink($filePath);
     }
 
-    public function test edit valid portal element and old image is removed()
+    public function test edit valid portal element and old image is removed(): void
     {
         static::resetDatabase();
 
@@ -216,7 +218,7 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         return $file;
     }
 
-    protected static function resetDatabase()
+    protected static function resetDatabase(): void
     {
         parent::resetDatabase();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -38,7 +40,7 @@ final class SubscriptionMailer
         $this->agateDomain = $agateDomain;
     }
 
-    public function sendNewSubscriptionEmail(Subscription $subscription)
+    public function sendNewSubscriptionEmail(Subscription $subscription): void
     {
         $user = $subscription->getUser();
 

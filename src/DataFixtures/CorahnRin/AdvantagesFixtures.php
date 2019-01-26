@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -39,7 +41,7 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
     /**
      * Load data fixtures with the passed EntityManager.
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->manager = $manager;
 
@@ -113,7 +115,7 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
         $book,
         ?string $requiresIndication = null,
         string $indicationType = Advantage::INDICATION_TYPE_SINGLE_VALUE
-    ) {
+    ): void {
         $obj = null;
         $newObject = false;
         $addRef = false;

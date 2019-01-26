@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step11AdvantagesTest extends AbstractStepTest
 {
-    public function testValidAdvantagesStep()
+    public function testValidAdvantagesStep(): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -53,7 +55,7 @@ class Step11AdvantagesTest extends AbstractStepTest
         ], $result->getSession()->get('character.corahn_rin')[$this->getStepName()]);
     }
 
-    public function testTooMuchExpHasBeenSpent()
+    public function testTooMuchExpHasBeenSpent(): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -75,7 +77,7 @@ class Step11AdvantagesTest extends AbstractStepTest
         static::assertSame('Vous n\'avez pas assez d\'expérience.', \trim($result->getCrawler()->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testTooMuchExpHasBeenGained()
+    public function testTooMuchExpHasBeenGained(): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -100,7 +102,7 @@ class Step11AdvantagesTest extends AbstractStepTest
     /**
      * @dataProvider provideAllyTests
      */
-    public function testCannotChoseAllyMultipleTimes($values, array $indications)
+    public function testCannotChoseAllyMultipleTimes($values, array $indications): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -160,7 +162,7 @@ class Step11AdvantagesTest extends AbstractStepTest
     /**
      * @dataProvider provideFinancialEaseTests
      */
-    public function testCannotChoseFinancialEaseMultipleTimes($values)
+    public function testCannotChoseFinancialEaseMultipleTimes($values): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -217,7 +219,7 @@ class Step11AdvantagesTest extends AbstractStepTest
         }, $results);
     }
 
-    public function testIncorrectAdvantageValue()
+    public function testIncorrectAdvantageValue(): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -234,7 +236,7 @@ class Step11AdvantagesTest extends AbstractStepTest
         static::assertSame('Une valeur incorrecte a été donnée à un avantage.', \trim($result->getCrawler()->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testIncorrectDisadvantageValue()
+    public function testIncorrectDisadvantageValue(): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -251,7 +253,7 @@ class Step11AdvantagesTest extends AbstractStepTest
         static::assertSame('Une valeur incorrecte a été donnée à un désavantage.', \trim($result->getCrawler()->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testIncorrectAdvantageId()
+    public function testIncorrectAdvantageId(): void
     {
         $client = $this->getClient();
 
@@ -273,7 +275,7 @@ class Step11AdvantagesTest extends AbstractStepTest
         static::assertEquals('Les avantages soumis sont incorrects.', \trim($crawler->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testIncorrectDisadvantageId()
+    public function testIncorrectDisadvantageId(): void
     {
         $client = $this->getClient();
 
@@ -295,7 +297,7 @@ class Step11AdvantagesTest extends AbstractStepTest
         static::assertEquals('Les désavantages soumis sont incorrects.', \trim($crawler->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testCannotHaveMoreThan4Advantages()
+    public function testCannotHaveMoreThan4Advantages(): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -318,7 +320,7 @@ class Step11AdvantagesTest extends AbstractStepTest
         static::assertSame('Vous ne pouvez pas avoir plus de 4 avantages.', \trim($result->getCrawler()->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testCannotHaveMoreThan4Disadvantages()
+    public function testCannotHaveMoreThan4Disadvantages(): void
     {
         $result = $this->submitAction([
             '07_setbacks' => [],
@@ -341,7 +343,7 @@ class Step11AdvantagesTest extends AbstractStepTest
     /**
      * @dataProvider provideFinancialEaseForPoor
      */
-    public function testPoorCannotUseFinancialEase($values)
+    public function testPoorCannotUseFinancialEase($values): void
     {
         $client = $this->getClient();
 

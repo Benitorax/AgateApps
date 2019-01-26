@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -303,7 +305,7 @@ class Game
     /**
      * Remove characters.
      */
-    public function removeCharacter(Character $characters)
+    public function removeCharacter(Character $characters): void
     {
         $this->characters->removeElement($characters);
     }

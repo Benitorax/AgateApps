@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -123,7 +125,7 @@ class ImportTiddlyWikiCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Generate all tiles for a specific map.')
@@ -423,7 +425,7 @@ class ImportTiddlyWikiCommand extends Command
      * @param Marker|Zone|Route $object
      * @param array             $data
      */
-    private function updateOneObject($object, $data)
+    private function updateOneObject($object, $data): void
     {
         $data['created'] = DateTime::createFromFormat('YmdHisu', $data['created'] ?? \date('YmdHisu'));
 

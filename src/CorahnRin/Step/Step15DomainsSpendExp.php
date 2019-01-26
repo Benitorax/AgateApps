@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -127,7 +129,7 @@ class Step15DomainsSpendExp extends AbstractStepAction
         ], 'corahn_rin/Steps/15_domains_spend_exp.html.twig');
     }
 
-    private function resetDomains()
+    private function resetDomains(): void
     {
         $this->domainsSpentWithExp = [
             'domains' => [],

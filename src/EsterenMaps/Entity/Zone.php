@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -132,7 +134,7 @@ class Zone implements EntityToClearInterface, \JsonSerializable
         $this->hydrateIncomingData($data);
     }
 
-    private function hydrateIncomingData(array $data)
+    private function hydrateIncomingData(array $data): void
     {
         $data = \array_merge($this->toArray(), $data);
 

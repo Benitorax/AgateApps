@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -18,7 +20,7 @@ class ApiRoutesControllerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function testCreateWithCorrectData()
+    public function testCreateWithCorrectData(): void
     {
         static::resetDatabase();
 
@@ -48,7 +50,7 @@ class ApiRoutesControllerTest extends WebTestCase
         static::assertSame(\ksort($data), \ksort($responseData));
     }
 
-    public function testCreateWithEmptyData()
+    public function testCreateWithEmptyData(): void
     {
         static::resetDatabase();
 
@@ -72,7 +74,7 @@ class ApiRoutesControllerTest extends WebTestCase
         static::assertSame($expectedResponse, $responseData);
     }
 
-    public function testCreateWithIncorrectData()
+    public function testCreateWithIncorrectData(): void
     {
         static::resetDatabase();
 

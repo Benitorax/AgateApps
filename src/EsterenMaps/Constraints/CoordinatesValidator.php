@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -17,7 +19,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class CoordinatesValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof Coordinates) {
             throw new UnexpectedTypeException($constraint, Coordinates::class);

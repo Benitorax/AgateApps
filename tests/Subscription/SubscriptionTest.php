@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -17,7 +19,7 @@ use User\Entity\User;
 
 class SubscriptionTest extends TestCase
 {
-    public function test subscription creation with wrong type throws exception()
+    public function test subscription creation with wrong type throws exception(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Subscription type wrong_type does not exist.');

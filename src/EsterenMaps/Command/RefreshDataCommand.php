@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -21,7 +23,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class RefreshDataCommand extends ContainerAwareCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('esterenmaps:map:refresh')

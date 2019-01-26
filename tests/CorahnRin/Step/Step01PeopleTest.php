@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step01PeopleTest extends AbstractStepTest
 {
-    public function testValidPeople()
+    public function testValidPeople(): void
     {
         $result = $this->submitAction([], [
             'gen-div-choice' => 1,
@@ -24,7 +26,7 @@ class Step01PeopleTest extends AbstractStepTest
         static::assertSame([$this->getStepName() => 1], $result->getSession()->get('character.corahn_rin'));
     }
 
-    public function testInvalidPeople()
+    public function testInvalidPeople(): void
     {
         $result = $this->submitAction([], [
             'gen-div-choice' => 0,

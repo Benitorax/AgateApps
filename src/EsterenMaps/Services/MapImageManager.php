@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -43,7 +45,7 @@ class MapImageManager
     /**
      * @throws \RuntimeException
      */
-    public function generateImage(Map $map)
+    public function generateImage(Map $map): void
     {
         // TODO
         throw new \RuntimeException('Not implemented yet');

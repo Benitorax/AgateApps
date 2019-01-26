@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step08WaysTest extends AbstractStepTest
 {
-    public function testValidWays()
+    public function testValidWays(): void
     {
         $ways = [
             'ways.combativeness' => 1,
@@ -31,7 +33,7 @@ class Step08WaysTest extends AbstractStepTest
         static::assertSame([$this->getStepName() => $ways], $result->getSession()->get('character.corahn_rin'));
     }
 
-    public function testWaysSumIsFiveOnly()
+    public function testWaysSumIsFiveOnly(): void
     {
         $ways = [
             'ways.combativeness' => 1,
@@ -52,7 +54,7 @@ class Step08WaysTest extends AbstractStepTest
         static::assertEquals('Veuillez indiquer vos scores de Voies.', $nodeText);
     }
 
-    public function testWaysSumIsSuperiorToFiveButInferiorToFifteen()
+    public function testWaysSumIsSuperiorToFiveButInferiorToFifteen(): void
     {
         $ways = [
             'ways.combativeness' => 1,
@@ -73,7 +75,7 @@ class Step08WaysTest extends AbstractStepTest
         static::assertEquals('La somme des voies doit être égale à 15. Merci de corriger les valeurs de certaines voies.', $nodeText);
     }
 
-    public function testNoWayHasScoreOfOneOrFive()
+    public function testNoWayHasScoreOfOneOrFive(): void
     {
         $ways = [
             'ways.combativeness' => 3,
@@ -94,7 +96,7 @@ class Step08WaysTest extends AbstractStepTest
         static::assertEquals('Au moins une des voies doit avoir un score de 1 ou de 5.', $nodeText);
     }
 
-    public function testWaysBeyondRange()
+    public function testWaysBeyondRange(): void
     {
         $ways = [
             'ways.combativeness' => 1,
@@ -115,7 +117,7 @@ class Step08WaysTest extends AbstractStepTest
         static::assertEquals('Les voies doivent être comprises entre 1 et 5.', $nodeText);
     }
 
-    public function testInexistentWays()
+    public function testInexistentWays(): void
     {
         $client = $this->getClient();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -23,7 +25,7 @@ class CacheManagerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function test updating route should clear maps cache()
+    public function test updating route should clear maps cache(): void
     {
         static::resetDatabase();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -25,7 +27,7 @@ class RequestInEntityListener implements EventSubscriberInterface
         ];
     }
 
-    public function onKernelController(FilterControllerEvent $event)
+    public function onKernelController(FilterControllerEvent $event): void
     {
         // Some parts of this listener are just copy/pastes from EasyAdmin's base controller.
         // The goal here is to make sure everything's available for EasyAdmin to work with custom URL design.

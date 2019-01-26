@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -153,7 +155,7 @@ class ZoneType implements EntityToClearInterface
     /**
      * Remove zones.
      */
-    public function removeZone(Zone $zones)
+    public function removeZone(Zone $zones): void
     {
         $this->zones->removeElement($zones);
     }

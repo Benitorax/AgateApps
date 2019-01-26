@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -18,7 +20,7 @@ class Step14UseDomainBonusesTest extends AbstractStepTest
     /**
      * @dataProvider provideInvalidDependencies
      */
-    public function testStepDependency($dependencies)
+    public function testStepDependency($dependencies): void
     {
         $client = $this->getClient();
 
@@ -47,7 +49,7 @@ class Step14UseDomainBonusesTest extends AbstractStepTest
         ];
     }
 
-    public function testNoBonusesSpent()
+    public function testNoBonusesSpent(): void
     {
         $client = $this->getClientWithRequirements($this->getValidRequirements());
 
@@ -63,7 +65,7 @@ class Step14UseDomainBonusesTest extends AbstractStepTest
         $this->assertSessionEquals([], 1, $client);
     }
 
-    public function testPrimaryDomainThrowsError()
+    public function testPrimaryDomainThrowsError(): void
     {
         $client = $this->getClientWithRequirements($this->getValidRequirements());
 
@@ -83,7 +85,7 @@ class Step14UseDomainBonusesTest extends AbstractStepTest
         static::assertContains('Certaines valeurs envoyées sont incorrectes, veuillez recommencer (et sans tricher).', $flashMessages ? \trim($flashMessages->text()) : '');
     }
 
-    public function testStep()
+    public function testStep(): void
     {
         static::markTestIncomplete();
     }

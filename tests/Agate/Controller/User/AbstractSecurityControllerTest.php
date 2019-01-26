@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -31,7 +33,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     abstract protected function getLocale(): string;
 
-    public function testForbiddenAdmin()
+    public function testForbiddenAdmin(): void
     {
         $locale = $this->getLocale();
 
@@ -42,7 +44,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         static::assertSame(403, $client->getResponse()->getStatusCode());
     }
 
-    public function testAllowedAdmin()
+    public function testAllowedAdmin(): void
     {
         $locale = $this->getLocale();
 
@@ -55,7 +57,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         static::assertSame('', \trim($crawler->filter('#main')->text()));
     }
 
-    public function testRegisterAndLoginWithoutConfirmingEmail()
+    public function testRegisterAndLoginWithoutConfirmingEmail(): void
     {
         static::resetDatabase();
 
@@ -92,7 +94,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         static::assertContains($flashPasswordChanged, $crawler->filter('#layout #flash-messages')->html());
     }
 
-    public function testRegister()
+    public function testRegister(): void
     {
         $locale = $this->getLocale();
 
@@ -135,7 +137,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     /**
      * @depends testRegister
      */
-    public function testConfirmEmail()
+    public function testConfirmEmail(): void
     {
         $locale = $this->getLocale();
 
@@ -159,7 +161,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     /**
      * @depends testConfirmEmail
      */
-    public function testLogin()
+    public function testLogin(): void
     {
         $locale = $this->getLocale();
 
@@ -200,7 +202,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     /**
      * @depends testLogin
      */
-    public function testChangePassword()
+    public function testChangePassword(): void
     {
         $locale = $this->getLocale();
 
@@ -241,7 +243,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     /**
      * @depends testChangePassword
      */
-    public function testEditProfile()
+    public function testEditProfile(): void
     {
         $locale = $this->getLocale();
 
@@ -276,7 +278,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
     /**
      * @depends testEditProfile
      */
-    public function testResetPasswordRequest()
+    public function testResetPasswordRequest(): void
     {
         $locale = $this->getLocale();
 

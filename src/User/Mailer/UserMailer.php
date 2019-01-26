@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -35,7 +37,7 @@ final class UserMailer
         $this->translator = $translator;
     }
 
-    public function sendRegistrationEmail(User $user)
+    public function sendRegistrationEmail(User $user): void
     {
         $url = $this->router->generate('user_registration_confirm', ['token' => $user->getConfirmationToken()], UrlGeneratorInterface::ABSOLUTE_URL);
 

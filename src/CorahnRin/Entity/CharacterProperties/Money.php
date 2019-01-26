@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -89,7 +91,7 @@ class Money
      *
      * @codeCoverageIgnore
      */
-    public function setFrost($frost)
+    public function setFrost($frost): void
     {
         $this->frost = $frost;
     }
@@ -123,7 +125,7 @@ class Money
      *
      * @codeCoverageIgnore
      */
-    public function setAzure($azure)
+    public function setAzure($azure): void
     {
         $this->azure = $azure;
     }

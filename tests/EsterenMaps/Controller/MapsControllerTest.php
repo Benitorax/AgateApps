@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -21,7 +23,7 @@ class MapsControllerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function test index()
+    public function test index(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -39,7 +41,7 @@ class MapsControllerTest extends WebTestCase
         static::assertSame('http://maps.esteren.docker/fr/map-tri-kazel', \trim($link->getUri()));
     }
 
-    public function test view while not logged in should trigger authentication()
+    public function test view while not logged in should trigger authentication(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -49,7 +51,7 @@ class MapsControllerTest extends WebTestCase
         static::assertSame(401, $res->getStatusCode());
     }
 
-    public function test view when authenticated without permission()
+    public function test view when authenticated without permission(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -61,7 +63,7 @@ class MapsControllerTest extends WebTestCase
         static::assertSame(403, $res->getStatusCode());
     }
 
-    public function test view while connected is not accessible for classic user()
+    public function test view while connected is not accessible for classic user(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -76,7 +78,7 @@ class MapsControllerTest extends WebTestCase
         static::assertSame(403, $res->getStatusCode());
     }
 
-    public function test view while connected is accessible for admin()
+    public function test view while connected is accessible for admin(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -93,7 +95,7 @@ class MapsControllerTest extends WebTestCase
         static::assertCount(1, $crawler->filter('#map_wrapper'), 'Map link does not redirect to map view, or map view is broken');
     }
 
-    public function test view while connected is accessible for legacy subscriber user()
+    public function test view while connected is accessible for legacy subscriber user(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 
@@ -110,7 +112,7 @@ class MapsControllerTest extends WebTestCase
         static::assertCount(1, $crawler->filter('#map_wrapper'), 'Map link does not redirect to map view, or map view is broken');
     }
 
-    public function test view while connected is accessible for user with active subscription()
+    public function test view while connected is accessible for user with active subscription(): void
     {
         $client = $this->getClient('maps.esteren.docker');
 

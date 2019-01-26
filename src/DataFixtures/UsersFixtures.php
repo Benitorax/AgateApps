@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -53,7 +55,7 @@ final class UsersFixtures extends AbstractFixture implements OrderedFixtureInter
     /**
      * {@inheritdoc}
      */
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(ContainerInterface $container = null): void
     {
         $this->container = $container;
     }
@@ -61,7 +63,7 @@ final class UsersFixtures extends AbstractFixture implements OrderedFixtureInter
     /**
      * {@inheritdoc}
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->manager = $manager;
 
@@ -79,7 +81,7 @@ final class UsersFixtures extends AbstractFixture implements OrderedFixtureInter
         $manager->flush();
     }
 
-    public function fixtureObject(EntityRepository $repo, $id, $name, $email, $password, $superAdmin)
+    public function fixtureObject(EntityRepository $repo, $id, $name, $email, $password, $superAdmin): void
     {
         $user = null;
         $newObject = false;

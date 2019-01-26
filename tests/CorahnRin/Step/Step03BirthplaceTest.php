@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step03BirthplaceTest extends AbstractStepTest
 {
-    public function testValidBirthplace()
+    public function testValidBirthplace(): void
     {
         $result = $this->submitAction([], [
             'region_value' => 1,
@@ -24,7 +26,7 @@ class Step03BirthplaceTest extends AbstractStepTest
         static::assertSame([$this->getStepName() => 1], $result->getSession()->get('character.corahn_rin'));
     }
 
-    public function testInvalidBirthplace()
+    public function testInvalidBirthplace(): void
     {
         $result = $this->submitAction([], [
             'region_value' => 0,

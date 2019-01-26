@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -273,7 +275,7 @@ class Step13PrimaryDomains extends AbstractStepAction
         return true;
     }
 
-    private function resetStep()
+    private function resetStep(): void
     {
         $sessionValue = $this->getCharacterProperty() ?: [
             'domains' => [],

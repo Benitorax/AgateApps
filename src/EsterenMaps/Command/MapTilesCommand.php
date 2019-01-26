@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -38,7 +40,7 @@ class MapTilesCommand extends Command
         $this->tilesManager = $tilesManager;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Generate all tiles for a specific map.')

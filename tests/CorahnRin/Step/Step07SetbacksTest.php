@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -18,7 +20,7 @@ class Step07SetbacksTest extends AbstractStepTest
      */
     public const RANDOMNESS_COUNT = 100;
 
-    public function testNoSetback()
+    public function testNoSetback(): void
     {
         $result = $this->submitAction([
             '06_age' => 20,
@@ -48,7 +50,7 @@ class Step07SetbacksTest extends AbstractStepTest
     /**
      * @dataProvider provideManyTestsToEnsureRandomness
      */
-    public function testAgeProvideAtLeastOneSetback()
+    public function testAgeProvideAtLeastOneSetback(): void
     {
         $result = $this->submitAction([
             '06_age' => 21,
@@ -81,7 +83,7 @@ class Step07SetbacksTest extends AbstractStepTest
     /**
      * @dataProvider provideManyTestsToEnsureRandomness
      */
-    public function testAgeProvideAtLeastTwoSetbacks()
+    public function testAgeProvideAtLeastTwoSetbacks(): void
     {
         $result = $this->submitAction([
             '06_age' => 26,
@@ -123,7 +125,7 @@ class Step07SetbacksTest extends AbstractStepTest
     /**
      * @dataProvider provideManyTestsToEnsureRandomness
      */
-    public function testAgeProvideAtLeastThreeSetbacks()
+    public function testAgeProvideAtLeastThreeSetbacks(): void
     {
         $result = $this->submitAction([
             '06_age' => 31,
@@ -164,7 +166,7 @@ class Step07SetbacksTest extends AbstractStepTest
         }
     }
 
-    public function testAgeNotDefinedRedirectsToStepOne()
+    public function testAgeNotDefinedRedirectsToStepOne(): void
     {
         $client = $this->getClient();
 
@@ -180,7 +182,7 @@ class Step07SetbacksTest extends AbstractStepTest
         );
     }
 
-    public function testManualWithValidSetbacks()
+    public function testManualWithValidSetbacks(): void
     {
         $client = $this->getClient();
 
@@ -206,7 +208,7 @@ class Step07SetbacksTest extends AbstractStepTest
         static::assertSame([2 => ['id' => 2, 'avoided' => false], 3 => ['id' => 3, 'avoided' => false]], $session->get('character.corahn_rin')[$this->getStepName()]);
     }
 
-    public function testManualWithInValidSetbacks()
+    public function testManualWithInValidSetbacks(): void
     {
         $client = $this->getClient();
 

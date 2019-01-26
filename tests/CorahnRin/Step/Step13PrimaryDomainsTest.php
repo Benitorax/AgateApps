@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -16,7 +18,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
     /**
      * @dataProvider provideInvalidDependencies
      */
-    public function testStepDependency($dependencies)
+    public function testStepDependency($dependencies): void
     {
         $client = $this->getClient();
 
@@ -42,7 +44,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         ];
     }
 
-    public function testVarigalHasTwoDomainsWithScore3()
+    public function testVarigalHasTwoDomainsWithScore3(): void
     {
         $client = $this->getStepClient(18); // Varigal id in fixtures
 
@@ -54,7 +56,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertCount(16, $crawler->filter('[data-change="5"].disabled'));
     }
 
-    public function testSpyHasAllDomainsWithScore3()
+    public function testSpyHasAllDomainsWithScore3(): void
     {
         $client = $this->getStepClient(9); // Spy id in fixtures
 
@@ -67,7 +69,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertCount(16, $crawler->filter('[data-change="5"].disabled'));
     }
 
-    public function testSubmitNoDomain()
+    public function testSubmitNoDomain(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -93,7 +95,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('La valeur 3 doit être sélectionnée.', $flashText);
     }
 
-    public function testSubmitInvalidDomain()
+    public function testSubmitInvalidDomain(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -112,7 +114,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('Les domaines envoyés sont invalides.', $flashText);
     }
 
-    public function testWrongValueForSecondaryDomain()
+    public function testWrongValueForSecondaryDomain(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -135,7 +137,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('La valeur 3 ne peut être donnée qu\'à l\'un des domaines de prédilection du métier choisi.', $flashMessagesNode->text());
     }
 
-    public function testTooMuchValuesForSecondaryDomain()
+    public function testTooMuchValuesForSecondaryDomain(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -159,7 +161,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('La valeur 3 ne peut être donnée qu\'une seule fois.', $flashMessagesNode->text());
     }
 
-    public function testWrongDomainWithScore5()
+    public function testWrongDomainWithScore5(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -182,7 +184,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('Le score 5 ne peut pas être attribué à un autre domaine que celui défini par votre métier.', $flashMessagesNode->text());
     }
 
-    public function testMultipleValuesForDomainWithScore5()
+    public function testMultipleValuesForDomainWithScore5(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -207,7 +209,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('Le score 5 ne peut pas être attribué à un autre domaine que celui défini par votre métier.', $flashMessagesNode->text());
     }
 
-    public function testWrongValueForPrimaryDomain()
+    public function testWrongValueForPrimaryDomain(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -230,7 +232,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('Le domaine principal doit avoir un score de 5, vous ne pouvez pas le changer car il est défini par votre métier.', $flashMessagesNode->text());
     }
 
-    public function testWrongValueForAnyDomain()
+    public function testWrongValueForAnyDomain(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -253,7 +255,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('Le score d\'un domaine ne peut être que de 0, 1, 2 ou 3. Le score 5 est choisi par défaut en fonction de votre métier.', $flashMessagesNode->text());
     }
 
-    public function testSelectScore1MoreThanTwice()
+    public function testSelectScore1MoreThanTwice(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -278,7 +280,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('La valeur 1 ne peut être donnée que deux fois.', $flashMessagesNode->text());
     }
 
-    public function testSelectScore2MoreThanTwice()
+    public function testSelectScore2MoreThanTwice(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -303,7 +305,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         static::assertContains('La valeur 2 ne peut être donnée que deux fois.', $flashMessagesNode->text());
     }
 
-    public function testWrongOstServiceId()
+    public function testWrongOstServiceId(): void
     {
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
@@ -324,7 +326,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
     /**
      * @dataProvider provideValidDomainsData
      */
-    public function testValidDomains($jobId, array $submitted)
+    public function testValidDomains($jobId, array $submitted): void
     {
         $client = $this->getStepClient($jobId); // Artisan id in fixtures
 

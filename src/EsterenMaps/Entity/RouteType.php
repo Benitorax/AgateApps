@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -150,7 +152,7 @@ class RouteType implements EntityToClearInterface
     /**
      * Remove routes.
      */
-    public function removeRoute(Route $routes)
+    public function removeRoute(Route $routes): void
     {
         $this->routes->removeElement($routes);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step09TraitsTest extends AbstractStepTest
 {
-    public function test ways dependency redirects to generator()
+    public function test ways dependency redirects to generator(): void
     {
         $client = $this->getClient();
 
@@ -23,7 +25,7 @@ class Step09TraitsTest extends AbstractStepTest
         static::assertTrue($client->getResponse()->isRedirect('/fr/character/generate'));
     }
 
-    public function test invalid ways redirect to step 8()
+    public function test invalid ways redirect to step 8(): void
     {
         $client = $this->getClient();
 
@@ -41,7 +43,7 @@ class Step09TraitsTest extends AbstractStepTest
         static::assertSame(['Traits coming from Step 08 Ways are not correct, please check them back.'], $result->getSession()->getFlashBag()->get('error'));
     }
 
-    public function test valid setbacks()
+    public function test valid setbacks(): void
     {
         $result = $this->submitAction([
             '08_ways' => [
@@ -61,7 +63,7 @@ class Step09TraitsTest extends AbstractStepTest
         static::assertSame($values, $result->getSession()->get('character.corahn_rin')[$this->getStepName()]);
     }
 
-    public function test in valid setbacks()
+    public function test in valid setbacks(): void
     {
         $result = $this->submitAction([
             '08_ways' => [

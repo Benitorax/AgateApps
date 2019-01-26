@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -18,7 +20,7 @@ class ApiZonesControllerTest extends WebTestCase
 {
     use PiersTestCase;
 
-    public function testCreateWithCorrectData()
+    public function testCreateWithCorrectData(): void
     {
         static::resetDatabase();
 
@@ -44,7 +46,7 @@ class ApiZonesControllerTest extends WebTestCase
         static::assertSame(\ksort($data), \ksort($responseData));
     }
 
-    public function testCreationFlattensLatLngCorrectly()
+    public function testCreationFlattensLatLngCorrectly(): void
     {
         static::resetDatabase();
 
@@ -70,7 +72,7 @@ class ApiZonesControllerTest extends WebTestCase
         static::assertSame('[{"lat":0,"lng":10},{"lat":10,"lng":10}]', $responseData['coordinates']);
     }
 
-    public function testCreateWithEmptyData()
+    public function testCreateWithEmptyData(): void
     {
         static::resetDatabase();
 
@@ -92,7 +94,7 @@ class ApiZonesControllerTest extends WebTestCase
         static::assertSame($expectedResponse, $responseData);
     }
 
-    public function testCreateWithIncorrectData()
+    public function testCreateWithIncorrectData(): void
     {
         static::resetDatabase();
 

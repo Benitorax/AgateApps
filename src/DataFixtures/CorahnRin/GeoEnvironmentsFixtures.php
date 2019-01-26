@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -38,7 +40,7 @@ class GeoEnvironmentsFixtures extends AbstractFixture implements OrderedFixtureI
     /**
      * Load data fixtures with the passed EntityManager.
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->manager = $manager;
 
@@ -53,7 +55,7 @@ class GeoEnvironmentsFixtures extends AbstractFixture implements OrderedFixtureI
         $this->manager->flush();
     }
 
-    public function fixtureObject(EntityRepository $repo, $id, $domain, $name, $description, $book)
+    public function fixtureObject(EntityRepository $repo, $id, $domain, $name, $description, $book): void
     {
         $obj = null;
         $newObject = false;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -39,7 +41,7 @@ class SetbacksFixtures extends AbstractFixture implements OrderedFixtureInterfac
     /**
      * Load data fixtures with the passed EntityManager.
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->manager = $manager;
 
@@ -69,7 +71,7 @@ class SetbacksFixtures extends AbstractFixture implements OrderedFixtureInterfac
         $this->manager->flush();
     }
 
-    public function fixtureObject(EntityRepository $repo, $id, $name, $description, $malus, $book, array $disabledAdvantages = [])
+    public function fixtureObject(EntityRepository $repo, $id, $name, $description, $malus, $book, array $disabledAdvantages = []): void
     {
         $obj = null;
         $newObject = false;

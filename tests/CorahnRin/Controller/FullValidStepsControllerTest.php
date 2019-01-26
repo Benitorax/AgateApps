@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -25,7 +27,7 @@ class FullValidStepsControllerTest extends WebTestCase
     /**
      * @see StepController::indexAction
      */
-    public function testIndex()
+    public function testIndex(): void
     {
         $client = $this->getClient('corahnrin.esteren.docker', [], ['ROLE_ADMIN']);
 
@@ -47,7 +49,7 @@ class FullValidStepsControllerTest extends WebTestCase
      * @param string $routeUri
      * @param string $nextStep
      */
-    public function testAllSteps($stepName, $routeUri, $nextStep, array $formValues, $expectedSessionValue, array $previousSteps)
+    public function testAllSteps($stepName, $routeUri, $nextStep, array $formValues, $expectedSessionValue, array $previousSteps): void
     {
         if ('20_finish' === $stepName) {
             // Finished generation. Session to Character will be tested somewhere else

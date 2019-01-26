@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -75,7 +77,7 @@ trait StepsWithDomainsTrait
         return $client;
     }
 
-    protected function assertSessionEquals(array $domains, int $remaining, Client $client)
+    protected function assertSessionEquals(array $domains, int $remaining, Client $client): void
     {
         $finalDomains = \array_merge([
             'domains.craft' => 0,

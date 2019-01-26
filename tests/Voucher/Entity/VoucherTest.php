@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -16,7 +18,7 @@ use Voucher\Entity\Voucher;
 
 class VoucherTest extends TestCase
 {
-    public function test invalid voucher type on creation throws exception()
+    public function test invalid voucher type on creation throws exception(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid voucher type "invalid voucher type"');

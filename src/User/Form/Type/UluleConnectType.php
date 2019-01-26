@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -36,7 +38,7 @@ class UluleConnectType extends AbstractType
         $this->translator = $translator;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var User $user */
         $user = $builder->getData();
@@ -55,7 +57,7 @@ class UluleConnectType extends AbstractType
                 'translation_domain' => 'user',
                 'mapped' => false,
             ])
-            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event): void {
                 // Manage Ulule Connect
                 $form = $event->getForm();
 
@@ -102,7 +104,7 @@ class UluleConnectType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,

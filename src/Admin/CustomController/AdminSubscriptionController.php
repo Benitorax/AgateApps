@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -25,7 +27,7 @@ class AdminSubscriptionController extends AdminController
         $this->mailer = $mailer;
     }
 
-    protected function persistEntity($subscription)
+    protected function persistEntity($subscription): void
     {
         if (!$subscription instanceof Subscription) {
             throw new \InvalidArgumentException(\sprintf(

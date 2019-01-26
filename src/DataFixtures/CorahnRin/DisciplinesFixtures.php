@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -39,7 +41,7 @@ class DisciplinesFixtures extends AbstractFixture implements OrderedFixtureInter
     /**
      * Load data fixtures with the passed EntityManager.
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->manager = $manager;
 
@@ -161,7 +163,7 @@ class DisciplinesFixtures extends AbstractFixture implements OrderedFixtureInter
         $this->manager->flush();
     }
 
-    public function fixtureObject(EntityRepository $repo, ?int $id, string $name, string $description, string $rank, array $domains, Book $book)
+    public function fixtureObject(EntityRepository $repo, ?int $id, string $name, string $description, string $rank, array $domains, Book $book): void
     {
         $obj = null;
         $newObject = false;

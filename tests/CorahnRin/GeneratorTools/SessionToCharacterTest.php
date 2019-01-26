@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -25,19 +27,19 @@ class SessionToCharacterTest extends KernelTestCase
     /** @var PropertyAccessor */
     private static $propertyAccessor;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         static::bootKernel();
         static::$propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         static::ensureKernelShutdown();
         static::$propertyAccessor = null;
     }
 
-    public function test unfinished character generation()
+    public function test unfinished character generation(): void
     {
         $this->expectException(CharacterException::class);
         $this->expectExceptionMessage('Character error: Generator seems not to be fully finished');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step12MentalDisorderTest extends AbstractStepTest
 {
-    public function testWaysDependency()
+    public function testWaysDependency(): void
     {
         $client = $this->getClient();
 
@@ -23,7 +25,7 @@ class Step12MentalDisorderTest extends AbstractStepTest
         static::assertTrue($client->getResponse()->isRedirect('/fr/character/generate'));
     }
 
-    public function testValidMentalDisorder()
+    public function testValidMentalDisorder(): void
     {
         $result = $this->submitAction([
             '08_ways' => [
@@ -42,7 +44,7 @@ class Step12MentalDisorderTest extends AbstractStepTest
         static::assertSame(1, $result->getSession()->get('character.corahn_rin')[$this->getStepName()]);
     }
 
-    public function testEmptyValue()
+    public function testEmptyValue(): void
     {
         $result = $this->submitAction([
             '08_ways' => [
@@ -63,7 +65,7 @@ class Step12MentalDisorderTest extends AbstractStepTest
         static::assertEquals('Veuillez choisir un désordre mental.', \trim($crawler->filter('#flash-messages > .card-panel.error')->text()));
     }
 
-    public function testInvalidMentalDisorder()
+    public function testInvalidMentalDisorder(): void
     {
         $result = $this->submitAction([
             '08_ways' => [

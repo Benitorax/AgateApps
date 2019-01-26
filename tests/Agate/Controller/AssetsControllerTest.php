@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -27,7 +29,7 @@ class AssetsControllerTest extends WebTestCase
     /**
      * @dataProvider provideLocales
      */
-    public function testValidLocaleUrlWithNoCache(string $locale)
+    public function testValidLocaleUrlWithNoCache(string $locale): void
     {
         $client = $this->getClient('www.studio-agate.docker');
 

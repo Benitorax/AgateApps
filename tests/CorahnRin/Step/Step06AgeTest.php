@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step06AgeTest extends AbstractStepTest
 {
-    public function testValidAge()
+    public function testValidAge(): void
     {
         $result = $this->submitAction([], [
             'age' => 16,
@@ -24,7 +26,7 @@ class Step06AgeTest extends AbstractStepTest
         static::assertSame([$this->getStepName() => 16], $result->getSession()->get('character.corahn_rin'));
     }
 
-    public function testInvalidAge()
+    public function testInvalidAge(): void
     {
         $result = $this->submitAction([], [
             'age' => 0,

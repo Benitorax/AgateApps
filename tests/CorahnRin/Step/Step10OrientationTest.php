@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -15,7 +17,7 @@ use CorahnRin\Data\Orientation;
 
 class Step10OrientationTest extends AbstractStepTest
 {
-    public function testWaysDependency()
+    public function testWaysDependency(): void
     {
         $client = $this->getClient();
 
@@ -25,7 +27,7 @@ class Step10OrientationTest extends AbstractStepTest
         static::assertTrue($client->getResponse()->isRedirect('/fr/character/generate'));
     }
 
-    public function testValidInstinctiveOrientation()
+    public function testValidInstinctiveOrientation(): void
     {
         $result = $this->submitAction([
             '08_ways' => [
@@ -42,7 +44,7 @@ class Step10OrientationTest extends AbstractStepTest
         static::assertSame(Orientation::INSTINCTIVE, $result->getSession()->get('character.corahn_rin')[$this->getStepName()]);
     }
 
-    public function testValidRationalOrientation()
+    public function testValidRationalOrientation(): void
     {
         $result = $this->submitAction([
             '08_ways' => [
@@ -59,7 +61,7 @@ class Step10OrientationTest extends AbstractStepTest
         static::assertSame(Orientation::RATIONAL, $result->getSession()->get('character.corahn_rin')[$this->getStepName()]);
     }
 
-    public function testValidManualInstinctiveOrientation()
+    public function testValidManualInstinctiveOrientation(): void
     {
         $result = $this->submitAction([
             '08_ways' => [
@@ -78,7 +80,7 @@ class Step10OrientationTest extends AbstractStepTest
         static::assertSame(Orientation::INSTINCTIVE, $result->getSession()->get('character.corahn_rin')[$this->getStepName()]);
     }
 
-    public function testValidManualRationalOrientation()
+    public function testValidManualRationalOrientation(): void
     {
         $result = $this->submitAction([
             '08_ways' => [
@@ -97,7 +99,7 @@ class Step10OrientationTest extends AbstractStepTest
         static::assertSame(Orientation::RATIONAL, $result->getSession()->get('character.corahn_rin')[$this->getStepName()]);
     }
 
-    public function testInvalidManualOrientation()
+    public function testInvalidManualOrientation(): void
     {
         $result = $this->submitAction([
             '08_ways' => [

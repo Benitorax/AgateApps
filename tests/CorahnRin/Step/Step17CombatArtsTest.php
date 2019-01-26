@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -13,7 +15,7 @@ namespace Tests\CorahnRin\Step;
 
 class Step17CombatArtsTest extends AbstractStepTest
 {
-    public function testStep()
+    public function testStep(): void
     {
         static::markTestIncomplete();
     }

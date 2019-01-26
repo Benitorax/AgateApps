@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Agate Apps package.
  *
@@ -38,7 +40,7 @@ class CombatArtsFixtures extends AbstractFixture implements OrderedFixtureInterf
     /**
      * Load data fixtures with the passed EntityManager.
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->manager = $manager;
 
@@ -56,7 +58,7 @@ class CombatArtsFixtures extends AbstractFixture implements OrderedFixtureInterf
         $this->manager->flush();
     }
 
-    public function fixtureObject(EntityRepository $repo, $id, $melee, $ranged, $name, $description, $book)
+    public function fixtureObject(EntityRepository $repo, $id, $melee, $ranged, $name, $description, $book): void
     {
         $obj = null;
         $newObject = false;

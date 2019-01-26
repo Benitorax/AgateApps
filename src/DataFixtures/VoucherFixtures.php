@@ -25,7 +25,7 @@ class VoucherFixtures extends AbstractFixture implements ORMFixtureInterface
         return Voucher::create($data['type'], $data['uniqueCode'], $data['validFrom']);
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $manager->persist($this->createNewInstance([
             'type' => 'voucher.esteren_maps',
