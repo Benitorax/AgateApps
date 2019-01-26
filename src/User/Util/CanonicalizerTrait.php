@@ -17,8 +17,8 @@ trait CanonicalizerTrait
 {
     public function canonicalize(string $string): string
     {
-        if (null === $string) {
-            return null;
+        if (!$string) {
+            return '';
         }
 
         $encoding = \mb_detect_encoding($string, \mb_detect_order(), true);
