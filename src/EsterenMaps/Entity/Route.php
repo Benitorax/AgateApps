@@ -415,7 +415,7 @@ class Route implements EntityToClearInterface, \JsonSerializable
         $this->setCoordinates(\json_encode($coords));
     }
 
-    public function calcDistance(): int
+    public function calcDistance(): float
     {
         if (!$this->map) {
             return 0;
@@ -467,9 +467,9 @@ class Route implements EntityToClearInterface, \JsonSerializable
          */
         $floatPrecision = 12;
 
-        $distance = (float) \mb_substr($distance, 0, $floatPrecision);
+        $distance = (float) \mb_substr((string) $distance, 0, $floatPrecision);
 
-        if ($distance !== (float) \mb_substr($this->distance, 0, $floatPrecision)) {
+        if ($distance !== (int) \mb_substr((string) $this->distance, 0, $floatPrecision)) {
             $this->distance = $distance;
         }
 

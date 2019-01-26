@@ -102,7 +102,7 @@ class TraitsRepository extends ServiceEntityRepository
         ];
 
         foreach ($ways as $id => $value) {
-            Ways::validateWay($id);
+            Ways::validateWay((string) $id);
             if (\in_array($id, $searchableWays, true)) {
                 $placeholder = \str_replace('ways.', '', $id);
                 $qb->orWhere('trait.way = :way'.$placeholder.' AND trait.major = :way'.$placeholder.'major')

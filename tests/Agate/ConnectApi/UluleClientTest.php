@@ -29,13 +29,11 @@ class UluleClientTest extends WebTestCase
     public function testUluleClientProjects(): void
     {
         $user = new User();
-        $user->setUluleId(1);
+        $user->setUluleId('1');
         $user->setUluleUsername('user');
         $user->setUluleApiToken('token');
 
-        $client = $this->createUluleClient();
-
-        $ululeProjects = $client->getUserProjects($user);
+        $ululeProjects = $this->createUluleClient()->getUserProjects($user);
 
         static::assertSame(static::$clientResults['projects'], $ululeProjects);
     }
@@ -54,7 +52,7 @@ class UluleClientTest extends WebTestCase
 
     private function createUluleClient()
     {
-        static::initClientResults();
+        self::initClientResults();
 
         $cache = new ArrayAdapter();
         $item = $cache->getItem('ulule_projects.user_1');

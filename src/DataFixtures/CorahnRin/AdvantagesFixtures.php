@@ -138,7 +138,7 @@ class AdvantagesFixtures extends AbstractFixture implements OrderedFixtureInterf
             $obj->setNameFemale($nameFemale);
             $obj->setDescription($description);
             $obj->setBonusCount($bonus);
-            $obj->setDisadvantage($isDisadvantage);
+            $obj->setDisadvantage((bool) $isDisadvantage);
             $obj->setBook($book);
             $obj->setBonusesFor($bonusesFor);
             $obj->setRequiresIndication($requiresIndication);

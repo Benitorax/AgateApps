@@ -80,7 +80,7 @@ class ApiDirectionsController extends AbstractController
             $output = $this->getError($from, $to, $transportId, 'Transport not found.');
             $response->setStatusCode(404);
         } else {
-            $output = $this->directionsManager->getDirections($map, $from, $to, $request->query->get('hours_per_day', 7), $transport);
+            $output = $this->directionsManager->getDirections($map, $from, $to, (int) $request->query->get('hours_per_day', 7), $transport);
             if (0 === \count($output)) {
                 $output = $this->getError($from, $to);
                 $response->setStatusCode(404);

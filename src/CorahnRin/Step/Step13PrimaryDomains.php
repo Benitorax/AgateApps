@@ -256,7 +256,7 @@ class Step13PrimaryDomains extends AbstractStepAction
      */
     private function checkOst()
     {
-        $id = \trim($this->request->request->get('ost'));
+        $id = \trim($this->request->request->get('ost', ''));
 
         $keyExists = $id ? \array_key_exists($id, $this->allDomains) : null;
 

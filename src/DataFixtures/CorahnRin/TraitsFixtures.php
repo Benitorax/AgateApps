@@ -176,8 +176,8 @@ class TraitsFixtures extends AbstractFixture implements OrderedFixtureInterface,
                 ->setNameFemale($nameFemale)
                 ->setWay($way)
                 ->setBook($book)
-                ->setMajor($major)
-                ->setQuality($isQuality)
+                ->setMajor((bool) $major)
+                ->setQuality((bool) $isQuality)
             ;
             if ($id) {
                 /** @var ClassMetadata $metadata */

@@ -32,7 +32,7 @@ class Step09TraitsTest extends AbstractStepTest
         // Inject the Ways step dependency in the session to test it's redirecting properly
         $session = $client->getContainer()->get('session');
         $session->set('character.corahn_rin', [
-            '08_ways' => [1, 2, 3, 4, 5],
+            '08_ways' => ['1', '2', '3', '4', '5'],
         ]);
         $session->save();
 

@@ -39,11 +39,6 @@ class DisordersWaysFixtures extends AbstractFixture implements ORMFixtureInterfa
         return MentalDisorderWay::class;
     }
 
-    protected function getReferencePrefix(): ?string
-    {
-        return false;
-    }
-
     protected function getObjects()
     {
         return [
