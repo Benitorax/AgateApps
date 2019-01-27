@@ -235,14 +235,14 @@ class Step13PrimaryDomains extends AbstractStepAction
 
         $this->submittedDomains['domains'] = $submittedDomains;
 
-        if (false === $this->checkOst()) {
+        if (!$this->checkOst()) {
             $error = true;
         }
 
         // Reset again the primary domain, because impossible to change it.
         $this->submittedDomains['domains'][$primaryDomainId] = 5;
 
-        if (false === $error) {
+        if (!$error) {
             $this->updateCharacterStep($this->submittedDomains);
         }
 
@@ -256,11 +256,11 @@ class Step13PrimaryDomains extends AbstractStepAction
      */
     private function checkOst()
     {
-        $id = \trim($this->request->request->get('ost', ''));
+        $id = \trim((string) $this->request->request->get('ost', ''));
 
         $keyExists = $id ? \array_key_exists($id, $this->allDomains) : null;
 
-        if (false === $keyExists) {
+        if (!$keyExists) {
             if (!$id) {
                 $this->submittedDomains['ost'] = DomainsData::CLOSE_COMBAT['title'];
             } else {

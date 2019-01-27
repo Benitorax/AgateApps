@@ -310,7 +310,7 @@ class Step13PrimaryDomainsTest extends AbstractStepTest
         $client = $this->getStepClient(1); // Artisan id in fixtures
 
         $crawler = $client->request('POST', '/fr/character/generate/'.$this->getStepName(), [
-            'ost' => 99999999,
+            'ost' => '99999999',
             'domains' => [],
         ]);
 
