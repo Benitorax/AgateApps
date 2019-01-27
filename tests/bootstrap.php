@@ -2,6 +2,7 @@
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -73,9 +74,13 @@ $runCommand = function (string $cmd) use (&$application, &$kernel, $getenv, $deb
         $application->setAutoExit(false);
     }
 
-    $code = $application->run(new StringInput($cmd));
+    $output = new BufferedOutput();
+    $code = $application->run(new StringInput($cmd), $output);
     if ($code) {
-        throw new \RuntimeException(sprintf('Command %s failed with code "%d".', $cmd, $code));
+        throw new \RuntimeException(\sprintf(
+            "Command %s failed with code %d.\nError was:\n%s",
+            $cmd, $code, $output->fetch()
+        ));
     }
 };
 
