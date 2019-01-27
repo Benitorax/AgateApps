@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace EsterenMaps\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use EsterenMaps\Cache\EntityToClearInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -83,7 +84,7 @@ class MarkerType implements EntityToClearInterface
     protected $iconCenterY;
 
     /**
-     * @var Marker[]
+     * @var Marker[]|Collection
      *
      * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Marker", mappedBy="markerType")
      */

@@ -39,6 +39,8 @@ use CorahnRin\Entity\Setbacks;
 use CorahnRin\Entity\SocialClass;
 use CorahnRin\Entity\Weapon;
 use CorahnRin\Exception\CharacterException;
+use CorahnRin\Repository\CharacterAdvantageRepository;
+use CorahnRin\Repository\SetbacksRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityRepository;
@@ -151,9 +153,15 @@ final class SessionToCharacter
      */
     private function prepareNecessaryVariables(): void
     {
-        $this->setbacks = $this->getRepository(Setbacks::class)->findAll('_primary');
+        /** @var SetbacksRepository $setbacksRepo */
+        $setbacksRepo = $this->getRepository(Setbacks::class);
+        $this->setbacks = $setbacksRepo->findAll('id');
+
+        /** @var CharacterAdvantageRepository $advantagesRepo */
+        $advantagesRepo = $this->getRepository(Advantage::class);
+        $this->advantages = $advantagesRepo->findAll('id');
+
         $this->domains = DomainsData::allAsObjects();
-        $this->advantages = $this->getRepository(Advantage::class)->findAll('_primary');
     }
 
     private function setPeople(Character $character, array $values): void

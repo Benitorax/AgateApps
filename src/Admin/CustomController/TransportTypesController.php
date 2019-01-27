@@ -13,13 +13,20 @@ declare(strict_types=1);
 
 namespace Admin\CustomController;
 
-use EsterenMaps\Entity\RouteType;
 use EsterenMaps\Entity\TransportModifier;
 use EsterenMaps\Entity\TransportType;
+use EsterenMaps\Repository\RoutesTypesRepository;
 use Symfony\Component\Form\FormBuilder;
 
 class TransportTypesController extends BaseMapAdminController
 {
+    private $routesTypesRepository;
+
+    public function __construct(RoutesTypesRepository $routesTypesRepository)
+    {
+        $this->routesTypesRepository = $routesTypesRepository;
+    }
+
     /**
      * Creates the form builder of the form used to create or edit the given entity.
      *
@@ -40,10 +47,7 @@ class TransportTypesController extends BaseMapAdminController
             []
         );
 
-        $missingRoutesTypes = $this->em
-            ->getRepository(RouteType::class)
-            ->findNotInIds($routesTypesIds)
-        ;
+        $missingRoutesTypes = $this->routesTypesRepository->findNotInIds($routesTypesIds);
 
         foreach ($missingRoutesTypes as $routeType) {
             $entity->addTransportsModifier(
@@ -53,6 +57,6 @@ class TransportTypesController extends BaseMapAdminController
             );
         }
 
-        return parent::createEntityFormBuilder($entity, $view);
+        return $this->createEntityFormBuilder($entity, $view);
     }
 }

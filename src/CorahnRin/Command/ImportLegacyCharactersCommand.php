@@ -266,7 +266,7 @@ SQL;
     }
 
     /**
-     * @param array[] $arrayCharacter
+     * @param string[] $arrayCharacter
      *
      * @return $this
      */

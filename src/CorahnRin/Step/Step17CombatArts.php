@@ -16,15 +16,12 @@ namespace CorahnRin\Step;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Entity\CombatArt;
 use CorahnRin\GeneratorTools\DomainsCalculator;
+use CorahnRin\Repository\CombatArtsRepository;
+use CorahnRin\Repository\GeoEnvironmentsRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step17CombatArts extends AbstractStepAction
 {
-    /**
-     * @var DomainsCalculator
-     */
-    private $domainsCalculator;
-
     /**
      * @var CombatArt[]
      */
@@ -34,10 +31,18 @@ class Step17CombatArts extends AbstractStepAction
      * @var int
      */
     private $remainingExp;
+    private $combatArtsRepository;
+    private $geoEnvironmentsRepository;
+    private $domainsCalculator;
 
-    public function __construct(DomainsCalculator $domainsCalculator)
-    {
+    public function __construct(
+        CombatArtsRepository $combatArtsRepository,
+        DomainsCalculator $domainsCalculator,
+        GeoEnvironmentsRepository $geoEnvironmentsRepository
+    ) {
         $this->domainsCalculator = $domainsCalculator;
+        $this->geoEnvironmentsRepository = $geoEnvironmentsRepository;
+        $this->combatArtsRepository = $combatArtsRepository;
     }
 
     /**
@@ -46,12 +51,12 @@ class Step17CombatArts extends AbstractStepAction
     public function execute(): Response
     {
         $allDomains = DomainsData::allAsObjects();
-        $this->combatArts = $this->em->getRepository(CombatArt::class)->findAllSortedByName();
+        $this->combatArts = $this->combatArtsRepository->findAllSortedByName();
 
         $socialClassValues = $this->getCharacterProperty('05_social_class')['domains'];
         $primaryDomains = $this->getCharacterProperty('13_primary_domains');
         $domainBonuses = $this->getCharacterProperty('14_use_domain_bonuses');
-        $geoEnvironment = $this->em->find(\CorahnRin\Entity\GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
+        $geoEnvironment = $this->geoEnvironmentsRepository->find($this->getCharacterProperty('04_geo'));
 
         // Calculate final values from previous steps
         $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(

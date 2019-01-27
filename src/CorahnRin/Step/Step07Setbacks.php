@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace CorahnRin\Step;
 
 use CorahnRin\Entity\Setbacks;
+use CorahnRin\Repository\SetbacksRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step07Setbacks extends AbstractStepAction
@@ -28,13 +29,20 @@ class Step07Setbacks extends AbstractStepAction
      */
     private $setbacks = [];
 
+    private $setbacksRepository;
+
+    public function __construct(SetbacksRepository $setbacksRepository)
+    {
+        $this->setbacksRepository = $setbacksRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function execute(): Response
     {
         /* @var Setbacks[] $setbacks */
-        $this->setbacks = $this->em->getRepository(Setbacks::class)->findAll(true);
+        $this->setbacks = $this->setbacksRepository->findAll(true);
 
         $setbacksValue = $this->getCharacterProperty() ?: [];
 

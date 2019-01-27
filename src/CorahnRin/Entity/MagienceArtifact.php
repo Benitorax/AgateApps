@@ -107,14 +107,14 @@ class MagienceArtifact
     protected $flux;
 
     /**
-     * @var \Datetime
+     * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=false)
      */
     protected $created;
 
     /**
-     * @var \Datetime
+     * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=false)
      */

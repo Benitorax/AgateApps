@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace EsterenMaps\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use EsterenMaps\Cache\EntityToClearInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -65,7 +66,7 @@ class ZoneType implements EntityToClearInterface
     protected $parent;
 
     /**
-     * @var Zone[]
+     * @var Zone[]|Collection
      * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Zone", mappedBy="zoneType")
      */
     protected $zones;

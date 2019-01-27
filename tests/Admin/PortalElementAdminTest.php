@@ -226,7 +226,9 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
 
         $class = PortalElement::class;
 
-        static::$container->get('doctrine')->getManager()
+        /** @var EntityManagerInterface $em */
+        $em = static::$container->get(EntityManagerInterface::class);
+        $em
             ->createQuery(<<<DQL
                 DELETE FROM {$class} element 
                 WHERE element.portal = :portal 

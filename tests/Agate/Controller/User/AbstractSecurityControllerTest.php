@@ -248,7 +248,11 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
-        $user = self::$container->get(UserRepository::class)->loadUserByUsername(static::USER_NAME.$locale);
+
+        /** @var UserRepository $userRepository */
+        $userRepository = self::$container->get(UserRepository::class);
+        /** @var User $user */
+        $user = $userRepository->loadUserByUsername(static::USER_NAME.$locale);
         static::setToken($client, $user, $user->getRoles());
 
         $crawler = $client->request('GET', "/$locale/profile");
@@ -283,7 +287,12 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
-        $user = self::$container->get(UserRepository::class)->loadUserByUsername(static::USER_NAME_AFTER_UPDATE.$locale);
+
+        /** @var UserRepository $userRepository */
+        $userRepository = self::$container->get(UserRepository::class);
+        /** @var User $user */
+        $user = $userRepository->loadUserByUsername(static::USER_NAME.$locale);
+
         static::setToken($client, $user, $user->getRoles());
 
         $crawler = $client->request('GET', "/$locale/resetting/request");

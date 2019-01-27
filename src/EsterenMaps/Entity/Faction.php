@@ -15,6 +15,7 @@ namespace EsterenMaps\Entity;
 
 use CorahnRin\Entity\Book;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -50,19 +51,19 @@ class Faction
     protected $description;
 
     /**
-     * @var Zone[]
+     * @var Zone[]|Collection
      * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Zone", mappedBy="faction")
      */
     protected $zones;
 
     /**
-     * @var Route[]
+     * @var Route[]|Collection
      * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Route", mappedBy="faction")
      */
     protected $routes;
 
     /**
-     * @var Marker[]
+     * @var Marker[]|Collection
      * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Marker", mappedBy="faction")
      */
     protected $markers;

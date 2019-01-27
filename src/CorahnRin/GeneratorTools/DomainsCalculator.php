@@ -29,10 +29,7 @@ final class DomainsCalculator
      */
     private $bonus = 0;
 
-    /**
-     * @return int
-     */
-    public function getBonus()
+    public function getBonus(): int
     {
         return $this->bonus;
     }

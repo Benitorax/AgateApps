@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace EsterenMaps\Controller;
 
 use EsterenMaps\Entity\Map;
+use EsterenMaps\Repository\MapsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,13 +26,20 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class MapsController extends AbstractController
 {
+    private $mapsRepository;
+
+    public function __construct(MapsRepository $mapsRepository)
+    {
+        $this->mapsRepository = $mapsRepository;
+    }
+
     /**
      * @Route("/", methods={"GET"}, name="esterenmaps_maps_list")
      */
     public function indexAction(): Response
     {
         /** @var Map[] $allMaps */
-        $allMaps = $this->getDoctrine()->getRepository(Map::class)->findAllRoot();
+        $allMaps = $this->mapsRepository->findAllRoot();
 
         return $this->render('esteren_maps/Maps/index.html.twig', [
             'list' => $allMaps,

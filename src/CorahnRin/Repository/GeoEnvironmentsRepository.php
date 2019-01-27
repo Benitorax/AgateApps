@@ -18,6 +18,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+/**
+ * @method GeoEnvironment|null find($id, $lockMode = null, $lockVersion = null)
+ */
 class GeoEnvironmentsRepository extends ServiceEntityRepository
 {
     use EntityRepositoryHelperTrait;

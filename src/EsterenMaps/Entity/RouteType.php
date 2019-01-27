@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace EsterenMaps\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use EsterenMaps\Cache\EntityToClearInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -57,13 +58,13 @@ class RouteType implements EntityToClearInterface
     protected $color;
 
     /**
-     * @var Route[]
+     * @var Route[]|Collection
      * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\Route", mappedBy="routeType")
      */
     protected $routes;
 
     /**
-     * @var TransportModifier[]
+     * @var TransportModifier[]|Collection
      * @ORM\OneToMany(targetEntity="EsterenMaps\Entity\TransportModifier", mappedBy="routeType")
      */
     protected $transports;

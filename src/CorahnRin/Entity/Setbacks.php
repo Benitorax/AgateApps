@@ -16,6 +16,7 @@ namespace CorahnRin\Entity;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
 use CorahnRin\Entity\Traits\HasBook;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,7 +62,7 @@ class Setbacks
     /**
      * It can disable either advantages or disadvantages, as they're in the same table.
      *
-     * @var string[]
+     * @var Advantage[]|Collection
      *
      * @ORM\ManyToMany(targetEntity="CorahnRin\Entity\Advantage")
      * @ORM\JoinTable(

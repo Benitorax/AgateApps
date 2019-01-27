@@ -13,16 +13,24 @@ declare(strict_types=1);
 
 namespace CorahnRin\Step;
 
+use CorahnRin\Repository\PeopleRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step01People extends AbstractStepAction
 {
+    private $peopleRepository;
+
+    public function __construct(PeopleRepository $peopleRepository)
+    {
+        $this->peopleRepository = $peopleRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function execute(): Response
     {
-        $peoples = $this->em->getRepository(\CorahnRin\Entity\People::class)->findAll('id');
+        $peoples = $this->peopleRepository->findAll('id');
 
         if ($this->request->isMethod('POST')) {
             $peopleId = (int) $this->request->request->get('gen-div-choice');

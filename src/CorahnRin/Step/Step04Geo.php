@@ -13,17 +13,24 @@ declare(strict_types=1);
 
 namespace CorahnRin\Step;
 
-use CorahnRin\Entity\GeoEnvironment;
+use CorahnRin\Repository\GeoEnvironmentsRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step04Geo extends AbstractStepAction
 {
+    private $geoEnvironmentsRepository;
+
+    public function __construct(GeoEnvironmentsRepository $geoEnvironmentsRepository)
+    {
+        $this->geoEnvironmentsRepository = $geoEnvironmentsRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function execute(): Response
     {
-        $geoEnvironments = $this->em->getRepository(GeoEnvironment::class)->findAll(true);
+        $geoEnvironments = $this->geoEnvironmentsRepository->findAll(true);
 
         if ($this->request->isMethod('POST')) {
             $geoEnvironmentId = (int) $this->request->request->get('gen-div-choice');

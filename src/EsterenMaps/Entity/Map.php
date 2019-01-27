@@ -169,13 +169,6 @@ class Map implements EntityToClearInterface
         return $this->id;
     }
 
-    /**
-     * @param $id
-     *
-     * @return $this
-     *
-     * @codeCoverageIgnore
-     */
     public function setId($id)
     {
         $this->id = $id;

@@ -26,6 +26,7 @@ use CorahnRin\Entity\CharacterProperties\Money;
 use CorahnRin\Entity\CharacterProperties\Ways;
 use CorahnRin\Exception\CharacterException;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use EsterenMaps\Entity\Zone;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -426,7 +427,7 @@ class Character extends BaseCharacter
     protected $quality;
 
     /**
-     * @var CharacterAdvantageItem[]
+     * @var CharacterAdvantageItem[]|Collection
      *
      * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem", mappedBy="character")
      */
@@ -440,21 +441,21 @@ class Character extends BaseCharacter
     protected $domains;
 
     /**
-     * @var CharDisciplines[]
+     * @var CharDisciplines[]|Collection
      *
      * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharDisciplines", mappedBy="character")
      */
     protected $disciplines;
 
     /**
-     * @var CharFlux[]
+     * @var CharFlux[]|Collection
      *
      * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharFlux", mappedBy="character")
      */
     protected $flux;
 
     /**
-     * @var CharSetbacks[]
+     * @var CharSetbacks[]|Collection
      *
      * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharSetbacks", mappedBy="character")
      */
@@ -480,7 +481,7 @@ class Character extends BaseCharacter
     protected $created;
 
     /**
-     * @var \Datetime
+     * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=false)
      */
@@ -1591,7 +1592,7 @@ class Character extends BaseCharacter
             $charDiscipline = $this->getDiscipline($discipline);
 
             // Il faut impérativement que la discipline soit associée au même domaine
-            if ($charDiscipline->getDomain()->getId() === $domain_id) {
+            if ($charDiscipline->getDomain() === $domain_id) {
                 // Remplacement du nouveau score
                 $domain = $charDiscipline->getScore();
             }

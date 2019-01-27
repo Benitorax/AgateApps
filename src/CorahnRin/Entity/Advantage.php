@@ -232,12 +232,7 @@ class Advantage
         return $this;
     }
 
-    /**
-     * Get xp.
-     *
-     * @return int
-     */
-    public function getXp()
+    public function getXp(): int
     {
         return $this->xp;
     }

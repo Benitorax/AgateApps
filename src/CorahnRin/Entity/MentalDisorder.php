@@ -15,6 +15,7 @@ namespace CorahnRin\Entity;
 
 use CorahnRin\Entity\Traits\HasBook;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,7 +50,7 @@ class MentalDisorder
     protected $description;
 
     /**
-     * @var MentalDisorderWay[]
+     * @var MentalDisorderWay[]|Collection
      *
      * @ORM\OneToMany(targetEntity="CorahnRin\Entity\MentalDisorderWay", mappedBy="disorder")
      */

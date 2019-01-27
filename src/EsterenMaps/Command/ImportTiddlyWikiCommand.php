@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace EsterenMaps\Command;
 
 use DateTime;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -27,7 +26,10 @@ use EsterenMaps\Entity\Route;
 use EsterenMaps\Entity\RouteType;
 use EsterenMaps\Entity\Zone;
 use EsterenMaps\Entity\ZoneType;
-use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
+use EsterenMaps\Repository\MapsRepository;
+use EsterenMaps\Repository\MarkersRepository;
+use EsterenMaps\Repository\RoutesRepository;
+use EsterenMaps\Repository\ZonesRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -189,7 +191,9 @@ class ImportTiddlyWikiCommand extends Command
         $table->setRows($tags);
         $table->render();
 
-        $this->maps = $this->getRepository(Map::class)->findAllRoot(true);
+        /** @var MapsRepository $mapsRepository */
+        $mapsRepository = $this->getRepository(Map::class);
+        $this->maps = $mapsRepository->findAllRoot(true);
 
         $this->factions = $this->getReferenceObjects('factions', Faction::class);
         $this->markersTypes = $this->getReferenceObjects('markertype', MarkerType::class);
@@ -311,6 +315,7 @@ class ImportTiddlyWikiCommand extends Command
             return isset($element['tags']) && $element['tags'] === $tag;
         });
 
+        /** @var MarkersRepository|RoutesRepository|ZonesRepository $repo */
         $repo = $this->getRepository($entity);
 
         $new = [];
@@ -364,6 +369,7 @@ class ImportTiddlyWikiCommand extends Command
             return isset($element['tags']) && $element['tags'] === $tag;
         });
 
+        /** @var MarkersRepository|RoutesRepository|ZonesRepository $repo */
         $repo = $this->getRepository($entity);
 
         $new = [];
@@ -407,12 +413,7 @@ class ImportTiddlyWikiCommand extends Command
         ];
     }
 
-    /**
-     * @param string $entityName
-     *
-     * @return EntityRepository|ObjectRepository|EntityRepositoryHelperTrait
-     */
-    private function getRepository($entityName): EntityRepository
+    private function getRepository(string $entityName): EntityRepository
     {
         if (!isset($this->repos[$entityName])) {
             $this->repos[$entityName] = $this->em->getRepository($entityName);

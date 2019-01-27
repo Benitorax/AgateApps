@@ -15,8 +15,9 @@ namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Entity\Discipline;
-use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\GeneratorTools\DomainsCalculator;
+use CorahnRin\Repository\DisciplinesRepository;
+use CorahnRin\Repository\GeoEnvironmentsRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step16Disciplines extends AbstractStepAction
@@ -37,11 +38,6 @@ class Step16Disciplines extends AbstractStepAction
     private $expRemainingFromDomains;
 
     /**
-     * @var DomainsCalculator
-     */
-    private $domainsCalculator;
-
-    /**
      * @var \CorahnRin\Data\DomainsData[]
      */
     private $allDomains;
@@ -51,9 +47,18 @@ class Step16Disciplines extends AbstractStepAction
      */
     private $remainingBonusPoints;
 
-    public function __construct(DomainsCalculator $domainsCalculator)
-    {
+    private $domainsCalculator;
+    private $geoEnvironmentsRepository;
+    private $disciplinesRepository;
+
+    public function __construct(
+        DisciplinesRepository $disciplinesRepository,
+        DomainsCalculator $domainsCalculator,
+        GeoEnvironmentsRepository $geoEnvironmentsRepository
+    ) {
         $this->domainsCalculator = $domainsCalculator;
+        $this->geoEnvironmentsRepository = $geoEnvironmentsRepository;
+        $this->disciplinesRepository = $disciplinesRepository;
     }
 
     /**
@@ -78,7 +83,7 @@ class Step16Disciplines extends AbstractStepAction
         if ($canHaveDisciplines) {
             $socialClassValues = $this->getCharacterProperty('05_social_class')['domains'];
             $domainBonuses = $this->getCharacterProperty('14_use_domain_bonuses');
-            $geoEnvironment = $this->em->find(GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
+            $geoEnvironment = $this->geoEnvironmentsRepository->find($this->getCharacterProperty('04_geo'));
 
             // Calculate final values from previous steps
             $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
@@ -105,7 +110,7 @@ class Step16Disciplines extends AbstractStepAction
                 }, ARRAY_FILTER_USE_BOTH)
             );
 
-            $this->availableDisciplines = $this->em->getRepository(Discipline::class)->findAllByDomains($availableDomainsForDisciplines);
+            $this->availableDisciplines = $this->disciplinesRepository->findAllByDomains($availableDomainsForDisciplines);
         }
 
         /* @var int[] $currentDisciplinesSpentWithExp */

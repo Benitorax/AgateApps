@@ -13,19 +13,28 @@ declare(strict_types=1);
 
 namespace CorahnRin\Step;
 
-use CorahnRin\Entity\Armor;
-use CorahnRin\Entity\Weapon;
+use CorahnRin\Repository\ArmorsRepository;
+use CorahnRin\Repository\WeaponsRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step18Equipment extends AbstractStepAction
 {
+    private $weaponsRepository;
+    private $armorsRepository;
+
+    public function __construct(WeaponsRepository $weaponsRepository, ArmorsRepository $armorsRepository)
+    {
+        $this->weaponsRepository = $weaponsRepository;
+        $this->armorsRepository = $armorsRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function execute(): Response
     {
-        $weapons = $this->em->getRepository(Weapon::class)->findAllSortedByName();
-        $armors = $this->em->getRepository(Armor::class)->findAllSortedByName();
+        $weapons = $this->weaponsRepository->findAllSortedByName();
+        $armors = $this->armorsRepository->findAllSortedByName();
         $setbacks = $this->getCharacterProperty('07_setbacks');
         $isPoor = isset($setbacks[9]) && !$setbacks[9]['avoided'];
 

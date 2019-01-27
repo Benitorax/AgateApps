@@ -14,7 +14,8 @@ declare(strict_types=1);
 namespace CorahnRin\Step;
 
 use EsterenMaps\Entity\Map;
-use EsterenMaps\Entity\Zone;
+use EsterenMaps\Repository\MapsRepository;
+use EsterenMaps\Repository\ZonesRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step03Birthplace extends AbstractStepAction
@@ -24,9 +25,17 @@ class Step03Birthplace extends AbstractStepAction
      */
     private $tileSize;
 
-    public function __construct(int $tileSize)
-    {
+    private $zonesRepository;
+    private $mapsRepository;
+
+    public function __construct(
+        int $tileSize,
+        ZonesRepository $zonesRepository,
+        MapsRepository $mapsRepository
+    ) {
         $this->tileSize = $tileSize;
+        $this->zonesRepository = $zonesRepository;
+        $this->mapsRepository = $mapsRepository;
     }
 
     /**
@@ -34,10 +43,11 @@ class Step03Birthplace extends AbstractStepAction
      */
     public function execute(): Response
     {
-        $regions = $this->em->getRepository(Zone::class)->findAll(true);
+        $regions = $this->zonesRepository->findAll('id');
 
+        // FIXME: Find a way to not have to hardcode this.
         // Hardcoded here, it's base esteren map.
-        $map = $this->em->getRepository(Map::class)->find(1);
+        $map = $this->mapsRepository->find(1);
 
         if ($this->request->isMethod('POST')) {
             $regionValue = (int) $this->request->request->get('region_value');

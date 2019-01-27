@@ -15,6 +15,8 @@ namespace CorahnRin\Step;
 
 use CorahnRin\Entity\Advantage;
 use CorahnRin\Entity\Setbacks;
+use CorahnRin\Repository\CharacterAdvantageRepository;
+use CorahnRin\Repository\SetbacksRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step11Advantages extends AbstractStepAction
@@ -54,12 +56,21 @@ class Step11Advantages extends AbstractStepAction
      */
     private $advantagesDisabledBySetbacks = [];
 
+    private $advantageRepository;
+    private $setbacksRepository;
+
+    public function __construct(CharacterAdvantageRepository $advantageRepository, SetbacksRepository $setbacksRepository)
+    {
+        $this->advantageRepository = $advantageRepository;
+        $this->setbacksRepository = $setbacksRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function execute(): Response
     {
-        $this->globalList = $this->em->getRepository(Advantage::class)->findAllDifferenciated();
+        $this->globalList = $this->advantageRepository->findAllDifferenciated();
 
         $currentStepValue = $this->getCharacterProperty();
         $this->advantages = $currentStepValue['advantages'] ?? [];
@@ -73,7 +84,7 @@ class Step11Advantages extends AbstractStepAction
             $nonAvoidedSetbacks[] = $id;
         }
         if (0 !== \count($nonAvoidedSetbacks)) {
-            $this->setbacks = $this->em->getRepository(Setbacks::class)->findWithDisabledAdvantages($nonAvoidedSetbacks);
+            $this->setbacks = $this->setbacksRepository->findWithDisabledAdvantages($nonAvoidedSetbacks);
         }
 
         // Disable advantages that must not be chosen based on setbacks
@@ -142,13 +153,14 @@ class Step11Advantages extends AbstractStepAction
         foreach ($this->advantages as $id => $value) {
             /** @var Advantage $advantage */
             $advantage = $this->globalList['advantages'][$id];
+            $xp = $advantage->getXp();
             if (1 === $value) {
-                $experience -= $advantage->getXp();
+                $experience -= $xp;
             } elseif (2 === $value && 1 === $advantage->getBonusCount()) {
-                $experience -= \floor($advantage->getXp() * 1.5);
+                $experience -= \floor($xp * 1.5);
             } elseif (3 === $advantage->getBonusCount()) {
-                // It's not used, but maybe one day...
-                $experience -= $value * $advantage->getXp();
+                // It's not used yet, but maybe one day with new advantages :)
+                $experience -= $xp * $value;
             } elseif ($value) {
                 $this->hasError = true;
                 $this->flashMessage('Une valeur incorrecte a été donnée à un avantage.');

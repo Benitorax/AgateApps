@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace CorahnRin\Entity\CharacterProperties;
 
 use CorahnRin\Data\Character\DomainScore;
-use CorahnRin\Data\DomainsData as DomainsData;
+use CorahnRin\Data\DomainsData;
 use CorahnRin\Entity\Character;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -298,7 +298,9 @@ class CharacterDomains
 
         foreach (DomainsData::allAsObjects() as $domain) {
             $propertyName = $domain->getCamelizedTitle();
-            $data[$domain->getTitle()] = new DomainScore(
+            $domainName = $domain->getTitle();
+            $data[$domainName] = new DomainScore(
+                $domainName,
                 $character->getWay($domain->getWay()),
                 $this->{$propertyName},
                 $this->{$propertyName.'Bonus'},

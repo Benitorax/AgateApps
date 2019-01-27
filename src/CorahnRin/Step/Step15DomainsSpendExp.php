@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\GeneratorTools\DomainsCalculator;
+use CorahnRin\Repository\GeoEnvironmentsRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step15DomainsSpendExp extends AbstractStepAction
@@ -24,11 +24,6 @@ class Step15DomainsSpendExp extends AbstractStepAction
      * @var \Generator|\CorahnRin\Data\DomainsData[]
      */
     private $allDomains;
-
-    /**
-     * @var DomainsCalculator
-     */
-    private $domainsCalculator;
 
     /**
      * @var int[]
@@ -40,9 +35,13 @@ class Step15DomainsSpendExp extends AbstractStepAction
      */
     private $expRemainingFromAdvantages;
 
-    public function __construct(DomainsCalculator $domainsCalculator)
+    private $domainsCalculator;
+    private $geoEnvironmentsRepository;
+
+    public function __construct(DomainsCalculator $domainsCalculator, GeoEnvironmentsRepository $geoEnvironmentsRepository)
     {
         $this->domainsCalculator = $domainsCalculator;
+        $this->geoEnvironmentsRepository = $geoEnvironmentsRepository;
     }
 
     /**
@@ -57,7 +56,7 @@ class Step15DomainsSpendExp extends AbstractStepAction
         $primaryDomains = $this->getCharacterProperty('13_primary_domains');
         $socialClassValues = $this->getCharacterProperty('05_social_class')['domains'];
         $domainBonuses = $this->getCharacterProperty('14_use_domain_bonuses');
-        $geoEnvironment = $this->em->find(GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
+        $geoEnvironment = $this->geoEnvironmentsRepository->find($this->getCharacterProperty('04_geo'));
 
         $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
             $socialClassValues,

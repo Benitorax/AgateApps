@@ -126,35 +126,35 @@ class PdfManager implements SheetGeneratorInterface
         $pdf->multiple_lines($character->getDescription(), 295, 365, $p['carbold'], 17, 820, 1, 0, true);
 
         $pdf->textline(\mb_substr($character->getPeople()->getName(), 0, 20), 530, 322, $p['lettrine'], 18, true);
-        $pdf->textline(\mb_substr($character->getJobCustom() ?: $character->getJob()->getName(), 0, 25), 895, 322, $p['lettrine'], 18, true);
+        $pdf->textline(\mb_substr($character->getJob()->getName(), 0, 25), 895, 322, $p['lettrine'], 18, true);
 
         // voies
-        $pdf->textline($character->getWay('com')->getScore(), 325, 545, $p['carbold'], 28);
-        $pdf->textline($character->getWay('emp')->getScore(), 325, 608, $p['carbold'], 28);
-        $pdf->textline($character->getWay('cre')->getScore(), 325, 667, $p['carbold'], 28);
-        $pdf->textline($character->getWay('rai')->getScore(), 325, 727, $p['carbold'], 28);
-        $pdf->textline($character->getWay('ide')->getScore(), 325, 784, $p['carbold'], 28);
+        $pdf->textline($character->getCombativeness(), 325, 545, $p['carbold'], 28);
+        $pdf->textline($character->getEmpathy(), 325, 608, $p['carbold'], 28);
+        $pdf->textline($character->getCreativity(), 325, 667, $p['carbold'], 28);
+        $pdf->textline($character->getReason(), 325, 727, $p['carbold'], 28);
+        $pdf->textline($character->getConviction(), 325, 784, $p['carbold'], 28);
 
         // voies des domaines ligne 1
-        $pdf->textline($character->getWay('cre')->getScore(), 290, 990, $p['unz'], 22);
-        $pdf->textline($character->getWay('rai')->getScore(), 537, 990, $p['unz'], 22);
-        $pdf->textline($character->getWay('rai')->getScore(), 800, 990, $p['unz'], 22);
-        $pdf->textline($character->getWay('cre')->getScore(), 1069, 990, $p['unz'], 22);
+        $pdf->textline($character->getCreativity(), 290, 990, $p['unz'], 22);
+        $pdf->textline($character->getReason(), 537, 990, $p['unz'], 22);
+        $pdf->textline($character->getReason(), 800, 990, $p['unz'], 22);
+        $pdf->textline($character->getCreativity(), 1069, 990, $p['unz'], 22);
         // voies des domaines ligne 2
-        $pdf->textline($character->getWay('com')->getScore(), 298, 1169, $p['unz'], 22);
-        $pdf->textline($character->getWay('emp')->getScore(), 542, 1169, $p['unz'], 22);
-        $pdf->textline($character->getWay('ide')->getScore(), 802, 1169, $p['unz'], 22);
-        $pdf->textline($character->getWay('rai')->getScore(), 1060, 1169, $p['unz'], 22);
+        $pdf->textline($character->getCombativeness(), 298, 1169, $p['unz'], 22);
+        $pdf->textline($character->getEmpathy(), 542, 1169, $p['unz'], 22);
+        $pdf->textline($character->getConviction(), 802, 1169, $p['unz'], 22);
+        $pdf->textline($character->getReason(), 1060, 1169, $p['unz'], 22);
         // voies des domaines ligne 3
-        $pdf->textline($character->getWay('emp')->getScore(), 280, 1335, $p['unz'], 22);
-        $pdf->textline($character->getWay('emp')->getScore(), 540, 1335, $p['unz'], 22);
-        $pdf->textline($character->getWay('com')->getScore(), 820, 1335, $p['unz'], 22);
-        $pdf->textline($character->getWay('com')->getScore(), 1085, 1335, $p['unz'], 22);
+        $pdf->textline($character->getEmpathy(), 280, 1335, $p['unz'], 22);
+        $pdf->textline($character->getEmpathy(), 540, 1335, $p['unz'], 22);
+        $pdf->textline($character->getCombativeness(), 820, 1335, $p['unz'], 22);
+        $pdf->textline($character->getCombativeness(), 1085, 1335, $p['unz'], 22);
         // voies des domaines ligne 4
-        $pdf->textline($character->getWay('rai')->getScore(), 271, 1502, $p['unz'], 22);
-        $pdf->textline($character->getWay('rai')->getScore(), 539, 1502, $p['unz'], 22);
-        $pdf->textline($character->getWay('emp')->getScore(), 800, 1502, $p['unz'], 22);
-        $pdf->textline($character->getWay('emp')->getScore(), 1065, 1502, $p['unz'], 22);
+        $pdf->textline($character->getReason(), 271, 1502, $p['unz'], 22);
+        $pdf->textline($character->getReason(), 539, 1502, $p['unz'], 22);
+        $pdf->textline($character->getEmpathy(), 800, 1502, $p['unz'], 22);
+        $pdf->textline($character->getEmpathy(), 1065, 1502, $p['unz'], 22);
 
         // Advantages and disadvantages
         $av = [];
@@ -217,11 +217,11 @@ class PdfManager implements SheetGeneratorInterface
         } else {
             $pdf->SetTextColor(0x22, 0x11, 0x4);
         }
-        foreach ($character->getDomains() as $key => $val) {
-            $score = $val->getBaseScore();
+        foreach ($character->getDomains()->toArray($character) as $score) {
             ++$j;
-            if ($score >= 0) {
-                for ($i = 1; $i <= $score; ++$i) {
+            $baseScore = $score->getBase();
+            if ($baseScore >= 0) {
+                for ($i = 1; $i <= $baseScore; ++$i) {
                     $pdf->textline('●', $x_arr[$j] + ($i - 1) * 23.75 - 7, $y_arr[$j] + 4, $p['arial'], 29);
                 }
             }
@@ -233,7 +233,7 @@ class PdfManager implements SheetGeneratorInterface
             //			}
             $l = 0;
             foreach ($character->getDisciplines() as $charDisciplines) {
-                if ($charDisciplines->getDomain()->getId() === $val->getDomain()->getId()) {
+                if ($charDisciplines->getDomain() === $score->getWayScore()) {
                     $pdf->textline($charDisciplines->getDiscipline()->getName(), $x_arr[$j] + 45, $y_arr[$j] + 45 + $l * 22, $p['times'], 13, true);
                     $pdf->textline($charDisciplines->getScore(), $x_arr[$j] + 222, $y_arr[$j] + 45 + $l * 22, $p['caro'], 17);
                     ++$l;
@@ -412,17 +412,17 @@ class PdfManager implements SheetGeneratorInterface
             '_'.(true === $printer_friendly ? 'pf' : 'npf').
             '.jpg', 0, 0, $general_width, $general_height);
 
-        $resist_mentale = $character->getBaseMentalResist() + $character->getMentalResist();
+        $resist_mentale = $character->getTotalMentalResistance();
         $pdf->textline($resist_mentale, 323, 528, $p['carbold'], 25);
-        $pdf->textline($character->getWay('com')->getScore(), 1050, 897, $p['carbold'], 28);
-        $pdf->textline($character->getWay('cre')->getScore(), 1050, 969, $p['carbold'], 28);
-        $pdf->textline($character->getWay('emp')->getScore(), 1050, 1041, $p['carbold'], 28);
-        $pdf->textline($character->getWay('rai')->getScore(), 1050, 1110, $p['carbold'], 28);
-        $pdf->textline($character->getWay('ide')->getScore(), 1050, 1180, $p['carbold'], 28);
+        $pdf->textline($character->getCombativeness(), 1050, 897, $p['carbold'], 28);
+        $pdf->textline($character->getCreativity(), 1050, 969, $p['carbold'], 28);
+        $pdf->textline($character->getEmpathy(), 1050, 1041, $p['carbold'], 28);
+        $pdf->textline($character->getReason(), 1050, 1110, $p['carbold'], 28);
+        $pdf->textline($character->getConviction(), 1050, 1180, $p['carbold'], 28);
 
         $pdf->multiple_lines($character->getStory(), 90, 173, $p['times'], 14, 1015, 6, 43);
 
-        $str = $translator->trans($character->getRegion()->getName()).' - '.$translator->trans('Milieu').' '.$translator->trans($character->getGeoLiving());
+        $str = $translator->trans($character->getBirthPlace()->getName()).' - '.$translator->trans('Milieu').' '.$translator->trans($character->getGeoLiving());
         $pdf->textline($str, 557, 86, $p['caro'], 14);
 
         $pdf->textline($character->getSocialClass()->getName(), 557, 114, $p['caro'], 14, true);
@@ -437,10 +437,10 @@ class PdfManager implements SheetGeneratorInterface
         }
 
         //Points de traumatisme
-        $trauma = $character->getTraumaPermanent() + $character->getTrauma();
+        $trauma = $character->getPermanentTrauma() + $character->getTemporaryTrauma();
         $off = 0;
         for ($i = 1; $i <= $trauma; ++$i) {
-            if ($i <= $character->getTraumaPermanent()) {
+            if ($i <= $character->getPermanentTrauma()) {
                 $pdf->SetTextColor(0x22, 0x11, 0x4);
             } else {
                 $pdf->SetTextColor(0x88, 0x6F, 0x4B);
@@ -455,9 +455,9 @@ class PdfManager implements SheetGeneratorInterface
 
         //Points d'endurcissement
         if ($character->getHardening()) {
-            $endurcissement = (int) $character->getHardening();
+            $endurcissement = $character->getHardening();
             $off = 0;
-            if (true === $printer_friendly) {
+            if ($printer_friendly) {
                 $pdf->SetTextColor(0x14, 0x14, 0x14);
             } else {
                 $pdf->SetTextColor(0x22, 0x11, 0x4);
@@ -486,7 +486,7 @@ class PdfManager implements SheetGeneratorInterface
         $pdf->textline($character->getExperienceActual().'     ( '.$translator->trans('Total').' '.$character->getExperienceSpent().' )', 679, 1325, $p['carbold'], 24);
 
         if ($character->getFacts()) {
-            $str = \preg_replace('~\n|\r~iU', '', $translator->trans($character->getFacts()));
+            $str = \preg_replace('~(\n|\r)~iU', '', $translator->trans($character->getFacts()));
             $taille_du_texte = 14;
             $police_du_texte = $p['times'];
             $desc = [0 => ''];

@@ -15,7 +15,9 @@ namespace CorahnRin\Data\Character;
 
 class DomainScore
 {
-    private $wayValue;
+    private $domain;
+
+    private $wayScore;
 
     private $base;
 
@@ -24,20 +26,27 @@ class DomainScore
     private $malus;
 
     public function __construct(
+        string $domain,
         int $wayValue,
         int $base,
         int $bonus,
         int $malus
     ) {
-        $this->wayValue = $wayValue;
+        $this->domain = $domain;
+        $this->wayScore = $wayValue;
         $this->base = $base;
         $this->bonus = $bonus;
         $this->malus = $malus;
     }
 
-    public function getWayValue(): string
+    public function getDomain(): string
     {
-        return $this->wayValue;
+        return $this->domain;
+    }
+
+    public function getWayScore(): int
+    {
+        return $this->wayScore;
     }
 
     public function getBase(): int
@@ -57,7 +66,7 @@ class DomainScore
 
     public function getTotal(): int
     {
-        return static::getTotalForValues($this->wayValue, $this->base, $this->bonus, $this->malus);
+        return static::getTotalForValues($this->wayScore, $this->base, $this->bonus, $this->malus);
     }
 
     private static function getTotalForValues(

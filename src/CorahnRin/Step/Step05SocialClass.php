@@ -14,16 +14,24 @@ declare(strict_types=1);
 namespace CorahnRin\Step;
 
 use CorahnRin\Entity\SocialClass;
+use CorahnRin\Repository\SocialClassRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step05SocialClass extends AbstractStepAction
 {
+    private $socialClassRepository;
+
+    public function __construct(SocialClassRepository $socialClassRepository)
+    {
+        $this->socialClassRepository = $socialClassRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function execute(): Response
     {
-        $allSocialClasses = $this->em->getRepository(SocialClass::class)->findAll(true);
+        $allSocialClasses = $this->socialClassRepository->findAll(true);
 
         $currentStepCharacterValue = $this->getCharacterProperty();
 

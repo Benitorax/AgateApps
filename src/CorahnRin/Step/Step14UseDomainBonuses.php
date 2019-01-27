@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace CorahnRin\Step;
 
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\GeneratorTools\DomainsCalculator;
+use CorahnRin\Repository\GeoEnvironmentsRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class Step14UseDomainBonuses extends AbstractStepAction
@@ -43,14 +43,13 @@ class Step14UseDomainBonuses extends AbstractStepAction
      */
     private $bonus = 0;
 
-    /**
-     * @var DomainsCalculator
-     */
     private $domainsCalculator;
+    private $geoEnvironmentsRepository;
 
-    public function __construct(DomainsCalculator $domainsCalculator)
+    public function __construct(DomainsCalculator $domainsCalculator, GeoEnvironmentsRepository $geoEnvironmentsRepository)
     {
         $this->domainsCalculator = $domainsCalculator;
+        $this->geoEnvironmentsRepository = $geoEnvironmentsRepository;
     }
 
     /**
@@ -62,7 +61,7 @@ class Step14UseDomainBonuses extends AbstractStepAction
 
         $step13Domains = $this->getCharacterProperty('13_primary_domains');
         $socialClassValues = $this->getCharacterProperty('05_social_class')['domains'];
-        $geoEnvironment = $this->em->find(GeoEnvironment::class, $this->getCharacterProperty('04_geo'));
+        $geoEnvironment = $this->geoEnvironmentsRepository->find($this->getCharacterProperty('04_geo'));
 
         $this->domainsCalculatedValues = $this->domainsCalculator->calculateFromGeneratorData(
             $socialClassValues,
@@ -83,7 +82,7 @@ class Step14UseDomainBonuses extends AbstractStepAction
         // If "mentor ally" is selected, then the character has a bonus to one domain.
         // Thanks to him! :D
         $advantages = $this->getCharacterProperty('11_advantages');
-        $mentor = $advantages['advantages'][2] ?? 0;
+        $mentor = (int) ($advantages['advantages'][2] ?? 0);
         $this->bonus += $mentor; // $mentor can be 0 or 1 only so no problem with this operation.
 
         /** @var int $age */
