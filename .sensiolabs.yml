@@ -25,5 +25,6 @@ rules:
     twig.template_too_complex: { enabled: false }
     task_todo_comment: { enabled: false }
     php.interface_has_no_interface_suffix: { enabled: false }
+    twig.xss_vulnerability: { enabled: false }
     symfony.controller.action_method_too_long:
         max_length: 30
