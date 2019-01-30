@@ -19,11 +19,11 @@ use Twig\TwigFunction;
 class FlashMessageColorsExtension extends AbstractExtension
 {
     private const CLASSES = [
-        'alert'   => 'red lighten-3 red-text text-darken-4',
-        'error'   => 'red lighten-3 red-text text-darken-4',
-        'danger'  => 'red lighten-3 red-text text-darken-4',
+        'alert' => 'red lighten-3 red-text text-darken-4',
+        'error' => 'red lighten-3 red-text text-darken-4',
+        'danger' => 'red lighten-3 red-text text-darken-4',
         'warning' => 'orange lighten-3 orange-text text-darken-4',
-        'info'    => 'teal lighten-3 teal-text text-darken-3',
+        'info' => 'teal lighten-3 teal-text text-darken-3',
         'success' => 'green lighten-3 green-text text-darken-4',
     ];
 
