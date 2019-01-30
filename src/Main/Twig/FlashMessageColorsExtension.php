@@ -18,6 +18,15 @@ use Twig\TwigFunction;
 
 class FlashMessageColorsExtension extends AbstractExtension
 {
+    private const CLASSES = [
+        'alert'   => 'red lighten-3 red-text text-darken-4',
+        'error'   => 'red lighten-3 red-text text-darken-4',
+        'danger'  => 'red lighten-3 red-text text-darken-4',
+        'warning' => 'orange lighten-3 orange-text text-darken-4',
+        'info'    => 'teal lighten-3 teal-text text-darken-3',
+        'success' => 'green lighten-3 green-text text-darken-4',
+    ];
+
     public function getFunctions()
     {
         return [
@@ -27,19 +36,6 @@ class FlashMessageColorsExtension extends AbstractExtension
 
     public function getFlashClass($initialClass)
     {
-        switch ($initialClass) {
-            case 'alert':
-            case 'error':
-            case 'danger':
-                return 'red lighten-3 red-text text-darken-4';
-            case 'warning':
-                return 'orange lighten-3 orange-text text-darken-4';
-            case 'info':
-                return 'teal lighten-3 teal-text text-darken-3';
-            case 'success':
-                return 'green lighten-3 green-text text-darken-4';
-            default:
-                return '';
-        }
+        return self::CLASSES[$initialClass] ?? '';
     }
 }
