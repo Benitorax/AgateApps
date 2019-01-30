@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\CorahnRin\GeneratorTools;
 
 use CorahnRin\Data\DomainsData;
+use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\GeneratorTools\DomainsCalculator;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Finder\Finder;
@@ -21,6 +22,46 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class DomainsCalculatorTest extends KernelTestCase
 {
+    public function test calculateFromGeneratorData with wrong step 13 values throws exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid $primaryDomains argument sent. It must be an array of integers, and the array key must correspond to the "domain id" property.');
+
+        $this->getCalculator()->calculateFromGeneratorData(
+            [],
+            '',
+            $this->createMock(GeoEnvironment::class, []),
+            []
+        );
+    }
+
+    public function test calculateFromGeneratorData with wrong step 14 values throws exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid $domainsBonuses argument sent. It must be an array of integers, and the array key must correspond to the "domain id" property.');
+
+        $this->getCalculator()->calculateFromGeneratorData(
+            [],
+            '',
+            $this->createMock(GeoEnvironment::class, []),
+            \array_fill_keys(\array_keys(DomainsData::ALL), 0),
+            []
+        );
+    }
+
+    public function test calculateFromGeneratorData with wrong ost service domain throws exception(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid $ost argument sent. It must be a valid domain id.');
+
+        $this->getCalculator()->calculateFromGeneratorData(
+            [],
+            '',
+            $this->createMock(GeoEnvironment::class, []),
+            \array_fill_keys(\array_keys(DomainsData::ALL), 0)
+        );
+    }
+
     /**
      * @dataProvider provideTestsWithoutBonuses
      */
