@@ -1,3 +1,8 @@
+parameters:
+    # This is just to make Twig bootable in case the env var is not set (necessary to compile the container)
+    env(GOOGLE_RECAPTCHA_SITE_KEY): ''
+    env(FATHOM_SITE_ID): ''
+
 twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
