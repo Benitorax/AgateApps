@@ -48,7 +48,7 @@ class GoogleTagsExtension extends AbstractExtension
     /**
      * @return string
      */
-    public function getGoogleTagManager()
+    public function getGoogleTagManager(): ?string
     {
         return $this->debug ? null : $this->googleTags['tag_manager'];
     }
@@ -56,16 +56,8 @@ class GoogleTagsExtension extends AbstractExtension
     /**
      * @return string
      */
-    public function getGoogleAnalytics()
+    public function getGoogleAnalytics(): ?string
     {
         return $this->debug ? null : $this->googleTags['analytics'];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'google_tags';
     }
 }
