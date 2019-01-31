@@ -20,10 +20,7 @@ class DefaultEasyAdminTest extends WebTestCase
 {
     use PiersTestCase;
 
-    /**
-     * Test backend homepage.
-     */
-    public function test index returns 200(): void
+    public function test index returns 200 when logged in as admin(): void
     {
         static::resetDatabase();
 
@@ -37,18 +34,19 @@ class DefaultEasyAdminTest extends WebTestCase
     }
 
     /**
-     * @dataProvider provideActionsThatNeedId
+     * @dataProvider provide actions that need id
      */
-    public function test actions that need id(string $action): void
+    public function test actions that need id must throw a 404 exception(string $action): void
     {
         $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 
-        $crawler = $client->request('GET', "/fr/PortalElement/edit/$action");
+        $crawler = $client->request('GET', "/fr/PortalElement/$action");
 
         static::assertSame(404, $client->getResponse()->getStatusCode(), $crawler->filter('title')->html());
+        static::assertSame('An id must be specified for this action.', $crawler->filter('h1.exception-message')->text());
     }
 
-    public function provideActionsThatNeedId(): iterable
+    public function provide actions that need id(): \Generator
     {
         yield 'delete' => ['delete'];
         yield 'show' => ['show'];
