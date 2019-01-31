@@ -11,6 +11,8 @@ NPM             = $(EXEC_JS) npm
 PORTAL_DBNAME = agate_portal
 PORTAL_DBPWD = agate_portal
 
+CURRENT_DATE = `date "+%Y-%m-%d_%H-%M-%S"`
+
 ##
 ## Project
 ## -------
@@ -161,7 +163,7 @@ phpunit:
 
 coverage: ## Retrieves the code coverage of the phpunit suite
 coverage:
-	$(EXEC_PHP) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/$(date '+%Y-%m-%d_%H-%M-%S') --coverage-clover=build/coverage.xml
+	$(EXEC_PHP) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/$(CURRENT_DATE) --coverage-clover=build/coverage.xml
 .PHONY: phpunit
 
 ##
