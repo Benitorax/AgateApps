@@ -23,6 +23,8 @@
             <directory>src</directory>
             <exclude>
                 <directory>src/CorahnRin/PDF</directory><!-- External library cannot be tested -->
+                <directory>src/CorahnRin/Command</directory>
+                <directory>src/EsterenMaps/Command</directory>
                 <directory>src/DataFixtures</directory>
                 <directory>src/Migrations</directory>
                 <directory>src/Kernel.php</directory>
