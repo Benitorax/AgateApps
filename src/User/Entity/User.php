@@ -131,9 +131,6 @@ class User implements UserInterface, \Serializable, EquatableInterface
      */
     private $ululeApiToken;
 
-    /**
-     * User constructor.
-     */
     public function __construct()
     {
         $this->roles = [static::ROLE_DEFAULT];

@@ -13,24 +13,30 @@ declare(strict_types=1);
 
 namespace Esteren\Controller;
 
-use Agate\Entity\PortalElement;
 use Agate\Exception\PortalElementNotFound;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Agate\Repository\PortalElementRepository;
+use Main\DependencyInjection\PublicService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
-class HomeController extends AbstractController
+class HomeController implements PublicService
 {
+    private $portalElementRepository;
+    private $twig;
+
+    public function __construct(PortalElementRepository $portalElementRepository, Environment $twig)
+    {
+        $this->portalElementRepository = $portalElementRepository;
+        $this->twig = $twig;
+    }
+
     /**
      * @Route("/", name="esteren_portal_home", methods={"GET"})
      */
-    public function indexAction(string $_locale, Request $request): Response
+    public function indexAction(string $_locale): Response
     {
-        $portalElement = $this->getDoctrine()->getRepository(PortalElement::class)->findOneBy([
-            'locale' => $_locale,
-            'portal' => 'esteren',
-        ]);
+        $portalElement = $this->portalElementRepository->findForHomepage($_locale, 'esteren');
 
         if (!$portalElement) {
             throw new PortalElementNotFound('esteren', $_locale);
@@ -38,8 +44,8 @@ class HomeController extends AbstractController
 
         $template = 'esteren/index-'.$_locale.'.html.twig';
 
-        return $this->render($template, [
+        return new Response($this->twig->render($template, [
             'portal_element' => $portalElement,
-        ]);
+        ]));
     }
 }

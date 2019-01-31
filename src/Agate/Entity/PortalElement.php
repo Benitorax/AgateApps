@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Agate\Repository\PortalElementRepository")
  * @ORM\Table(name="portal_elements",
  *     uniqueConstraints={
  *         @ORM\UniqueConstraint(name="portal_and_locale", columns={"portal", "locale"})

@@ -13,27 +13,33 @@ declare(strict_types=1);
 
 namespace Agate\Controller;
 
-use Agate\Entity\PortalElement;
 use Agate\Exception\PortalElementNotFound;
+use Agate\Repository\PortalElementRepository;
 use Main\DependencyInjection\PublicService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 /**
  * @Route(host="%agate_domains.portal%")
  */
-class HomeController extends AbstractController implements PublicService
+class HomeController implements PublicService
 {
+    private $portalElementRepository;
+    private $twig;
+
+    public function __construct(PortalElementRepository $portalElementRepository, Environment $twig)
+    {
+        $this->portalElementRepository = $portalElementRepository;
+        $this->twig = $twig;
+    }
+
     /**
      * @Route("/", name="agate_portal_home", methods={"GET"})
      */
     public function indexAction(string $_locale): Response
     {
-        $portalElement = $this->getDoctrine()->getRepository(PortalElement::class)->findOneBy([
-            'locale' => $_locale,
-            'portal' => 'agate',
-        ]);
+        $portalElement = $this->portalElementRepository->findForHomepage($_locale, 'agate');
 
         if (!$portalElement) {
             throw new PortalElementNotFound('agate', $_locale);
@@ -41,16 +47,15 @@ class HomeController extends AbstractController implements PublicService
 
         $response = new Response();
         $response->setCache([
-            'max_age' => 600,
+            'max_age' => 3600,
             's_maxage' => 3600,
-            'public' => true,
         ]);
 
         $template = 'agate/home/index-'.$_locale.'.html.twig';
 
-        return $this->render($template, [
+        return $response->setContent($this->twig->render($template, [
             'portal_element' => $portalElement,
-        ], $response);
+        ]));
     }
 
     /**
@@ -66,6 +71,6 @@ class HomeController extends AbstractController implements PublicService
             'public' => true,
         ]);
 
-        return $this->render('agate/home/team.html.twig', [], $response);
+        return $response->setContent($this->twig->render('agate/home/team.html.twig'));
     }
 }

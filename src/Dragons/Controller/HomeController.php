@@ -13,26 +13,33 @@ declare(strict_types=1);
 
 namespace Dragons\Controller;
 
-use Agate\Entity\PortalElement;
 use Agate\Exception\PortalElementNotFound;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Agate\Repository\PortalElementRepository;
+use Main\DependencyInjection\PublicService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 /**
  * @Route(host="%dragons_domains.portal%")
  */
-class HomeController extends AbstractController
+class HomeController implements PublicService
 {
+    private $portalElementRepository;
+    private $twig;
+
+    public function __construct(PortalElementRepository $portalElementRepository, Environment $twig)
+    {
+        $this->portalElementRepository = $portalElementRepository;
+        $this->twig = $twig;
+    }
+
     /**
      * @Route("/", name="dragons_home", methods={"GET"})
      */
     public function indexAction(string $_locale): Response
     {
-        $portalElement = $this->getDoctrine()->getRepository(PortalElement::class)->findOneBy([
-            'locale' => $_locale,
-            'portal' => 'dragons',
-        ]);
+        $portalElement = $this->portalElementRepository->findForHomepage($_locale, 'dragons');
 
         if (!$portalElement) {
             throw new PortalElementNotFound('dragons', $_locale);
@@ -40,14 +47,14 @@ class HomeController extends AbstractController
 
         $response = new Response();
         $response->setCache([
-            'max_age' => 600,
+            'max_age' => 3600,
             's_maxage' => 3600,
         ]);
 
         $template = 'dragons/index-'.$_locale.'.html.twig';
 
-        return $this->render($template, [
+        return $response->setContent($this->twig->render($template, [
             'portal_element' => $portalElement,
-        ], $response);
+        ]));
     }
 }

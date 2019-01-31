@@ -30,7 +30,7 @@ class DomainsCalculatorTest extends KernelTestCase
         $this->getCalculator()->calculateFromGeneratorData(
             [],
             '',
-            $this->createMock(GeoEnvironment::class),
+            $this->createGeoEnvironmentStub(),
             []
         );
     }
@@ -43,7 +43,7 @@ class DomainsCalculatorTest extends KernelTestCase
         $this->getCalculator()->calculateFromGeneratorData(
             [],
             '',
-            $this->createMock(GeoEnvironment::class),
+            $this->createGeoEnvironmentStub(),
             \array_fill_keys(\array_keys(DomainsData::ALL), 0),
             []
         );
@@ -57,7 +57,7 @@ class DomainsCalculatorTest extends KernelTestCase
         $this->getCalculator()->calculateFromGeneratorData(
             [],
             '',
-            $this->createMock(GeoEnvironment::class),
+            $this->createGeoEnvironmentStub(),
             \array_fill_keys(\array_keys(DomainsData::ALL), 0)
         );
     }
@@ -102,5 +102,10 @@ class DomainsCalculatorTest extends KernelTestCase
     private function getCalculator(): DomainsCalculator
     {
         return new DomainsCalculator();
+    }
+
+    private function createGeoEnvironmentStub(): GeoEnvironment
+    {
+        return new GeoEnvironment(0, '', '', 'domains.close_combat');
     }
 }

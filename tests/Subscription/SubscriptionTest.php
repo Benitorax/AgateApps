@@ -24,6 +24,6 @@ class SubscriptionTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Subscription type wrong_type does not exist.');
 
-        Subscription::create($this->createMock(User::class), 'wrong_type', new \DateTimeImmutable());
+        Subscription::create(new User(), 'wrong_type', new \DateTimeImmutable());
     }
 }

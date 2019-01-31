@@ -13,20 +13,29 @@ declare(strict_types=1);
 
 namespace EsterenMaps\Command;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use EsterenMaps\Entity\Map;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class RefreshDataCommand extends ContainerAwareCommand
+class RefreshDataCommand extends Command
 {
+    protected static $defaultName = 'esterenmaps:map:refresh';
+
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        parent::__construct(static::$defaultName);
+        $this->em = $em;
+    }
+
     protected function configure(): void
     {
         $this
-            ->setName('esterenmaps:map:refresh')
             ->setDescription('Refresh all dynamic data (routes distances, etc.)')
             ->setHelp('This command is here to update all data that may be dynamic.'."\n"
                 .'For example, the start and end marker of each route may change its coordinates,'."\n"
@@ -61,8 +70,7 @@ class RefreshDataCommand extends ContainerAwareCommand
             $nanAs = \is_float($nanAs) ? (float) $nanAs : (int) $nanAs;
         }
 
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->em;
         $maps = $em->getRepository(Map::class)->findAllWithRoutes();
 
         // Calculate the number of objects.

@@ -15,13 +15,9 @@ namespace Admin\Controller;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
 use Main\DependencyInjection\PublicService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Security("has_role('ROLE_ADMIN')")
- */
 class AdminController extends EasyAdminController implements PublicService
 {
     /**
@@ -38,6 +34,10 @@ class AdminController extends EasyAdminController implements PublicService
      */
     public function indexAction(Request $request, string $entity = null, string $action = null, string $id = null)
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
         if (!$id && \in_array($action, ['delete', 'show', 'edit'], true)) {
             throw $this->createNotFoundException('An id must be specified for this action.');
         }

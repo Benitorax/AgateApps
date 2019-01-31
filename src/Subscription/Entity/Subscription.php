@@ -63,7 +63,7 @@ class Subscription
      * @ORM\Column(name="starts_at", type="date_immutable")
      *
      * @Assert\NotBlank
-     * @Assert\DateTime
+     * @Assert\Type("DateTimeInterface")
      * @Assert\GreaterThanOrEqual("today")
      */
     protected $startsAt;
@@ -74,7 +74,7 @@ class Subscription
      * @ORM\Column(name="ends_at", type="date_immutable")
      *
      * @Assert\NotBlank
-     * @Assert\DateTime
+     * @Assert\Type("DateTimeInterface")
      * @Assert\GreaterThanOrEqual("tomorrow")
      * @Assert\GreaterThanOrEqual(propertyPath="startsAt")
      *

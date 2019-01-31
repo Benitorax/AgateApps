@@ -83,6 +83,9 @@ services:
         resource: '../src/CorahnRin/*'
         exclude: '../src/CorahnRin/{Data,Entity,Exception,Model,PDF,Resources}'
 
+    Dragons\:
+        resource: '../src/Dragons/*'
+
     Esteren\:
         resource: '../src/Esteren/*'
 
