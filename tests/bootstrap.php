@@ -58,10 +58,7 @@ if (!file_exists($file)) {
 
 require $file;
 
-if ($debug = ('1' === $getenv('APP_DEBUG', true))) {
-    echo "\nEnabling debug";
-    Debug::enable();
-}
+$debug = ('1' === $getenv('APP_DEBUG', true));
 
 $kernel = null;
 $application = null;
