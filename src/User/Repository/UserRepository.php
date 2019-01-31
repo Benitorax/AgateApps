@@ -63,7 +63,7 @@ class UserRepository extends ServiceEntityRepository implements UserProviderInte
      *
      * @return User
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($username): User
     {
         $user = $this->findByUsernameOrEmail($username);
 

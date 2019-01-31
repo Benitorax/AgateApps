@@ -84,6 +84,9 @@ class UserRoleCommand extends Command
             if (0 !== \mb_strpos($role, 'ROLE_')) {
                 throw new \InvalidArgumentException('Only attributes starting with "ROLE_" are valid roles.');
             }
+            if ('ROLE_USER' === $role) {
+                throw new \InvalidArgumentException('The role "ROLE_USER" is hard-coded and you can neither add or remove it.');
+            }
         }
 
         if ($input->getOption('promote')) {
@@ -115,7 +118,10 @@ class UserRoleCommand extends Command
         $io->table([], \array_map(function ($item) { return [$item]; }, $user->getRoles()));
 
         if ($io->confirm('Save these roles for this user?', true)) {
+            $io->block('Saving...');
             $this->em->flush();
+        } else {
+            $io->block('Dry run then!');
         }
 
         $io->success('Done!');
