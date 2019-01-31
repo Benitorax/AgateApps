@@ -60,8 +60,6 @@ class UserRepository extends ServiceEntityRepository implements UserProviderInte
 
     /**
      * {@inheritdoc}
-     *
-     * @return User
      */
     public function loadUserByUsername($username): User
     {
