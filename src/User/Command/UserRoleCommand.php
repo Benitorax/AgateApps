@@ -79,8 +79,8 @@ class UserRoleCommand extends Command
 
         $roles = $input->getArgument('roles');
 
-        foreach ($roles as &$role) {
-            $role = \mb_strtoupper(\trim($role));
+        foreach ($roles as $k => $role) {
+            $roles[$k] = $role = \mb_strtoupper(\trim($role));
             if (0 !== \mb_strpos($role, 'ROLE_')) {
                 throw new \InvalidArgumentException('Only attributes starting with "ROLE_" are valid roles.');
             }
