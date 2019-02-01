@@ -35,7 +35,7 @@ use CorahnRin\Entity\Job;
 use CorahnRin\Entity\MentalDisorder;
 use CorahnRin\Entity\People;
 use CorahnRin\Entity\PersonalityTrait;
-use CorahnRin\Entity\Setbacks;
+use CorahnRin\Entity\Setback;
 use CorahnRin\Entity\SocialClass;
 use CorahnRin\Entity\Weapon;
 use CorahnRin\Exception\CharacterException;
@@ -60,7 +60,7 @@ final class SessionToCharacter
     private $domains;
 
     /**
-     * @var Setbacks[]
+     * @var Setback[]
      */
     private $setbacks;
 

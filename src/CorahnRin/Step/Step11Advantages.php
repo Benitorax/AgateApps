@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace CorahnRin\Step;
 
 use CorahnRin\Entity\Advantage;
-use CorahnRin\Entity\Setbacks;
+use CorahnRin\Entity\Setback;
 use CorahnRin\Repository\CharacterAdvantageRepository;
 use CorahnRin\Repository\SetbacksRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,7 +47,7 @@ class Step11Advantages extends AbstractStepAction
     private $indications;
 
     /**
-     * @var Setbacks[]
+     * @var Setback[]
      */
     private $setbacks = [];
 
