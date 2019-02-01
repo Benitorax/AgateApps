@@ -1,2 +1,11 @@
 parameters:
     enable_contact_captcha: false
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Check the manual provider to know why it's overriden in tests.
+    Tests\CorahnRin\ManualRandomSetbacksProvider: ~
+    CorahnRin\GeneratorTools\RandomSetbacksProvider: '@Tests\CorahnRin\ManualRandomSetbacksProvider'

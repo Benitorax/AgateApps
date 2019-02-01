@@ -37,7 +37,7 @@ class RandomSetbacksProvider
         $setbacksDiceList = \array_values($setbacksToSearchIn);
 
         // Roll the dice (shuffle all setbacks).
-        \shuffle($setbacksDiceList);
+        $this->shuffle($setbacksDiceList);
 
         // A loop is made through all steps until enough setbacks have been set.
         // The advantage of this format is that we can increment the iterator in case we need to pick more setbacks.
@@ -92,6 +92,11 @@ class RandomSetbacksProvider
         }
 
         return $setbacksCharacterValue;
+    }
+
+    protected function shuffle(array &$setbacksDiceList): void
+    {
+        \shuffle($setbacksDiceList);
     }
 
     private function removeLuckyAndUnluckySetbacks(array $setbacks): array
