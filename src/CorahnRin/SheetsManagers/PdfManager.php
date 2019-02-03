@@ -14,10 +14,9 @@ namespace CorahnRin\SheetsManagers;
 use CorahnRin\Entity\Character;
 use CorahnRin\PDF\PDF;
 use Pierstoval\Bundle\CharacterManagerBundle\Model\CharacterInterface;
-use Pierstoval\Bundle\CharacterManagerBundle\SheetsManagers\SheetGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class PdfManager implements SheetGeneratorInterface
+class PdfManager
 {
     /**
      * @var TranslatorInterface
@@ -33,11 +32,6 @@ class PdfManager implements SheetGeneratorInterface
     {
         $this->translator = $translator;
         $this->sheetsFolder = $sheetsFolder;
-    }
-
-    private function getFolder()
-    {
-        return $this->sheetsFolder;
     }
 
     /**
@@ -546,5 +540,10 @@ class PdfManager implements SheetGeneratorInterface
         }
 
         return $pdf;
+    }
+
+    private function getFolder()
+    {
+        return $this->sheetsFolder;
     }
 }

@@ -43,7 +43,7 @@ class PortalElementController extends AdminController
     {
         $image = $portalElement->getImage();
 
-        if (true === $required && !($image instanceof UploadedFile)) {
+        if ($required && !($image instanceof UploadedFile)) {
             // Can happen only if user have hijacked the form. Exception is nice because it prevents flushing the db.
             throw new \RuntimeException('File is mandatory.');
         }

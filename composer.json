@@ -23,7 +23,6 @@
         "guzzlehttp/guzzle": "^6.3",
         "incenteev/composer-parameter-handler": "^2.1",
         "nelmio/cors-bundle": "^1.5",
-        "oneup/flysystem-bundle": "^3.0",
         "orbitale/doctrine-tools": "^0.6.1",
         "orbitale/imagemagick-php": "^2.0",
         "pierstoval/character-manager": "^1.1.3",
