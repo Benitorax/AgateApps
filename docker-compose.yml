@@ -66,3 +66,10 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=esteren_legacy
             - MYSQL_DATABASE=esteren_legacy
+
+    qa:
+        image: jakzal/phpqa:php7.2
+        command: 'sleep 99999d'
+        working_dir: /srv/
+        volumes:
+            - ./:/srv/

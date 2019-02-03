@@ -1,6 +1,6 @@
 includes:
-    - vendor/phpstan/phpstan-symfony/extension.neon
-    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-symfony/extension.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-doctrine/extension.neon
 
 parameters:
     level: 2
@@ -16,7 +16,7 @@ parameters:
         - %currentWorkingDirectory%/src/CorahnRin/PDF
         - %currentWorkingDirectory%/tests/bootstrap.php
     symfony:
-        container_xml_path: %currentWorkingDirectory%/var/cache/dev/srcKernelDevDebugContainer.xml
+        container_xml_path: %currentWorkingDirectory%/var/cache/test/srcKernelTestDebugContainer.xml
     ignoreErrors:
         - message: '#^Service "[^"]+" is private.$#'
           path: %currentWorkingDirectory%/tests/
