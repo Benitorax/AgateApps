@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace CorahnRin\Entity;
 
+use Behat\Transliterator\Transliterator;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Orientation;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
@@ -32,7 +33,6 @@ use EsterenMaps\Entity\Zone;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Pierstoval\Bundle\CharacterManagerBundle\Entity\Character as BaseCharacter;
 use User\Entity\User;
-use Behat\Transliterator\Transliterator;
 
 /**
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\CharactersRepository")
@@ -497,7 +497,6 @@ class Character extends BaseCharacter
 
     public function __construct(string $name)
     {
-
         parent::__construct($name, Transliterator::urlize($name));
         $this->maxHealth = new HealthCondition();
         $this->armors = new ArrayCollection();

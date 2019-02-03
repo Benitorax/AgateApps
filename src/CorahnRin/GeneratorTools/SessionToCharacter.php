@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace CorahnRin\GeneratorTools;
 
-use Behat\Transliterator\Transliterator;
 use CorahnRin\Data\DomainItem;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Ways as WaysData;
