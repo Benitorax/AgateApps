@@ -15,7 +15,7 @@ namespace User\Util;
 
 trait CanonicalizerTrait
 {
-    public function canonicalize(string $string): string
+    public static function urlize(string $string): string
     {
         if (!$string) {
             return '';
@@ -28,5 +28,10 @@ trait CanonicalizerTrait
             : \mb_convert_case($string, MB_CASE_LOWER);
 
         return $result;
+    }
+
+    public function canonicalize(string $string): string
+    {
+        return self::urlize($string);
     }
 }
