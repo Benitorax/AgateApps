@@ -235,8 +235,9 @@ class User implements UserInterface, \Serializable, EquatableInterface
         return $this->password;
     }
 
-    public function getSalt(): void
+    public function getSalt(): ?string
     {
+        return null;
     }
 
     public function getUsername(): ?string
