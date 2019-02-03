@@ -154,7 +154,7 @@ final class SessionToCharacter
     private function prepareNecessaryVariables(): void
     {
         /** @var SetbacksRepository $setbacksRepo */
-        $setbacksRepo = $this->getRepository(Setbacks::class);
+        $setbacksRepo = $this->getRepository(Setback::class);
         $this->setbacks = $setbacksRepo->findAll('id');
 
         /** @var CharacterAdvantageRepository $advantagesRepo */
