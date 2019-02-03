@@ -152,7 +152,7 @@ SQL;
         $characters = $this->legacyConnection->query($sql)->fetchAll();
 
         foreach ($characters as $arrayCharacter) {
-            $character = new Character();
+            $character = new Character($arrayCharacter['char_name']);
             $jsonCharacter = \json_decode($arrayCharacter['char_content'], true);
 
             $character
@@ -160,7 +160,6 @@ SQL;
                 ->setDescription($arrayCharacter['details']['description'])
                 ->setOrientation($arrayCharacter['orientation']['name'])
                 ->setAge($arrayCharacter['age'])
-                ->setName($arrayCharacter['char_name'])
             ;
 
             $this

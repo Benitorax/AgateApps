@@ -105,7 +105,7 @@ final class SessionToCharacter
             throw new CharacterException('Generator seems not to be fully finished');
         }
 
-        $character = new Character();
+        $character = new Character($values['19_description']['name']);
 
         $character->setCreated(new \DateTime());
         $this->setPeople($character, $values);
@@ -301,22 +301,11 @@ final class SessionToCharacter
     private function setDescription(Character $character, array $values): void
     {
         $details = $values['19_description'];
-        $character->setName($details['name']);
         $character->setPlayerName($details['player_name']);
         $character->setSex($details['sex']);
         $character->setDescription($details['description']);
         $character->setStory($details['story']);
         $character->setFacts($details['facts']);
-
-        // Make sure slug is unique by just adding a number to it
-        $charRepo = $this->getRepository(Character::class);
-
-        $i = 0;
-        do {
-            $slug = Transliterator::transliterate($details['name']).($i ? '_'.$i : '');
-            $i++;
-        } while ($charRepo->findOneBy(['nameSlug' => $slug]));
-        $character->setNameSlug($slug);
     }
 
     private function setExp(Character $character, array $values): void

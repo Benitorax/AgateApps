@@ -32,6 +32,7 @@ use EsterenMaps\Entity\Zone;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Pierstoval\Bundle\CharacterManagerBundle\Entity\Character as BaseCharacter;
 use User\Entity\User;
+use Behat\Transliterator\Transliterator;
 
 /**
  * @ORM\Entity(repositoryClass="CorahnRin\Repository\CharactersRepository")
@@ -494,11 +495,10 @@ class Character extends BaseCharacter
      */
     protected $deleted;
 
-    /**
-     * Constructor.
-     */
-    public function __construct()
+    public function __construct(string $name)
     {
+
+        parent::__construct($name, Transliterator::urlize($name));
         $this->maxHealth = new HealthCondition();
         $this->armors = new ArrayCollection();
         $this->artifacts = new ArrayCollection();
