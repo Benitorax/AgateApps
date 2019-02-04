@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace CorahnRin\Entity\CharacterProperties;
 
 use CorahnRin\Entity\Character;
-use CorahnRin\Entity\Setbacks;
+use CorahnRin\Entity\Setback;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -36,10 +36,10 @@ class CharSetbacks
     protected $character;
 
     /**
-     * @var Setbacks
+     * @var Setback
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Setbacks")
+     * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Setback")
      * @Assert\NotNull
      */
     protected $setback;
@@ -78,7 +78,7 @@ class CharSetbacks
      *
      * @codeCoverageIgnore
      */
-    public function setSetback(Setbacks $setback)
+    public function setSetback(Setback $setback)
     {
         $this->setback = $setback;
 
@@ -86,7 +86,7 @@ class CharSetbacks
     }
 
     /**
-     * @return Setbacks
+     * @return Setback
      *
      * @codeCoverageIgnore
      */

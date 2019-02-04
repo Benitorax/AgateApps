@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Tests\WebTestCase as PiersTestCase;
@@ -27,9 +28,6 @@ use User\Repository\UserRepository;
 abstract class AbstractSecurityControllerTest extends WebTestCase
 {
     use PiersTestCase;
-
-    public const USER_NAME = 'test_user';
-    public const USER_NAME_AFTER_UPDATE = 'user_updated';
 
     abstract protected function getLocale(): string;
 
@@ -96,9 +94,9 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     public function testRegister(): void
     {
-        $locale = $this->getLocale();
-
         static::resetDatabase();
+
+        $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
 
@@ -112,8 +110,8 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $form = $formNode->form();
 
         // Fill registration form
-        $form['registration_form[username]'] = static::USER_NAME.$locale;
-        $form['registration_form[email]'] = "test-$locale@local.docker";
+        $form['registration_form[username]'] = 'test_user';
+        $form['registration_form[email]'] = 'test_user@local.docker';
         $form['registration_form[plainPassword]'] = 'fakePassword';
         $form['registration_form[optin]'] = true;
 
@@ -128,24 +126,27 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Check flash messages are correct
-        $flashUserCreated = self::$container->get(TranslatorInterface::class)->trans('registration.confirmed', ['%username%' => static::USER_NAME.$locale], 'user');
+        $flashUserCreated = self::$container->get(TranslatorInterface::class)->trans('registration.confirmed', ['%username%' => 'test_user'], 'user');
         static::assertContains($flashUserCreated, $crawler->filter('#layout #flash-messages')->html());
 
         $crawler->clear();
     }
 
-    /**
-     * @depends testRegister
-     */
     public function testConfirmEmail(): void
     {
+        static::resetDatabase();
+
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
 
-        $user = self::$container->get(UserRepository::class)->findOneBy(['username' => static::USER_NAME.$locale]);
+        $user = User::create('test_user', 'test@local.host', '');
+        $user->setConfirmationToken('test_confirmation_token');
+        $em = self::$container->get('doctrine')->getManager();
+        $em->persist($user);
+        $em->flush();
 
-        static::assertNotNull($user);
+        static::assertNotNull(self::$container->get(UserRepository::class)->findOneBy(['username' => 'test_user']));
 
         $client->request('GET', "/$locale/register/confirm/".$user->getConfirmationToken());
 
@@ -158,14 +159,21 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         );
     }
 
-    /**
-     * @depends testConfirmEmail
-     */
     public function testLogin(): void
     {
+        static::resetDatabase();
+
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
+
+        /** @var EncoderFactoryInterface $encoderFactory */
+        $encoderFactory = self::$container->get(EncoderFactoryInterface::class);
+        $user = User::create('test_user', 'test@local.host', $encoderFactory->getEncoder(User::class)->encodePassword('fakePassword', ''));
+        $user->setEmailConfirmed(true);
+        $em = self::$container->get('doctrine')->getManager();
+        $em->persist($user);
+        $em->flush();
 
         $crawler = $client->request('GET', "/$locale/login");
 
@@ -177,7 +185,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $form = $formNode->form();
 
         // Fill registration form
-        $form['_username_or_email'] = static::USER_NAME.$locale;
+        $form['_username_or_email'] = 'test_user';
         $form['_password'] = 'fakePassword';
 
         // Submit form
@@ -186,7 +194,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $response = $client->getResponse();
 
         // Check redirection was made correctly to the Profile page
-        static::assertTrue($response->isRedirect("/$locale"), 'Successful login does not redirect well. => '.($response->headers->get('Location') ?: 'No redirection'));
+        static::assertTrue($response->isRedirect("/$locale"), 'Successful login does not redirect well. Redirects to: '.($response->headers->get('Location') ?: 'No redirection'));
 
         $crawler->clear();
         $client->followRedirects(true);
@@ -199,15 +207,23 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $crawler->clear();
     }
 
-    /**
-     * @depends testLogin
-     */
     public function testChangePassword(): void
     {
+        static::resetDatabase();
+
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
-        $user = self::$container->get(UserRepository::class)->loadUserByUsername(static::USER_NAME.$locale);
+
+        $encoderFactory = self::$container->get(EncoderFactoryInterface::class);
+        $user = User::create('test_user', 'test@local.host', $encoderFactory->getEncoder(User::class)->encodePassword('fakePassword', ''));
+        $user->setEmailConfirmed(true);
+        $em = self::$container->get('doctrine')->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        $user = self::$container->get(UserRepository::class)->loadUserByUsername('test_user');
+        static::assertNotNull($user);
         static::setToken($client, $user, $user->getRoles());
 
         $crawler = $client->request('GET', "/$locale/profile/change-password");
@@ -233,26 +249,33 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         static::assertContains($flashPasswordChanged, $crawler->filter('#layout #flash-messages')->html());
 
         // Now check that new password is correctly saved in database
-        $user = self::$container->get(UserRepository::class)->loadUserByUsername(static::USER_NAME.$locale);
+        $user = self::$container->get(UserRepository::class)->loadUserByUsername('test_user');
+        /** @var PasswordEncoderInterface $encoder */
         $encoder = self::$container->get(EncoderFactoryInterface::class)->getEncoder($user);
         static::assertTrue($encoder->isPasswordValid($user->getPassword(), 'newPassword', $user->getSalt()));
 
         $crawler->clear();
     }
 
-    /**
-     * @depends testChangePassword
-     */
     public function testEditProfile(): void
     {
+        static::resetDatabase();
+
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
 
+        $encoderFactory = self::$container->get(EncoderFactoryInterface::class);
+        $user = User::create('test_user', 'test@local.host', $encoderFactory->getEncoder(User::class)->encodePassword('fakePassword', ''));
+        $user->setEmailConfirmed(true);
+        $em = self::$container->get('doctrine')->getManager();
+        $em->persist($user);
+        $em->flush();
+
         /** @var UserRepository $userRepository */
         $userRepository = self::$container->get(UserRepository::class);
         /** @var User $user */
-        $user = $userRepository->loadUserByUsername(static::USER_NAME.$locale);
+        $user = $userRepository->loadUserByUsername('test_user');
         static::setToken($client, $user, $user->getRoles());
 
         $crawler = $client->request('GET', "/$locale/profile");
@@ -260,9 +283,9 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         // Fill the "edit profile" form
         $form = $crawler->filter('form.user_profile_edit')->form();
 
-        $form['profile_form[username]'] = static::USER_NAME_AFTER_UPDATE.$locale;
+        $form['profile_form[username]'] = 'another_test_username';
         $form['profile_form[email]'] = $user->getEmail();
-        $form['profile_form[currentPassword]'] = 'newPassword';
+        $form['profile_form[currentPassword]'] = 'fakePassword';
 
         $client->submit($form);
 
@@ -279,19 +302,25 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $crawler->clear();
     }
 
-    /**
-     * @depends testEditProfile
-     */
     public function testResetPasswordRequest(): void
     {
+        static::resetDatabase();
+
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
 
+        $encoderFactory = self::$container->get(EncoderFactoryInterface::class);
+        $user = User::create('test_user', 'test@local.host', $encoderFactory->getEncoder(User::class)->encodePassword('fakePassword', ''));
+        $user->setEmailConfirmed(true);
+        $em = self::$container->get('doctrine')->getManager();
+        $em->persist($user);
+        $em->flush();
+
         /** @var UserRepository $userRepository */
         $userRepository = self::$container->get(UserRepository::class);
         /** @var User $user */
-        $user = $userRepository->loadUserByUsername(static::USER_NAME.$locale);
+        $user = $userRepository->loadUserByUsername('test_user');
 
         static::setToken($client, $user, $user->getRoles());
 
@@ -299,7 +328,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
         $form = $crawler->filter('form.user_resetting_request')->form();
 
-        $form['username'] = static::USER_NAME_AFTER_UPDATE.$locale;
+        $form['username'] = 'test_user';
         $client->submit($form);
         static::assertSame(302, $client->getResponse()->getStatusCode());
         $crawler->clear();

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace CorahnRin\GeneratorTools;
 
-use Behat\Transliterator\Transliterator;
 use CorahnRin\Data\DomainItem;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Ways as WaysData;
@@ -35,7 +34,7 @@ use CorahnRin\Entity\Job;
 use CorahnRin\Entity\MentalDisorder;
 use CorahnRin\Entity\People;
 use CorahnRin\Entity\PersonalityTrait;
-use CorahnRin\Entity\Setbacks;
+use CorahnRin\Entity\Setback;
 use CorahnRin\Entity\SocialClass;
 use CorahnRin\Entity\Weapon;
 use CorahnRin\Exception\CharacterException;
@@ -60,7 +59,7 @@ final class SessionToCharacter
     private $domains;
 
     /**
-     * @var Setbacks[]
+     * @var Setback[]
      */
     private $setbacks;
 

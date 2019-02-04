@@ -3,6 +3,7 @@ DOCKER_COMPOSE  = docker-compose
 EXEC_PHP        = $(DOCKER_COMPOSE) exec php
 EXEC_JS         = $(DOCKER_COMPOSE) exec node
 EXEC_DB         = $(DOCKER_COMPOSE) exec db
+EXEC_QA         = $(DOCKER_COMPOSE) exec qa
 
 SYMFONY         = $(EXEC_PHP) bin/console
 COMPOSER        = $(EXEC_PHP) composer
@@ -126,6 +127,14 @@ node_modules: package-lock.json
 ## -----
 ##
 
+start-php:
+	$(DOCKER_COMPOSE) up -d --remove-orphans php
+.PHONY: start-php
+
+start-qa:
+	$(DOCKER_COMPOSE) up -d --remove-orphans qa
+.PHONY: start-qa
+
 install-php: ## Prepare environment to execute PHP tests
 install-php: build start vendor db fixtures
 .PHONY: install-php
@@ -135,13 +144,23 @@ install-node: build node_modules start
 .PHONY: install-node
 
 php-tests: ## Execute checks & tests
-php-tests: start checks phpunit phpstan
+php-tests: start-qa checks phpunit phpstan cs-dry-run
 .PHONY: php-tests
 
 phpstan: ## Execute phpstan
-phpstan: start
-	$(EXEC_PHP) vendor/bin/phpstan analyse -c phpstan.neon
+phpstan: start-qa
+	$(EXEC_QA) phpstan analyse -c phpstan.neon
 .PHONY: phpstan
+
+cs: ## Execute php-cs-fixer
+cs: start-qa
+	$(EXEC_QA) php-cs-fixer fix
+.PHONY: cs
+
+cs-dry-run: ## Execute php-cs-fixer with a simple dry run
+cs-dry-run: start-qa
+	$(EXEC_QA) php-cs-fixer fix --dry-run
+.PHONY: cs-dry-run
 
 node-tests: ## Execute checks & tests
 node-tests: start
@@ -150,20 +169,20 @@ node-tests: start
 
 checks: ## Execute CS, linting and security checks
 checks:
-	$(SYMFONY) lint:twig templates src
-	$(SYMFONY) lint:yaml --parse-tags config
-	$(SYMFONY) lint:yaml --parse-tags src
-	$(EXEC_PHP) vendor/bin/security-checker security:check
+	$(EXEC_QA) bin/console lint:twig templates src
+	$(EXEC_QA) bin/console lint:yaml --parse-tags config
+	$(EXEC_QA) bin/console lint:yaml --parse-tags src
+	$(EXEC_QA) security-checker security:check
 .PHONY: checks
 
 phpunit: ## Execute all PHPUnit tests
-phpunit:
+phpunit: start-php
 	$(EXEC_PHP) bin/phpunit --log-junit=build/log/logfile.xml
 .PHONY: phpunit
 
 coverage: ## Retrieves the code coverage of the phpunit suite
-coverage:
-	$(EXEC_PHP) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/$(CURRENT_DATE) --coverage-clover=build/coverage.xml
+coverage: start-qa
+	$(EXEC_QA) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/$(CURRENT_DATE) --coverage-clover=build/coverage.xml
 .PHONY: phpunit
 
 ##

@@ -13,18 +13,17 @@ declare(strict_types=1);
 
 namespace Tests\CorahnRin\Step;
 
+use CorahnRin\Repository\SetbacksRepository;
+use Symfony\Bundle\FrameworkBundle\Client;
+use Tests\CorahnRin\ManualRandomSetbacksProvider;
+
 class Step07SetbacksTest extends AbstractStepTest
 {
-    /**
-     * Used to check how many times we process tests that have a certain amount of randomness.
-     */
-    public const RANDOMNESS_COUNT = 100;
-
     public function testNoSetback(): void
     {
         $result = $this->submitAction([
             '06_age' => 20,
-        ], []);
+        ]);
 
         static::assertSame(302, $result->getResponse()->getStatusCode());
         static::assertTrue($result->getResponse()->isRedirect('/fr/character/generate/08_ways'));
@@ -34,136 +33,113 @@ class Step07SetbacksTest extends AbstractStepTest
         ], $result->getSession()->get('character.corahn_rin'));
     }
 
-    public function provideManyTestsToEnsureRandomness()
+    public function test age that provides one setback(): void
     {
-        $tests = [];
+        $client = $this->getClient();
 
-        $count = ((int) \getenv('STEP7_RANDOMNESS_COUNT')) ?: static::RANDOMNESS_COUNT;
+        /** @var SetbacksRepository $setbacksRepo */
+        $setbacksRepo = static::$container->get(SetbacksRepository::class);
+        $setbacksFromTheDb = $setbacksRepo->findBy([
+            'name' => ['Séquelle'],
+        ]);
 
-        for ($i = 1; $i <= $count; $i++) {
-            $tests['Random test #'.$i] = [$i];
-        }
+        $setbacks = $this->getCharacterSetbacksFromStepSubmit(21, $client, $setbacksFromTheDb);
 
-        return $tests;
+        $idOfFirstSetback = $setbacksFromTheDb[0]->getId();
+
+        static::assertSame([
+            $idOfFirstSetback => ['id' => $idOfFirstSetback, 'avoided' => false],
+        ], $setbacks);
     }
 
-    /**
-     * @dataProvider provideManyTestsToEnsureRandomness
-     */
-    public function testAgeProvideAtLeastOneSetback(): void
+    public function test age that provides two setbacks(): void
     {
-        $result = $this->submitAction([
-            '06_age' => 21,
-        ], []);
+        $client = $this->getClient();
 
-        static::assertSame(302, $result->getResponse()->getStatusCode());
-        static::assertTrue($result->getResponse()->isRedirect('/fr/character/generate/08_ways'));
-        $setbacks = $result->getSession()->get('character.corahn_rin')[$this->getStepName()];
+        /** @var SetbacksRepository $setbacksRepo */
+        $setbacksRepo = static::$container->get(SetbacksRepository::class);
+        $setbacksFromTheDb = $setbacksRepo->findBy([
+            'name' => ['Séquelle', 'Adversaire'],
+        ]);
 
-        $nb = \count($setbacks);
+        $setbacks = $this->getCharacterSetbacksFromStepSubmit(26, $client, $setbacksFromTheDb);
 
-        switch ($nb) {
-            case 1:
-                static::assertFalse(\current($setbacks)['avoided']);
-                break;
-            case 2:
-                static::assertArrayHasKey(10, $setbacks); // Good luck
-                unset($setbacks[10]);
-                \reset($setbacks);
-                static::assertTrue(\current($setbacks)['avoided']);
-                break;
-            case 3:
-                static::assertArrayHasKey(1, $setbacks); // Bad luck
-                break;
-            default:
-                static::fail('The amount of setbacks "'.$nb.'" is invalid');
-        }
+        $idOfFirstSetback = $setbacksFromTheDb[0]->getId();
+        $idOfSecondSetback = $setbacksFromTheDb[1]->getId();
+
+        static::assertSame([
+            $idOfFirstSetback => ['id' => $idOfFirstSetback, 'avoided' => false],
+            $idOfSecondSetback => ['id' => $idOfSecondSetback, 'avoided' => false],
+        ], $setbacks);
     }
 
-    /**
-     * @dataProvider provideManyTestsToEnsureRandomness
-     */
-    public function testAgeProvideAtLeastTwoSetbacks(): void
+    public function test age that provides three setbacks(): void
     {
-        $result = $this->submitAction([
-            '06_age' => 26,
-        ], []);
+        $client = $this->getClient();
 
-        static::assertSame(302, $result->getResponse()->getStatusCode());
-        static::assertTrue($result->getResponse()->isRedirect('/fr/character/generate/08_ways'));
-        $setbacks = $result->getSession()->get('character.corahn_rin')[$this->getStepName()];
+        /** @var SetbacksRepository $setbacksRepo */
+        $setbacksRepo = static::$container->get(SetbacksRepository::class);
+        $setbacksFromTheDb = $setbacksRepo->findBy([
+            'name' => ['Séquelle', 'Adversaire', 'Rumeur'],
+        ]);
 
-        $nb = \count($setbacks);
+        $setbacks = $this->getCharacterSetbacksFromStepSubmit(31, $client, $setbacksFromTheDb);
 
-        switch ($nb) {
-            case 2:
-                static::assertFalse(\current($setbacks)['avoided']);
-                static::assertFalse(\next($setbacks)['avoided']);
-                break;
-            case 3:
-                static::assertArrayHasKey(10, $setbacks); // Good luck
-                unset($setbacks[10]);
-                $hasAvoided = false;
-                foreach ($setbacks as $value) {
-                    if (true === $value['avoided']) {
-                        if (true === $hasAvoided) {
-                            static::fail('Cannot have two avoided setbacks');
-                        }
-                        $hasAvoided = true;
-                    }
-                }
-                static::assertTrue($hasAvoided, 'When age>26 and get 3 setbacks, at least one must be avoided.');
-                break;
-            case 4:
-                static::assertArrayHasKey(1, $setbacks); // Bad luck
-                break;
-            default:
-                static::fail('The amount of setbacks "'.$nb.'" is invalid');
-        }
+        $idOfFirstSetback = $setbacksFromTheDb[0]->getId();
+        $idOfSecondSetback = $setbacksFromTheDb[1]->getId();
+        $idOfThirdSetback = $setbacksFromTheDb[2]->getId();
+
+        static::assertSame([
+            $idOfFirstSetback => ['id' => $idOfFirstSetback, 'avoided' => false],
+            $idOfSecondSetback => ['id' => $idOfSecondSetback, 'avoided' => false],
+            $idOfThirdSetback => ['id' => $idOfThirdSetback, 'avoided' => false],
+        ], $setbacks);
     }
 
-    /**
-     * @dataProvider provideManyTestsToEnsureRandomness
-     */
-    public function testAgeProvideAtLeastThreeSetbacks(): void
+    public function test one setback plus unlucky one(): void
     {
-        $result = $this->submitAction([
-            '06_age' => 31,
-        ], []);
+        $client = $this->getClient();
 
-        static::assertSame(302, $result->getResponse()->getStatusCode());
-        static::assertTrue($result->getResponse()->isRedirect('/fr/character/generate/08_ways'));
-        $setbacks = $result->getSession()->get('character.corahn_rin')[$this->getStepName()];
-        $baseSetbacks = $setbacks;
+        /** @var SetbacksRepository $setbacksRepo */
+        $setbacksRepo = static::$container->get(SetbacksRepository::class);
+        // Force the order here so unlucky one is picked first
+        $setbacksFromTheDb = [
+            0 => $setbacksRepo->findOneBy(['name' => 'Poisse']),
+            1 => $setbacksRepo->findOneBy(['name' => 'Adversaire']),
+        ];
 
-        $nb = \count($setbacks);
+        $setbacks = $this->getCharacterSetbacksFromStepSubmit(21, $client, $setbacksFromTheDb);
 
-        switch ($nb) {
-            case 3:
-                static::assertFalse(\current($setbacks)['avoided']);
-                static::assertFalse(\next($setbacks)['avoided']);
-                static::assertFalse(\next($setbacks)['avoided']);
-                break;
-            case 4:
-                static::assertArrayHasKey(10, $setbacks, \json_encode($baseSetbacks)); // Good luck
-                unset($setbacks[10]);
-                $hasAvoided = false;
-                foreach ($setbacks as $value) {
-                    if (true === $value['avoided']) {
-                        if (true === $hasAvoided) {
-                            static::fail('Cannot have two setbacks that are avoided. '.\json_encode($baseSetbacks));
-                        }
-                        $hasAvoided = true;
-                    }
-                }
-                static::assertTrue($hasAvoided, 'When age>31 and get 4 setbacks, at least one must be avoided. '.\json_encode($baseSetbacks));
-                break;
-            case 5:
-                static::assertArrayHasKey(1, $setbacks, \json_encode($baseSetbacks)); // Bad luck
-                break;
-            default:
-                static::fail('The amount of setbacks "'.$nb.'" is invalid'.\json_encode($baseSetbacks));
-        }
+        $idOfFirstSetback = $setbacksFromTheDb[0]->getId();
+        $idOfSecondSetback = $setbacksFromTheDb[1]->getId();
+
+        static::assertSame([
+            $idOfFirstSetback => ['id' => $idOfFirstSetback, 'avoided' => false],
+            $idOfSecondSetback => ['id' => $idOfSecondSetback, 'avoided' => false],
+        ], $setbacks);
+    }
+
+    public function test one setback plus lucky one(): void
+    {
+        $client = $this->getClient();
+
+        /** @var SetbacksRepository $setbacksRepo */
+        $setbacksRepo = static::$container->get(SetbacksRepository::class);
+        // Force the order here so unlucky one is picked first
+        $setbacksFromTheDb = [
+            0 => $setbacksRepo->findOneBy(['name' => 'Chance']),
+            1 => $setbacksRepo->findOneBy(['name' => 'Adversaire']),
+        ];
+
+        $setbacks = $this->getCharacterSetbacksFromStepSubmit(21, $client, $setbacksFromTheDb);
+
+        $idOfFirstSetback = $setbacksFromTheDb[0]->getId();
+        $idOfSecondSetback = $setbacksFromTheDb[1]->getId();
+
+        static::assertSame([
+            $idOfFirstSetback => ['id' => $idOfFirstSetback, 'avoided' => false],
+            $idOfSecondSetback => ['id' => $idOfSecondSetback, 'avoided' => true],
+        ], $setbacks);
     }
 
     public function testAgeNotDefinedRedirectsToStepOne(): void
@@ -234,5 +210,38 @@ class Step07SetbacksTest extends AbstractStepTest
             'Veuillez entrer des revers correct(s).',
             \trim($crawler->filter('#flash-messages > .card-panel.error')->text())
         );
+    }
+
+    private function getCharacterSetbacksFromStepSubmit(int $age, Client $client, array $setbacksFromTheDb)
+    {
+        /** @var ManualRandomSetbacksProvider $provider */
+        $provider = static::$container->get(ManualRandomSetbacksProvider::class);
+        // Pick two so we make sure only one is picked.
+        $provider->setCustomSetbacksToPick($setbacksFromTheDb);
+
+        // We need a simple session to be sure it's updated when submitting form.
+        $session = static::$container->get('session');
+        $session->set('character.corahn_rin', ['06_age' => $age]);
+        $session->save();
+
+        // Make the request.
+        $crawler = $client->request('GET', '/fr/character/generate/'.$this->getStepName());
+
+        $statusCode = $client->getResponse()->getStatusCode();
+        $errorBlock = $crawler->filter('title');
+
+        $msg = 'Could not execute step request...';
+        $msg .= $errorBlock->count() ? ("\n".$errorBlock->text()) : (' For step "'.$this->getStepName().'"');
+        static::assertSame(200, $statusCode, $msg);
+
+        // Prepare form values.
+        $form = $crawler->filter('#generator_form')->form();
+        $form->disableValidation()->setValues([]);
+        $client->submit($form);
+
+        static::assertSame(302, $client->getResponse()->getStatusCode());
+        static::assertTrue($client->getResponse()->isRedirect('/fr/character/generate/08_ways'));
+
+        return static::$container->get('session')->get('character.corahn_rin')[$this->getStepName()];
     }
 }

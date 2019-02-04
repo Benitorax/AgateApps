@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace CorahnRin\Repository;
 
-use CorahnRin\Entity\Setbacks;
+use CorahnRin\Entity\Setback;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Orbitale\Component\DoctrineTools\EntityRepositoryHelperTrait;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Setbacks|null findOneBy(array $criteria, array $orderBy = null)
- * @method Setbacks[]    findBy(array $criteria, array $orderBy = null)
- * @method Setbacks|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Setback|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Setback[]    findBy(array $criteria, array $orderBy = null)
+ * @method Setback|null find($id, $lockMode = null, $lockVersion = null)
  */
 class SetbacksRepository extends ServiceEntityRepository
 {
@@ -29,13 +29,13 @@ class SetbacksRepository extends ServiceEntityRepository
 
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Setbacks::class);
+        parent::__construct($registry, Setback::class);
     }
 
     /**
-     * @param int[]|Setbacks[] $setbacks
+     * @param int[]|Setback[] $setbacks
      *
-     * @return Setbacks[]
+     * @return Setback[]
      */
     public function findWithDisabledAdvantages(array $setbacks): array
     {

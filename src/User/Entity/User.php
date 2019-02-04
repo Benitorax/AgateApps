@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use User\Util\CanonicalizerTrait;
 
 /**
  * @ORM\Entity(repositoryClass="User\Repository\UserRepository")
@@ -136,6 +137,19 @@ class User implements UserInterface, \Serializable, EquatableInterface
         $this->roles = [static::ROLE_DEFAULT];
     }
 
+    public static function create(string $username, string $email, string $encodedPassword): self
+    {
+        $user = new self();
+
+        $user->username = $username;
+        $user->usernameCanonical = CanonicalizerTrait::urlize($username);
+        $user->email = $email;
+        $user->emailCanonical = CanonicalizerTrait::urlize($email);
+        $user->password = $encodedPassword;
+
+        return $user;
+    }
+
     public function __toString()
     {
         return (string) $this->getUsername();
@@ -221,8 +235,9 @@ class User implements UserInterface, \Serializable, EquatableInterface
         return $this->password;
     }
 
-    public function getSalt(): void
+    public function getSalt(): ?string
     {
+        return null;
     }
 
     public function getUsername(): ?string
