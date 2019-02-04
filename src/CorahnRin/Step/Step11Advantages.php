@@ -22,17 +22,19 @@ use Symfony\Component\HttpFoundation\Response;
 class Step11Advantages extends AbstractStepAction
 {
     private $hasError = false;
+
     /**
      * @var Advantage[][]
      */
     private $globalList;
+
     /**
-     * @var Advantage[]
+     * @var int[]
      */
     private $advantages;
 
     /**
-     * @var Advantage[]
+     * @var int[]
      */
     private $disadvantages;
 
@@ -130,12 +132,14 @@ class Step11Advantages extends AbstractStepAction
         foreach ($this->disadvantages as $id => $value) {
             /** @var Advantage $disadvantage */
             $disadvantage = $this->globalList['disadvantages'][$id];
+            $xp = $disadvantage->getXp();
+            $bonusCount = $disadvantage->getBonusCount();
             if (1 === $value) {
-                $experience += $disadvantage->getXp();
-            } elseif (2 === $value && 1 === $disadvantage->getBonusCount()) {
-                $experience += \floor($disadvantage->getXp() * 1.5);
-            } elseif (3 === $value && 2 === $disadvantage->getBonusCount()) {
-                $experience += $value * $disadvantage->getXp();
+                $experience += $xp;
+            } elseif (2 === $value && 1 === $bonusCount) {
+                $experience += \floor($xp * 1.5);
+            } elseif (3 === $value && 2 === $bonusCount) {
+                $experience += $value * $xp;
             } elseif ($value) {
                 $this->hasError = true;
                 $this->flashMessage('Une valeur incorrecte a été donnée à un désavantage.');
@@ -154,11 +158,12 @@ class Step11Advantages extends AbstractStepAction
             /** @var Advantage $advantage */
             $advantage = $this->globalList['advantages'][$id];
             $xp = $advantage->getXp();
+            $bonusCount = $advantage->getBonusCount();
             if (1 === $value) {
                 $experience -= $xp;
-            } elseif (2 === $value && 1 === $advantage->getBonusCount()) {
+            } elseif (2 === $value && 1 === $bonusCount) {
                 $experience -= \floor($xp * 1.5);
-            } elseif (3 === $advantage->getBonusCount()) {
+            } elseif (3 === $bonusCount) {
                 // It's not used yet, but maybe one day with new advantages :)
                 $experience -= $xp * $value;
             } elseif ($value) {
@@ -347,14 +352,14 @@ class Step11Advantages extends AbstractStepAction
             }
         }
 
-        if (false === $this->hasError) {
+        if (!$this->hasError) {
             $this->advantages = $advantages;
             $this->disadvantages = $disadvantages;
 
             $this->calculateExperience();
         }
 
-        if (false === $this->hasError && $this->experience >= 0) {
+        if (!$this->hasError && $this->experience >= 0) {
             $this->updateCharacterStep([
                 'advantages' => $this->advantages,
                 'disadvantages' => $this->disadvantages,
