@@ -183,7 +183,7 @@ phpunit: start-php
 coverage: ## Retrieves the code coverage of the phpunit suite
 coverage: start-qa
 	$(EXEC_QA) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/$(CURRENT_DATE) --coverage-clover=build/coverage.xml
-.PHONY: phpunit
+.PHONY: coverage
 
 ##
 ## Agate
