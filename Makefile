@@ -105,8 +105,8 @@ var/dump.sql: ## Tries to download a database from production environment
 	fi; \
 	ssh ${AGATE_DEPLOY_REMOTE} ${AGATE_DEPLOY_DIR}/../dump_db.bash > var/dump.sql
 
-fixtures: ## Install all fixtures in the database
-	-$(SYMFONY) doctrine:fixtures:load --append --no-interaction
+fixtures: ## Install all dev fixtures in the database
+	-$(SYMFONY) --env=dev doctrine:fixtures:load --append --no-interaction
 .PHONY: fixtures
 
 watch: ## Run Gulp to compile assets on change
