@@ -9,6 +9,7 @@ SYMFONY         = $(EXEC_PHP) bin/console
 COMPOSER        = $(EXEC_PHP) composer
 NPM             = $(EXEC_JS) npm
 
+TEST_DBNAME = test_agate_portal
 PORTAL_DBNAME = agate_portal
 PORTAL_DBPWD = db
 
@@ -66,12 +67,16 @@ cc: ## Clear and warmup PHP cache
 .PHONY: cc
 
 db: ## Reset the database
+	@echo "Waiting for database..."
+	@while ! $(EXEC_DB) mysql -uroot -p$(PORTAL_DBPWD) -e "SELECT 1;" > /dev/null 2>&1; do sleep 0.5 ; done
 	-$(SYMFONY) doctrine:database:drop --if-exists --force
 	-$(SYMFONY) doctrine:database:create --if-not-exists
 	-$(SYMFONY) doctrine:migrations:migrate --no-interaction
 .PHONY: db
 
 test-db: ## Create a proper database for testing
+	@echo "Waiting for database..."
+	@while ! $(EXEC_DB) mysql -uroot -p$(PORTAL_DBPWD) -e "SELECT 1;" > /dev/null 2>&1; do sleep 0.5 ; done
 	-$(SYMFONY) --env=test doctrine:database:drop --if-exists --force
 	-$(SYMFONY) --env=test doctrine:database:create
 	-$(SYMFONY) --env=test doctrine:schema:create
