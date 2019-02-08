@@ -11,7 +11,7 @@ cache:
         - $HOME/.npm/
 
 env:
-    - DOCKER_COMPOSE_VERSION=1.22.0
+    - DOCKER_COMPOSE_VERSION=1.23.2 APP_ENV=test
 
 jobs:
     include:
@@ -22,8 +22,7 @@ jobs:
               - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
               - chmod +x docker-compose
               - sudo mv docker-compose /usr/local/bin
-              - cp .env.test .env # In case env vars are not propagated to docker
-              - source .env.test
+              - export APP_ENV=test
               - make install-php
           script: make php-tests
           after_success:
