@@ -186,7 +186,7 @@ checks:
 
 phpunit: ## Execute all PHPUnit tests
 phpunit: start-php
-	$(EXEC_PHP) bin/phpunit --log-junit=build/log/logfile.xml --verbose --debug
+	$(EXEC_PHP) bin/phpunit
 .PHONY: phpunit
 
 coverage: ## Retrieves the code coverage of the phpunit suite
