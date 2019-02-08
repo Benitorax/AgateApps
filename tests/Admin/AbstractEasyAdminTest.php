@@ -210,7 +210,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
         static::assertFalse((bool) $object, $entityName);
     }
 
-    protected function submitData(array $dataToSubmit, array $expectedData, array $searchData, string $view)
+    protected function submitData(array $dataToSubmit, array $expectedData, array $searchData, string $view, Client $client = null)
     {
         $id = $dataToSubmit['id'] ?? $expectedData['id'] ?? null;
         if ('edit' === $view && !$id) {
@@ -219,7 +219,10 @@ abstract class AbstractEasyAdminTest extends WebTestCase
             return;
         }
 
-        $client = $this->getClient();
+        if (!$client) {
+            // In case client is created before, we use it instead of restarting the kernel.
+            $client = $this->getClient();
+        }
 
         /** @var EntityManager $em */
         $em = $client->getContainer()->get('doctrine')->getManager();
@@ -253,7 +256,7 @@ abstract class AbstractEasyAdminTest extends WebTestCase
         $message = '';
         // If redirects to list, it means it's correct, else it would redirect to "new" action.
         if (200 === $response->getStatusCode()) {
-            $errors = $crawler->filter('.error-block');
+            $errors = $crawler->filter('.invalid-feedback');
             foreach ($errors as $error) {
                 $message .= "\n".\trim($error->textContent);
             }

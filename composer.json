@@ -68,6 +68,7 @@
     },
     "require-dev": {
         "ext-zip": "*",
+        "dama/doctrine-test-bundle": "^5.0",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "pierstoval/web-test-case": "^0.2.0",
         "pyrech/composer-changelogs": "^1.6",

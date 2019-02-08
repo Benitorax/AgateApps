@@ -43,8 +43,6 @@ class RedeemVoucherControllerTest extends WebTestCase
 
     public function test redeem with correct voucher(): void
     {
-        static::resetDatabase();
-
         $client = $this->getClient('www.studio-agate.docker', ['debug' => true]);
 
         $this->login($client, 'www.studio-agate.docker', 'lambda-user', 'foobar');
@@ -87,8 +85,6 @@ Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($
 
     public function test redeem impossible if voucher too much used(): void
     {
-        static::resetDatabase();
-
         static::bootKernel();
 
         $em = static::$container->get(EntityManagerInterface::class);
@@ -106,8 +102,6 @@ Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($
 
     public function test redeem impossible if voucher not yet available(): void
     {
-        static::resetDatabase();
-
         static::bootKernel();
 
         $em = static::$container->get(EntityManagerInterface::class);
@@ -123,8 +117,6 @@ Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($
 
     public function test redeem impossible if voucher not available anymore(): void
     {
-        static::resetDatabase();
-
         static::bootKernel();
 
         $em = static::$container->get(EntityManagerInterface::class);
@@ -140,8 +132,6 @@ Merci d\'avoir utilisé votre code !', \preg_replace('~\r?\n\s+~', "\n", \trim($
 
     public function test valid redeem for esteren maps voucher(): void
     {
-        static::resetDatabase();
-
         static::bootKernel();
 
         $redeemer = static::$container->get(Redeemer::class);

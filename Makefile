@@ -10,7 +10,7 @@ COMPOSER        = $(EXEC_PHP) composer
 NPM             = $(EXEC_JS) npm
 
 PORTAL_DBNAME = agate_portal
-PORTAL_DBPWD = agate_portal
+PORTAL_DBPWD = db
 
 CURRENT_DATE = `date "+%Y-%m-%d_%H-%M-%S"`
 
@@ -26,7 +26,7 @@ help:
 .PHONY: help
 
 install: ## Install and start the project
-install: build node_modules start vendor db fixtures assets map-tiles
+install: build node_modules start vendor db test-db fixtures assets map-tiles
 .PHONY: install
 
 build: ## Build the Docker images
@@ -63,13 +63,20 @@ clean: kill
 cc: ## Clear and warmup PHP cache
 	$(SYMFONY) cache:clear --no-warmup
 	$(SYMFONY) cache:warmup
+.PHONY: cc
 
 db: ## Reset the database
-db:
 	-$(SYMFONY) doctrine:database:drop --if-exists --force
 	-$(SYMFONY) doctrine:database:create --if-not-exists
 	-$(SYMFONY) doctrine:migrations:migrate --no-interaction
 .PHONY: db
+
+test-db: ## Create a proper database for testing
+	-$(SYMFONY) --env=test doctrine:database:drop --if-exists --force
+	-$(SYMFONY) --env=test doctrine:database:create
+	-$(SYMFONY) --env=test doctrine:schema:create
+	-$(SYMFONY) --env=test doctrine:fixtures:load --append --no-interaction
+.PHONY: tests-db
 
 prod-db: ## Installs production database if it has been saved in "var/dump.sql". You have to download it manually.
 prod-db: var/dump.sql
@@ -83,7 +90,6 @@ prod-db: var/dump.sql
 	fi;
 
 var/dump.sql: ## Tries to download a database from production environment
-var/dump.sql:
 	@if [ "${AGATE_DEPLOY_REMOTE}" = "" ]; then \
 		echo "[ERROR] Please specify the AGATE_DEPLOY_REMOTE env var to connect to a remote" ;\
 		exit 1 ;\
@@ -95,12 +101,10 @@ var/dump.sql:
 	ssh ${AGATE_DEPLOY_REMOTE} ${AGATE_DEPLOY_DIR}/../dump_db.bash > var/dump.sql
 
 fixtures: ## Install all fixtures in the database
-fixtures:
 	-$(SYMFONY) doctrine:fixtures:load --append --no-interaction
 .PHONY: fixtures
 
 watch: ## Run Gulp to compile assets on change
-watch:
 	$(NPM) run watch
 .PHONY: watch
 
@@ -136,7 +140,7 @@ start-qa:
 .PHONY: start-qa
 
 install-php: ## Prepare environment to execute PHP tests
-install-php: build start vendor db fixtures
+install-php: build start vendor db test-db fixtures
 .PHONY: install-php
 
 install-node: ## Prepare environment to execute NodeJS tests

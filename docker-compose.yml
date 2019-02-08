@@ -45,12 +45,11 @@ services:
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         environment:
-            - PMA_HOSTS=db,db_legacy
+            - PMA_HOSTS=db
         ports:
             - 8081:80
         links:
             - db
-            - db_legacy
 
     db:
         image: 'mysql:5.7'
@@ -58,14 +57,7 @@ services:
         volumes:
             - ./var/:/srv/
         environment:
-            - MYSQL_ROOT_PASSWORD=agate_portal
-            - MYSQL_DATABASE=agate_portal
-
-    db_legacy:
-        image: 'mysql:5.7'
-        environment:
-            - MYSQL_ROOT_PASSWORD=esteren_legacy
-            - MYSQL_DATABASE=esteren_legacy
+            - MYSQL_ROOT_PASSWORD=db
 
     qa:
         image: jakzal/phpqa:php7.2

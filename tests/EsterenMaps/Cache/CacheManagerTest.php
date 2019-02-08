@@ -27,8 +27,6 @@ class CacheManagerTest extends WebTestCase
 
     public function test updating route should clear maps cache(): void
     {
-        static::resetDatabase();
-
         static::bootKernel();
         $em = static::$container->get(EntityManagerInterface::class);
 

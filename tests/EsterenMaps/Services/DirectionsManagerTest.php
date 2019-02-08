@@ -28,7 +28,6 @@ class DirectionsManagerTest extends WebTestCase
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::resetDatabase();
     }
 
     /**
@@ -36,8 +35,6 @@ class DirectionsManagerTest extends WebTestCase
      */
     public function testWorkingDirections(array $expectedData, string $map, int $from, int $to, string $transport = null): void
     {
-        static::resetDatabase();
-
         $client = $this->getClient('maps.esteren.docker', [], ['ROLE_MAPS_VIEW']);
         $container = static::$container;
 

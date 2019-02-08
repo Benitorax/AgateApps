@@ -50,16 +50,25 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         }
     }
 
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-
-        static::resetDatabase();
-    }
-
     public function test new valid file upload(): void
     {
-        static::resetDatabase();
+        $client = $this->getClient();
+
+        $class = PortalElement::class;
+
+        /** @var EntityManagerInterface $em */
+        $em = static::$container->get(EntityManagerInterface::class);
+        $em
+            ->createQuery(<<<DQL
+                DELETE FROM {$class} element 
+                WHERE element.portal = :portal 
+                AND element.locale = :locale
+DQL
+            )
+            ->setParameter('portal', 'agate')
+            ->setParameter('locale', 'en')
+            ->execute()
+        ;
 
         $file = $this->createImage();
 
@@ -88,7 +97,7 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         ];
 
         /** @var PortalElement $entity */
-        $entity = $this->submitData($submitted, $expected, $search, 'new');
+        $entity = $this->submitData($submitted, $expected, $search, 'new', $client);
 
         static::assertRegExp(self::TEMPFILE_REGEX, $entity->getImageUrl(), $entity->getImageUrl());
 
@@ -101,8 +110,6 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
 
     public function test edit valid portal element and old image is removed(): void
     {
-        static::resetDatabase();
-
         $submitted = [
             'image' => new UploadedFile($this->createImage(), 'uploaded_file.jpg'),
             'title' => 'Portail Esteren',
@@ -126,7 +133,7 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
             'locale' => 'fr',
         ];
 
-        static::bootKernel();
+        $client = $this->getClient();
 
         $uploadDir = static::$container->getParameter('kernel.project_dir').'/public/uploads/portal/';
 
@@ -153,7 +160,7 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         static::assertSame($entity->getImageUrl(), $baseNameToOverride);
 
         // Actual admin action
-        $entity = $this->submitData($submitted, $expected, $search, 'edit');
+        $entity = $this->submitData($submitted, $expected, $search, 'edit', $client);
 
         static::assertRegExp(self::TEMPFILE_REGEX, $entity->getImageUrl(), $entity->getImageUrl());
 
@@ -216,31 +223,5 @@ class PortalElementAdminTest extends AbstractEasyAdminTest
         $this->files[] = $file;
 
         return $file;
-    }
-
-    protected static function resetDatabase(): void
-    {
-        parent::resetDatabase();
-
-        static::bootKernel();
-
-        $class = PortalElement::class;
-
-        /** @var EntityManagerInterface $em */
-        $em = static::$container->get(EntityManagerInterface::class);
-        $em
-            ->createQuery(<<<DQL
-                DELETE FROM {$class} element 
-                WHERE element.portal = :portal 
-                AND element.locale = :locale
-DQL
-)
-            ->setParameter('portal', 'agate')
-            ->setParameter('locale', 'en')
-            ->execute()
-        ;
-
-        static::ensureKernelShutdown();
-        static::$kernel = null;
     }
 }

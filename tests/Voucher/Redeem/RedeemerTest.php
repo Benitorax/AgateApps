@@ -62,8 +62,6 @@ class RedeemerTest extends KernelTestCase
 
     public function test redeem impossible if voucher already used(): void
     {
-        static::resetDatabase();
-
         static::bootKernel();
 
         $redeemer = static::$container->get(Redeemer::class);

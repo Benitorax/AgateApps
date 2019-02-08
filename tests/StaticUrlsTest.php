@@ -146,8 +146,6 @@ class StaticUrlsTest extends WebTestCase
      */
     public function test portal not defined returns 404(string $host, string $url): void
     {
-        static::resetDatabase();
-
         static::bootKernel();
 
         $linesRemoved = static::$container

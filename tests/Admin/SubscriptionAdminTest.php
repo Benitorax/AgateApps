@@ -52,8 +52,6 @@ class SubscriptionAdminTest extends AbstractEasyAdminTest
      */
     public function provideNewFormData()
     {
-        static::resetDatabase();
-
         return [
             'data_to_submit' => [
                 'user' => 1,

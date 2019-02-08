@@ -57,8 +57,6 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     public function testRegisterAndLoginWithoutConfirmingEmail(): void
     {
-        static::resetDatabase();
-
         $locale = $this->getLocale();
 
         $user = new User();
@@ -94,8 +92,6 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     public function testRegister(): void
     {
-        static::resetDatabase();
-
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
@@ -134,8 +130,6 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     public function testConfirmEmail(): void
     {
-        static::resetDatabase();
-
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
@@ -161,8 +155,6 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     public function testLogin(): void
     {
-        static::resetDatabase();
-
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
@@ -209,8 +201,6 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     public function testChangePassword(): void
     {
-        static::resetDatabase();
-
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
@@ -259,8 +249,6 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     public function testEditProfile(): void
     {
-        static::resetDatabase();
-
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');
@@ -304,8 +292,6 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
 
     public function testResetPasswordRequest(): void
     {
-        static::resetDatabase();
-
         $locale = $this->getLocale();
 
         $client = $this->getClient('corahnrin.esteren.docker');

@@ -26,7 +26,6 @@ class UserRoleCommandTest extends KernelTestCase
 
     public function test no promote nor demote options throws exception(): void
     {
-        static::resetDatabase();
         $tester = $this->getCommandTester();
 
         $this->expectException(\RuntimeException::class);
@@ -40,7 +39,6 @@ class UserRoleCommandTest extends KernelTestCase
 
     public function test invalid username throws exception(): void
     {
-        static::resetDatabase();
         $tester = $this->getCommandTester();
 
         $this->expectException(\InvalidArgumentException::class);
@@ -55,7 +53,6 @@ class UserRoleCommandTest extends KernelTestCase
 
     public function test invalid roles to promote throws exception(): void
     {
-        static::resetDatabase();
         $tester = $this->getCommandTester();
 
         $this->expectException(\InvalidArgumentException::class);
@@ -70,7 +67,6 @@ class UserRoleCommandTest extends KernelTestCase
 
     public function test promote with ROLE_USER throws exception(): void
     {
-        static::resetDatabase();
         $tester = $this->getCommandTester();
 
         $this->expectException(\InvalidArgumentException::class);
@@ -85,7 +81,6 @@ class UserRoleCommandTest extends KernelTestCase
 
     public function test promote with existing roles displays warning(): void
     {
-        static::resetDatabase();
         $tester = $this->getCommandTester();
 
         $tester->setInputs(['no']); // For dry-run
@@ -110,7 +105,6 @@ class UserRoleCommandTest extends KernelTestCase
 
     public function test promote with any role effectively adds role(): void
     {
-        static::resetDatabase();
         $tester = $this->getCommandTester();
 
         $tester->setInputs(['yes']); // Force save
@@ -142,7 +136,6 @@ class UserRoleCommandTest extends KernelTestCase
 
     public function test demote with superadmin role effectively removes role(): void
     {
-        static::resetDatabase();
         $tester = $this->getCommandTester();
 
         $tester->setInputs(['yes']); // Force save
@@ -172,7 +165,6 @@ class UserRoleCommandTest extends KernelTestCase
 
     public function test demote with inexistent roles displays warning(): void
     {
-        static::resetDatabase();
         $tester = $this->getCommandTester();
 
         $tester->setInputs(['no']); // For dry-run

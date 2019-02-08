@@ -22,8 +22,6 @@ class ApiRoutesControllerTest extends WebTestCase
 
     public function testCreateWithCorrectData(): void
     {
-        static::resetDatabase();
-
         $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 
         $data = [
@@ -52,8 +50,6 @@ class ApiRoutesControllerTest extends WebTestCase
 
     public function testCreateWithEmptyData(): void
     {
-        static::resetDatabase();
-
         $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 
         $client->request('POST', '/fr/api/routes', [], [], [], '[]');
@@ -76,8 +72,6 @@ class ApiRoutesControllerTest extends WebTestCase
 
     public function testCreateWithIncorrectData(): void
     {
-        static::resetDatabase();
-
         $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
 
         $dataToSend = [

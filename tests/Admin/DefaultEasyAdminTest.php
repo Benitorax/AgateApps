@@ -22,10 +22,7 @@ class DefaultEasyAdminTest extends WebTestCase
 
     public function test index returns 200 when logged in as admin(): void
     {
-        static::resetDatabase();
-
         $client = $this->getClient('back.esteren.docker', [], 'ROLE_ADMIN');
-
         $crawler = $client->request('GET', '/fr/');
 
         static::assertSame(200, $client->getResponse()->getStatusCode(), $crawler->filter('title')->html());
