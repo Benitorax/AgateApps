@@ -190,8 +190,8 @@ phpunit: start-php
 .PHONY: phpunit
 
 coverage: ## Retrieves the code coverage of the phpunit suite
-coverage: start-qa
-	$(EXEC_QA) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/$(CURRENT_DATE) --coverage-clover=build/coverage.xml
+coverage: start-php
+	$(EXEC_PHP) phpdbg -qrr bin/phpunit --coverage-html=build/coverage/$(CURRENT_DATE) --coverage-clover=build/coverage.xml
 .PHONY: coverage
 
 ##
