@@ -139,7 +139,7 @@ class MapsTilesManager
 
         $max = $this->map->getMaxZoom();
 
-        $ratio = 1 / (2 ** ($max - $zoom)) * 100;
+        $ratio = 100 / (2 ** ($max - $zoom));
 
         $outputScheme = $this->outputDirectory.'/temp_tiles/'.$this->map->getId().'/'.$zoom.'.jpg';
         $outputFinal = $this->outputDirectory.'/'.$this->map->getId().'/'.$zoom.'/{x}/{y}.jpg';
