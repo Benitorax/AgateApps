@@ -366,6 +366,8 @@ final class SessionToCharacter
         }
 
         $character->setDomains($charDomain);
+
+        $character->setOstService($values['13_primary_domains']['ost']);
     }
 
     private function setHealthCondition(Character $character): void

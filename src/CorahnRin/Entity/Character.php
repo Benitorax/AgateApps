@@ -393,6 +393,13 @@ class Character extends BaseCharacter
     protected $socialClassDomain2;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ost_service", type="string", length=100)
+     */
+    protected $ostService;
+
+    /**
      * @var MentalDisorder
      *
      * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\MentalDisorder")
@@ -1193,6 +1200,18 @@ class Character extends BaseCharacter
     public function getSocialClassDomain2(): string
     {
         return $this->socialClassDomain2;
+    }
+
+    public function getOstService(): string
+    {
+        return $this->ostService;
+    }
+
+    public function setOstService(string $ostService): void
+    {
+        DomainsData::validateDomain($ostService);
+
+        $this->ostService = $ostService;
     }
 
     public function setMentalDisorder(MentalDisorder $mentalDisorder = null): self
