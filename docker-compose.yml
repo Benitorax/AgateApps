@@ -54,6 +54,8 @@ services:
     db:
         image: 'mysql:5.7'
         working_dir: /srv/
+        ports:
+            - '13306:3306'
         volumes:
             - ./var/:/srv/
         environment:
