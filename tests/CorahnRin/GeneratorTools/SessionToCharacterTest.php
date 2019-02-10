@@ -16,6 +16,7 @@ namespace Tests\CorahnRin\GeneratorTools;
 use CorahnRin\Entity\Character;
 use CorahnRin\Exception\CharacterException;
 use CorahnRin\GeneratorTools\SessionToCharacter;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -63,7 +64,14 @@ class SessionToCharacterTest extends KernelTestCase
         };
 
         foreach ($expectedValues as $data) {
-            static::assertSame($data['value'], $getValue($data['property_path']));
+            $value = $getValue($data['property_path']);
+            if ($value instanceof Collection) {
+                $value = $value->toArray();
+            }
+            static::assertSame($data['value'], $value, \sprintf(
+                'Property path "%s" expected value "%s" but got "%s" instead',
+                $data['property_path'], \var_export($data['value'], true), \var_export($value, true)
+            ));
         }
     }
 

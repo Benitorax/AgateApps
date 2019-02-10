@@ -16,15 +16,15 @@ return [
         '01_people' => 1,
         '02_job' => 1, // Artisan
         '03_birthplace' => 1,
-        '04_geo' => 1, // Rural (natural env)
+        '04_geo' => 2, // Urban (relations)
         '05_social_class' => [
-            'id' => 1,
+            'id' => 2, // Artisan
             'domains' => [
-                0 => 'domains.natural_environment',
-                1 => 'domains.perception',
+                0 => 'domains.craft',
+                1 => 'domains.relation',
             ],
         ],
-        '06_age' => 31, // +2 bonus points
+        '06_age' => 21, // +1 bonus point
         '07_setbacks' => [
             2 => [
                 'id' => 2,
@@ -83,12 +83,12 @@ return [
                 'domains.travel' => 0,
                 'domains.erudition' => 2,
             ],
-            'ost' => 'domains.close_combat',
+            'ost' => 'domains.relation',
         ],
         '14_use_domain_bonuses' => [
             'domains' => [
                 'domains.craft' => 0,
-                'domains.close_combat' => 1,
+                'domains.close_combat' => 0,
                 'domains.stealth' => 0,
                 'domains.magience' => 0,
                 'domains.natural_environment' => 0,
@@ -104,7 +104,7 @@ return [
                 'domains.travel' => 0,
                 'domains.erudition' => 0,
             ],
-            'remaining' => 2,
+            'remaining' => 4,
         ],
         '15_domains_spend_exp' => [
             'domains' => [
@@ -131,30 +131,22 @@ return [
             'disciplines' => [
                 'domains.craft' => [
                     12 => true,
+                    30 => true,
                     45 => true,
                     92 => true,
                 ],
             ],
-            'remainingExp' => 25,
+            'remainingExp' => 50,
             'remainingBonusPoints' => 0,
         ],
         '17_combat_arts' => [
-            'combatArts' => [
-                1 => true,
-            ],
-            'remainingExp' => 5,
+            'combatArts' => [],
+            'remainingExp' => 50,
         ],
         '18_equipment' => [
-            'armors' => [
-                9 => true,
-            ],
-            'weapons' => [
-                5 => true,
-            ],
-            'equipment' => [
-                'Livre de règles',
-                'Un grimoire',
-            ],
+            'armors' => [],
+            'weapons' => [],
+            'equipment' => [],
         ],
         '19_description' => [
             'name' => 'A',
@@ -174,13 +166,13 @@ return [
 
         ['value' => 1, 'property_path' => 'birthplace.id'],
 
-        ['value' => 1, 'property_path' => 'geoLiving.id'],
+        ['value' => 2, 'property_path' => 'geoLiving.id'],
 
-        ['value' => 1, 'property_path' => 'socialClass.id'],
-        ['value' => 'domains.natural_environment', 'property_path' => 'socialClassDomain1'],
-        ['value' => 'domains.perception', 'property_path' => 'socialClassDomain2'],
+        ['value' => 2, 'property_path' => 'socialClass.id'],
+        ['value' => 'domains.craft', 'property_path' => 'socialClassDomain1'],
+        ['value' => 'domains.relation', 'property_path' => 'socialClassDomain2'],
 
-        ['value' => 31, 'property_path' => 'age'],
+        ['value' => 21, 'property_path' => 'age'],
 
         ['value' => 2, 'property_path' => 'setbacks[0].setback.id'],
         ['value' => 3, 'property_path' => 'setbacks[1].setback.id'],
@@ -224,25 +216,25 @@ return [
 
         ['value' => 5, 'property_path' => 'domains.craft'],
         ['value' => 0, 'property_path' => 'domains.craftBonus'],
-        ['value' => 5, 'property_path' => 'domains.closeCombat'],
+        ['value' => 3, 'property_path' => 'domains.closeCombat'],
         ['value' => 0, 'property_path' => 'domains.closeCombatBonus'],
         ['value' => 1, 'property_path' => 'domains.stealth'],
         ['value' => 0, 'property_path' => 'domains.stealthBonus'],
         ['value' => 0, 'property_path' => 'domains.magience'],
         ['value' => 0, 'property_path' => 'domains.magienceBonus'],
-        ['value' => 4, 'property_path' => 'domains.naturalEnvironment'],
+        ['value' => 2, 'property_path' => 'domains.naturalEnvironment'],
         ['value' => 0, 'property_path' => 'domains.naturalEnvironmentBonus'],
         ['value' => 0, 'property_path' => 'domains.demorthenMysteries'],
         ['value' => 0, 'property_path' => 'domains.demorthenMysteriesBonus'],
         ['value' => 0, 'property_path' => 'domains.occultism'],
         ['value' => 0, 'property_path' => 'domains.occultismBonus'],
-        ['value' => 1, 'property_path' => 'domains.perception'],
+        ['value' => 0, 'property_path' => 'domains.perception'],
         ['value' => 0, 'property_path' => 'domains.perceptionBonus'],
         ['value' => 0, 'property_path' => 'domains.prayer'],
         ['value' => 0, 'property_path' => 'domains.prayerBonus'],
         ['value' => 0, 'property_path' => 'domains.feats'],
         ['value' => 0, 'property_path' => 'domains.featsBonus'],
-        ['value' => 3, 'property_path' => 'domains.relation'],
+        ['value' => 5, 'property_path' => 'domains.relation'],
         ['value' => 0, 'property_path' => 'domains.relationBonus'],
         ['value' => 0, 'property_path' => 'domains.performance'],
         ['value' => 0, 'property_path' => 'domains.performanceBonus'],
@@ -255,24 +247,29 @@ return [
         ['value' => 2, 'property_path' => 'domains.erudition'],
         ['value' => 0, 'property_path' => 'domains.eruditionBonus'],
 
-        ['value' => 'domains.close_combat', 'property_path' => 'ostService'],
+        ['value' => 'domains.relation', 'property_path' => 'ostService'],
 
         ['value' => 'domains.craft', 'property_path' => 'disciplines[0].domain'],
         ['value' => 6, 'property_path' => 'disciplines[0].score'],
         ['value' => 12, 'property_path' => 'disciplines[0].discipline.id'],
+
         ['value' => 'domains.craft', 'property_path' => 'disciplines[1].domain'],
         ['value' => 6, 'property_path' => 'disciplines[1].score'],
-        ['value' => 45, 'property_path' => 'disciplines[1].discipline.id'],
+        ['value' => 30, 'property_path' => 'disciplines[1].discipline.id'],
+
         ['value' => 'domains.craft', 'property_path' => 'disciplines[2].domain'],
         ['value' => 6, 'property_path' => 'disciplines[2].score'],
-        ['value' => 92, 'property_path' => 'disciplines[2].discipline.id'],
+        ['value' => 45, 'property_path' => 'disciplines[2].discipline.id'],
 
-        ['value' => 1, 'property_path' => 'combatArts[0].id'],
-        ['value' => 5, 'property_path' => 'experienceActual'],
+        ['value' => 'domains.craft', 'property_path' => 'disciplines[3].domain'],
+        ['value' => 6, 'property_path' => 'disciplines[3].score'],
+        ['value' => 92, 'property_path' => 'disciplines[3].discipline.id'],
 
-        ['value' => 9, 'property_path' => 'armors[0].id'],
-        ['value' => 5, 'property_path' => 'weapons[0].id'],
-        ['value' => ['Livre de règles', 'Un grimoire'], 'property_path' => 'inventory'],
+        ['value' => [], 'property_path' => 'combatArts'],
+
+        ['value' => [], 'property_path' => 'armors'],
+        ['value' => [], 'property_path' => 'weapons'],
+        ['value' => [], 'property_path' => 'inventory'],
 
         ['value' => 'A', 'property_path' => 'name'],
         ['value' => 'B', 'property_path' => 'playerName'],
@@ -281,6 +278,7 @@ return [
         ['value' => 'An incredible story', 'property_path' => 'story'],
         ['value' => 'Of course, something true', 'property_path' => 'facts'],
 
+        ['value' => 50, 'property_path' => 'experienceActual'],
         ['value' => 0, 'property_path' => 'experienceSpent'],
     ],
 ];
