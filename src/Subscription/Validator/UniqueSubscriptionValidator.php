@@ -32,7 +32,7 @@ class UniqueSubscriptionValidator extends ConstraintValidator
     public function validate($subscription, Constraint $constraint): void
     {
         if (!$constraint instanceof UniqueSubscription) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\UniqueSubscription');
+            throw new UnexpectedTypeException($constraint, UniqueSubscription::class);
         }
 
         if (!$subscription instanceof Subscription) {
