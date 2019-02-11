@@ -108,7 +108,7 @@ class HealthCondition
         return $this->critical;
     }
 
-    public function isAgony(): bool
+    public function getAgony(): int
     {
         return $this->agony;
     }
