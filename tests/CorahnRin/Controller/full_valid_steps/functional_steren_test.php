@@ -76,7 +76,7 @@ return [
         'form_values' => [
             'setbacks_value' => [
                 7 => 9,
-            ]
+            ],
         ],
         'session_value' => [
             9 => ['id' => 9, 'avoided' => false],
@@ -279,7 +279,7 @@ return [
                 'domains.occultism' => [
                     55 => true,
                     82 => true,
-                ]
+                ],
             ],
             'remainingExp' => 15,
             'remainingBonusPoints' => 0,

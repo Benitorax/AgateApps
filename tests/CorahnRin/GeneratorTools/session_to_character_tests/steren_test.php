@@ -22,7 +22,7 @@ return [
             'domains' => [
                 0 => 'domains.science',
                 1 => 'domains.erudition',
-            ]
+            ],
         ],
         '06_age' => 21,
         '07_setbacks' => [
