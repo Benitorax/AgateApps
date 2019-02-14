@@ -291,7 +291,7 @@ class Advantage
 
     public function setRequiresIndication(?string $requiresIndication): void
     {
-        $this->requiresIndication = $requiresIndication;
+        $this->requiresIndication = (string) $requiresIndication;
     }
 
     public function getIndicationType(): string

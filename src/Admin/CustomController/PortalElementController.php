@@ -50,7 +50,7 @@ class PortalElementController extends AdminController
 
         if ($image instanceof UploadedFile) {
             $newname = 'portal_element_'
-                .Transliterator::urlize(\pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME))
+                .Transliterator::urlize(\pathinfo($image->getClientOriginalName() ?: '', PATHINFO_FILENAME))
                 .\uniqid('_pe_', true) // "pe" for "portal element"
                 .'.'.$image->guessExtension()
             ;

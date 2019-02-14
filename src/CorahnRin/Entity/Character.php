@@ -493,14 +493,14 @@ class Character extends BaseCharacter
     protected $created;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=false)
      */
     protected $updated;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      *
      * @ORM\Column(name="deleted", type="datetime", nullable=true)
      */
@@ -1026,7 +1026,7 @@ class Character extends BaseCharacter
         return $this->deleted;
     }
 
-    public function setPeople(People $people = null): self
+    public function setPeople(People $people): self
     {
         $this->people = $people;
 

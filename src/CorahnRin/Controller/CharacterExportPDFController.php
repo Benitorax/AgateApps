@@ -46,7 +46,7 @@ class CharacterExportPDFController extends AbstractController
         $printer_friendly = 'true' === $request->query->get('printer_friendly');
         $sheet_type = $request->query->get('sheet_type') ?: 'original';
 
-        $output_dir = $this->get('service_container')->getParameter('kernel.cache_dir').'/characters_output';
+        $output_dir = $this->getParameter('kernel.cache_dir').'/characters_output';
         if (!\is_dir($output_dir)) {
             $this->get('filesystem')->mkdir($output_dir, 0777);
         }
