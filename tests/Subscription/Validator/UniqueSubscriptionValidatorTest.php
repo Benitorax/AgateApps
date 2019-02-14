@@ -26,10 +26,13 @@ class UniqueSubscriptionValidatorTest extends TestCase
 {
     public function test constraint must be UniqueSubscription instance(): void
     {
-        $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageRegExp('~^Expected argument of type "Subscription\\\Validator\\\UniqueSubscription", "Mock_Constraint_[^"]+" given$~');
+        $constraint = new class() extends Constraint {
+        };
 
-        $this->getValidator()->validate($this->createMock(Subscription::class), $this->createMock(Constraint::class));
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Subscription\\Constraint\\UniqueSubscription", "'.get_class($constraint).'" given');
+
+        $this->getValidator()->validate($this->createMock(Subscription::class), $constraint);
     }
 
     public function test subject must be Subscription instance(): void
@@ -42,7 +45,8 @@ class UniqueSubscriptionValidatorTest extends TestCase
 
     public function test existing subscription returns violation(): void
     {
-        $subscription = $this->createMock(Subscription::class);
+        $subscription = new class() extends Subscription {
+        };
 
         $repo = $this->createMock(SubscriptionRepository::class);
         $repo->expects($this->once())
