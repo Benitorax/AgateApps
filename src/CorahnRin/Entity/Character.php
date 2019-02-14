@@ -1441,7 +1441,7 @@ class Character extends BaseCharacter
     /**
      * Conscience is determined by "Reason" and "Conviction" ways.
      */
-    public function getConsciousness(): string
+    public function getConsciousness(): int
     {
         return $this->getReason() + $this->getConviction();
     }
@@ -1449,7 +1449,7 @@ class Character extends BaseCharacter
     /**
      * Conscience is determined by "Creativity" and "Combativity" ways.
      */
-    public function getInstinct(): string
+    public function getInstinct(): int
     {
         return $this->getCreativity() + $this->getCombativeness();
     }
@@ -1500,7 +1500,7 @@ class Character extends BaseCharacter
 
     public function getTotalDefense(string $attitude = self::COMBAT_ATTITUDE_STANDARD): int
     {
-        $this->validateCombatAttitude($attitude);
+        self::validateCombatAttitude($attitude);
 
         $defense = $this->getBaseDefense() + $this->defense + $this->defenseBonus;
 
@@ -1527,7 +1527,7 @@ class Character extends BaseCharacter
 
     public function getTotalSpeed($attitude = self::COMBAT_ATTITUDE_STANDARD): int
     {
-        $this->validateCombatAttitude($attitude);
+        self::validateCombatAttitude($attitude);
 
         $speed = $this->getBaseSpeed() + $this->speed + $this->speedBonus;
 
@@ -1593,7 +1593,7 @@ class Character extends BaseCharacter
         int $discipline = null,
         string $attitude = self::COMBAT_ATTITUDE_STANDARD
     ): int {
-        $this->validateCombatAttitude($attitude);
+        self::validateCombatAttitude($attitude);
 
         // Récupération du score de voie
         $way = $this->getCombativeness();
@@ -1637,9 +1637,6 @@ class Character extends BaseCharacter
         return $attack;
     }
 
-    /**
-     * @param int $id
-     */
     public function hasAdvantage($id): bool
     {
         $id = (int) $id;
@@ -1653,17 +1650,13 @@ class Character extends BaseCharacter
         return false;
     }
 
-    /**
-     * @param int  $id
-     * @param bool $falseIfAvoided
-     */
     public function hasSetback($id, $falseIfAvoided = true): bool
     {
         $id = (int) $id;
 
         foreach ($this->setbacks as $setback) {
             if ($setback->getSetback()->getId() === $id) {
-                if (true === $falseIfAvoided && $setback->isAvoided()) {
+                if ($falseIfAvoided && $setback->isAvoided()) {
                     continue;
                 }
 
@@ -1674,7 +1667,7 @@ class Character extends BaseCharacter
         return false;
     }
 
-    private function validateCombatAttitude(string $attitude): void
+    private static function validateCombatAttitude(string $attitude): void
     {
         if (!\in_array($attitude, self::COMBAT_ATTITUDES, true)) {
             throw new \InvalidArgumentException("Combat attitude is invalid, $attitude given.");

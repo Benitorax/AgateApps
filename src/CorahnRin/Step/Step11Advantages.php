@@ -364,7 +364,7 @@ class Step11Advantages extends AbstractStepAction
                 'advantages' => $this->advantages,
                 'disadvantages' => $this->disadvantages,
                 'advantages_indications' => $this->indications,
-                'remainingExp' => $this->experience,
+                'remainingExp' => (int) $this->experience,
             ]);
 
             return $this->nextStep();
