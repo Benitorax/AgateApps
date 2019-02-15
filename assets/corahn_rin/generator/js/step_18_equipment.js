@@ -1,10 +1,26 @@
 (function($, w){
-    var d = w.document,
+    const d = w.document,
         equipmentPanel = d.getElementById('equipment_panel')
     ;
 
+    if  (!equipmentPanel) {
+        throw 'Could not find equipment panel.';
+    }
+
+    const addButton = equipmentPanel.querySelector('.equipment_add');
+
+    const existingInputs = equipmentPanel.querySelectorAll('input[name="equipment[]"]');
+
+    const l = existingInputs.length;
+
+    if (l) {
+        for (var i = 0; i < l; i++) {
+            addEventListenersToInput(existingInputs[i]);
+        }
+    }
+
     equipmentPanel.addEventListener('click', function(event){
-        var action, target, button, input, container, newElement, index, label, newButton, icon;
+        let action, target, button, input, container, newElement, index, label, newButton, icon;
 
         target = event.target;
 
@@ -41,7 +57,6 @@
         newButton.innerHTML = '';
         newButton.appendChild(icon);
 
-        console.info(newElement.innerHTML);
         input = newElement.querySelector('input[name="equipment[]"]');
         try {
             index = 1 + parseInt(input.id.replace(/\D+/gi, ''));
@@ -59,7 +74,25 @@
 
         equipmentPanel.appendChild(newElement);
 
+        addEventListenersToInput(input);
         input.focus();
-        input.blur();
     });
+
+    function addEventListenersToInput(input) {
+        if (input.type !== 'text' && input.name !== 'equipment[]') {
+            throw 'Invalid input to add event listeners to.';
+        }
+
+        input.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13) {
+                if (event.target.value.trim()) {
+                    // Click on the "Add" button if current input has a value
+                    addButton.click();
+                }
+
+                // Stop default behavior when pressing "Enter"
+                event.preventDefault();
+            }
+        });
+    }
 })(jQuery, window);
