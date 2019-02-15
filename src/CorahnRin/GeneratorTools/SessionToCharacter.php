@@ -236,27 +236,26 @@ final class SessionToCharacter
             if (!$value) {
                 continue;
             }
-            $charAdvantage = CharacterAdvantageItem::create(
-                $character,
-                $this->advantages[$id],
-                $value,
-                $values['11_advantages']['advantages_indications'][$id] ?? ''
-            );
-            $character->addAdvantage($charAdvantage);
+            $this->addAdvantageToCharacter($character, $values, $id, $value);
         }
 
         foreach ($values['11_advantages']['disadvantages'] as $id => $value) {
             if (!$value) {
                 continue;
             }
-            $charAdvantage = CharacterAdvantageItem::create(
-                $character,
-                $this->advantages[$id],
-                $value,
-                $values['11_advantages']['advantages_indications'][$id] ?? ''
-            );
-            $character->addAdvantage($charAdvantage);
+            $this->addAdvantageToCharacter($character, $values, $id, $value);
         }
+    }
+
+    private function addAdvantageToCharacter(Character $character, array $values, int $id, int $value): void
+    {
+        $charAdvantage = CharacterAdvantageItem::create(
+            $character,
+            $this->advantages[$id],
+            $value,
+            $values['11_advantages']['advantages_indications'][$id] ?? ''
+        );
+        $character->addAdvantage($charAdvantage);
     }
 
     private function setMentalDisorder(Character $character, array $values): void
@@ -300,11 +299,11 @@ final class SessionToCharacter
     private function setDescription(Character $character, array $values): void
     {
         $details = $values['19_description'];
-        $character->setPlayerName($details['player_name']);
+        $character->setPlayerName(\trim($details['player_name']));
         $character->setSex($details['sex']);
-        $character->setDescription($details['description']);
-        $character->setStory($details['story']);
-        $character->setFacts($details['facts']);
+        $character->setDescription(\trim($details['description']));
+        $character->setStory(\trim($details['story']));
+        $character->setFacts(\trim($details['facts']));
     }
 
     private function setExp(Character $character, array $values): void

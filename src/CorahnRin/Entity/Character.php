@@ -508,7 +508,7 @@ class Character extends BaseCharacter
 
     public function __construct(string $name)
     {
-        parent::__construct($name, Transliterator::urlize($name));
+        parent::__construct(\trim($name), Transliterator::urlize($name));
         $this->maxHealth = new HealthCondition();
         $this->armors = new ArrayCollection();
         $this->artifacts = new ArrayCollection();
