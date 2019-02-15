@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+    # To use with PHPStorm's Docker integration for scripts.
+    # If PHPStorm uses the "php" container, it will recreate it on each execution with a different command,
+    # therefore breaking the HTTP workflow.
+    php_tests:
+        image: 'pierstoval/studio-agate-portal:latest'
+        working_dir: /srv/
+        volumes:
+            - ./:/srv
+            - ~/.composer/cache:/root/.composer/cache
+        links:
+            - db
+
+    # ============= BLACKFIRE =============
+
+    # Add your credentials here to run blackfire in CLI
+    php:
+        environment:
+            - BLACKFIRE_CLIENT_ID=
+            - BLACKFIRE_CLIENT_TOKEN=
+            - BLACKFIRE_SERVER_ID=
+            - BLACKFIRE_SERVER_TOKEN=
+
+    # Add your credentials here to run blackfire in HTTP with the Companion
+    blackfire:
+        environment:
+            - BLACKFIRE_CLIENT_ID=
+            - BLACKFIRE_CLIENT_TOKEN=
+            - BLACKFIRE_SERVER_ID=
+            - BLACKFIRE_SERVER_TOKEN=

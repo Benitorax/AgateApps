@@ -27,7 +27,7 @@ help:
 .PHONY: help
 
 install: ## Install and start the project
-install: build node_modules start vendor db test-db fixtures assets map-tiles
+install: docker-compose.override.yaml build node_modules start vendor db test-db fixtures assets map-tiles
 .PHONY: install
 
 build: ## Build the Docker images
@@ -55,6 +55,14 @@ clean: ## Stop the project and remove generated files and configuration
 clean: kill
 	rm -rf vendor node_modules build var/cache/* var/log/* var/sessions/*
 .PHONY: clean
+
+docker-compose.override.yaml:
+	@if [ -f docker-compose.override.yaml ]; then \
+		echo "\"docker-compose.override.yaml\" file exists. Not rewriting it.";\
+	else \
+		echo "Creating docker-compose.override.yaml";\
+		cp docker-compose.override.yaml.dist docker-compose.override.yaml;\
+	fi;
 
 ##
 ## Tools

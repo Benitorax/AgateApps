@@ -3,7 +3,7 @@
 /node_modules/
 
 .php_cs.cache
-docker-compose.override.yml
+docker-compose.override.yaml
 
 # Esteren Maps
 /public/maps_tiles/*

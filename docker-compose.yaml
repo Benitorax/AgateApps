@@ -16,6 +16,12 @@ services:
         links:
             - db
             - mailcatcher
+            - blackfire
+        environment:
+            - BLACKFIRE_SOCKET=tcp://blackfire:8707
+
+    blackfire:
+        image: blackfire/blackfire
 
     mailcatcher:
         image: tophfr/mailcatcher:latest
