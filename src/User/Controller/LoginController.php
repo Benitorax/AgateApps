@@ -19,11 +19,14 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use User\Entity\User;
 use User\Security\FormLoginAuthenticator;
 
 class LoginController extends AbstractController
 {
+    use TargetPathTrait;
+
     /**
      * @Route("/login", name="user_login", methods={"GET", "POST"})
      */
@@ -31,6 +34,12 @@ class LoginController extends AbstractController
     {
         if ($this->getUser() instanceof User) {
             return $this->redirect('/'.$request->getLocale().'/');
+        }
+
+        $redirectUrl = $request->query->get('redirect_url');
+
+        if ($redirectUrl) {
+            $this->saveTargetPath($request->getSession(), 'main', $redirectUrl);
         }
 
         $error = null;
