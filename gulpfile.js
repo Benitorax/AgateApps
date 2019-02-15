@@ -610,12 +610,12 @@ gulp.task('watch', gulp.series(/*'dump', */gulp.parallel(function(done) {
         callback = function(event) {
             console.log('File "' + event + '" updated');
 
-            let envFile = __dirname + path.sep + '.env';
+            let envFile = __dirname + path.sep + '.env.local';
             fs.exists(envFile, function(exists) {
                 if (!exists) {
-                    console.log('No env file.');
-                    done();
-                    return;
+                    console.log('No env file. Creating it.');
+
+                    fs.writeFileSync(envFile, "\nRELEASE_VERSION=\"v0\"\n");
                 }
 
                 console.log('Opening env file ' + envFile);
