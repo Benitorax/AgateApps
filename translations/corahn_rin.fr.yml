@@ -333,6 +333,19 @@ steps.17_combat_arts: 'Arts de combat'
 steps.18_equipment: 'Équipment'
 steps.19_description: 'Description'
 steps.20_finish: 'Finalisation'
+steps.20_finish.message: |
+    Votre personnage est terminé !<br>
+    Vous pouvez examiner ses détails sur cette page et remplir votre feuille de personnage avec les valeurs pré-calculées.<br>
+steps.20_finish.no_user_message: |
+    Pour sauvegarder le personnage sur Corahn-Rin, nous vous invitons à vous <strong>inscrire</strong> ou vous <strong>connecter</strong>,
+    de cette façon, vous pourrez utiliser votre personnage dans une partie de jeu et lui faire gagner
+    de l'expérience pour le faire évoluer.
+steps.20_finish.register_button_text: Je m'<strong>inscris</strong> pour sauvegarder mon personnage
+steps.20_finish.login_button_text: Je me <strong>connecte</strong> pour sauvegarder mon personnage
+steps.20_finish.save_to_database_message: |
+    Vous pouvez désormais <strong>sauvegarder votre personnage</strong> dans Corahn-Rin pour pouvoir l'utiliser dans une
+    partie et lui faire gagner de l'expérience.
+steps.20_finish.save_to_database_button_text: Sauvegarder mon personnage
 
 advantages.indication.ally_isolated.form: Indiquez un détail sur l'allié
 advantages.indication.ally_mentor.form: Indiquez un détail sur l'allié

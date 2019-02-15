@@ -2,7 +2,7 @@
 
 {% set dropdown = dropdown|default(false) %}
 
-{% if app.user.username is not defined %}
+{% if not app.user %}
     <li><a class="login_link" href="{{ path('user_login') }}">{{ 'layout.login' | trans({}, 'user') }}</a></li>
     <li><a class="register_link" href="{{ path('user_register') }}">{{ 'layout.register' | trans({}, 'user') }}</a></li>
 {% else %}
@@ -16,19 +16,19 @@
         <li><a class="logout_link" href="{{ path('user_logout') }}">{{ 'layout.logout' | trans({}, 'user')|trim }}</a></li>
     {% endset %}
 
-    <li>
-        {% if dropdown %}
-            <a href="#" class="dropdown-button sidenav-trigger" data-target="profile-dropdown">
+    {% if dropdown %}
+        <li>
+            <a href="#" class="dropdown-button" data-target="profile-dropdown">
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'user') -}}
                 &nbsp;<span class="fa fa-caret-down"></span>
             </a>
             <ul id="profile-dropdown" class="dropdown-content">
                 {{ links }}
             </ul>
-        {% else %}
-            {{ links }}
-        {% endif %}
-    </li>
+        </li>
+    {% else %}
+        {{ links }}
+    {% endif %}
 {% endif %}
 
 <li><a href="{{ path('contact') }}">{{ 'menu.contact' | trans({}, 'agate') }}</a></li>

@@ -335,6 +335,18 @@ steps.17_combat_arts: 'Combat Arts'
 steps.18_equipment: 'Equipment'
 steps.19_description: 'Description'
 steps.20_finish: 'Finish'
+steps.20_finish.message: |
+    Your character is finished!<br>
+    You can check its details on this page and fill your personal character sheet with the pre-calculated values.<br>
+steps.20_finish.no_user_message: |
+    To save the character on Corahn-Rin, we invite you to <strong>subscribe</strong> or <strong>login</strong>, this
+    way you will be able to use your character in a game and make it earn experience and skills.
+steps.20_finish.register_button_text: <strong>Register</strong> to save my character
+steps.20_finish.login_button_text: <strong>Login</strong> to save my character
+steps.20_finish.save_to_database_message: |
+    As you are logged in, you can <strong>save the character</strong> on Corahn-Rin so you can use it in a game and make
+    it earn experience and skills.
+steps.20_finish.save_to_database_button_text: Save my character
 
 advantages.indication.ally_isolated.form: Specify details about the ally
 advantages.indication.ally_mentor.form: Specify details about the ally
