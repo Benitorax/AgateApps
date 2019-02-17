@@ -21,6 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Translation\TranslatorInterface;
 use User\Entity\User;
 use User\Form\Type\RegistrationFormType;
@@ -30,6 +31,7 @@ use User\Util\TokenGeneratorTrait;
 
 class RegistrationController extends AbstractController
 {
+    use TargetPathTrait;
     use TokenGeneratorTrait;
 
     private $passwordEncoder;
@@ -56,6 +58,12 @@ class RegistrationController extends AbstractController
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('user_profile_edit');
+        }
+
+        $redirectUrl = $request->query->get('redirect_url');
+
+        if ($redirectUrl) {
+            $this->saveTargetPath($request->getSession(), 'main', $redirectUrl);
         }
 
         $user = new User();
@@ -112,13 +120,13 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register/confirm/{token}", name="user_registration_confirm", requirements={"token" = ".+"}, methods={"GET"})
      */
-    public function confirmAction(string $token, string $_locale)
+    public function confirmAction(string $token)
     {
-        /** @var \User\Entity\User|null $user */
+        /** @var User|null $user */
         $user = $this->userRepository->findOneBy(['confirmationToken' => $token]);
 
         if (null === $user) {
-            throw new NotFoundHttpException(\sprintf('The user with confirmation token "%s" does not exist', $token));
+            return $this->redirectToRoute('user_login');
         }
 
         $user->setConfirmationToken(null);
@@ -130,6 +138,6 @@ class RegistrationController extends AbstractController
 
         $this->addFlash('success', $this->translator->trans('registration.confirmed', ['%username%' => $user->getUsername()], 'user'));
 
-        return $this->redirect('/'.$_locale);
+        return $this->redirectToRoute('user_login');
     }
 }
