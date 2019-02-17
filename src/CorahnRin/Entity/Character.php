@@ -95,7 +95,7 @@ class Character extends BaseCharacter
     /**
      * @var string
      *
-     * @ORM\Column(name="sex", type="string", length=1, nullable=false)
+     * @ORM\Column(name="sex", type="string", length=30, nullable=false)
      */
     protected $sex;
 
@@ -130,7 +130,7 @@ class Character extends BaseCharacter
     /**
      * @var array
      *
-     * @ORM\Column(name="treasures", type="simple_array")
+     * @ORM\Column(name="treasures", type="simple_array", nullable=true)
      */
     protected $treasures = [];
 
@@ -144,7 +144,7 @@ class Character extends BaseCharacter
     /**
      * @var string
      *
-     * @ORM\Column(name="orientation", type="string", length=30)
+     * @ORM\Column(name="orientation", type="string", length=40)
      */
     protected $orientation;
 
@@ -441,7 +441,7 @@ class Character extends BaseCharacter
     /**
      * @var CharacterAdvantageItem[]|Collection
      *
-     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem", mappedBy="character")
+     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem", mappedBy="character", cascade={"persist", "remove"})
      */
     protected $advantages;
 
@@ -455,7 +455,7 @@ class Character extends BaseCharacter
     /**
      * @var CharDisciplines[]|Collection
      *
-     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharDisciplines", mappedBy="character")
+     * @ORM\OneToMany(targetEntity="CorahnRin\Entity\CharacterProperties\CharDisciplines", mappedBy="character", cascade={"persist", "remove"})
      */
     protected $disciplines;
 
@@ -652,7 +652,7 @@ class Character extends BaseCharacter
      */
     public function getTreasures(): iterable
     {
-        return $this->treasures;
+        return $this->treasures ?: [];
     }
 
     public function setMoney(Money $money): self
