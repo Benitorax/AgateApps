@@ -21,9 +21,11 @@
                 <span id="remaining_exp_points" class="text-black">{{ exp_value }}</span>&nbsp;/<span id="max_exp_points" class="text-black">{{ exp_max }}</span>
             </div>
             <br>
-            {{ 'disciplines_spend_exp.remaining_bonus_points'|trans }}
-            <div class="bonus_points_element chip bordered" id="bonus_points">
-                <span id="remaining_bonus_points" class="text-black">{{ bonus_value }}</span>&nbsp;/<span id="max_bonus_points" class="text-black">{{ bonus_max }}</span>
+            <div class="{{ bonus_max is same as(0) ? 'hide' }}">
+                {{ 'disciplines_spend_exp.remaining_bonus_points'|trans }}
+                <div class="bonus_points_element chip bordered" id="bonus_points">
+                    <span id="remaining_bonus_points" class="text-black">{{ bonus_value }}</span>&nbsp;/<span id="max_bonus_points" class="text-black">{{ bonus_max }}</span>
+                </div>
             </div>
         </div>
 
