@@ -30,7 +30,7 @@ class UniqueSubscriptionValidatorTest extends TestCase
         };
 
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Subscription\\Constraint\\UniqueSubscription", "'.get_class($constraint).'" given');
+        $this->expectExceptionMessage('Expected argument of type "Subscription\\Constraint\\UniqueSubscription", "'.\get_class($constraint).'" given');
 
         $this->getValidator()->validate($this->createMock(Subscription::class), $constraint);
     }
