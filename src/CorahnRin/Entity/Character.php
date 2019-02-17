@@ -15,7 +15,7 @@ namespace CorahnRin\Entity;
 
 use Behat\Transliterator\Transliterator;
 use CorahnRin\Data\DomainsData;
-use CorahnRin\Data\Orientation;
+use CorahnRin\DTO\CharacterFromSessionDTO;
 use CorahnRin\Entity\CharacterProperties\Bonuses;
 use CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem;
 use CorahnRin\Entity\CharacterProperties\CharacterDomains;
@@ -488,7 +488,12 @@ class Character extends BaseCharacter
      */
     protected $game;
 
-    public function __construct(string $name)
+    public static function createFromSession(CharacterFromSessionDTO $characterFromSession): self
+    {
+        $self = new self($characterFromSession->getName());
+    }
+
+    private function __construct(string $name)
     {
         parent::__construct(\trim($name), Transliterator::urlize($name));
         $this->maxHealth = new HealthCondition();
@@ -509,37 +514,9 @@ class Character extends BaseCharacter
         return $this->id;
     }
 
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public function setPlayerName(string $playerName): self
-    {
-        $this->playerName = $playerName;
-
-        return $this;
-    }
-
     public function getPlayerName(): string
     {
         return $this->playerName;
-    }
-
-    public function setSex(string $sex): self
-    {
-        if ($sex !== static::MALE && $sex !== static::FEMALE) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Sex must be either "%s" or "%s", "%s" given.',
-                static::MALE, static::FEMALE, $sex
-            ));
-        }
-
-        $this->sex = $sex;
-
-        return $this;
     }
 
     public function getSex(): string
@@ -547,23 +524,9 @@ class Character extends BaseCharacter
         return $this->sex;
     }
 
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
     public function getDescription(): string
     {
         return $this->description;
-    }
-
-    public function setStory(string $story): self
-    {
-        $this->story = $story;
-
-        return $this;
     }
 
     public function getStory(): string
@@ -571,35 +534,9 @@ class Character extends BaseCharacter
         return $this->story;
     }
 
-    public function setFacts(string $facts): self
-    {
-        $this->facts = $facts;
-
-        return $this;
-    }
-
     public function getFacts(): string
     {
         return $this->facts;
-    }
-
-    public function setInventory(array $inventory): self
-    {
-        foreach ($inventory as $k => $item) {
-            $item = \trim($item);
-            if (!$item) {
-                unset($inventory[$k]);
-                continue;
-            }
-
-            if (!\is_string($item) || \is_numeric($item)) {
-                throw new \InvalidArgumentException('Provided item must be a non-numeric string.');
-            }
-        }
-
-        $this->inventory = $inventory;
-
-        return $this;
     }
 
     /**
@@ -610,25 +547,6 @@ class Character extends BaseCharacter
         return $this->inventory;
     }
 
-    public function setTreasures(array $treasures): self
-    {
-        foreach ($treasures as $k => $treasure) {
-            $treasure = \trim($treasure);
-            if (!$treasure) {
-                unset($treasures[$k]);
-                continue;
-            }
-
-            if (!\is_string($treasure) || \is_numeric($treasure)) {
-                throw new \InvalidArgumentException('Provided treasure must be a non-numeric string.');
-            }
-        }
-
-        $this->treasures = $treasures;
-
-        return $this;
-    }
-
     /**
      * @return string[]|iterable
      */
@@ -637,30 +555,9 @@ class Character extends BaseCharacter
         return $this->treasures ?: [];
     }
 
-    public function setMoney(Money $money): self
-    {
-        $this->money = $money;
-
-        return $this;
-    }
-
     public function getMoney(): Money
     {
         return $this->money;
-    }
-
-    public function setOrientation(string $orientation): self
-    {
-        if (!\array_key_exists($orientation, Orientation::ALL)) {
-            throw new \InvalidArgumentException(\sprintf(
-                'Orientation must be one value in "%s", "%s" given.',
-                \implode('", "', \array_keys(Orientation::ALL)), $orientation
-            ));
-        }
-
-        $this->orientation = $orientation;
-
-        return $this;
     }
 
     public function getOrientation(): string
@@ -668,27 +565,9 @@ class Character extends BaseCharacter
         return $this->orientation;
     }
 
-    public function setGeoLiving(GeoEnvironment $geoLiving): self
-    {
-        $this->geoLiving = $geoLiving;
-
-        return $this;
-    }
-
     public function getGeoLiving(): GeoEnvironment
     {
         return $this->geoLiving;
-    }
-
-    public function setTemporaryTrauma(int $trauma): self
-    {
-        if ($trauma < 0) {
-            throw new \InvalidArgumentException('Temporary trauma must be equal or superior to zero.');
-        }
-
-        $this->temporaryTrauma = $trauma;
-
-        return $this;
     }
 
     public function getTemporaryTrauma(): int
@@ -696,47 +575,14 @@ class Character extends BaseCharacter
         return $this->temporaryTrauma;
     }
 
-    public function setPermanentTrauma($permanentTrauma): self
-    {
-        if ($permanentTrauma < 0) {
-            throw new \InvalidArgumentException('Permanent trauma must be equal or superior to zero.');
-        }
-
-        $this->permanentTrauma = $permanentTrauma;
-
-        return $this;
-    }
-
     public function getPermanentTrauma(): int
     {
         return $this->permanentTrauma;
     }
 
-    public function setHardening(int $hardening): self
-    {
-        if ($hardening < 0) {
-            throw new \InvalidArgumentException('Hardening must be equal or superior to zero.');
-        }
-
-        $this->hardening = $hardening;
-
-        return $this;
-    }
-
     public function getHardening(): int
     {
         return $this->hardening;
-    }
-
-    public function setAge(int $age): self
-    {
-        if ($age < 1) {
-            throw new \InvalidArgumentException('Age must be equal or superior to one.');
-        }
-
-        $this->age = $age;
-
-        return $this;
     }
 
     public function getAge(): int
@@ -747,13 +593,6 @@ class Character extends BaseCharacter
     public function getMentalResistanceBonus(): int
     {
         return $this->mentalResistanceBonus;
-    }
-
-    public function setMentalResistanceBonus(int $mentalResistanceBonus): self
-    {
-        $this->mentalResistanceBonus = $mentalResistanceBonus;
-
-        return $this;
     }
 
     public function getCombativeness(): int
@@ -791,40 +630,14 @@ class Character extends BaseCharacter
         return $this->ways;
     }
 
-    public function setWay(Ways $ways): void
-    {
-        $this->ways = $ways;
-    }
-
-    public function setHealth(HealthCondition $health): self
-    {
-        $this->health = $health;
-
-        return $this;
-    }
-
     public function getHealth(): HealthCondition
     {
         return $this->health;
     }
 
-    public function setMaxHealth(HealthCondition $maxHealth): self
-    {
-        $this->maxHealth = $maxHealth;
-
-        return $this;
-    }
-
     public function getMaxHealth(): HealthCondition
     {
         return $this->maxHealth;
-    }
-
-    public function setStamina(int $stamina): self
-    {
-        $this->stamina = $stamina;
-
-        return $this;
     }
 
     public function getStamina(): int
@@ -837,28 +650,9 @@ class Character extends BaseCharacter
         return $this->staminaBonus;
     }
 
-    public function setStaminaBonus(int $staminaBonus): void
-    {
-        $this->staminaBonus = $staminaBonus;
-    }
-
-    public function setSurvival(int $survival): self
-    {
-        $this->survival = $survival;
-
-        return $this;
-    }
-
     public function getSurvival(): int
     {
         return $this->survival;
-    }
-
-    public function setSpeed(int $speed): self
-    {
-        $this->speed = $speed;
-
-        return $this;
     }
 
     public function getSpeed(): int
@@ -871,20 +665,6 @@ class Character extends BaseCharacter
         return $this->speedBonus;
     }
 
-    public function setSpeedBonus(int $speedBonus): self
-    {
-        $this->speedBonus = $speedBonus;
-
-        return $this;
-    }
-
-    public function setDefense(int $defense): self
-    {
-        $this->defense = $defense;
-
-        return $this;
-    }
-
     public function getDefense(): int
     {
         return $this->defense;
@@ -893,18 +673,6 @@ class Character extends BaseCharacter
     public function getDefenseBonus(): int
     {
         return $this->defenseBonus;
-    }
-
-    public function setDefenseBonus(int $defenseBonus): void
-    {
-        $this->defenseBonus = $defenseBonus;
-    }
-
-    public function setRindath(int $rindath): self
-    {
-        $this->rindath = $rindath;
-
-        return $this;
     }
 
     public function getRindath(): int
@@ -917,20 +685,6 @@ class Character extends BaseCharacter
         return $this->rindathMax;
     }
 
-    public function setRindathMax(int $rindathMax): self
-    {
-        $this->rindathMax = $rindathMax;
-
-        return $this;
-    }
-
-    public function setExaltation(int $exaltation): self
-    {
-        $this->exaltation = $exaltation;
-
-        return $this;
-    }
-
     public function getExaltation(): int
     {
         return $this->exaltation;
@@ -941,30 +695,9 @@ class Character extends BaseCharacter
         return $this->exaltationMax;
     }
 
-    public function setExaltationMax(int $exaltationMax): self
-    {
-        $this->exaltationMax = $exaltationMax;
-
-        return $this;
-    }
-
-    public function setExperienceActual(int $experienceActual): self
-    {
-        $this->experienceActual = $experienceActual;
-
-        return $this;
-    }
-
     public function getExperienceActual(): int
     {
         return $this->experienceActual;
-    }
-
-    public function setExperienceSpent(int $experienceSpent): self
-    {
-        $this->experienceSpent = $experienceSpent;
-
-        return $this;
     }
 
     public function getExperienceSpent(): int
@@ -972,30 +705,9 @@ class Character extends BaseCharacter
         return $this->experienceSpent;
     }
 
-    public function setPeople(People $people): self
-    {
-        $this->people = $people;
-
-        return $this;
-    }
-
     public function getPeople(): People
     {
         return $this->people;
-    }
-
-    public function addArmor(Armor $armor): self
-    {
-        $this->armors[] = $armor;
-
-        return $this;
-    }
-
-    public function removeArmor(Armor $armor): self
-    {
-        $this->armors->removeElement($armor);
-
-        return $this;
     }
 
     /**
@@ -1006,40 +718,12 @@ class Character extends BaseCharacter
         return $this->armors;
     }
 
-    public function addArtifact(MagienceArtifact $artifact): self
-    {
-        $this->artifacts[] = $artifact;
-
-        return $this;
-    }
-
-    public function removeArtifact(MagienceArtifact $artifact): self
-    {
-        $this->artifacts->removeElement($artifact);
-
-        return $this;
-    }
-
     /**
      * @return MagienceArtifact[]|iterable
      */
     public function getArtifacts(): iterable
     {
         return $this->artifacts;
-    }
-
-    public function addMiracle(Miracle $miracle): self
-    {
-        $this->miracles[] = $miracle;
-
-        return $this;
-    }
-
-    public function removeMiracle(Miracle $miracle): self
-    {
-        $this->miracles->removeElement($miracle);
-
-        return $this;
     }
 
     /**
@@ -1050,40 +734,12 @@ class Character extends BaseCharacter
         return $this->miracles;
     }
 
-    public function addOgham(Ogham $ogham): self
-    {
-        $this->ogham[] = $ogham;
-
-        return $this;
-    }
-
-    public function removeOgham(Ogham $ogham): self
-    {
-        $this->ogham->removeElement($ogham);
-
-        return $this;
-    }
-
     /**
      * @return Ogham[]|iterable
      */
     public function getOgham(): iterable
     {
         return $this->ogham;
-    }
-
-    public function addWeapon(Weapon $weapon): self
-    {
-        $this->weapons[] = $weapon;
-
-        return $this;
-    }
-
-    public function removeWeapon(Weapon $weapon): self
-    {
-        $this->weapons->removeElement($weapon);
-
-        return $this;
     }
 
     /**
@@ -1094,20 +750,6 @@ class Character extends BaseCharacter
         return $this->weapons;
     }
 
-    public function addCombatArt(CombatArt $combatArt): self
-    {
-        $this->combatArts[] = $combatArt;
-
-        return $this;
-    }
-
-    public function removeCombatArt(CombatArt $combatArt): self
-    {
-        $this->combatArts->removeElement($combatArt);
-
-        return $this;
-    }
-
     /**
      * @return CombatArt[]|iterable
      */
@@ -1116,35 +758,14 @@ class Character extends BaseCharacter
         return $this->combatArts;
     }
 
-    public function setSocialClass(SocialClass $socialClass = null): self
-    {
-        $this->socialClass = $socialClass;
-
-        return $this;
-    }
-
     public function getSocialClass(): SocialClass
     {
         return $this->socialClass;
     }
 
-    public function setSocialClassDomain1(string $socialClassDomain1 = null): void
-    {
-        DomainsData::validateDomain($socialClassDomain1);
-
-        $this->socialClassDomain1 = $socialClassDomain1;
-    }
-
     public function getSocialClassDomain1(): string
     {
         return $this->socialClassDomain1;
-    }
-
-    public function setSocialClassDomain2(string $socialClassDomain2 = null): void
-    {
-        DomainsData::validateDomain($socialClassDomain2);
-
-        $this->socialClassDomain2 = $socialClassDomain2;
     }
 
     public function getSocialClassDomain2(): string
@@ -1157,30 +778,9 @@ class Character extends BaseCharacter
         return $this->ostService;
     }
 
-    public function setOstService(string $ostService): void
-    {
-        DomainsData::validateDomain($ostService);
-
-        $this->ostService = $ostService;
-    }
-
-    public function setMentalDisorder(MentalDisorder $mentalDisorder = null): self
-    {
-        $this->mentalDisorder = $mentalDisorder;
-
-        return $this;
-    }
-
     public function getMentalDisorder(): MentalDisorder
     {
         return $this->mentalDisorder;
-    }
-
-    public function setJob(Job $job = null): self
-    {
-        $this->job = $job;
-
-        return $this;
     }
 
     public function getJob(): Job
@@ -1188,23 +788,9 @@ class Character extends BaseCharacter
         return $this->job;
     }
 
-    public function setBirthPlace(Zone $birthPlace = null): self
-    {
-        $this->birthPlace = $birthPlace;
-
-        return $this;
-    }
-
     public function getBirthPlace(): Zone
     {
         return $this->birthPlace;
-    }
-
-    public function setFlaw(PersonalityTrait $flaw = null): self
-    {
-        $this->flaw = $flaw;
-
-        return $this;
     }
 
     public function getFlaw(): PersonalityTrait
@@ -1212,30 +798,9 @@ class Character extends BaseCharacter
         return $this->flaw;
     }
 
-    public function setQuality(PersonalityTrait $quality = null): self
-    {
-        $this->quality = $quality;
-
-        return $this;
-    }
-
     public function getQuality(): PersonalityTrait
     {
         return $this->quality;
-    }
-
-    public function addAdvantage(CharacterAdvantageItem $advantage): self
-    {
-        $this->advantages[] = $advantage;
-
-        return $this;
-    }
-
-    public function removeAdvantage(CharacterAdvantageItem $advantage): self
-    {
-        $this->advantages->removeElement($advantage);
-
-        return $this;
     }
 
     /**
@@ -1246,28 +811,9 @@ class Character extends BaseCharacter
         return $this->advantages;
     }
 
-    public function setDomains(CharacterDomains $domain): void
-    {
-        $this->domains = $domain;
-    }
-
     public function getDomains(): CharacterDomains
     {
         return $this->domains;
-    }
-
-    public function addDiscipline(CharDisciplines $discipline): self
-    {
-        $this->disciplines[] = $discipline;
-
-        return $this;
-    }
-
-    public function removeDiscipline(CharDisciplines $discipline): self
-    {
-        $this->disciplines->removeElement($discipline);
-
-        return $this;
     }
 
     /**
@@ -1278,40 +824,12 @@ class Character extends BaseCharacter
         return $this->disciplines;
     }
 
-    public function addFlux(CharFlux $flux): self
-    {
-        $this->flux[] = $flux;
-
-        return $this;
-    }
-
-    public function removeFlux(CharFlux $flux): self
-    {
-        $this->flux->removeElement($flux);
-
-        return $this;
-    }
-
     /**
      * @return CharFlux[]|iterable
      */
     public function getFlux(): iterable
     {
         return $this->flux;
-    }
-
-    public function addSetback(CharSetbacks $setback): self
-    {
-        $this->setbacks[] = $setback;
-
-        return $this;
-    }
-
-    public function removeSetback(CharSetbacks $setback): self
-    {
-        $this->setbacks->removeElement($setback);
-
-        return $this;
     }
 
     /**
@@ -1322,23 +840,9 @@ class Character extends BaseCharacter
         return $this->setbacks;
     }
 
-    public function setUser(User $user = null): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getUser(): User
     {
         return $this->user;
-    }
-
-    public function setGame(Game $game = null): self
-    {
-        $this->game = $game;
-
-        return $this;
     }
 
     public function getGame(): ?Game

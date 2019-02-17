@@ -16,6 +16,7 @@ namespace CorahnRin\GeneratorTools;
 use CorahnRin\Data\DomainItem;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Ways as WaysData;
+use CorahnRin\DTO\CharacterFromSessionDTO;
 use CorahnRin\Entity\Advantage;
 use CorahnRin\Entity\Armor;
 use CorahnRin\Entity\Character;
@@ -38,6 +39,7 @@ use CorahnRin\Entity\Setback;
 use CorahnRin\Entity\SocialClass;
 use CorahnRin\Entity\Weapon;
 use CorahnRin\Exception\CharacterException;
+use CorahnRin\Exception\InvalidSessionToCharacterValue;
 use CorahnRin\Repository\CharacterAdvantageRepository;
 use CorahnRin\Repository\SetbacksRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -104,32 +106,32 @@ final class SessionToCharacter
             throw new CharacterException('Generator seems not to be fully finished');
         }
 
-        $character = new Character($values['19_description']['name']);
+        $characterDTO = new CharacterFromSessionDTO();
 
-        $character->setCreated(new \DateTime());
-        $this->setPeople($character, $values);
-        $this->setJob($character, $values);
-        $this->setBirthPlace($character, $values);
-        $this->setGeoLiving($character, $values);
-        $this->setSocialClass($character, $values);
-        $this->setAge($character, $values);
-        $this->setSetbacks($character, $values);
-        $this->setWays($character, $values);
-        $this->setTraits($character, $values);
-        $this->setOrientation($character, $values);
-        $this->setAdvantages($character, $values);
-        $this->setMentalDisorder($character, $values);
-        $this->setDisciplines($character, $values);
-        $this->setCombatArts($character, $values);
-        $this->setEquipment($character, $values);
-        $this->setDescription($character, $values);
-        $this->setExp($character, $values);
-        $this->setMoney($character);
-        $this->setDomains($character, $values);
-        $this->setHealthCondition($character);
-        $this->setPrecalculatedValues($character);
+        $characterDTO->setName($values['19_description']['name']);
+        $this->setPeople($characterDTO, $values);
+        $this->setJob($characterDTO, $values);
+        $this->setBirthPlace($characterDTO, $values);
+        $this->setGeoLiving($characterDTO, $values);
+        $this->setSocialClass($characterDTO, $values);
+        $this->setAge($characterDTO, $values);
+        $this->setSetbacks($characterDTO, $values);
+        $this->setWays($characterDTO, $values);
+        $this->setTraits($characterDTO, $values);
+        $this->setOrientation($characterDTO, $values);
+        $this->setAdvantages($characterDTO, $values);
+        $this->setMentalDisorder($characterDTO, $values);
+        $this->setDisciplines($characterDTO, $values);
+        $this->setCombatArts($characterDTO, $values);
+        $this->setEquipment($characterDTO, $values);
+        $this->setDescription($characterDTO, $values);
+        $this->setExp($characterDTO, $values);
+        $this->setMoney($characterDTO);
+        $this->setDomains($characterDTO, $values);
+        $this->setHealthCondition($characterDTO);
+        $this->setPrecalculatedValues($characterDTO);
 
-        return $character;
+        return Character::createFromSession($characterDTO);
     }
 
     /**
@@ -163,27 +165,47 @@ final class SessionToCharacter
         $this->domains = DomainsData::allAsObjects();
     }
 
-    private function setPeople(Character $character, array $values): void
+    private function setPeople(CharacterFromSessionDTO $character, array $values): void
     {
-        $character->setPeople($this->getRepository(People::class)->find($values['01_people']));
+        $people = $this->getRepository(People::class)->find($values['01_people']);
+
+        if (!$people instanceof People) {
+            throw new InvalidSessionToCharacterValue('people', $people, People::class);
+        }
+
+        $character->setPeople($people);
     }
 
-    private function setJob(Character $character, array $values): void
+    private function setJob(CharacterFromSessionDTO $character, array $values): void
     {
-        $character->setJob($this->getRepository(Job::class)->find($values['02_job']));
+        $job = $this->getRepository(Job::class)->find($values['02_job']);
+
+        if (!$job instanceof Job) {
+            throw new InvalidSessionToCharacterValue('job', $job, Job::class);
+        }
+
+        $character->setJob($job);
     }
 
-    private function setBirthPlace(Character $character, array $values): void
+    private function setBirthPlace(CharacterFromSessionDTO $character, array $values): void
     {
-        $character->setBirthPlace($this->getRepository(Zone::class)->find($values['03_birthplace']));
+        $zone = $this->getRepository(Zone::class)->find($values['03_birthplace']));
+
+        if (!$zone instanceof Zone) {
+            throw new InvalidSessionToCharacterValue('birthplace', $zone, Zone::class);
+        }
+
+        $character->setBirthPlace($zone);
     }
 
-    private function setGeoLiving(Character $character, array $values): void
+    private function setGeoLiving(CharacterFromSessionDTO $character, array $values): void
     {
+        // TODO: throw proper exceptions.
+
         $character->setGeoLiving($this->getRepository(GeoEnvironment::class)->find($values['04_geo']));
     }
 
-    private function setSocialClass(Character $character, array $values): void
+    private function setSocialClass(CharacterFromSessionDTO $character, array $values): void
     {
         $character->setSocialClass($this->getRepository(SocialClass::class)->find($values['05_social_class']['id']));
 
@@ -192,12 +214,12 @@ final class SessionToCharacter
         $character->setSocialClassDomain2($domains[1]);
     }
 
-    private function setAge(Character $character, array $values): void
+    private function setAge(CharacterFromSessionDTO $character, array $values): void
     {
         $character->setAge($values['06_age']);
     }
 
-    private function setSetbacks(Character $character, array $values): void
+    private function setSetbacks(CharacterFromSessionDTO $character, array $values): void
     {
         foreach ($values['07_setbacks'] as $id => $details) {
             $charSetback = new CharSetbacks();
@@ -208,9 +230,9 @@ final class SessionToCharacter
         }
     }
 
-    private function setWays(Character $character, array $values): void
+    private function setWays(CharacterFromSessionDTO $character, array $values): void
     {
-        $character->setWay(new Ways(
+        $character->setWays(new Ways(
             $values['08_ways'][WaysData::COMBATIVENESS],
             $values['08_ways'][WaysData::CREATIVITY],
             $values['08_ways'][WaysData::EMPATHY],
@@ -219,18 +241,18 @@ final class SessionToCharacter
         ));
     }
 
-    private function setTraits(Character $character, array $values): void
+    private function setTraits(CharacterFromSessionDTO $character, array $values): void
     {
         $character->setQuality($this->getRepository(PersonalityTrait::class)->find($values['09_traits']['quality']));
         $character->setFlaw($this->getRepository(PersonalityTrait::class)->find($values['09_traits']['flaw']));
     }
 
-    private function setOrientation(Character $character, array $values): void
+    private function setOrientation(CharacterFromSessionDTO $character, array $values): void
     {
         $character->setOrientation($values['10_orientation']);
     }
 
-    private function setAdvantages(Character $character, array $values): void
+    private function setAdvantages(CharacterFromSessionDTO $character, array $values): void
     {
         foreach ($values['11_advantages']['advantages'] as $id => $value) {
             if (!$value) {
@@ -247,7 +269,7 @@ final class SessionToCharacter
         }
     }
 
-    private function addAdvantageToCharacter(Character $character, array $values, int $id, int $value): void
+    private function addAdvantageToCharacter(CharacterFromSessionDTO $character, array $values, int $id, int $value): void
     {
         $charAdvantage = CharacterAdvantageItem::create(
             $character,
@@ -258,12 +280,12 @@ final class SessionToCharacter
         $character->addAdvantage($charAdvantage);
     }
 
-    private function setMentalDisorder(Character $character, array $values): void
+    private function setMentalDisorder(CharacterFromSessionDTO $character, array $values): void
     {
         $character->setMentalDisorder($this->getRepository(MentalDisorder::class)->find($values['12_mental_disorder']));
     }
 
-    private function setDisciplines(Character $character, array $values): void
+    private function setDisciplines(CharacterFromSessionDTO $character, array $values): void
     {
         foreach ($values['16_disciplines']['disciplines'] as $domainId => $disciplines) {
             foreach ($disciplines as $id => $v) {
@@ -277,14 +299,14 @@ final class SessionToCharacter
         }
     }
 
-    private function setCombatArts(Character $character, array $values): void
+    private function setCombatArts(CharacterFromSessionDTO $character, array $values): void
     {
         foreach ($values['17_combat_arts']['combatArts'] as $id => $v) {
             $character->addCombatArt($this->getRepository(CombatArt::class)->find($id));
         }
     }
 
-    private function setEquipment(Character $character, array $values): void
+    private function setEquipment(CharacterFromSessionDTO $character, array $values): void
     {
         $character->setInventory($values['18_equipment']['equipment']);
 
@@ -296,7 +318,7 @@ final class SessionToCharacter
         }
     }
 
-    private function setDescription(Character $character, array $values): void
+    private function setDescription(CharacterFromSessionDTO $character, array $values): void
     {
         $details = $values['19_description'];
         $character->setPlayerName(\trim($details['player_name']));
@@ -306,13 +328,13 @@ final class SessionToCharacter
         $character->setFacts(\trim($details['facts']));
     }
 
-    private function setExp(Character $character, array $values): void
+    private function setExp(CharacterFromSessionDTO $character, array $values): void
     {
         $character->setExperienceActual((int) $values['17_combat_arts']['remainingExp']);
         $character->setExperienceSpent(0);
     }
 
-    private function setMoney(Character $character): void
+    private function setMoney(CharacterFromSessionDTO $character): void
     {
         $money = new Money();
 
@@ -337,7 +359,7 @@ final class SessionToCharacter
         $character->setMoney($money);
     }
 
-    private function setDomains(Character $character, array $values): void
+    private function setDomains(CharacterFromSessionDTO $character, array $values): void
     {
         $domainsBaseValues = $this->domainsCalculator->calculateFromGeneratorData(
             $values['05_social_class']['domains'],
@@ -369,7 +391,7 @@ final class SessionToCharacter
         $character->setOstService($values['13_primary_domains']['ost']);
     }
 
-    private function setHealthCondition(Character $character): void
+    private function setHealthCondition(CharacterFromSessionDTO $character): void
     {
         $health = new HealthCondition();
         $good = $health->getGood();
@@ -408,7 +430,7 @@ final class SessionToCharacter
                         }
                         break;
                     case Bonuses::STAMINA:
-                        $character->setStamina($character->getStamina() + ($charAdvantage->getScore() * $disadvantageRatio));
+                        $character->setStaminaBonus($character->getStaminaBonus() + ($charAdvantage->getScore() * $disadvantageRatio));
                         break;
                     case Bonuses::TRAUMA:
                         $character->setPermanentTrauma($character->getPermanentTrauma() + $charAdvantage->getScore());
@@ -444,11 +466,10 @@ final class SessionToCharacter
         }
 
         $health = new HealthCondition($good, $okay, $bad, $critical);
-        $character->setHealth($health);
-        $character->setMaxHealth(clone $health);
+        $character->setHealthCondition($health);
     }
 
-    private function setPrecalculatedValues(Character $character): void
+    private function setPrecalculatedValues(CharacterFromSessionDTO $character): void
     {
         // Rindath
         $rindathMax =
