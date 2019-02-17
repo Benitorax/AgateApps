@@ -31,6 +31,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use EsterenMaps\Entity\Zone;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Pierstoval\Bundle\CharacterManagerBundle\Entity\Character as BaseCharacter;
 use User\Entity\User;
 
@@ -44,6 +45,8 @@ use User\Entity\User;
  */
 class Character extends BaseCharacter
 {
+    use TimestampableEntity;
+
     public const FEMALE = 'character.sex.female';
     public const MALE = 'character.sex.male';
 
@@ -484,27 +487,6 @@ class Character extends BaseCharacter
      * @ORM\ManyToOne(targetEntity="CorahnRin\Entity\Game", inversedBy="characters")
      */
     protected $game;
-
-    /**
-     * @var \DateTimeInterface
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=false)
-     */
-    protected $created;
-
-    /**
-     * @var \DateTimeInterface
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=false)
-     */
-    protected $updated;
-
-    /**
-     * @var \DateTimeInterface
-     *
-     * @ORM\Column(name="deleted", type="datetime", nullable=true)
-     */
-    protected $deleted;
 
     public function __construct(string $name)
     {
@@ -988,42 +970,6 @@ class Character extends BaseCharacter
     public function getExperienceSpent(): int
     {
         return $this->experienceSpent;
-    }
-
-    public function setCreated(\DateTimeInterface $created): self
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    public function getCreated(): \DateTimeInterface
-    {
-        return $this->created;
-    }
-
-    public function setUpdated(\DateTimeInterface $updated): self
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    public function getUpdated(): \DateTimeInterface
-    {
-        return $this->updated;
-    }
-
-    public function setDeleted(\DateTimeInterface $deleted = null): self
-    {
-        $this->deleted = $deleted;
-
-        return $this;
-    }
-
-    public function getDeleted(): \DateTimeInterface
-    {
-        return $this->deleted;
     }
 
     public function setPeople(People $people): self
