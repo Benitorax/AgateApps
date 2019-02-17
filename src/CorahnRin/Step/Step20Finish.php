@@ -67,7 +67,10 @@ class Step20Finish extends AbstractStepAction
             $this->em->persist($character);
             $this->em->flush();
 
-            return new RedirectResponse($this->router->generate('corahnrin_characters_view', ['id' => $character->getId()]));
+            return new RedirectResponse($this->router->generate('corahnrin_characters_view', [
+                'id' => $character->getId(),
+                'nameSlug' => $character->getNameSlug(),
+            ]));
         }
 
         return $this->renderCurrentStep([
