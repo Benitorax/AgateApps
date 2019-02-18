@@ -13,7 +13,7 @@
         {% set total = total + value %}
     {% endfor %}
     {{ 'ways.total'|trans({}, 'corahn_rin') }}
-    <span id="sum_output" class="btn btn-small {{ total == 15 ? 'green' : 'red' }} lighten-2">{{ total }}</span>
+    <span id="sum_output" class="btn {{ total == 15 ? 'green' : 'red' }} lighten-2">{{ total }}</span>
 </div>
 
 {% for way, description in ways_list %}
@@ -26,7 +26,7 @@
 
                 {# "minus" button #}
                 <button
-                    class="btn btn-small"
+                    class="btn"
                     data-toggle-increment
                     data-ti-increment-min="1"
                     data-ti-increment-max="5"
@@ -44,7 +44,7 @@
 
                 {# "plus" button #}
                 <button
-                    class="btn btn-small"
+                    class="btn"
                     data-toggle-increment
                     data-ti-increment-min="1"
                     data-ti-increment-max="5"
