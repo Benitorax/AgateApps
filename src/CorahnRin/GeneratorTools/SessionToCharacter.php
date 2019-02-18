@@ -189,7 +189,7 @@ final class SessionToCharacter
 
     private function setBirthPlace(CharacterFromSessionDTO $character, array $values): void
     {
-        $zone = $this->getRepository(Zone::class)->find($values['03_birthplace']));
+        $zone = $this->getRepository(Zone::class)->find($values['03_birthplace']);
 
         if (!$zone instanceof Zone) {
             throw new InvalidSessionToCharacterValue('birthplace', $zone, Zone::class);
