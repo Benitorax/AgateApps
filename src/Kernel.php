@@ -68,4 +68,5 @@ class Kernel extends BaseKernel
     }
 }
 
+// Seems this makes SymfonyInsight work...
 \class_alias(Kernel::class, 'App\Kernel', false);
