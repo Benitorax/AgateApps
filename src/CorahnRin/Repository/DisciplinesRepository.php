@@ -17,6 +17,9 @@ use CorahnRin\Entity\Discipline;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+/**
+ * @method Discipline|null find($id, $lockMode = null, $lockVersion = null)
+ */
 class DisciplinesRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)

@@ -17,6 +17,8 @@ use CorahnRin\Data\DomainItem;
 use CorahnRin\Data\DomainsData;
 use CorahnRin\Data\Ways as WaysData;
 use CorahnRin\DTO\CharacterFromSessionDTO;
+use CorahnRin\DTO\SessionAdvantageDTO;
+use CorahnRin\DTO\SessionSetbackDTO;
 use CorahnRin\Entity\Advantage;
 use CorahnRin\Entity\Armor;
 use CorahnRin\Entity\Character;
@@ -200,14 +202,24 @@ final class SessionToCharacter
 
     private function setGeoLiving(CharacterFromSessionDTO $character, array $values): void
     {
-        // TODO: throw proper exceptions.
+        $geoEnv = $this->getRepository(GeoEnvironment::class)->find($values['04_geo']);
 
-        $character->setGeoLiving($this->getRepository(GeoEnvironment::class)->find($values['04_geo']));
+        if (!$geoEnv instanceof GeoEnvironment) {
+            throw new InvalidSessionToCharacterValue('geo_environment', $geoEnv, GeoEnvironment::class);
+        }
+
+        $character->setGeoLiving($geoEnv);
     }
 
     private function setSocialClass(CharacterFromSessionDTO $character, array $values): void
     {
-        $character->setSocialClass($this->getRepository(SocialClass::class)->find($values['05_social_class']['id']));
+        $socialClass = $this->getRepository(SocialClass::class)->find($values['05_social_class']['id']);
+
+        if (!$socialClass instanceof SocialClass) {
+            throw new InvalidSessionToCharacterValue('social_class', $socialClass, SocialClass::class);
+        }
+
+        $character->setSocialClass($socialClass);
 
         $domains = $values['05_social_class']['domains'];
         $character->setSocialClassDomain1($domains[0]);
@@ -222,11 +234,7 @@ final class SessionToCharacter
     private function setSetbacks(CharacterFromSessionDTO $character, array $values): void
     {
         foreach ($values['07_setbacks'] as $id => $details) {
-            $charSetback = new CharSetbacks();
-            $charSetback->setCharacter($character);
-            $charSetback->setSetback($this->setbacks[$id]);
-            $charSetback->setAvoided($details['avoided']);
-            $character->addSetback($charSetback);
+            $character->addSetback(SessionSetbackDTO::create($this->setbacks[$id], $details['avoided']));
         }
     }
 
@@ -243,8 +251,20 @@ final class SessionToCharacter
 
     private function setTraits(CharacterFromSessionDTO $character, array $values): void
     {
-        $character->setQuality($this->getRepository(PersonalityTrait::class)->find($values['09_traits']['quality']));
-        $character->setFlaw($this->getRepository(PersonalityTrait::class)->find($values['09_traits']['flaw']));
+        $quality = $this->getRepository(PersonalityTrait::class)->find($values['09_traits']['quality']);
+
+        if (!$quality instanceof PersonalityTrait) {
+            throw new InvalidSessionToCharacterValue('quality', $quality, PersonalityTrait::class);
+        }
+
+        $flaw = $this->getRepository(PersonalityTrait::class)->find($values['09_traits']['flaw']);
+
+        if (!$flaw instanceof PersonalityTrait) {
+            throw new InvalidSessionToCharacterValue('flaw', $flaw, PersonalityTrait::class);
+        }
+
+        $character->setQuality($quality);
+        $character->setFlaw($flaw);
     }
 
     private function setOrientation(CharacterFromSessionDTO $character, array $values): void
@@ -271,30 +291,31 @@ final class SessionToCharacter
 
     private function addAdvantageToCharacter(CharacterFromSessionDTO $character, array $values, int $id, int $value): void
     {
-        $charAdvantage = CharacterAdvantageItem::create(
-            $character,
-            $this->advantages[$id],
-            $value,
-            $values['11_advantages']['advantages_indications'][$id] ?? ''
-        );
-        $character->addAdvantage($charAdvantage);
+        $character->addAdvantage(SessionAdvantageDTO::create($this->advantages[$id], $values['11_advantages']['advantages_indications'][$id] ?? ''));
     }
 
     private function setMentalDisorder(CharacterFromSessionDTO $character, array $values): void
     {
-        $character->setMentalDisorder($this->getRepository(MentalDisorder::class)->find($values['12_mental_disorder']));
+        $mentalDisorder = $this->getRepository(MentalDisorder::class)->find($values['12_mental_disorder']);
+
+        if (!$mentalDisorder instanceof MentalDisorder) {
+            throw new InvalidSessionToCharacterValue('mental_disorder', $mentalDisorder, MentalDisorder::class);
+        }
+
+        $character->setMentalDisorder($mentalDisorder);
     }
 
     private function setDisciplines(CharacterFromSessionDTO $character, array $values): void
     {
         foreach ($values['16_disciplines']['disciplines'] as $domainId => $disciplines) {
             foreach ($disciplines as $id => $v) {
-                $character->addDiscipline(new CharDisciplines(
-                    $character,
-                    $this->getRepository(Discipline::class)->find($id),
-                    $domainId,
-                    6
-                ));
+                $discipline = $this->getRepository(Discipline::class)->find($id);
+
+                if (!$discipline instanceof Discipline) {
+                    throw new InvalidSessionToCharacterValue('discipline', $discipline, Discipline::class);
+                }
+
+                $character->addDiscipline($discipline);
             }
         }
     }
@@ -302,7 +323,13 @@ final class SessionToCharacter
     private function setCombatArts(CharacterFromSessionDTO $character, array $values): void
     {
         foreach ($values['17_combat_arts']['combatArts'] as $id => $v) {
-            $character->addCombatArt($this->getRepository(CombatArt::class)->find($id));
+            $combatArt = $this->getRepository(CombatArt::class)->find($id);
+
+            if (!$combatArt instanceof CombatArt) {
+                throw new InvalidSessionToCharacterValue('combat_art', $combatArt, CombatArt::class);
+            }
+
+            $character->addCombatArt($combatArt);
         }
     }
 
@@ -311,10 +338,22 @@ final class SessionToCharacter
         $character->setInventory($values['18_equipment']['equipment']);
 
         foreach ($values['18_equipment']['armors'] as $id => $value) {
-            $character->addArmor($this->getRepository(Armor::class)->find($id));
+            $armor = $this->getRepository(Armor::class)->find($id);
+
+            if (!$armor instanceof Armor) {
+                throw new InvalidSessionToCharacterValue('armor', $armor, Armor::class);
+            }
+
+            $character->addArmor($armor);
         }
         foreach ($values['18_equipment']['weapons'] as $id => $value) {
-            $character->addWeapon($this->getRepository(Weapon::class)->find($id));
+            $weapon = $this->getRepository(Weapon::class)->find($id);
+
+            if (!$weapon instanceof Weapon) {
+                throw new InvalidSessionToCharacterValue('weapon', $weapon, Weapon::class);
+            }
+
+            $character->addWeapon($weapon);
         }
     }
 
@@ -331,7 +370,6 @@ final class SessionToCharacter
     private function setExp(CharacterFromSessionDTO $character, array $values): void
     {
         $character->setExperienceActual((int) $values['17_combat_arts']['remainingExp']);
-        $character->setExperienceSpent(0);
     }
 
     private function setMoney(CharacterFromSessionDTO $character): void
@@ -339,6 +377,9 @@ final class SessionToCharacter
         $money = new Money();
 
         $salary = $character->getJob()->getDailySalary();
+
+        // FIXME: this behavior should not be related to IDs. And we need a proper test for this.
+
         if ($salary > 0) {
             if (!$character->hasSetback(9)) {
                 // Use salary only if job defines one AND character is not poor
@@ -398,6 +439,8 @@ final class SessionToCharacter
         $okay = $health->getOkay();
         $bad = $health->getBad();
         $critical = $health->getCritical();
+
+        // TODO
 
         foreach ($character->getAllAdvantages() as $charAdvantage) {
             $adv = $charAdvantage->getAdvantage();

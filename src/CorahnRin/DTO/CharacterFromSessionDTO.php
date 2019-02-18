@@ -19,12 +19,11 @@ use CorahnRin\Entity\Armor;
 use CorahnRin\Entity\Character;
 use CorahnRin\Entity\CharacterProperties\CharacterAdvantageItem;
 use CorahnRin\Entity\CharacterProperties\CharacterDomains;
-use CorahnRin\Entity\CharacterProperties\CharDisciplines;
-use CorahnRin\Entity\CharacterProperties\CharSetbacks;
 use CorahnRin\Entity\CharacterProperties\HealthCondition;
 use CorahnRin\Entity\CharacterProperties\Money;
 use CorahnRin\Entity\CharacterProperties\Ways;
 use CorahnRin\Entity\CombatArt;
+use CorahnRin\Entity\Discipline;
 use CorahnRin\Entity\GeoEnvironment;
 use CorahnRin\Entity\Job;
 use CorahnRin\Entity\MagienceArtifact;
@@ -244,12 +243,12 @@ class CharacterFromSessionDTO
     protected $domains;
 
     /**
-     * @var CharDisciplines[]|array
+     * @var Discipline[]|array
      */
     protected $disciplines = [];
 
     /**
-     * @var CharSetbacks[]|array
+     * @var SessionSetbackDTO[]|array
      */
     protected $setbacks = [];
 
@@ -569,11 +568,9 @@ class CharacterFromSessionDTO
         return $this->armors;
     }
 
-    public function addArmor(Armor $armor): self
+    public function addArmor(Armor $armor): void
     {
         $this->armors[] = $armor;
-
-        return $this;
     }
 
     public function getArtifacts(): array
@@ -581,11 +578,9 @@ class CharacterFromSessionDTO
         return $this->artifacts;
     }
 
-    public function addArtifact(MagienceArtifact $artifact): self
+    public function addArtifact(MagienceArtifact $artifact): void
     {
         $this->artifacts[] = $artifact;
-
-        return $this;
     }
 
     public function getWeapons(): array
@@ -593,11 +588,9 @@ class CharacterFromSessionDTO
         return $this->weapons;
     }
 
-    public function addWeapon(Weapon $weapon): self
+    public function addWeapon(Weapon $weapon): void
     {
         $this->weapons[] = $weapon;
-
-        return $this;
     }
 
     public function getCombatArts(): array
@@ -605,11 +598,9 @@ class CharacterFromSessionDTO
         return $this->combatArts;
     }
 
-    public function addCombatArt(CombatArt $combatArt): self
+    public function addCombatArt(CombatArt $combatArt): void
     {
         $this->combatArts[] = $combatArt;
-
-        return $this;
     }
 
     public function setCombatArts($combatArts): void
@@ -718,11 +709,9 @@ class CharacterFromSessionDTO
         return $this->advantages;
     }
 
-    public function addAdvantage(CharacterAdvantageItem $advantage): self
+    public function addAdvantage(SessionAdvantageDTO $advantage): void
     {
         $this->advantages[] = $advantage;
-
-        return $this;
     }
 
     public function getDomains(): CharacterDomains
@@ -740,23 +729,22 @@ class CharacterFromSessionDTO
         return $this->disciplines;
     }
 
-    public function addDiscipline(CharDisciplines $discipline): self
+    public function addDiscipline(Discipline $discipline): void
     {
         $this->disciplines[] = $discipline;
-
-        return $this;
     }
 
+    /**
+     * @return SessionSetbackDTO[]
+     */
     public function getSetbacks(): array
     {
         return $this->setbacks;
     }
 
-    public function addSetback(CharSetbacks $setback): self
+    public function addSetback(SessionSetbackDTO $sessionSetbackDTO): void
     {
-        $this->setbacks[] = $setback;
-
-        return $this;
+        $this->setbacks[] = $sessionSetbackDTO;
     }
 
     public function getUser(): User

@@ -28,242 +28,242 @@ class CharacterDomains
     /**
      * @ORM\Column(name="craft", type="smallint")
      */
-    private $craft;
+    private $craft = 0;
 
     /**
      * @ORM\Column(name="craft_bonus", type="smallint")
      */
-    private $craftBonus;
+    private $craftBonus = 0;
 
     /**
      * @ORM\Column(name="craft_malus", type="smallint")
      */
-    private $craftMalus;
+    private $craftMalus = 0;
 
     /**
      * @ORM\Column(name="close_combat", type="smallint")
      */
-    private $closeCombat;
+    private $closeCombat = 0;
 
     /**
      * @ORM\Column(name="close_combat_bonus", type="smallint")
      */
-    private $closeCombatBonus;
+    private $closeCombatBonus = 0;
 
     /**
      * @ORM\Column(name="close_combat_malus", type="smallint")
      */
-    private $closeCombatMalus;
+    private $closeCombatMalus = 0;
 
     /**
      * @ORM\Column(name="stealth", type="smallint")
      */
-    private $stealth;
+    private $stealth = 0;
 
     /**
      * @ORM\Column(name="stealth_bonus", type="smallint")
      */
-    private $stealthBonus;
+    private $stealthBonus = 0;
 
     /**
      * @ORM\Column(name="stealth_malus", type="smallint")
      */
-    private $stealthMalus;
+    private $stealthMalus = 0;
 
     /**
      * @ORM\Column(name="magience", type="smallint")
      */
-    private $magience;
+    private $magience = 0;
 
     /**
      * @ORM\Column(name="magience_bonus", type="smallint")
      */
-    private $magienceBonus;
+    private $magienceBonus = 0;
 
     /**
      * @ORM\Column(name="magience_malus", type="smallint")
      */
-    private $magienceMalus;
+    private $magienceMalus = 0;
 
     /**
      * @ORM\Column(name="natural_environment", type="smallint")
      */
-    private $naturalEnvironment;
+    private $naturalEnvironment = 0;
 
     /**
      * @ORM\Column(name="natural_environment_bonus", type="smallint")
      */
-    private $naturalEnvironmentBonus;
+    private $naturalEnvironmentBonus = 0;
 
     /**
      * @ORM\Column(name="natural_environment_malus", type="smallint")
      */
-    private $naturalEnvironmentMalus;
+    private $naturalEnvironmentMalus = 0;
 
     /**
      * @ORM\Column(name="demorthen_mysteries", type="smallint")
      */
-    private $demorthenMysteries;
+    private $demorthenMysteries = 0;
 
     /**
      * @ORM\Column(name="demorthen_mysteries_bonus", type="smallint")
      */
-    private $demorthenMysteriesBonus;
+    private $demorthenMysteriesBonus = 0;
 
     /**
      * @ORM\Column(name="demorthen_mysteries_malus", type="smallint")
      */
-    private $demorthenMysteriesMalus;
+    private $demorthenMysteriesMalus = 0;
 
     /**
      * @ORM\Column(name="occultism", type="smallint")
      */
-    private $occultism;
+    private $occultism = 0;
 
     /**
      * @ORM\Column(name="occultism_bonus", type="smallint")
      */
-    private $occultismBonus;
+    private $occultismBonus = 0;
 
     /**
      * @ORM\Column(name="occultism_malus", type="smallint")
      */
-    private $occultismMalus;
+    private $occultismMalus = 0;
 
     /**
      * @ORM\Column(name="perception", type="smallint")
      */
-    private $perception;
+    private $perception = 0;
 
     /**
      * @ORM\Column(name="perception_bonus", type="smallint")
      */
-    private $perceptionBonus;
+    private $perceptionBonus = 0;
 
     /**
      * @ORM\Column(name="perception_malus", type="smallint")
      */
-    private $perceptionMalus;
+    private $perceptionMalus = 0;
 
     /**
      * @ORM\Column(name="prayer", type="smallint")
      */
-    private $prayer;
+    private $prayer = 0;
 
     /**
      * @ORM\Column(name="prayer_bonus", type="smallint")
      */
-    private $prayerBonus;
+    private $prayerBonus = 0;
 
     /**
      * @ORM\Column(name="prayer_malus", type="smallint")
      */
-    private $prayerMalus;
+    private $prayerMalus = 0;
 
     /**
      * @ORM\Column(name="feats", type="smallint")
      */
-    private $feats;
+    private $feats = 0;
 
     /**
      * @ORM\Column(name="feats_bonus", type="smallint")
      */
-    private $featsBonus;
+    private $featsBonus = 0;
 
     /**
      * @ORM\Column(name="feats_malus", type="smallint")
      */
-    private $featsMalus;
+    private $featsMalus = 0;
 
     /**
      * @ORM\Column(name="relation", type="smallint")
      */
-    private $relation;
+    private $relation = 0;
 
     /**
      * @ORM\Column(name="relation_bonus", type="smallint")
      */
-    private $relationBonus;
+    private $relationBonus = 0;
 
     /**
      * @ORM\Column(name="relation_malus", type="smallint")
      */
-    private $relationMalus;
+    private $relationMalus = 0;
 
     /**
      * @ORM\Column(name="performance", type="smallint")
      */
-    private $performance;
+    private $performance = 0;
 
     /**
      * @ORM\Column(name="performance_bonus", type="smallint")
      */
-    private $performanceBonus;
+    private $performanceBonus = 0;
 
     /**
      * @ORM\Column(name="performance_malus", type="smallint")
      */
-    private $performanceMalus;
+    private $performanceMalus = 0;
 
     /**
      * @ORM\Column(name="science", type="smallint")
      */
-    private $science;
+    private $science = 0;
 
     /**
      * @ORM\Column(name="science_bonus", type="smallint")
      */
-    private $scienceBonus;
+    private $scienceBonus = 0;
 
     /**
      * @ORM\Column(name="science_malus", type="smallint")
      */
-    private $scienceMalus;
+    private $scienceMalus = 0;
 
     /**
      * @ORM\Column(name="shooting_and_throwing", type="smallint")
      */
-    private $shootingAndThrowing;
+    private $shootingAndThrowing = 0;
 
     /**
      * @ORM\Column(name="shooting_and_throwing_bonus", type="smallint")
      */
-    private $shootingAndThrowingBonus;
+    private $shootingAndThrowingBonus = 0;
 
     /**
      * @ORM\Column(name="shooting_and_throwing_malus", type="smallint")
      */
-    private $shootingAndThrowingMalus;
+    private $shootingAndThrowingMalus = 0;
 
     /**
      * @ORM\Column(name="travel", type="smallint")
      */
-    private $travel;
+    private $travel = 0;
 
     /**
      * @ORM\Column(name="travel_bonus", type="smallint")
      */
-    private $travelBonus;
+    private $travelBonus = 0;
 
     /**
      * @ORM\Column(name="travel_malus", type="smallint")
      */
-    private $travelMalus;
+    private $travelMalus = 0;
 
     /**
      * @ORM\Column(name="erudition", type="smallint")
      */
-    private $erudition;
+    private $erudition = 0;
 
     /**
      * @ORM\Column(name="erudition_bonus", type="smallint")
      */
-    private $eruditionBonus;
+    private $eruditionBonus = 0;
 
     /**
      * @ORM\Column(name="erudition_malus", type="smallint")
      */
-    private $eruditionMalus;
+    private $eruditionMalus = 0;
 
     public function getDomainValue(string $domain, string $suffix = ''): int
     {
