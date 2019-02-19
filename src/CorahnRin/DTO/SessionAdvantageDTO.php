@@ -27,18 +27,39 @@ class SessionAdvantageDTO
      */
     private $indication;
 
+    /**
+     * @var int
+     */
+    private $score;
+
     private function __construct()
     {
         // Disable public constructor
     }
 
-    public static function create(Advantage $advantage, string $indication): self
+    public static function create(Advantage $advantage, int $score, string $indication): self
     {
         $self = new self();
 
         $self->advantage = $advantage;
+        $self->score = $score;
         $self->indication = $indication;
 
         return $self;
+    }
+
+    public function getScore(): int
+    {
+        return $this->score;
+    }
+
+    public function getAdvantage(): Advantage
+    {
+        return $this->advantage;
+    }
+
+    public function getIndication(): string
+    {
+        return $this->indication;
     }
 }

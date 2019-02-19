@@ -233,7 +233,7 @@ class CharacterFromSessionDTO
     protected $quality;
 
     /**
-     * @var CharacterAdvantageItem[]|array
+     * @var SessionAdvantageDTO[]|array
      */
     protected $advantages = [];
 
@@ -704,6 +704,9 @@ class CharacterFromSessionDTO
         $this->quality = $quality;
     }
 
+    /**
+     * @return SessionAdvantageDTO[]
+     */
     public function getAdvantages(): array
     {
         return $this->advantages;
@@ -724,6 +727,9 @@ class CharacterFromSessionDTO
         $this->domains = $domains;
     }
 
+    /**
+     * @return Discipline[]
+     */
     public function getDisciplines(): array
     {
         return $this->disciplines;

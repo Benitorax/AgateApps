@@ -275,20 +275,30 @@ final class SessionToCharacter
             if (!$value) {
                 continue;
             }
-            $this->addAdvantageToCharacter($character, $values, $id, $value);
+            $this->addAdvantageToCharacter(
+                $character,
+                $this->advantages[$id],
+                $value,
+                $values['11_advantages']['advantages_indications'][$id] ?? ''
+            );
         }
 
         foreach ($values['11_advantages']['disadvantages'] as $id => $value) {
             if (!$value) {
                 continue;
             }
-            $this->addAdvantageToCharacter($character, $values, $id, $value);
+            $this->addAdvantageToCharacter(
+                $character,
+                $this->advantages[$id],
+                $value,
+                $values['11_advantages']['advantages_indications'][$id] ?? ''
+            );
         }
     }
 
-    private function addAdvantageToCharacter(CharacterFromSessionDTO $character, array $values, int $id, int $value): void
+    private function addAdvantageToCharacter(CharacterFromSessionDTO $character, Advantage $advantage, int $score, string $indication): void
     {
-        $character->addAdvantage(SessionAdvantageDTO::create($this->advantages[$id], $values['11_advantages']['advantages_indications'][$id] ?? ''));
+        $character->addAdvantage(SessionAdvantageDTO::create($advantage, $score, $indication));
     }
 
     private function setMentalDisorder(CharacterFromSessionDTO $character, array $values): void
@@ -375,20 +385,24 @@ final class SessionToCharacter
 
         $salary = $character->getJob()->getDailySalary();
 
-        // FIXME: this behavior should not be related to IDs. And we need a proper test for this.
-
         if ($salary > 0) {
-            if (!$character->hasSetback(9)) {
-                // Use salary only if job defines one AND character is not poor
-                $money->addEmber(30 * $salary);
-                $money->reallocate();
+            foreach ($character->getSetbacks() as $setback) {
+                if ($setback->getSetback()->getMalus() === Bonuses::MONEY_0) {
+                    // Use salary only if job defines one AND character is not poor
+                    $money->addEmber(30 * $salary);
+                    $money->reallocate();
+                    break;
+                }
             }
         } else {
             // If salary is not set in job, character has 2d10 azure daols
             $azure = \random_int(1, 10) + \random_int(1, 10);
-            if ($character->hasSetback(9)) {
-                // If character is poor, he has half money
-                $azure = (int) \floor($azure / 2);
+            foreach ($character->getSetbacks() as $setback) {
+                if ($setback->getSetback()->getMalus() === Bonuses::MONEY_0) {
+                    // If character is poor, he has half money
+                    $azure = (int) \floor($azure / 2);
+                    break;
+                }
             }
             $money->addAzure($azure);
             $money->reallocate();
@@ -439,7 +453,7 @@ final class SessionToCharacter
 
         // TODO
 
-        foreach ($character->getAllAdvantages() as $charAdvantage) {
+        foreach ($character->getAdvantages() as $charAdvantage) {
             $adv = $charAdvantage->getAdvantage();
 
             foreach ($adv->getBonusesFor() as $bonus) {
@@ -513,22 +527,44 @@ final class SessionToCharacter
     {
         // Rindath
         $rindathMax =
-            $character->getCombativeness()
-            + $character->getCreativity()
-            + $character->getEmpathy()
+            $character->getWays()->getCombativeness()
+            + $character->getWays()->getCreativity()
+            + $character->getWays()->getEmpathy()
         ;
-        if ($sigilRann = $character->getDiscipline('Sigil Rann')) {
-            $rindathMax += (($sigilRann->getScore() - 5) * 5);
+
+        // FIXME: This uses the discipline by name, this should be removed for proper abstraction
+
+        $sigilRann = false;
+        foreach ($character->getDisciplines() as $discipline) {
+            if ($discipline->getName() === 'Sigil Rann') {
+                $sigilRann = true;
+                break;
+            }
+        }
+        if ($sigilRann) {
+            // Default discipline can only be a score of 6.
+            // Rindath is increased by sigil rann according to this formula:
+            // Bonus = (Score - 5) * 5
+            // With a score of 6, well, it's 1*5, so... 5.
+            // That's all for me, thanks.
+            // (same calculation for Miracles & Exaltation by the way)
+            $rindathMax += 5;
         }
         $character->setRindathMax($rindathMax);
-        $character->setRindath($rindathMax);
 
         // Exaltation
-        $exaltationMax = $character->getConviction() * 3;
-        if ($miracles = $character->getDiscipline('Miracles')) {
-            $exaltationMax += (($miracles->getScore() - 5) * 5);
+        $exaltationMax = $character->getWays()->getConviction() * 3;
+        $miracles = false;
+        foreach ($character->getDisciplines() as $discipline) {
+            if ($discipline->getName() === 'Miracles') {
+                $miracles = true;
+                break;
+            }
+        }
+        if ($miracles) {
+            // See "sigil rann" formula a few lines above to know why it's 5.
+            $exaltationMax += 5;
         }
         $character->setExaltationMax($exaltationMax);
-        $character->setExaltation($exaltationMax);
     }
 }
