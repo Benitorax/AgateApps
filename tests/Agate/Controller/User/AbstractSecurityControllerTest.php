@@ -145,7 +145,7 @@ abstract class AbstractSecurityControllerTest extends WebTestCase
         $client->request('GET', "/$locale/register/confirm/".$user->getConfirmationToken());
 
         static::assertSame(302, $client->getResponse()->getStatusCode());
-        static::assertTrue($client->getResponse()->isRedirect("/$locale"));
+        static::assertSame("/$locale/login", $client->getResponse()->headers->get('Location'), 'Failed redirecting to login after user activation');
         static::assertNull($user->getConfirmationToken());
         static::assertSame(
             [self::$container->get(TranslatorInterface::class)->trans('registration.confirmed', ['%username%' => $user->getUsername()], 'user')],
