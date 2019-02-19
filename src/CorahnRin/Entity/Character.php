@@ -491,6 +491,8 @@ class Character extends BaseCharacter
     public static function createFromSession(CharacterFromSessionDTO $characterFromSession): self
     {
         $self = new self($characterFromSession->getName());
+
+        // TODO
     }
 
     private function __construct(string $name)
