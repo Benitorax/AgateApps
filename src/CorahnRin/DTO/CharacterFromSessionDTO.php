@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 /*
  * This file is part of the Agate Apps package.
- * 
+ *
  * (c) Alexandre Rock Ancelet <pierstoval@gmail.com> and Studio Agate.
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -284,7 +284,7 @@ class CharacterFromSessionDTO
 
     public function setSex(string $sex): void
     {
-        if ($sex !== Character::MALE && $sex !== Character::FEMALE) {
+        if (Character::MALE !== $sex && Character::FEMALE !== $sex) {
             throw new \InvalidArgumentException(\sprintf(
                 'Sex must be either "%s" or "%s", "%s" given.',
                 Character::MALE, Character::FEMALE, $sex
@@ -301,7 +301,7 @@ class CharacterFromSessionDTO
 
     public function setDescription(string $description): void
     {
-        $this->description = \trim(strip_tags($description));
+        $this->description = \trim(\strip_tags($description));
     }
 
     public function getStory(): string
